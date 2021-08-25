@@ -1,0 +1,6 @@
+# Project exclude paths
+/DiscoveryAccountSystemDomain/target/
+/DiscoveryAccountSystemLogic/target/
+/DiscoveryAccountSystemRepository/target/
+/DiscoveryAccountSystemTranslator/target/
+/DiscoveryAccountSystemWebSpringBoot/target/
