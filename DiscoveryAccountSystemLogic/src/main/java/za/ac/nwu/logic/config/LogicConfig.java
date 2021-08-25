@@ -1,15 +1,14 @@
-package za.ac.nwu.web.sb.config;
+package za.ac.nwu.logic.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import za.ac.nwu.logic.Config.LogicConfig;
+import za.ac.nwu.translator.config.TranslatorConfiguration;
 
-@Import({LogicConfig.class})
+@Import({TranslatorConfiguration.class})
 @Configuration
 @ComponentScan(basePackages = {
-        "za.ac.nwu.web.sb.controller",
-        "za.ac.nwu.web.sb.exception"
+        "za.ac.nwu.logic.flow"
 })
-public class WebConfig {
+public class LogicConfig {
 }

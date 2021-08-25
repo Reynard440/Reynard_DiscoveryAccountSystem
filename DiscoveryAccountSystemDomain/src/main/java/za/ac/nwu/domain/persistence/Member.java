@@ -14,7 +14,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @NonNull*/
 @Entity
-@Table(name = "Member", schema = "Member_Schema")
+@Table(name = "Member")
 public class Member implements Serializable {
 
     private static final long serialVersionUID = -6965549404196897257L;

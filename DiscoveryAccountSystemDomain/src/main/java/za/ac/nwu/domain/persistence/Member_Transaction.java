@@ -13,7 +13,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @NonNull*/
 @Entity
-@Table(name = "Member_Transaction", schema = "Member_Schema")
+@Table(name = "Member_Transaction")
 public class Member_Transaction implements Serializable {
     private static final long serialVersionUID = -1236778426428803460L;
     private Integer MT_ID;

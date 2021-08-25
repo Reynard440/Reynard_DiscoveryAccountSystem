@@ -12,7 +12,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @NonNull*/
 @Entity
-@Table(name = "Exchange_Medium", schema = "Member_Schema")
+@Table(name = "Exchange_Medium")
 public class Exchange_Medium implements Serializable {
 
     private static final long serialVersionUID = 5381982572241988327L;
