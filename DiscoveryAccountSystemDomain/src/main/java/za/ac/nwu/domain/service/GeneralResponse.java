@@ -3,8 +3,15 @@ package za.ac.nwu.domain.service;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class GeneralResponse/*<T>(boolean successful, T payload) implements Serializable*/ {
-    /*private static final long serialVersionUID = 7734089948131092480L;
+public class GeneralResponse<T> implements Serializable {
+    private static final long serialVersionUID = 7734089948131092480L;
+    private final boolean successful;
+    private final transient T payload;
+
+    public GeneralResponse(boolean successful, T payload){
+        this.successful = successful;
+        this.payload = payload;
+    }
 
     public boolean isSuccessful() {
         return successful;
@@ -33,5 +40,5 @@ public class GeneralResponse/*<T>(boolean successful, T payload) implements Seri
                 "successful=" + successful +
                 ", payload=" + payload +
                 '}';
-    }*/
+    }
 }

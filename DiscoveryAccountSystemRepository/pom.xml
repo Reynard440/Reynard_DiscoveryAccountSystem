@@ -15,7 +15,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>za.ac.nwu.das</groupId>
+            <groupId>ac.za.nwu.das</groupId>
             <artifactId>DiscoveryAccountSystemDomain</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>

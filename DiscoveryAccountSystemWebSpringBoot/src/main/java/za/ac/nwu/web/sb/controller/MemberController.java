@@ -4,21 +4,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-/*import za.ac.nwu.domain.dto.MemberDto;
-import za.ac.nwu.logic.flow.MemberServiceFlow;*/
+import za.ac.nwu.domain.dto.MemberDto;
+import za.ac.nwu.domain.service.GeneralResponse;
+import za.ac.nwu.logic.flow.MemberServiceFlow;
 
 import java.util.List;
 
 @RestController
 @RequestMapping(path="/discovery-account-system/mvc/c1")
 public class MemberController {
-    /*@GetMapping("/all")
+    @GetMapping("/all")
     public GeneralResponse<String> getAll(){
         return new GeneralResponse<String>(true, "No types found");
-    }*/
+    }
 
-   @GetMapping("/all")
-   public String getAll(){return "Hello World!";}
+   /*@GetMapping("/all")
+   public String getAll(){return "Hello World!";}*/
 
     /*private final MemberServiceFlow memberServiceFlow;
 

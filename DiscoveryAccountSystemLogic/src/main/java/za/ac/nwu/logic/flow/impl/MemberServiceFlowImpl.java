@@ -25,8 +25,7 @@ public class MemberServiceFlowImpl implements MemberServiceFlow {
                 "kevin",
                 "van staden",
                 "kvs@gmail.com",
-                "0723949955",
-                0
+                "0723949955"
 
         ));
         return memberDto;
