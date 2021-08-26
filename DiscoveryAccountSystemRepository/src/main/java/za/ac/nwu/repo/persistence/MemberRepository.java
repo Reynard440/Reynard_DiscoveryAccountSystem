@@ -10,6 +10,6 @@ import java.util.Optional;
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Integer> {
     //Optional<Member> findMemberByEmail(String Mem_Email);
-    @Query("SELECT m FROM Member m WHERE m.mem_Email = ?1")
+    @Query("SELECT m FROM Member m WHERE m.Mem_Email = ?1")
     Optional<Member> findMemberByEmail(String email);
 }

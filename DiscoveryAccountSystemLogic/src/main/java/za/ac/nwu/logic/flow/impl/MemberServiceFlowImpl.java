@@ -2,33 +2,29 @@ package za.ac.nwu.logic.flow.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import za.ac.nwu.domain.dto.MemberDto;
 import za.ac.nwu.logic.flow.MemberServiceFlow;
 import za.ac.nwu.repo.persistence.MemberRepository;
+import za.ac.nwu.translator.MemberTranslator;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Transactional
 @Component
 public class MemberServiceFlowImpl implements MemberServiceFlow {
-    private final MemberRepository memRepo;
+
+    private final MemberTranslator memberTranslator;
 
     @Autowired
-    public MemberServiceFlowImpl(MemberRepository memRepo){
-        this.memRepo = memRepo;
+    public MemberServiceFlowImpl(MemberTranslator memberTranslator){
+        this.memberTranslator = memberTranslator;
     }
 
     @Override
     public List<MemberDto> getMembers(){
-        List<MemberDto> memberDto = new ArrayList<>();
-        memberDto.add(new MemberDto(
-                "kevin",
-                "van staden",
-                "kvs@gmail.com",
-                "0723949955"
-
-        ));
-        return memberDto;
+        return memberTranslator.getAllMembers();
     }
 
     /*public void addUser(Member member) {
