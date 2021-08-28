@@ -58,7 +58,8 @@ public class Exchange_Medium implements Serializable {
         this.ExchangeID = exchangeID;
     }
 
-    public Exchange_Medium(String em_type, String em_description, double em_balance) {
+    public Exchange_Medium(Integer em_id, String em_type, String em_description, double em_balance) {
+        this.EM_ID = em_id;
         this.EM_Type = em_type;
         this.EM_Description = em_description;
         this.EM_Balance = em_balance;

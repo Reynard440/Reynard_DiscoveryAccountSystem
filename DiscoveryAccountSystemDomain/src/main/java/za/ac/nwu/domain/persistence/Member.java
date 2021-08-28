@@ -63,7 +63,8 @@ public class Member implements Serializable {
         this.exchange_medium = exchange_medium;
     }
 
-    public Member(String mem_firstName, String mem_lastName, String mem_email, String mem_phone_number) {
+    public Member(Integer mem_id, String mem_firstName, String mem_lastName, String mem_email, String mem_phone_number) {
+        this.MemID = mem_id;
         this.Mem_FirstName = mem_firstName;
         this.Mem_LastName = mem_lastName;
         this.Mem_Email = mem_email;

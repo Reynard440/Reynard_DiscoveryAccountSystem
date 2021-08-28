@@ -9,11 +9,14 @@ import java.util.List;
 
 @Component
 public interface MemberTranslator {
+    //All the listing methods
     List<MemberDto> getAllMembers();
     List<MemberTransactionDto> getMemberTransactionDtos();
     List<ExchangeMediumDto> getExchangeMediumDtos();
 
+    //Creating methods
     MemberDto create(MemberDto member);
+    //MemberTransactionDto add(MemberTransactionDto memberTransactionDto);
 
 //    MemberDto getMemberByEmailNativeQuery(String email);
 //
