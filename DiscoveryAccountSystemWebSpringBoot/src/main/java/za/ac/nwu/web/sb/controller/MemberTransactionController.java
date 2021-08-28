@@ -18,7 +18,7 @@ import za.ac.nwu.logic.flow.ViewMemberTransactionService;
 import java.util.List;
 
 @RestController
-@RequestMapping(path="/discovery-account-system/mvc/v1/c3")
+@RequestMapping(path="/discovery-account-system/mvc/v1/c2")
 public class MemberTransactionController {
 
     private final ViewMemberTransactionService memberTransactionService;

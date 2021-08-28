@@ -2,10 +2,13 @@ package za.ac.nwu.translator.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import za.ac.nwu.domain.dto.ExchangeMediumDto;
 import za.ac.nwu.domain.dto.MemberDto;
 import za.ac.nwu.domain.dto.MemberTransactionDto;
+import za.ac.nwu.domain.persistence.Exchange_Medium;
 import za.ac.nwu.domain.persistence.Member;
 import za.ac.nwu.domain.persistence.Member_Transaction;
+import za.ac.nwu.repo.persistence.ExchangeMediumRepository;
 import za.ac.nwu.repo.persistence.MemberRepository;
 import za.ac.nwu.repo.persistence.MemberTransactionRepository;
 import za.ac.nwu.translator.MemberTranslator;
@@ -18,11 +21,13 @@ public class MemberTranslatorImpl implements MemberTranslator {
 
     private final MemberRepository memberRepository;
     private final MemberTransactionRepository memberTransactionRepository;
+    private final ExchangeMediumRepository exchangeMediumRepository;
 
     @Autowired
-    public MemberTranslatorImpl(MemberRepository memberRepository, MemberTransactionRepository memberTransactionRepository){
+    public MemberTranslatorImpl(MemberRepository memberRepository, MemberTransactionRepository memberTransactionRepository, ExchangeMediumRepository exchangeMediumRepository){
         this.memberRepository = memberRepository;
         this.memberTransactionRepository = memberTransactionRepository;
+        this.exchangeMediumRepository = exchangeMediumRepository;
     }
 
     @Override
@@ -50,6 +55,19 @@ public class MemberTranslatorImpl implements MemberTranslator {
             throw new RuntimeException("Unable to read from the DB", e);
         }
         return memberTransactionDtos;
+    }
+
+    @Override
+    public List<ExchangeMediumDto> getExchangeMediumDtos(){
+        List<ExchangeMediumDto> exchangeMediumDtos = new ArrayList<>();
+        try{
+            for (Exchange_Medium exchange_medium : exchangeMediumRepository.findAll()){
+                exchangeMediumDtos.add(new ExchangeMediumDto(exchange_medium));
+            }
+        }catch(Exception e){
+            throw new RuntimeException("Unable to read from the DB", e);
+        }
+        return exchangeMediumDtos;
     }
 
     @Override
