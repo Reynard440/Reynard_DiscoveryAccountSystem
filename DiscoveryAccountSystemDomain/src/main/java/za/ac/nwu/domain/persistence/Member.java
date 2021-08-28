@@ -26,10 +26,10 @@ public class Member implements Serializable {
     @Column(name = "MemID")
     private Integer MemID;
 
-    @Column(name = "Mem_FirstName")
+    @Column(name = "Mem_First_Name")
     private String Mem_FirstName;
 
-    @Column(name = "Mem_LastName")
+    @Column(name = "Mem_Last_Name")
     private String Mem_LastName;
 
     @Column(name = "Mem_Email")
@@ -61,6 +61,13 @@ public class Member implements Serializable {
         Mem_Email = mem_Email;
         Mem_Phone_Number = mem_Phone_Number;
         this.exchange_medium = exchange_medium;
+    }
+
+    public Member(String mem_firstName, String mem_lastName, String mem_email, String mem_phone_number) {
+        this.Mem_FirstName = mem_firstName;
+        this.Mem_LastName = mem_lastName;
+        this.Mem_Email = mem_email;
+        this.Mem_Phone_Number = mem_phone_number;
     }
 
     public Integer getMemID() {

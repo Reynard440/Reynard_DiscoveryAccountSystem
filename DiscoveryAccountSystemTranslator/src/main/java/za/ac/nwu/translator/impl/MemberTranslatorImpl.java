@@ -33,4 +33,44 @@ public class MemberTranslatorImpl implements MemberTranslator {
         }
         return memberDtos;
     }
+
+    @Override
+    public MemberDto create(MemberDto memberDto) {
+        try {
+            Member member = memberRepository.save(memberDto.getMember());
+            return new MemberDto(member);
+        }catch(Exception e){
+            throw new RuntimeException("Could not add member to the DB",e);
+        }
+    }
+
+//    @Override
+//    public MemberDto getMemberByEmailNativeQuery(String email) {
+//        try{
+//            Member member = memberRepository.getMemberByEmailNativeQuery(email);
+//            return new MemberDto(member);
+//        }catch(Exception e){
+//            throw new RuntimeException("Could not read from the DB",e);
+//        }
+//    }
+
+//    @Override
+//    public MemberDto getMemberByEmail(String email) {
+//        try{
+//            Member member = memberRepository.getMemberByEmail(email);
+//            return new MemberDto(member);
+//        }catch(Exception e){
+//            throw new RuntimeException("Could not read from the DB",e);
+//        }
+//    }
+//
+//    @Override
+//    public MemberDto getMemberDtoByEmail(String email) {
+//        try{
+//            Member member = memberRepository.getMemberDtoByEmail(email);
+//            return new MemberDto(member);
+//        }catch(Exception e){
+//            throw new RuntimeException("Could not read from the DB",e);
+//        }
+//    }
 }

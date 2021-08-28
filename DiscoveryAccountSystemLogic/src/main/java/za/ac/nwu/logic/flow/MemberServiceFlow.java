@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface MemberServiceFlow {
     List<MemberDto> getMembers();
+
+    //MemberDto getMemberByEmail(String email);
 }

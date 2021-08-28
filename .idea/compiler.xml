@@ -17,7 +17,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
-          <entry name="$USER_HOME$/Desktop/NWU/2021(THIRD YEAR)/SEMESTER 2/CMPG 323 (IT DEVELOPMENTS)/PROJECTS/1/repo/org/springframework/boot/spring-boot-configuration-processor/2.0.4.RELEASE/spring-boot-configuration-processor-2.0.4.RELEASE.jar" />
+          <entry name="$PROJECT_DIR$/../repo/org/springframework/boot/spring-boot-configuration-processor/2.0.4.RELEASE/spring-boot-configuration-processor-2.0.4.RELEASE.jar" />
         </processorPath>
         <module name="DiscoveryAccountSystemWebSpringBoot" />
       </profile>

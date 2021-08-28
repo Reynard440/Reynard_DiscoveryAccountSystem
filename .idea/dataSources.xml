@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="DiscoveryDB@localhost" uuid="cdac2aa4-b337-4fd0-8558-7793985218a6">
-      <driver-ref>mysql.8</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
     <data-source source="LOCAL" name="DiscoveryDB_2@localhost" uuid="215252b2-0def-49be-b1a9-721dadda67a5">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>

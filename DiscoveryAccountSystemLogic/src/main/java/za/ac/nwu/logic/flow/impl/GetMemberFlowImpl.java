@@ -13,12 +13,12 @@ import java.util.List;
 
 @Transactional
 @Component
-public class MemberServiceFlowImpl implements MemberServiceFlow {
+public class GetMemberFlowImpl implements MemberServiceFlow {
 
     private final MemberTranslator memberTranslator;
 
     @Autowired
-    public MemberServiceFlowImpl(MemberTranslator memberTranslator){
+    public GetMemberFlowImpl(MemberTranslator memberTranslator){
         this.memberTranslator = memberTranslator;
     }
 
@@ -26,6 +26,11 @@ public class MemberServiceFlowImpl implements MemberServiceFlow {
     public List<MemberDto> getMembers(){
         return memberTranslator.getAllMembers();
     }
+
+//    @Override
+//    public MemberDto getMemberByEmail(String email) {
+//        return memberTranslator.getMemberByEmailNativeQuery(email);
+//    }
 
     /*public void addUser(Member member) {
         Optional<Member> userOptional = memRepo.findMemberByEmail(member.getMem_Email());
