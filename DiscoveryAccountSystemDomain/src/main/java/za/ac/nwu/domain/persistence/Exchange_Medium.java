@@ -47,7 +47,7 @@ public class Exchange_Medium implements Serializable {
         this.EM_Type = EM_Type;
         this.EM_Description = EM_Description;
         this.EM_Balance = EM_Balance;
-        ExchangeID = exchangeID;
+        this.ExchangeID = exchangeID;
     }
 
     public Exchange_Medium(Integer EM_ID, String EM_Type, String EM_Description, double EM_Balance, Member exchangeID) {
@@ -55,7 +55,13 @@ public class Exchange_Medium implements Serializable {
         this.EM_Type = EM_Type;
         this.EM_Description = EM_Description;
         this.EM_Balance = EM_Balance;
-        ExchangeID = exchangeID;
+        this.ExchangeID = exchangeID;
+    }
+
+    public Exchange_Medium(String em_type, String em_description, double em_balance) {
+        this.EM_Type = em_type;
+        this.EM_Description = em_description;
+        this.EM_Balance = em_balance;
     }
 
     public Integer getEM_ID() {

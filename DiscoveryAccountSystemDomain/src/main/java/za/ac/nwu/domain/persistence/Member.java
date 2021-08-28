@@ -22,7 +22,7 @@ public class Member implements Serializable {
 
     @Id
     @SequenceGenerator(name = "MEMBER_SEQ", sequenceName = "MEMBER_GENERIC_SEQ", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MEMBER_SEQ")
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "MEMBER_SEQ")
     @Column(name = "MemID")
     private Integer MemID;
 
@@ -48,18 +48,18 @@ public class Member implements Serializable {
     }
 
     public Member(String mem_FirstName, String mem_LastName, String mem_Email, String mem_Phone_Number, Set<Exchange_Medium> exchange_medium) {
-        Mem_FirstName = mem_FirstName;
-        Mem_LastName = mem_LastName;
-        Mem_Email = mem_Email;
+        this.Mem_FirstName = mem_FirstName;
+        this.Mem_LastName = mem_LastName;
+        this.Mem_Email = mem_Email;
         this.exchange_medium = exchange_medium;
     }
 
     public Member(Integer memID, String mem_FirstName, String mem_LastName, String mem_Email, String mem_Phone_Number, Set<Exchange_Medium> exchange_medium) {
-        MemID = memID;
-        Mem_FirstName = mem_FirstName;
-        Mem_LastName = mem_LastName;
-        Mem_Email = mem_Email;
-        Mem_Phone_Number = mem_Phone_Number;
+        this.MemID = memID;
+        this.Mem_FirstName = mem_FirstName;
+        this.Mem_LastName = mem_LastName;
+        this.Mem_Email = mem_Email;
+        this.Mem_Phone_Number = mem_Phone_Number;
         this.exchange_medium = exchange_medium;
     }
 

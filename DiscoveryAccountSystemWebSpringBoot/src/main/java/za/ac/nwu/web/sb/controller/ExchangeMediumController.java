@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path="/v1/m2")
+@RequestMapping(path="/discovery-account-system/mvc/v1/c2")
 public class ExchangeMediumController {
     /*private final UserService userService;
 

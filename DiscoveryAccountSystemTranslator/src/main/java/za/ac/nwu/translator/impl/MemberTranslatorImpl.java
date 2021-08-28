@@ -3,8 +3,11 @@ package za.ac.nwu.translator.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import za.ac.nwu.domain.dto.MemberDto;
+import za.ac.nwu.domain.dto.MemberTransactionDto;
 import za.ac.nwu.domain.persistence.Member;
+import za.ac.nwu.domain.persistence.Member_Transaction;
 import za.ac.nwu.repo.persistence.MemberRepository;
+import za.ac.nwu.repo.persistence.MemberTransactionRepository;
 import za.ac.nwu.translator.MemberTranslator;
 
 import java.util.ArrayList;
@@ -14,10 +17,12 @@ import java.util.List;
 public class MemberTranslatorImpl implements MemberTranslator {
 
     private final MemberRepository memberRepository;
+    private final MemberTransactionRepository memberTransactionRepository;
 
     @Autowired
-    public MemberTranslatorImpl(MemberRepository memberRepository){
+    public MemberTranslatorImpl(MemberRepository memberRepository, MemberTransactionRepository memberTransactionRepository){
         this.memberRepository = memberRepository;
+        this.memberTransactionRepository = memberTransactionRepository;
     }
 
     @Override
@@ -32,6 +37,19 @@ public class MemberTranslatorImpl implements MemberTranslator {
             throw new RuntimeException("Unable to read from the DB", e);
         }
         return memberDtos;
+    }
+
+    @Override
+    public List<MemberTransactionDto> getMemberTransactionDtos() {
+        List<MemberTransactionDto> memberTransactionDtos = new ArrayList<>();
+        try{
+            for (Member_Transaction member_transaction : memberTransactionRepository.findAll()){
+                memberTransactionDtos.add(new MemberTransactionDto(member_transaction));
+            }
+        }catch(Exception e){
+            throw new RuntimeException("Unable to read from the DB", e);
+        }
+        return memberTransactionDtos;
     }
 
     @Override

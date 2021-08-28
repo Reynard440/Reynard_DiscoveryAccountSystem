@@ -16,7 +16,7 @@ import za.ac.nwu.logic.flow.MemberServiceFlow;
 import java.util.List;
 
 @RestController
-@RequestMapping(path="/discovery-account-system/mvc")
+@RequestMapping(path="/discovery-account-system/mvc/v1/c1")
 public class MemberController {
     private final MemberServiceFlow memberServiceFlow;
     private final AddMemberService addMemberService;
@@ -28,7 +28,7 @@ public class MemberController {
     }
 
     @GetMapping("/all")
-    @ApiOperation(value = "Gets all the configure Members.", notes = "Returns a list of members.")
+    @ApiOperation(value = "Gets all the Members.", notes = "Returns a list of members.")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Members returned", response = GeneralResponse.class),
             @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
