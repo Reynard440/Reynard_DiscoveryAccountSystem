@@ -16,7 +16,7 @@ public interface MemberTranslator {
 
     //Creating methods
     MemberDto create(MemberDto member);
-    //MemberTransactionDto add(MemberTransactionDto memberTransactionDto);
+    MemberTransactionDto addMemberTransaction(MemberTransactionDto memberTransactionDto);
 
 //    MemberDto getMemberByEmailNativeQuery(String email);
 //

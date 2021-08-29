@@ -44,6 +44,10 @@ public class Member_Transaction implements Serializable {
     @Column(name = "MT_Total")
     private double MT_Total;
 
+    private Integer Mem_ID;
+
+    private Integer ExM_ID;
+
     public Member_Transaction() {
     }
 
@@ -66,20 +70,42 @@ public class Member_Transaction implements Serializable {
         this.MT_Total = MT_Total;
     }
 
-    public Member_Transaction(Integer mt_id, LocalDate mt_transactionDate, String mt_description, double mt_amount, double mt_total) {
+    public Member_Transaction(Integer mt_id, LocalDate mt_transactionDate, String mt_description, double mt_amount, double mt_total, Integer exm_id, Integer mem_id) {
         this.MT_ID = mt_id;
         this.MT_TransactionDate = mt_transactionDate;
         this.MT_Description = mt_description;
         this.MT_Amount = mt_amount;
         this.MT_Total = mt_total;
+        this.ExM_ID = exm_id;
+        this.Mem_ID = mem_id;
+    }
+
+    public Member getMemberID() {
+        return MemberID;
+    }
+
+    public void setMemberID(Member memberID) {
+        MemberID = memberID;
+    }
+
+    public void setMemID(Integer mem_ID) {
+        Mem_ID = mem_ID;
+    }
+
+    public Integer getExM_ID() {
+        return ExM_ID;
+    }
+
+    public void setExM_ID(Integer exM_ID) {
+        ExM_ID = exM_ID;
     }
 
     public Integer getMT_ID() {
         return MT_ID;
     }
 
-    public Member getMemID() {
-        return MemberID;
+    public Integer getMem_ID() {
+        return Mem_ID;
     }
 
     public Exchange_Medium getEM_ID() {

@@ -27,6 +27,10 @@ public class MemberTransactionDto implements Serializable {
 
     private double MT_Total;
 
+    private Integer ExM_ID;
+
+    private Integer MemberID;
+
     @ApiModelProperty(position = 1,
             value = "Transaction's ID",
             name = "Transaction ID",
@@ -58,7 +62,7 @@ public class MemberTransactionDto implements Serializable {
     @ApiModelProperty(position = 3,
             value = "Description of the transaction",
             name = "Transaction Description",
-            notes = "This field will track on what happened, like was it a deposit or a withdrawal",
+            notes = "This field will track on what happened, like was it a deposit or a withdrawal.",
             dataType = "java.lang.String",
             example = "Deposit / Withdrawal")
     public String getMT_Description() {
@@ -97,15 +101,45 @@ public class MemberTransactionDto implements Serializable {
         this.MT_Total = MT_Total;
     }
 
+    @ApiModelProperty(position = 6,
+            value = "Foreign key from the Exchange Medium entity",
+            name = "Exchange Medium ID",
+            notes = "This field records what related exchange medium was used in the transaction.",
+            dataType = "java.lang.Integer",
+            example = "1")
+    public Integer getExM_ID() {
+        return ExM_ID;
+    }
+
+    public void setExM_ID(Integer exM_ID) {
+        ExM_ID = exM_ID;
+    }
+
+    @ApiModelProperty(position = 6,
+            value = "Foreign key from the Member entity",
+            name = "Member ID",
+            notes = "This field records what related member that executed the transaction.",
+            dataType = "java.lang.Integer",
+            example = "1")
+    public Integer getMemberID() {
+        return MemberID;
+    }
+
+    public void setMemberID(Integer memberID) {
+        MemberID = memberID;
+    }
+
     public MemberTransactionDto() {
     }
 
-    public MemberTransactionDto(Integer MT_ID, LocalDate MT_TransactionDate, String MT_Description, double MT_Amount, double MT_Total) {
+    public MemberTransactionDto(Integer MT_ID, LocalDate MT_TransactionDate, String MT_Description, double MT_Amount, double MT_Total, Integer exM_ID, Integer memberID) {
         this.MT_ID = MT_ID;
         this.MT_TransactionDate = MT_TransactionDate;
         this.MT_Description = MT_Description;
         this.MT_Amount = MT_Amount;
         this.MT_Total = MT_Total;
+        ExM_ID = exM_ID;
+        MemberID = memberID;
     }
 
     public MemberTransactionDto(Member_Transaction member_transaction){
@@ -114,11 +148,13 @@ public class MemberTransactionDto implements Serializable {
         this.setMT_Description(member_transaction.getMT_Description());
         this.setMT_Amount(member_transaction.getMT_Amount());
         this.setMT_Total(member_transaction.getMT_Total());
+        this.setExM_ID(member_transaction.getExM_ID());
+        this.setMemberID(member_transaction.getMem_ID());
     }
 
     @JsonIgnore
     public Member_Transaction getMemberTransaction() {
-        return new Member_Transaction(getMT_ID() ,getMT_TransactionDate(), getMT_Description(), getMT_Amount(), getMT_Total());
+        return new Member_Transaction(getMT_ID() ,getMT_TransactionDate(), getMT_Description(), getMT_Amount(), getMT_Total(), getExM_ID(), getMemberID());
     }
 
     @Override
@@ -126,12 +162,12 @@ public class MemberTransactionDto implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MemberTransactionDto that = (MemberTransactionDto) o;
-        return Double.compare(that.MT_Amount, MT_Amount) == 0 && Double.compare(that.MT_Total, MT_Total) == 0 && Objects.equals(MT_ID, that.MT_ID) && Objects.equals(MT_TransactionDate, that.MT_TransactionDate) && Objects.equals(MT_Description, that.MT_Description);
+        return Double.compare(that.MT_Amount, MT_Amount) == 0 && Double.compare(that.MT_Total, MT_Total) == 0 && Objects.equals(MT_ID, that.MT_ID) && Objects.equals(MT_TransactionDate, that.MT_TransactionDate) && Objects.equals(MT_Description, that.MT_Description) && Objects.equals(ExM_ID, that.ExM_ID) && Objects.equals(MemberID, that.MemberID);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(MT_ID, MT_TransactionDate, MT_Description, MT_Amount, MT_Total);
+        return Objects.hash(MT_ID, MT_TransactionDate, MT_Description, MT_Amount, MT_Total, ExM_ID, MemberID);
     }
 
     @Override
@@ -142,6 +178,8 @@ public class MemberTransactionDto implements Serializable {
                 ", MT_Description='" + MT_Description + '\'' +
                 ", MT_Amount=" + MT_Amount +
                 ", MT_Total=" + MT_Total +
+                ", ExM_ID=" + ExM_ID +
+                ", MemberID=" + MemberID +
                 '}';
     }
 }

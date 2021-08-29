@@ -1,18 +1,17 @@
 package za.ac.nwu.web.sb.controller;
 
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import za.ac.nwu.domain.dto.MemberDto;
 import za.ac.nwu.domain.dto.MemberTransactionDto;
 import za.ac.nwu.domain.service.GeneralResponse;
-import za.ac.nwu.logic.flow.MemberServiceFlow;
+import za.ac.nwu.logic.flow.NewTransactionService;
 import za.ac.nwu.logic.flow.ViewMemberTransactionService;
 
 import java.util.List;
@@ -22,10 +21,12 @@ import java.util.List;
 public class MemberTransactionController {
 
     private final ViewMemberTransactionService memberTransactionService;
+    private final NewTransactionService newTransactionService;
 
     @Autowired
-    public MemberTransactionController(ViewMemberTransactionService memberTransactionService){
+    public MemberTransactionController(ViewMemberTransactionService memberTransactionService, NewTransactionService newTransactionService){
         this.memberTransactionService = memberTransactionService;
+        this.newTransactionService = newTransactionService;
     }
 
     @GetMapping("/all")
@@ -39,6 +40,18 @@ public class MemberTransactionController {
         List<MemberTransactionDto> memberTransactions = memberTransactionService.getAllMemberTransaction();
         GeneralResponse<List<MemberTransactionDto>> response = new GeneralResponse<>(true, memberTransactions);
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PostMapping("")
+    @ApiOperation(value = "Create a new transaction for a specific member.", notes = "Creates a new transaction for a member in the DB.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Transaction successfully create", response = GeneralResponse.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)})
+    public ResponseEntity<GeneralResponse<MemberTransactionDto>> newTransaction(@ApiParam(value = "Request body to create a new Transaction", required = true) @RequestBody MemberTransactionDto memberTransactionDto){
+        MemberTransactionDto memberTransactionResponse = newTransactionService.addTransactionDto(memberTransactionDto);
+        GeneralResponse<MemberTransactionDto> response = new GeneralResponse<>(true, memberTransactionResponse);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
         /*private final UserService userService;

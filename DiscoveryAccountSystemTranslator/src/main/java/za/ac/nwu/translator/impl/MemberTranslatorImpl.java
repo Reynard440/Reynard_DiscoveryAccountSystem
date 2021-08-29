@@ -81,6 +81,16 @@ public class MemberTranslatorImpl implements MemberTranslator {
         }
     }
 
+    @Override
+    public MemberTransactionDto addMemberTransaction(MemberTransactionDto memberTransactionDto) {
+        try{
+            Member_Transaction memberTransaction = memberTransactionRepository.save(memberTransactionDto.getMemberTransaction());
+            return new MemberTransactionDto(memberTransaction);
+        }catch(Exception e){
+            throw new RuntimeException("Could not add member transaction to the DB",e);
+        }
+    }
+
 //    @Override
 //    public MemberDto getMemberByEmailNativeQuery(String email) {
 //        try{
