@@ -20,7 +20,7 @@ public interface MemberTranslator {
 
 //    MemberDto getMemberByEmailNativeQuery(String email);
 //
-//    MemberDto getMemberByEmail(String email);
+    MemberDto getMemberByEmail(String email);
 //
 //    MemberDto getMemberDtoByEmail(String email);
 }

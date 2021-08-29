@@ -18,7 +18,7 @@ import za.ac.nwu.logic.flow.ViewMemberTransactionService;
 import java.util.List;
 
 @RestController
-@RequestMapping(path="/discovery-account-system/mvc/v1/c3")
+@RequestMapping(path="/v1/c3")
 public class ExchangeMediumController {
 
     private final ViewExchangeMediumService viewExchangeMediumService;

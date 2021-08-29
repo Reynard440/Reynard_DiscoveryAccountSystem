@@ -12,6 +12,7 @@ import za.ac.nwu.repo.persistence.ExchangeMediumRepository;
 import za.ac.nwu.repo.persistence.MemberRepository;
 import za.ac.nwu.repo.persistence.MemberTransactionRepository;
 import za.ac.nwu.translator.MemberTranslator;
+import za.ac.nwu.translator.config.TranslatorConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,15 +91,15 @@ public class MemberTranslatorImpl implements MemberTranslator {
 //        }
 //    }
 
-//    @Override
-//    public MemberDto getMemberByEmail(String email) {
-//        try{
-//            Member member = memberRepository.getMemberByEmail(email);
-//            return new MemberDto(member);
-//        }catch(Exception e){
-//            throw new RuntimeException("Could not read from the DB",e);
-//        }
-//    }
+    @Override
+    public MemberDto getMemberByEmail(String email) {
+        try{
+            Member member = memberRepository.getMemberByEmail(email);
+            return new MemberDto(member);
+        }catch(Exception e){
+            throw new RuntimeException("Could not read from the DB",e);
+        }
+    }
 //
 //    @Override
 //    public MemberDto getMemberDtoByEmail(String email) {

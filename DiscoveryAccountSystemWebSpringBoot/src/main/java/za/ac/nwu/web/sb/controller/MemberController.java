@@ -16,7 +16,7 @@ import za.ac.nwu.logic.flow.MemberServiceFlow;
 import java.util.List;
 
 @RestController
-@RequestMapping(path="/discovery-account-system/mvc/v1/c1")
+@RequestMapping(path="/v1/c1")
 public class MemberController {
     private final MemberServiceFlow memberServiceFlow;
     private final AddMemberService addMemberService;
@@ -52,18 +52,18 @@ public class MemberController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-//    @GetMapping("{email}")
-//    @ApiOperation(value = "Fetches a new Member by email.", notes = "Fetches member by email from DB.")
-//    @ApiResponses(value = {
-//            @ApiResponse(code = 200, message = "Goal Found", response = GeneralResponse.class),
-//            @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
-//            @ApiResponse(code = 404, message = "Not found", response = GeneralResponse.class),
-//            @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)})
-//    public ResponseEntity<GeneralResponse<MemberDto>> getMember(@ApiParam(value = "RThe email that is unique to each member", example = "reynardengels@gmail.com", name = "Email", required = true) @PathVariable("email") final String email){
-//        MemberDto memberResponse = memberServiceFlow.getMemberByEmail(email);
-//        GeneralResponse<MemberDto> response = new GeneralResponse<>(true, memberResponse);
-//        return new ResponseEntity<>(response, HttpStatus.OK);
-//    }
+    @GetMapping("{email}")
+    @ApiOperation(value = "Fetches a new Member by email.", notes = "Fetches member by email from DB.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Goal Found", response = GeneralResponse.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
+            @ApiResponse(code = 404, message = "Not found", response = GeneralResponse.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)})
+    public ResponseEntity<GeneralResponse<MemberDto>> getMemberByEmail(@ApiParam(value = "The email that is unique to each member", example = "reynardengels@gmail.com", name = "Email", required = true) @PathVariable("email") final String email){
+        MemberDto memberResponse = memberServiceFlow.getMemberByEmail(email);
+        GeneralResponse<MemberDto> response = new GeneralResponse<>(true, memberResponse);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 
 
 

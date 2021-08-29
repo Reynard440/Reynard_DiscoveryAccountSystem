@@ -27,10 +27,10 @@ public class GetMemberFlowImpl implements MemberServiceFlow {
         return memberTranslator.getAllMembers();
     }
 
-//    @Override
-//    public MemberDto getMemberByEmail(String email) {
-//        return memberTranslator.getMemberByEmailNativeQuery(email);
-//    }
+    @Override
+    public MemberDto getMemberByEmail(String email) {
+        return memberTranslator.getMemberByEmail(email);
+    }
 
     /*public void addUser(Member member) {
         Optional<Member> userOptional = memRepo.findMemberByEmail(member.getMem_Email());
