@@ -1,7 +1,9 @@
 package za.ac.nwu.translator.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import za.ac.nwu.domain.dto.ExchangeMediumDto;
 import za.ac.nwu.domain.dto.MemberDto;
 import za.ac.nwu.domain.dto.MemberTransactionDto;
@@ -17,7 +19,7 @@ import za.ac.nwu.translator.config.TranslatorConfig;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Service
 public class MemberTranslatorImpl implements MemberTranslator {
 
     private final MemberRepository memberRepository;
@@ -25,7 +27,9 @@ public class MemberTranslatorImpl implements MemberTranslator {
     private final ExchangeMediumRepository exchangeMediumRepository;
 
     @Autowired
-    public MemberTranslatorImpl(MemberRepository memberRepository, MemberTransactionRepository memberTransactionRepository, ExchangeMediumRepository exchangeMediumRepository){
+    public MemberTranslatorImpl(MemberRepository memberRepository,
+                                MemberTransactionRepository memberTransactionRepository,
+                                ExchangeMediumRepository exchangeMediumRepository){
         this.memberRepository = memberRepository;
         this.memberTransactionRepository = memberTransactionRepository;
         this.exchangeMediumRepository = exchangeMediumRepository;
@@ -69,6 +73,16 @@ public class MemberTranslatorImpl implements MemberTranslator {
             throw new RuntimeException("Unable to read from the DB", e);
         }
         return exchangeMediumDtos;
+    }
+
+    @Override
+    public MemberDto getOneMemberDto(Integer id) {
+        try{
+            Member member = memberRepository.getMemberById(id);
+            return new MemberDto(member);
+        }catch(Exception e){
+            throw new RuntimeException("Unable to read from the DB", e);
+        }
     }
 
     @Override

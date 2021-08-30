@@ -14,6 +14,9 @@ public interface MemberTranslator {
     List<MemberTransactionDto> getMemberTransactionDtos();
     List<ExchangeMediumDto> getExchangeMediumDtos();
 
+    //Get single record methods
+    MemberDto getOneMemberDto(Integer id);
+
     //Creating methods
     MemberDto create(MemberDto member);
     MemberTransactionDto addMemberTransaction(MemberTransactionDto memberTransactionDto);

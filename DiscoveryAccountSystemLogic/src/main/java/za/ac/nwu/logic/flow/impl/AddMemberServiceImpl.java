@@ -1,5 +1,6 @@
 package za.ac.nwu.logic.flow.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import za.ac.nwu.domain.dto.MemberDto;
 import za.ac.nwu.logic.flow.AddMemberService;
@@ -13,6 +14,7 @@ public class AddMemberServiceImpl implements AddMemberService {
 
     private final MemberTranslator memberTranslator;
 
+    @Autowired
     public AddMemberServiceImpl(MemberTranslator memberTranslator){
         this.memberTranslator = memberTranslator;
     }

@@ -11,7 +11,6 @@ import za.ac.nwu.domain.persistence.Member;
 import java.util.Optional;
 
 @Component
-@Repository
 public interface MemberRepository extends JpaRepository<Member, Integer> {
     //Optional<Member> findMemberByEmail(String Mem_Email);
     @Bean
@@ -25,6 +24,9 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
     @Bean
     @Query(value = "SELECT m.MemID, m.Mem_FirstName, m.Mem_LastName, m.Mem_Email FROM Member m WHERE m.Mem_Email = :email ")
     Member getMemberByEmail(String email);
+
+    @Query(value = "SELECT m.MemID, m.Mem_FirstName, m.Mem_LastName, m.Mem_Email FROM Member m WHERE m.MemID = :id ")
+    Member getMemberById(Integer id);
 
 //    @Bean
 //    @Query(value = "SELECT new za.ac.nwu.domain.dto.MemberDto(*) FROM Member m WHERE m.Mem_Email = :email")

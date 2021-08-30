@@ -8,4 +8,6 @@ public interface MemberServiceFlow {
     List<MemberDto> getMembers();
 
     MemberDto getMemberByEmail(String email);
+
+    MemberDto getMemberById(Integer id);
 }

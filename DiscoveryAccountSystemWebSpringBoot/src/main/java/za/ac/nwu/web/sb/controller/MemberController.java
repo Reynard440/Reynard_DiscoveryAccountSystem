@@ -65,6 +65,18 @@ public class MemberController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @GetMapping(value = "{id}")
+    @ApiOperation(value = "Fetches a Member by their id.", notes = "Fetches member by id from DB.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Goal Found", response = GeneralResponse.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
+            @ApiResponse(code = 404, message = "Not found", response = GeneralResponse.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)})
+    public ResponseEntity<GeneralResponse<MemberDto>> getMemberById(@ApiParam(value = "The id that is unique to each member", example = "1", name = "ID", required = true) @PathVariable("id") final Integer id){
+        MemberDto memberResponse = memberServiceFlow.getMemberById(id);
+        GeneralResponse<MemberDto> response = new GeneralResponse<>(true, memberResponse);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 
 
 
