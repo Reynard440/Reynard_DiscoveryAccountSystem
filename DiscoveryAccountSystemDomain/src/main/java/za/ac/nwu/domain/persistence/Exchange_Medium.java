@@ -34,7 +34,7 @@ public class Exchange_Medium implements Serializable {
     private double EM_Balance;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Mem_ID")
+    @JoinColumn(name = "MemID")
     private Member ExchangeID;
 
     @OneToMany(targetEntity = Member_Transaction.class, fetch = FetchType.LAZY, mappedBy = "EM_ID", orphanRemoval = true, cascade = CascadeType.PERSIST)
