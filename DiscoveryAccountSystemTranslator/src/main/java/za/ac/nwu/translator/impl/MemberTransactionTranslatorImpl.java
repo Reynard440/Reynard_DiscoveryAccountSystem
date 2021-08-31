@@ -1,6 +1,7 @@
 package za.ac.nwu.translator.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import za.ac.nwu.domain.dto.MemberTransactionDto;
 import za.ac.nwu.domain.persistence.Member_Transaction;
@@ -10,6 +11,7 @@ import za.ac.nwu.translator.MemberTransactionTranslator;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class MemberTransactionTranslatorImpl implements MemberTransactionTranslator {
     private final MemberTransactionRepository memberTransactionRepository;
 
