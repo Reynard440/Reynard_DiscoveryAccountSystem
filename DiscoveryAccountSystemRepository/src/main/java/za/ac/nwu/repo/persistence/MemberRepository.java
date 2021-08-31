@@ -13,7 +13,7 @@ import java.util.Optional;
 @Component
 public interface MemberRepository extends JpaRepository<Member, Integer> {
     //Optional<Member> findMemberByEmail(String Mem_Email);
-    @Bean
+
     @Query("SELECT m FROM Member m WHERE m.Mem_Email = :email")
     Optional<Member> findMemberByEmail(String email);
 //
@@ -21,7 +21,7 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
 //    @Query(value = "SELECT m.Mem_FirstName, m.Mem_LastName, m.Mem_Email, m.Mem_Phone_Number FROM Member m WHERE m.Mem_Email = :email", nativeQuery = true)
 //    Member getMemberByEmailNativeQuery(String email);
 //
-    @Bean
+
     @Query(value = "SELECT m.MemID, m.Mem_FirstName, m.Mem_LastName, m.Mem_Email FROM Member m WHERE m.Mem_Email = :email ")
     Member getMemberByEmail(String email);
 

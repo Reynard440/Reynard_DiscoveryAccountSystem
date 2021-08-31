@@ -3,11 +3,8 @@ package za.ac.nwu.domain.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import za.ac.nwu.domain.persistence.Exchange_Medium;
-import za.ac.nwu.domain.persistence.Member;
 import za.ac.nwu.domain.persistence.Member_Transaction;
 
-import javax.persistence.Column;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -149,14 +146,13 @@ public class MemberTransactionDto implements Serializable {
         this.setMT_Amount(member_transaction.getMT_Amount());
         this.setMT_Total(member_transaction.getMT_Total());
 //        this.setExM_ID(member_transaction.getExM_ID());
-//        this.setMemberID(member_transaction.getMem_ID());
+//        this.setMemberID(member.getMemID());
     }
 
     @JsonIgnore
     public Member_Transaction getMemberTransaction() {
         return new Member_Transaction(getMT_ID() ,getMT_TransactionDate(), getMT_Description(), getMT_Amount(), getMT_Total()/*, getExM_ID(), getMemberID()*/);
     }
-
 
     @Override
     public boolean equals(Object o) {

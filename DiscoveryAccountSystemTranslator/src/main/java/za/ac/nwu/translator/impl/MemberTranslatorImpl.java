@@ -2,7 +2,6 @@ package za.ac.nwu.translator.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import za.ac.nwu.domain.dto.MemberDto;
 import za.ac.nwu.domain.persistence.Member;
 import za.ac.nwu.repo.persistence.MemberRepository;

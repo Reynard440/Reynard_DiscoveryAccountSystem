@@ -88,25 +88,9 @@ public class Member_Transaction implements Serializable {
         MemberID = memberID;
     }
 
-//    public void setMemID(Integer mem_ID) {
-//        Mem_ID = mem_ID;
-//    }
-//
-//    public Integer getExM_ID() {
-//        return ExM_ID;
-//    }
-//
-//    public void setExM_ID(Integer exM_ID) {
-//        ExM_ID = exM_ID;
-//    }
-
     public Integer getMT_ID() {
         return MT_ID;
     }
-
-//    public Integer getMem_ID() {
-//        return Mem_ID;
-//    }
 
     public Exchange_Medium getEM_ID() {
         return EM_ID;

@@ -52,27 +52,27 @@ public class MemberController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    @GetMapping(path ="/{email}")
-    @ApiOperation(value = "Fetches a new Member by email.", notes = "Fetches member by email from DB.")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Goal Found", response = GeneralResponse.class),
-            @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
-            @ApiResponse(code = 404, message = "Not found", response = GeneralResponse.class),
-            @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)})
-    public ResponseEntity<GeneralResponse<MemberDto>> getMemberByEmail(@ApiParam(value = "The email that is unique to each member", example = "reynardengels@gmail.com", name = "Email", required = true) @PathVariable String email){
-        MemberDto memberResponse = memberServiceFlow.getMemberByEmail(email);
-        GeneralResponse<MemberDto> response = new GeneralResponse<>(true, memberResponse);
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
+//    @GetMapping(path ="/{email}")
+//    @ApiOperation(value = "Fetches a new Member by email.", notes = "Fetches member by email from DB.")
+//    @ApiResponses(value = {
+//            @ApiResponse(code = 200, message = "Goal Found", response = GeneralResponse.class),
+//            @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
+//            @ApiResponse(code = 404, message = "Not found", response = GeneralResponse.class),
+//            @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)})
+//    public ResponseEntity<GeneralResponse<MemberDto>> getMemberByEmail(@ApiParam(value = "The email that is unique to each member", example = "reynardengels@gmail.com", name = "Email", required = true) @PathVariable String email){
+//        MemberDto memberResponse = memberServiceFlow.getMemberByEmail(email);
+//        GeneralResponse<MemberDto> response = new GeneralResponse<>(true, memberResponse);
+//        return new ResponseEntity<>(response, HttpStatus.OK);
+//    }
 
-    @GetMapping(path = "/{id}")
+    @GetMapping(value = "/{id}")
     @ApiOperation(value = "Fetches a Member by their id.", notes = "Fetches member by id from DB.")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Goal Found", response = GeneralResponse.class),
             @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
             @ApiResponse(code = 404, message = "Not found", response = GeneralResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)})
-    public ResponseEntity<GeneralResponse<MemberDto>> getMemberById(@ApiParam(value = "The id that is unique to each member", example = "1", name = "id", required = true) @PathVariable("id") Integer id){
+    public ResponseEntity<GeneralResponse<MemberDto>> getMemberById(@ApiParam(value = "The id that is unique to each member", example = "1", name = "id", required = true) @RequestParam("id") Integer id){
         MemberDto memberResponse = memberServiceFlow.getMemberById(id);
         GeneralResponse<MemberDto> response = new GeneralResponse<>(true, memberResponse);
         return new ResponseEntity<>(response, HttpStatus.OK);

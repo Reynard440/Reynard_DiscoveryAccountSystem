@@ -35,6 +35,10 @@ public class GetMemberFlowImpl implements MemberServiceFlow {
         return memberTranslator.getOneMemberDto(id);
     }
 
+    public boolean methodToTest(){
+        return true;
+    }
+
     /*public void addUser(Member member) {
         Optional<Member> userOptional = memRepo.findMemberByEmail(member.getMem_Email());
         if(userOptional.isPresent()){
