@@ -19,8 +19,7 @@ public class Exchange_Medium implements Serializable {
     private static final long serialVersionUID = 5381982572241988327L;
 
     @Id
-    @SequenceGenerator(name = "EXCHANGE_MEDIUM_SEQ", sequenceName = "EXCHANGE_MEDIUM_GENERIC_SEQ", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "EXCHANGE_MEDIUM_SEQ")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "EM_ID")
     private Integer EM_ID;
 
@@ -63,6 +62,10 @@ public class Exchange_Medium implements Serializable {
         this.EM_Type = em_type;
         this.EM_Description = em_description;
         this.EM_Balance = em_balance;
+    }
+
+    public Exchange_Medium(Integer EM_ID) {
+        this.EM_ID = EM_ID;
     }
 
     public Integer getEM_ID() {

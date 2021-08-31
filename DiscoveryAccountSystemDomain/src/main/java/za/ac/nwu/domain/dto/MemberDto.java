@@ -7,6 +7,7 @@ import za.ac.nwu.domain.persistence.Member;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Optional;
 
 @ApiModel(value = "MemberDto", description = "A DTO that represents the Member")
 public class MemberDto implements Serializable {
@@ -21,7 +22,7 @@ public class MemberDto implements Serializable {
 
     private String Mem_Phone_Number;
 
-    public MemberDto() {
+    public MemberDto(Optional<Member> member) {
     }
 
     public MemberDto(Integer mem_ID, String mem_FirstName, String mem_LastName, String mem_Email, String mem_Phone_Number) {

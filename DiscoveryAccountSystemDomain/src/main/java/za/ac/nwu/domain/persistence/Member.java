@@ -21,8 +21,7 @@ public class Member implements Serializable {
     private static final long serialVersionUID = -6965549404196897257L;
 
     @Id
-    @SequenceGenerator(name = "MEMBER_SEQ", sequenceName = "MEMBER_GENERIC_SEQ", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MEMBER_SEQ")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "MemID")
     private Integer MemID;
 
@@ -49,6 +48,7 @@ public class Member implements Serializable {
 
     public Member(String mem_FirstName, String mem_LastName, String mem_Email, String mem_Phone_Number, Set<Exchange_Medium> exchange_medium) {
         this.Mem_FirstName = mem_FirstName;
+        this.Mem_Phone_Number = mem_Phone_Number;
         this.Mem_LastName = mem_LastName;
         this.Mem_Email = mem_Email;
         this.exchange_medium = exchange_medium;
@@ -69,6 +69,10 @@ public class Member implements Serializable {
         this.Mem_LastName = mem_lastName;
         this.Mem_Email = mem_email;
         this.Mem_Phone_Number = mem_phone_number;
+    }
+
+    public Member(Integer memID) {
+        MemID = memID;
     }
 
     public Integer getMemID() {

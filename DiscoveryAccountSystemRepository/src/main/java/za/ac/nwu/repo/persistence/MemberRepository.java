@@ -22,10 +22,10 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
 //    Member getMemberByEmailNativeQuery(String email);
 //
 
-    @Query(value = "SELECT m.MemID, m.Mem_FirstName, m.Mem_LastName, m.Mem_Email FROM Member m WHERE m.Mem_Email = :email ")
+    @Query(value = "SELECT m FROM Member m WHERE m.Mem_Email = :email")
     Member getMemberByEmail(String email);
 
-    @Query(value = "SELECT m.MemID, m.Mem_FirstName, m.Mem_LastName, m.Mem_Email FROM Member m WHERE m.MemID = :id ")
+    @Query(value = "SELECT m FROM Member m WHERE m.MemID = :id")
     Member getMemberById(Integer id);
 
 //    @Bean

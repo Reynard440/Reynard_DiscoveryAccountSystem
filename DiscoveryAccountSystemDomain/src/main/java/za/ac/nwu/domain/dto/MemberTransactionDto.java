@@ -3,6 +3,8 @@ package za.ac.nwu.domain.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import za.ac.nwu.domain.persistence.Exchange_Medium;
+import za.ac.nwu.domain.persistence.Member;
 import za.ac.nwu.domain.persistence.Member_Transaction;
 
 import java.io.Serializable;
@@ -24,9 +26,9 @@ public class MemberTransactionDto implements Serializable {
 
     private double MT_Total;
 
-//    private Integer ExM_ID;
-//
-//    private Integer MemberID;
+    private Member MemberID;
+
+    private Exchange_Medium EM_ID;
 
     @ApiModelProperty(position = 1,
             value = "Transaction's ID",
@@ -98,45 +100,46 @@ public class MemberTransactionDto implements Serializable {
         this.MT_Total = MT_Total;
     }
 
-//    @ApiModelProperty(position = 6,
-//            value = "Foreign key from the Exchange Medium entity",
-//            name = "Exchange Medium ID",
-//            notes = "This field records what related exchange medium was used in the transaction.",
-//            dataType = "java.lang.Integer",
-//            example = "1")
-//    public Integer getExM_ID() {
-//        return ExM_ID;
-//    }
-//
-//    public void setExM_ID(Integer exM_ID) {
-//        ExM_ID = exM_ID;
-//    }
-//
-//    @ApiModelProperty(position = 7,
-//            value = "Foreign key from the Member entity",
-//            name = "Member ID",
-//            notes = "This field records what related member that executed the transaction.",
-//            dataType = "java.lang.Integer",
-//            example = "1")
-//    public Integer getMemberID() {
-//        return MemberID;
-//    }
-//
-//    public void setMemberID(Integer memberID) {
-//        MemberID = memberID;
-//    }
+
+    @ApiModelProperty(position = 6,
+            value = "Total of the Member's account",
+            name = "Transaction Total",
+            notes = "This field records the total of the Member's account",
+            dataType = "java.lang.Double",
+            example = "2000.00")
+    public Member getMemberID() {
+        return MemberID;
+    }
+
+    public void setMemberID(Member memberID) {
+        MemberID = memberID;
+    }
+
+    @ApiModelProperty(position = 7,
+            value = "Total of the Member's account",
+            name = "Transaction Total",
+            notes = "This field records the total of the Member's account",
+            dataType = "java.lang.Double",
+            example = "2000.00")
+    public Exchange_Medium getEM_ID() {
+        return EM_ID;
+    }
+
+    public void setEM_ID(Exchange_Medium EM_ID) {
+        this.EM_ID = EM_ID;
+    }
 
     public MemberTransactionDto() {
     }
 
-    public MemberTransactionDto(Integer MT_ID, LocalDate MT_TransactionDate, String MT_Description, double MT_Amount, double MT_Total/*, Integer exM_ID, Integer memberID*/) {
+    public MemberTransactionDto(Integer MT_ID, LocalDate MT_TransactionDate, String MT_Description, double MT_Amount, double MT_Total, Exchange_Medium EM_ID, Member memberID) {
         this.MT_ID = MT_ID;
         this.MT_TransactionDate = MT_TransactionDate;
         this.MT_Description = MT_Description;
         this.MT_Amount = MT_Amount;
         this.MT_Total = MT_Total;
-//        ExM_ID = exM_ID;
-//        MemberID = memberID;
+        this.MemberID = memberID;
+        this.EM_ID = EM_ID;
     }
 
     public MemberTransactionDto(Member_Transaction member_transaction){
@@ -145,13 +148,13 @@ public class MemberTransactionDto implements Serializable {
         this.setMT_Description(member_transaction.getMT_Description());
         this.setMT_Amount(member_transaction.getMT_Amount());
         this.setMT_Total(member_transaction.getMT_Total());
-//        this.setExM_ID(member_transaction.getExM_ID());
-//        this.setMemberID(member.getMemID());
+        this.setMemberID(member_transaction.getMemberID());
+        this.setEM_ID(member_transaction.getEM_ID());
     }
 
     @JsonIgnore
     public Member_Transaction getMemberTransaction() {
-        return new Member_Transaction(getMT_ID() ,getMT_TransactionDate(), getMT_Description(), getMT_Amount(), getMT_Total()/*, getExM_ID(), getMemberID()*/);
+        return new Member_Transaction(getMT_ID() ,getMT_TransactionDate(), getMT_Description(), getMT_Amount(), getMT_Total(), getMemberID(), getEM_ID());
     }
 
     @Override
@@ -159,12 +162,12 @@ public class MemberTransactionDto implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MemberTransactionDto that = (MemberTransactionDto) o;
-        return Double.compare(that.MT_Amount, MT_Amount) == 0 && Double.compare(that.MT_Total, MT_Total) == 0 && Objects.equals(MT_ID, that.MT_ID) && Objects.equals(MT_TransactionDate, that.MT_TransactionDate) && Objects.equals(MT_Description, that.MT_Description);
+        return Double.compare(that.MT_Amount, MT_Amount) == 0 && Double.compare(that.MT_Total, MT_Total) == 0 && Objects.equals(MT_ID, that.MT_ID) && Objects.equals(MT_TransactionDate, that.MT_TransactionDate) && Objects.equals(MT_Description, that.MT_Description) && Objects.equals(MemberID, that.MemberID) && Objects.equals(EM_ID, that.EM_ID);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(MT_ID, MT_TransactionDate, MT_Description, MT_Amount, MT_Total);
+        return Objects.hash(MT_ID, MT_TransactionDate, MT_Description, MT_Amount, MT_Total, MemberID, EM_ID);
     }
 
     @Override
@@ -175,6 +178,8 @@ public class MemberTransactionDto implements Serializable {
                 ", MT_Description='" + MT_Description + '\'' +
                 ", MT_Amount=" + MT_Amount +
                 ", MT_Total=" + MT_Total +
+                ", MemberID=" + MemberID +
+                ", EM_ID=" + EM_ID +
                 '}';
     }
 }

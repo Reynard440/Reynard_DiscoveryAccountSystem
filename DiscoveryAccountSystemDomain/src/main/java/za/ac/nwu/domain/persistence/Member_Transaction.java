@@ -19,8 +19,7 @@ public class Member_Transaction implements Serializable {
     private static final long serialVersionUID = 3177993474135305620L;
 
     @Id
-    @SequenceGenerator(name = "MEMBER_TRANSACTION_SEQ", sequenceName = "MEMBER_TRANSACTION_GENERIC_SEQ", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MEMBER_TRANSACTION_SEQ")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "MT_ID")
     private Integer MT_ID;
 
@@ -43,10 +42,6 @@ public class Member_Transaction implements Serializable {
 
     @Column(name = "MT_Total")
     private double MT_Total;
-//
-//    private Integer Mem_ID;
-//
-//    private Integer ExM_ID;
 
     public Member_Transaction() {
     }
@@ -70,14 +65,14 @@ public class Member_Transaction implements Serializable {
         this.MT_Total = MT_Total;
     }
 
-    public Member_Transaction(Integer mt_id, LocalDate mt_transactionDate, String mt_description, double mt_amount, double mt_total/*, Integer exm_id, Integer mem_id*/) {
+    public Member_Transaction(Integer mt_id, LocalDate mt_transactionDate, String mt_description, double mt_amount, double mt_total, Member memberID, Exchange_Medium exchange_medium) {
         this.MT_ID = mt_id;
         this.MT_TransactionDate = mt_transactionDate;
         this.MT_Description = mt_description;
         this.MT_Amount = mt_amount;
         this.MT_Total = mt_total;
-//        this.ExM_ID = exm_id;
-//        this.Mem_ID = mem_id;
+        this.MemberID = memberID;
+        this.EM_ID = exchange_medium;
     }
 
     public Member getMemberID() {
