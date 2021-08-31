@@ -5,10 +5,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import za.ac.nwu.domain.dto.MemberDto;
 import za.ac.nwu.logic.flow.MemberServiceFlow;
-import za.ac.nwu.repo.persistence.MemberRepository;
 import za.ac.nwu.translator.MemberTranslator;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Transactional

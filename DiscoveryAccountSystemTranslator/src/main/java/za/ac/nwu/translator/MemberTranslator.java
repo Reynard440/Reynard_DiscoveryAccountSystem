@@ -1,9 +1,7 @@
 package za.ac.nwu.translator;
 
 import org.springframework.stereotype.Component;
-import za.ac.nwu.domain.dto.ExchangeMediumDto;
 import za.ac.nwu.domain.dto.MemberDto;
-import za.ac.nwu.domain.dto.MemberTransactionDto;
 
 import java.util.List;
 
@@ -11,15 +9,12 @@ import java.util.List;
 public interface MemberTranslator {
     //All the listing methods
     List<MemberDto> getAllMembers();
-    List<MemberTransactionDto> getMemberTransactionDtos();
-    List<ExchangeMediumDto> getExchangeMediumDtos();
 
     //Get single record methods
     MemberDto getOneMemberDto(Integer id);
 
     //Creating methods
     MemberDto create(MemberDto member);
-    MemberTransactionDto addMemberTransaction(MemberTransactionDto memberTransactionDto);
 
 //    MemberDto getMemberByEmailNativeQuery(String email);
 //
