@@ -18,4 +18,6 @@ public interface ExchangeMediumTranslator {
     ExchangeMediumDto decreaseBalance(Integer id, Double amount);
 
     ExchangeMediumDto create(ExchangeMediumDto exchangeMedium);
+
+    Integer checkTypeExists(Integer id, String type);
 }

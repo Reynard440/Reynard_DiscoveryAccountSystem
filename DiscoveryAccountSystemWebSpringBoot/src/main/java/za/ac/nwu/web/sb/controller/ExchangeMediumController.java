@@ -70,6 +70,19 @@ public class ExchangeMediumController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @GetMapping(path = "/checkTypeExist/{id}/{type}")
+    @ApiOperation(value = "Fetches a Exchange Medium by its id and type.", notes = "Fetches exchange medium by id and type from DB.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Goal Found", response = GeneralResponse.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
+            @ApiResponse(code = 404, message = "Not found", response = GeneralResponse.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)})
+    public ResponseEntity<GeneralResponse<Integer>> checkTypeExist(@ApiParam(value = "The id that is unique to each exchange medium.", example = "1", name = "id", required = true) @PathVariable("id") Integer id, @ApiParam(value = "The type of exchange medium.", example = "Rand", name = "type", required = true) @PathVariable("type") String type){
+        Integer intResponse = exchangeMediumService.checkTypeExist(id, type);
+        GeneralResponse<Integer> response = new GeneralResponse<>(true, intResponse);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
     @PutMapping(path = "/increaseExchangeMediumTotal/{id}/{amount}")
     @ApiOperation(value = "Fetches a Exchange Medium by its id and amount to increase the type with.", notes = "Fetches exchange medium by id from the DB and then increases the type with the amount.")
     @ApiResponses(value = {
@@ -94,6 +107,23 @@ public class ExchangeMediumController {
         ExchangeMediumDto exchangeMediumResponse = exchangeMediumService.decreaseExchangeMediumTotal(id,amount);
         GeneralResponse<ExchangeMediumDto> response = new GeneralResponse<>(true, exchangeMediumResponse);
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PostMapping("")
+    @ApiOperation(value = "Create a new Exchange Medium account.", notes = "Creates a new Exchange Medium account in the DB.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Exchange Medium account successfully create", response = GeneralResponse.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)})
+    public ResponseEntity<GeneralResponse<ExchangeMediumDto>> create(@ApiParam(value = "Request body to create a new Member", required = true) @RequestBody ExchangeMediumDto exchangeMediumDto){
+        if (exchangeMediumService.checkTypeExist(exchangeMediumDto.getEM_ID(), exchangeMediumDto.getEM_Type()) > 0) {
+            //update statement here
+            return null;
+        }else{
+            ExchangeMediumDto exchangeMediumResponse = exchangeMediumService.create(exchangeMediumDto);
+            GeneralResponse<ExchangeMediumDto> response = new GeneralResponse<>(true, exchangeMediumResponse);
+            return new ResponseEntity<>(response, HttpStatus.CREATED);
+        }
     }
 
     /*private final UserService userService;

@@ -3,9 +3,7 @@ package za.ac.nwu.translator.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import za.ac.nwu.domain.dto.ExchangeMediumDto;
-import za.ac.nwu.domain.dto.MemberDto;
 import za.ac.nwu.domain.persistence.Exchange_Medium;
-import za.ac.nwu.domain.persistence.Member;
 import za.ac.nwu.repo.persistence.ExchangeMediumRepository;
 import za.ac.nwu.translator.ExchangeMediumTranslator;
 
@@ -81,6 +79,16 @@ public class ExchangeMediumTranslatorImpl implements ExchangeMediumTranslator {
             return new ExchangeMediumDto(exchange_medium);
         }catch(Exception e){
             throw new RuntimeException("Could not add member to the DB",e);
+        }
+    }
+
+    @Override
+    public Integer checkTypeExists(Integer id, String type) {
+        try{
+            Integer response = exchangeMediumRepository.checkTypeExist(id, type);
+            return new Integer(response);
+        }catch(Exception e){
+            throw new RuntimeException("Unable to read from the DB", e);
         }
     }
 }

@@ -12,4 +12,6 @@ public interface ExchangeMediumService {
     ExchangeMediumDto decreaseExchangeMediumTotal(Integer id, Double amount);
 
     ExchangeMediumDto create(ExchangeMediumDto exchangeMediumDto);
+
+    Integer checkTypeExist(Integer id, String type);
 }
