@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import za.ac.nwu.domain.dto.ExchangeMediumDto;
 import za.ac.nwu.domain.dto.MemberDto;
 import za.ac.nwu.domain.dto.MemberTransactionDto;
 import za.ac.nwu.domain.service.GeneralResponse;
@@ -52,6 +53,19 @@ public class MemberTransactionController {
         MemberTransactionDto memberTransactionResponse = newTransactionService.addTransactionDto(memberTransactionDto);
         GeneralResponse<MemberTransactionDto> response = new GeneralResponse<>(true, memberTransactionResponse);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @GetMapping(path = "/getMemberTransactionByID/{id}")
+    @ApiOperation(value = "Fetches a Member's Transaction by its id.", notes = "Fetches Member's Transaction by id from DB.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Goal Found", response = GeneralResponse.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
+            @ApiResponse(code = 404, message = "Not found", response = GeneralResponse.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)})
+    public ResponseEntity<GeneralResponse<MemberTransactionDto>> getMemberTransactionByID(@ApiParam(value = "The id that is unique to each exchange medium.", example = "1", name = "id", required = true) @PathVariable("id") Integer id){
+        MemberTransactionDto memberTransactionResponse = memberTransactionService.getMemberTransactionID(id);
+        GeneralResponse<MemberTransactionDto> response = new GeneralResponse<>(true, memberTransactionResponse);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
         /*private final UserService userService;

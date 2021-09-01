@@ -40,7 +40,7 @@ public class Member implements Serializable {
     @OneToMany(targetEntity = Member_Transaction.class, fetch = FetchType.LAZY, mappedBy = "MemberID", orphanRemoval = true, cascade = CascadeType.PERSIST)
     private Set<Member_Transaction> member_transactions;
 
-    @OneToMany(targetEntity = Exchange_Medium.class, fetch = FetchType.LAZY, mappedBy = "ExchangeID", orphanRemoval = true, cascade = CascadeType.PERSIST)
+    @OneToMany(targetEntity = Exchange_Medium.class, fetch = FetchType.LAZY, mappedBy = "MEM_ID", orphanRemoval = true, cascade = CascadeType.PERSIST)
     private Set<Exchange_Medium> exchange_medium;
 
     public Member() {

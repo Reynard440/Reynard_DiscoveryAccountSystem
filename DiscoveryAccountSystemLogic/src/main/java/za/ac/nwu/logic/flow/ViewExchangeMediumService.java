@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface ViewExchangeMediumService {
     List<ExchangeMediumDto> getAllExchangeMedium();
+
+    ExchangeMediumDto getExchangeMediumDtoById(Integer emid);
 }

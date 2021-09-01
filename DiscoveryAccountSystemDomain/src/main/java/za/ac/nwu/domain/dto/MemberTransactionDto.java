@@ -102,11 +102,11 @@ public class MemberTransactionDto implements Serializable {
 
 
     @ApiModelProperty(position = 6,
-            value = "Total of the Member's account",
-            name = "Transaction Total",
-            notes = "This field records the total of the Member's account",
-            dataType = "java.lang.Double",
-            example = "2000.00")
+            value = "The referenced id to indicate which member performed the transaction.",
+            name = "Member id",
+            notes = "This field keeps track of the member of the transaction.",
+            dataType = "java.lang.Integer",
+            example = "1")
     public Member getMemberID() {
         return MemberID;
     }
@@ -116,11 +116,11 @@ public class MemberTransactionDto implements Serializable {
     }
 
     @ApiModelProperty(position = 7,
-            value = "Total of the Member's account",
-            name = "Transaction Total",
-            notes = "This field records the total of the Member's account",
-            dataType = "java.lang.Double",
-            example = "2000.00")
+            value = "The referenced id to indicate which exchange medium was used in the transaction.",
+            name = "Exchange medium id.",
+            notes = "This field keeps track of the type of exchange medium used in the transaction.",
+            dataType = "java.lang.Integer",
+            example = "1")
     public Exchange_Medium getEM_ID() {
         return EM_ID;
     }
@@ -142,8 +142,17 @@ public class MemberTransactionDto implements Serializable {
         this.EM_ID = EM_ID;
     }
 
+    public MemberTransactionDto(LocalDate MT_TransactionDate, String MT_Description, double MT_Amount, double MT_Total, Member memberID, Exchange_Medium EM_ID) {
+        this.MT_TransactionDate = MT_TransactionDate;
+        this.MT_Description = MT_Description;
+        this.MT_Amount = MT_Amount;
+        this.MT_Total = MT_Total;
+        this.MemberID = memberID;
+        this.EM_ID = EM_ID;
+    }
+
     public MemberTransactionDto(Member_Transaction member_transaction){
-        this.setMT_ID(member_transaction.getMT_ID());
+        //this.setMT_ID(member_transaction.getMT_ID());
         this.setMT_TransactionDate(member_transaction.getMT_TransactionDate());
         this.setMT_Description(member_transaction.getMT_Description());
         this.setMT_Amount(member_transaction.getMT_Amount());

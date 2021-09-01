@@ -3,7 +3,9 @@ package za.ac.nwu.translator.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import za.ac.nwu.domain.dto.ExchangeMediumDto;
+import za.ac.nwu.domain.dto.MemberDto;
 import za.ac.nwu.domain.persistence.Exchange_Medium;
+import za.ac.nwu.domain.persistence.Member;
 import za.ac.nwu.repo.persistence.ExchangeMediumRepository;
 import za.ac.nwu.translator.ExchangeMediumTranslator;
 
@@ -30,5 +32,55 @@ public class ExchangeMediumTranslatorImpl implements ExchangeMediumTranslator {
             throw new RuntimeException("Unable to read from the DB", e);
         }
         return exchangeMediumDtos;
+    }
+
+    @Override
+    public ExchangeMediumDto getExchangeMediumByEmID(Integer emid) {
+        try{
+            Exchange_Medium exchange_medium = exchangeMediumRepository.getAllExchangeMediumByEmID(emid);
+            return new ExchangeMediumDto(exchange_medium);
+        }catch(Exception e){
+            throw new RuntimeException("Unable to read from the DB", e);
+        }
+    }
+
+    @Override
+    public ExchangeMediumDto getExchangeMediumByTypeAndID(String type, Integer id) {
+        try{
+            Exchange_Medium exchange_medium = exchangeMediumRepository.getExchange_MediumByTypeAndID(type, id);
+            return new ExchangeMediumDto(exchange_medium);
+        }catch(Exception e){
+            throw new RuntimeException("Unable to read from the DB", e);
+        }
+    }
+
+    @Override
+    public ExchangeMediumDto increaseExchangeMediumTotal(Integer id, Double amount) {
+        try{
+            Exchange_Medium exchange_medium = exchangeMediumRepository.increaseBalance(amount, id);
+            return new ExchangeMediumDto(exchange_medium);
+        }catch(Exception e){
+            throw new RuntimeException("Unable to read from the DB", e);
+        }
+    }
+
+    @Override
+    public ExchangeMediumDto decreaseBalance(Integer id, Double amount) {
+        try{
+            Exchange_Medium exchange_medium = exchangeMediumRepository.decreaseBalance(amount, id);
+            return new ExchangeMediumDto(exchange_medium);
+        }catch(Exception e){
+            throw new RuntimeException("Unable to read from the DB", e);
+        }
+    }
+
+    @Override
+    public ExchangeMediumDto create(ExchangeMediumDto exchangeMedium) {
+        try {
+            Exchange_Medium exchange_medium = exchangeMediumRepository.save(exchangeMedium.getExchangeMedium());
+            return new ExchangeMediumDto(exchange_medium);
+        }catch(Exception e){
+            throw new RuntimeException("Could not add member to the DB",e);
+        }
     }
 }

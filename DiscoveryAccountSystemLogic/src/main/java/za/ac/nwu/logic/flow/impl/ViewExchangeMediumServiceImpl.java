@@ -24,4 +24,9 @@ public class ViewExchangeMediumServiceImpl implements ViewExchangeMediumService 
     public List<ExchangeMediumDto> getAllExchangeMedium(){
         return exchangeMediumTranslator.getExchangeMediumDtos();
     }
+
+    @Override
+    public ExchangeMediumDto getExchangeMediumDtoById(Integer emid) {
+        return exchangeMediumTranslator.getExchangeMediumByEmID(emid);
+    }
 }

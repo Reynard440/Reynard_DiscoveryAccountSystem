@@ -3,7 +3,9 @@ package za.ac.nwu.translator.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import za.ac.nwu.domain.dto.MemberDto;
 import za.ac.nwu.domain.dto.MemberTransactionDto;
+import za.ac.nwu.domain.persistence.Member;
 import za.ac.nwu.domain.persistence.Member_Transaction;
 import za.ac.nwu.repo.persistence.MemberTransactionRepository;
 import za.ac.nwu.translator.MemberTransactionTranslator;
@@ -42,4 +44,16 @@ public class MemberTransactionTranslatorImpl implements MemberTransactionTransla
             throw new RuntimeException("Could not add member transaction to the DB",e);
         }
     }
+
+    @Override
+    public MemberTransactionDto getMemberTransactionID(Integer id) {
+        try{
+            Member_Transaction member_transaction = memberTransactionRepository.getMemberTransactionByID(id);
+            return new MemberTransactionDto(member_transaction);
+        }catch(Exception e){
+            throw new RuntimeException("Unable to read from the DB", e);
+        }
+    }
+
+
 }

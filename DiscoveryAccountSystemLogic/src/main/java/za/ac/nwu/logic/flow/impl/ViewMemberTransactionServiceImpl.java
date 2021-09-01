@@ -24,4 +24,9 @@ public class ViewMemberTransactionServiceImpl implements ViewMemberTransactionSe
     public List<MemberTransactionDto> getAllMemberTransaction(){
         return memberTransactionTranslator.getMemberTransactionDtos();
     }
+
+    @Override
+    public MemberTransactionDto getMemberTransactionID(Integer id) {
+        return memberTransactionTranslator.getMemberTransactionID(id);
+    }
 }

@@ -34,7 +34,7 @@ public class Exchange_Medium implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MemID")
-    private Member ExchangeID;
+    private Member MEM_ID;
 
     @OneToMany(targetEntity = Member_Transaction.class, fetch = FetchType.LAZY, mappedBy = "EM_ID", orphanRemoval = true, cascade = CascadeType.PERSIST)
     private Set<Member_Transaction> member_transactions;
@@ -42,19 +42,19 @@ public class Exchange_Medium implements Serializable {
     public Exchange_Medium() {
     }
 
-    public Exchange_Medium(String EM_Type, String EM_Description, double EM_Balance, Member exchangeID) {
+    public Exchange_Medium(String EM_Type, String EM_Description, double EM_Balance, Member MEM_ID) {
         this.EM_Type = EM_Type;
         this.EM_Description = EM_Description;
         this.EM_Balance = EM_Balance;
-        this.ExchangeID = exchangeID;
+        this.MEM_ID = MEM_ID;
     }
 
-    public Exchange_Medium(Integer EM_ID, String EM_Type, String EM_Description, double EM_Balance, Member exchangeID) {
+    public Exchange_Medium(Integer EM_ID, String EM_Type, String EM_Description, double EM_Balance, Member MEM_ID) {
         this.EM_ID = EM_ID;
         this.EM_Type = EM_Type;
         this.EM_Description = EM_Description;
         this.EM_Balance = EM_Balance;
-        this.ExchangeID = exchangeID;
+        this.MEM_ID = MEM_ID;
     }
 
     public Exchange_Medium(Integer em_id, String em_type, String em_description, double em_balance) {
@@ -108,17 +108,25 @@ public class Exchange_Medium implements Serializable {
         this.EM_Balance = EM_Balance;
     }
 
+    public Member getMEM_ID() {
+        return MEM_ID;
+    }
+
+    public void setMEM_ID(Member MEM_ID) {
+        this.MEM_ID = MEM_ID;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Exchange_Medium that = (Exchange_Medium) o;
-        return Double.compare(that.EM_Balance, EM_Balance) == 0 && Objects.equals(EM_ID, that.EM_ID) && Objects.equals(EM_Type, that.EM_Type) && Objects.equals(EM_Description, that.EM_Description) && Objects.equals(ExchangeID, that.ExchangeID) && Objects.equals(member_transactions, that.member_transactions);
+        return Double.compare(that.EM_Balance, EM_Balance) == 0 && Objects.equals(EM_ID, that.EM_ID) && Objects.equals(EM_Type, that.EM_Type) && Objects.equals(EM_Description, that.EM_Description) && Objects.equals(MEM_ID, that.MEM_ID) && Objects.equals(member_transactions, that.member_transactions);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(EM_ID, EM_Type, EM_Description, EM_Balance, ExchangeID, member_transactions);
+        return Objects.hash(EM_ID, EM_Type, EM_Description, EM_Balance, MEM_ID, member_transactions);
     }
 
     @Override
@@ -128,7 +136,7 @@ public class Exchange_Medium implements Serializable {
                 ", EM_Type='" + EM_Type + '\'' +
                 ", EM_Description='" + EM_Description + '\'' +
                 ", EM_Balance=" + EM_Balance +
-                ", ExchangeID=" + ExchangeID +
+                ", MEM_ID=" + MEM_ID +
                 ", member_transactions=" + member_transactions +
                 '}';
     }

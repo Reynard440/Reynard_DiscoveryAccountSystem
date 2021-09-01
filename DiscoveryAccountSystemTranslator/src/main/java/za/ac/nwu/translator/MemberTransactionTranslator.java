@@ -10,4 +10,6 @@ public interface MemberTransactionTranslator {
     List<MemberTransactionDto> getMemberTransactionDtos();
 
     MemberTransactionDto addMemberTransaction(MemberTransactionDto memberTransactionDto);
+
+    MemberTransactionDto getMemberTransactionID(Integer id);
 }
