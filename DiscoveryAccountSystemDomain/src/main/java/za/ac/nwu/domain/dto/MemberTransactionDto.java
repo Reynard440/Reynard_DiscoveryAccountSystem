@@ -16,8 +16,6 @@ public class MemberTransactionDto implements Serializable {
 
     private static final long serialVersionUID = -286232694247187358L;
 
-    private Integer MT_ID;
-
     private LocalDate MT_TransactionDate;
 
     private String MT_Description;
@@ -31,20 +29,6 @@ public class MemberTransactionDto implements Serializable {
     private Exchange_Medium EM_ID;
 
     @ApiModelProperty(position = 1,
-            value = "Transaction's ID",
-            name = "Transaction ID",
-            notes = "This field uniquely identifies all the transactions of the Members.",
-            dataType = "java.time.Integer",
-            example = "1")
-    public Integer getMT_ID() {
-        return MT_ID;
-    }
-
-    public void setMT_ID(Integer MT_ID) {
-        this.MT_ID = MT_ID;
-    }
-
-    @ApiModelProperty(position = 2,
             value = "Date of the transaction",
             name = "Transaction Date",
             notes = "This field will automatically stamp the exact moment the transaction took place.",
@@ -58,7 +42,7 @@ public class MemberTransactionDto implements Serializable {
         this.MT_TransactionDate = MT_TransactionDate;
     }
 
-    @ApiModelProperty(position = 3,
+    @ApiModelProperty(position = 2,
             value = "Description of the transaction",
             name = "Transaction Description",
             notes = "This field will track on what happened, like was it a deposit or a withdrawal.",
@@ -72,7 +56,7 @@ public class MemberTransactionDto implements Serializable {
         this.MT_Description = MT_Description;
     }
 
-    @ApiModelProperty(position = 4,
+    @ApiModelProperty(position = 3,
             value = "Amount of the transaction",
             name = "Transaction Amount",
             notes = "This field records how much currency was used",
@@ -86,7 +70,7 @@ public class MemberTransactionDto implements Serializable {
         this.MT_Amount = MT_Amount;
     }
 
-    @ApiModelProperty(position = 5,
+    @ApiModelProperty(position = 4,
             value = "Total of the Member's account",
             name = "Transaction Total",
             notes = "This field records the total of the Member's account",
@@ -101,7 +85,7 @@ public class MemberTransactionDto implements Serializable {
     }
 
 
-    @ApiModelProperty(position = 6,
+    @ApiModelProperty(position = 5,
             value = "The referenced id to indicate which member performed the transaction.",
             name = "Member id",
             notes = "This field keeps track of the member of the transaction.",
@@ -115,7 +99,7 @@ public class MemberTransactionDto implements Serializable {
         MemberID = memberID;
     }
 
-    @ApiModelProperty(position = 7,
+    @ApiModelProperty(position = 6,
             value = "The referenced id to indicate which exchange medium was used in the transaction.",
             name = "Exchange medium id.",
             notes = "This field keeps track of the type of exchange medium used in the transaction.",
@@ -132,8 +116,7 @@ public class MemberTransactionDto implements Serializable {
     public MemberTransactionDto() {
     }
 
-    public MemberTransactionDto(Integer MT_ID, LocalDate MT_TransactionDate, String MT_Description, double MT_Amount, double MT_Total, Exchange_Medium EM_ID, Member memberID) {
-        this.MT_ID = MT_ID;
+    public MemberTransactionDto(LocalDate MT_TransactionDate, String MT_Description, double MT_Amount, double MT_Total, Exchange_Medium EM_ID, Member memberID) {
         this.MT_TransactionDate = MT_TransactionDate;
         this.MT_Description = MT_Description;
         this.MT_Amount = MT_Amount;
@@ -152,7 +135,6 @@ public class MemberTransactionDto implements Serializable {
     }
 
     public MemberTransactionDto(Member_Transaction member_transaction){
-        //this.setMT_ID(member_transaction.getMT_ID());
         this.setMT_TransactionDate(member_transaction.getMT_TransactionDate());
         this.setMT_Description(member_transaction.getMT_Description());
         this.setMT_Amount(member_transaction.getMT_Amount());
@@ -163,7 +145,7 @@ public class MemberTransactionDto implements Serializable {
 
     @JsonIgnore
     public Member_Transaction getMemberTransaction() {
-        return new Member_Transaction(getMT_ID() ,getMT_TransactionDate(), getMT_Description(), getMT_Amount(), getMT_Total(), getMemberID(), getEM_ID());
+        return new Member_Transaction(getMT_TransactionDate(), getMT_Description(), getMT_Amount(), getMT_Total(), getMemberID(), getEM_ID());
     }
 
     @Override
@@ -171,19 +153,18 @@ public class MemberTransactionDto implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MemberTransactionDto that = (MemberTransactionDto) o;
-        return Double.compare(that.MT_Amount, MT_Amount) == 0 && Double.compare(that.MT_Total, MT_Total) == 0 && Objects.equals(MT_ID, that.MT_ID) && Objects.equals(MT_TransactionDate, that.MT_TransactionDate) && Objects.equals(MT_Description, that.MT_Description) && Objects.equals(MemberID, that.MemberID) && Objects.equals(EM_ID, that.EM_ID);
+        return Double.compare(that.MT_Amount, MT_Amount) == 0 && Double.compare(that.MT_Total, MT_Total) == 0 && Objects.equals(MT_TransactionDate, that.MT_TransactionDate) && Objects.equals(MT_Description, that.MT_Description) && Objects.equals(MemberID, that.MemberID) && Objects.equals(EM_ID, that.EM_ID);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(MT_ID, MT_TransactionDate, MT_Description, MT_Amount, MT_Total, MemberID, EM_ID);
+        return Objects.hash(MT_TransactionDate, MT_Description, MT_Amount, MT_Total, MemberID, EM_ID);
     }
 
     @Override
     public String toString() {
         return "MemberTransactionDto{" +
-                "MT_ID=" + MT_ID +
-                ", MT_TransactionDate=" + MT_TransactionDate +
+                "MT_TransactionDate=" + MT_TransactionDate +
                 ", MT_Description='" + MT_Description + '\'' +
                 ", MT_Amount=" + MT_Amount +
                 ", MT_Total=" + MT_Total +

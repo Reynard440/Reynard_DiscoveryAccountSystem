@@ -65,8 +65,7 @@ public class Member_Transaction implements Serializable {
         this.MT_Total = MT_Total;
     }
 
-    public Member_Transaction(Integer mt_id, LocalDate mt_transactionDate, String mt_description, double mt_amount, double mt_total, Member memberID, Exchange_Medium exchange_medium) {
-        this.MT_ID = mt_id;
+    public Member_Transaction(LocalDate mt_transactionDate, String mt_description, double mt_amount, double mt_total, Member memberID, Exchange_Medium exchange_medium) {
         this.MT_TransactionDate = mt_transactionDate;
         this.MT_Description = mt_description;
         this.MT_Amount = mt_amount;

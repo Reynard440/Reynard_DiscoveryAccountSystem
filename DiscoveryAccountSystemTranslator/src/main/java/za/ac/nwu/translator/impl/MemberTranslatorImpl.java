@@ -9,11 +9,9 @@ import za.ac.nwu.translator.MemberTranslator;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class MemberTranslatorImpl implements MemberTranslator {
-
     private final MemberRepository memberRepository;
 
     @Autowired
@@ -54,16 +52,6 @@ public class MemberTranslatorImpl implements MemberTranslator {
             throw new RuntimeException("Could not add member to the DB",e);
         }
     }
-
-//    @Override
-//    public MemberDto getMemberByEmailNativeQuery(String email) {
-//        try{
-//            Member member = memberRepository.getMemberByEmailNativeQuery(email);
-//            return new MemberDto(member);
-//        }catch(Exception e){
-//            throw new RuntimeException("Could not read from the DB",e);
-//        }
-//    }
 
     @Override
     public MemberDto getMemberByEmail(String email) {
