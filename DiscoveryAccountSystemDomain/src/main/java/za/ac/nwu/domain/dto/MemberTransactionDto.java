@@ -84,7 +84,6 @@ public class MemberTransactionDto implements Serializable {
         this.MT_Total = MT_Total;
     }
 
-
     @ApiModelProperty(position = 5,
             value = "The referenced id to indicate which member performed the transaction.",
             name = "Member id",

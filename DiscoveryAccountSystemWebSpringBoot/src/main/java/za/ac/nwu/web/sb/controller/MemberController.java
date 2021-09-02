@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import za.ac.nwu.domain.dto.MemberDto;
-import za.ac.nwu.domain.service.GeneralResponse;
+import za.ac.nwu.domain.service.DiscoveryAccountSystemResponse;
 import za.ac.nwu.logic.flow.AddMemberService;
 import za.ac.nwu.logic.flow.MemberServiceFlow;
 
@@ -27,62 +27,58 @@ public class MemberController {
         this.addMemberService = addMemberService;
     }
 
-    @GetMapping("/all")
+    @GetMapping("/getAllMembers")
     @ApiOperation(value = "Gets all the Members.", notes = "Returns a list of members.")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Members returned", response = GeneralResponse.class),
-            @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
-            @ApiResponse(code = 404, message = "Not found", response = GeneralResponse.class),
-            @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)})
-    public ResponseEntity<GeneralResponse<List<MemberDto>>> getAll(){
+            @ApiResponse(code = 200, message = "Members returned", response = DiscoveryAccountSystemResponse.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = DiscoveryAccountSystemResponse.class),
+            @ApiResponse(code = 404, message = "Not found", response = DiscoveryAccountSystemResponse.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = DiscoveryAccountSystemResponse.class)})
+    public ResponseEntity<DiscoveryAccountSystemResponse<List<MemberDto>>> getAll(){
         List<MemberDto> members = memberServiceFlow.getMembers();
-        GeneralResponse<List<MemberDto>> response = new GeneralResponse<>(true, members);
+        DiscoveryAccountSystemResponse<List<MemberDto>> response = new DiscoveryAccountSystemResponse<>(true, members);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @PostMapping("")
+    @PostMapping("/addMember")
     @ApiOperation(value = "Create a new Member.", notes = "Creates a new Member in the DB.")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Member successfully create", response = GeneralResponse.class),
-            @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
-            @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)})
-    public ResponseEntity<GeneralResponse<MemberDto>> create(@ApiParam(value = "Request body to create a new Member", required = true) @RequestBody MemberDto memberDto){
+            @ApiResponse(code = 200, message = "Member successfully create", response = DiscoveryAccountSystemResponse.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = DiscoveryAccountSystemResponse.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = DiscoveryAccountSystemResponse.class)})
+    public ResponseEntity<DiscoveryAccountSystemResponse<MemberDto>> create(@ApiParam(value = "Request body to create a new Member", required = true) @RequestBody MemberDto memberDto){
         MemberDto memberResponse = addMemberService.create(memberDto);
-        GeneralResponse<MemberDto> response = new GeneralResponse<>(true, memberResponse);
+        DiscoveryAccountSystemResponse<MemberDto> response = new DiscoveryAccountSystemResponse<>(true, memberResponse);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @GetMapping("/getMemberByEmail/{email}")
     @ApiOperation(value = "Fetches a new Member by email.", notes = "Fetches member by email from DB.")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Goal Found", response = GeneralResponse.class),
-            @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
-            @ApiResponse(code = 404, message = "Not found", response = GeneralResponse.class),
-            @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)})
-    public ResponseEntity<GeneralResponse<MemberDto>> getMemberByEmail(@ApiParam(value = "The email that is unique to each member", example = "reynardengels@gmail.com", name = "email", required = true) @PathVariable("email") String email){
+            @ApiResponse(code = 200, message = "Goal Found", response = DiscoveryAccountSystemResponse.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = DiscoveryAccountSystemResponse.class),
+            @ApiResponse(code = 404, message = "Not found", response = DiscoveryAccountSystemResponse.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = DiscoveryAccountSystemResponse.class)})
+    public ResponseEntity<DiscoveryAccountSystemResponse<MemberDto>> getMemberByEmail(@ApiParam(value = "The email that is unique to each member", example = "reynardengels@gmail.com", name = "email", required = true) @PathVariable("email") String email){
         MemberDto memberResponse = memberServiceFlow.getMemberByEmail(email);
-        GeneralResponse<MemberDto> response = new GeneralResponse<>(true, memberResponse);
+        DiscoveryAccountSystemResponse<MemberDto> response = new DiscoveryAccountSystemResponse<>(true, memberResponse);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping(path = "/getMemberById/{id}")
     @ApiOperation(value = "Fetches a Member by their id.", notes = "Fetches member by id from DB.")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Goal Found", response = GeneralResponse.class),
-            @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
-            @ApiResponse(code = 404, message = "Not found", response = GeneralResponse.class),
-            @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)})
-    public ResponseEntity<GeneralResponse<MemberDto>> getMemberById(@ApiParam(value = "The id that is unique to each member", example = "1", name = "id", required = true) @PathVariable("id") Integer id){
+            @ApiResponse(code = 200, message = "Goal Found", response = DiscoveryAccountSystemResponse.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = DiscoveryAccountSystemResponse.class),
+            @ApiResponse(code = 404, message = "Not found", response = DiscoveryAccountSystemResponse.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = DiscoveryAccountSystemResponse.class)})
+    public ResponseEntity<DiscoveryAccountSystemResponse<MemberDto>> getMemberById(@ApiParam(value = "The id that is unique to each member", example = "1", name = "id", required = true) @PathVariable("id") Integer id){
         MemberDto memberResponse = memberServiceFlow.getMemberById(id);
-        GeneralResponse<MemberDto> response = new GeneralResponse<>(true, memberResponse);
+        DiscoveryAccountSystemResponse<MemberDto> response = new DiscoveryAccountSystemResponse<>(true, memberResponse);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
-
-
-
-    /*public GeneralResponse<String> getAll(){
-        return new GeneralResponse<String>(true, "No types found");
+    /*public DiscoveryAccountSystemResponse<String> getAll(){
+        return new DiscoveryAccountSystemResponse<String>(true, "No types found");
     }*/
 
    /*@GetMapping("/all")

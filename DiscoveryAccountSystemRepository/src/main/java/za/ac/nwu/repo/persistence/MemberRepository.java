@@ -10,7 +10,7 @@ import za.ac.nwu.domain.persistence.Member;
 
 import java.util.Optional;
 
-@Component
+@Repository
 public interface MemberRepository extends JpaRepository<Member, Integer> {
     //Optional<Member> findMemberByEmail(String Mem_Email);
 

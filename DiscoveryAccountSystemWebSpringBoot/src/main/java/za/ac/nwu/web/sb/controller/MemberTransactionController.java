@@ -2,16 +2,13 @@ package za.ac.nwu.web.sb.controller;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import za.ac.nwu.domain.dto.ExchangeMediumDto;
-import za.ac.nwu.domain.dto.MemberDto;
 import za.ac.nwu.domain.dto.MemberTransactionDto;
-import za.ac.nwu.domain.service.GeneralResponse;
+import za.ac.nwu.domain.service.DiscoveryAccountSystemResponse;
 import za.ac.nwu.logic.flow.NewTransactionService;
 import za.ac.nwu.logic.flow.ViewMemberTransactionService;
 
@@ -33,38 +30,38 @@ public class MemberTransactionController {
     @GetMapping("/all")
     @ApiOperation(value = "Gets all the Member Transactions.", notes = "Returns a list of member transactions.")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Member Transactions returned", response = GeneralResponse.class),
-            @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
-            @ApiResponse(code = 404, message = "Not found", response = GeneralResponse.class),
-            @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)})
-    public ResponseEntity<GeneralResponse<List<MemberTransactionDto>>> getAll(){
+            @io.swagger.annotations.ApiResponse(code = 200, message = "Member Transactions returned", response = DiscoveryAccountSystemResponse.class),
+            @io.swagger.annotations.ApiResponse(code = 400, message = "Bad Request", response = DiscoveryAccountSystemResponse.class),
+            @io.swagger.annotations.ApiResponse(code = 404, message = "Not found", response = DiscoveryAccountSystemResponse.class),
+            @io.swagger.annotations.ApiResponse(code = 500, message = "Internal Server Error", response = DiscoveryAccountSystemResponse.class)})
+    public ResponseEntity<DiscoveryAccountSystemResponse<List<MemberTransactionDto>>> getAll(){
         List<MemberTransactionDto> memberTransactions = memberTransactionService.getAllMemberTransaction();
-        GeneralResponse<List<MemberTransactionDto>> response = new GeneralResponse<>(true, memberTransactions);
+        DiscoveryAccountSystemResponse<List<MemberTransactionDto>> response = new DiscoveryAccountSystemResponse<>(true, memberTransactions);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping("")
     @ApiOperation(value = "Create a new transaction for a specific member.", notes = "Creates a new transaction for a member in the DB.")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Transaction successfully create", response = GeneralResponse.class),
-            @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
-            @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)})
-    public ResponseEntity<GeneralResponse<MemberTransactionDto>> newTransaction(@ApiParam(value = "Request body to create a new Transaction", required = true) @RequestBody MemberTransactionDto memberTransactionDto){
+            @io.swagger.annotations.ApiResponse(code = 200, message = "Transaction successfully create", response = DiscoveryAccountSystemResponse.class),
+            @io.swagger.annotations.ApiResponse(code = 400, message = "Bad Request", response = DiscoveryAccountSystemResponse.class),
+            @io.swagger.annotations.ApiResponse(code = 500, message = "Internal Server Error", response = DiscoveryAccountSystemResponse.class)})
+    public ResponseEntity<DiscoveryAccountSystemResponse<MemberTransactionDto>> newTransaction(@ApiParam(value = "Request body to create a new Transaction", required = true) @RequestBody MemberTransactionDto memberTransactionDto){
         MemberTransactionDto memberTransactionResponse = newTransactionService.addTransactionDto(memberTransactionDto);
-        GeneralResponse<MemberTransactionDto> response = new GeneralResponse<>(true, memberTransactionResponse);
+        DiscoveryAccountSystemResponse<MemberTransactionDto> response = new DiscoveryAccountSystemResponse<>(true, memberTransactionResponse);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @GetMapping(path = "/getMemberTransactionByID/{id}")
     @ApiOperation(value = "Fetches a Member's Transaction by its id.", notes = "Fetches Member's Transaction by id from DB.")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Goal Found", response = GeneralResponse.class),
-            @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
-            @ApiResponse(code = 404, message = "Not found", response = GeneralResponse.class),
-            @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)})
-    public ResponseEntity<GeneralResponse<MemberTransactionDto>> getMemberTransactionByID(@ApiParam(value = "The id that is unique to each exchange medium.", example = "1", name = "id", required = true) @PathVariable("id") Integer id){
+            @io.swagger.annotations.ApiResponse(code = 200, message = "Goal Found", response = DiscoveryAccountSystemResponse.class),
+            @io.swagger.annotations.ApiResponse(code = 400, message = "Bad Request", response = DiscoveryAccountSystemResponse.class),
+            @io.swagger.annotations.ApiResponse(code = 404, message = "Not found", response = DiscoveryAccountSystemResponse.class),
+            @io.swagger.annotations.ApiResponse(code = 500, message = "Internal Server Error", response = DiscoveryAccountSystemResponse.class)})
+    public ResponseEntity<DiscoveryAccountSystemResponse<MemberTransactionDto>> getMemberTransactionByID(@ApiParam(value = "The id that is unique to each exchange medium.", example = "1", name = "id", required = true) @PathVariable("id") Integer id){
         MemberTransactionDto memberTransactionResponse = memberTransactionService.getMemberTransactionID(id);
-        GeneralResponse<MemberTransactionDto> response = new GeneralResponse<>(true, memberTransactionResponse);
+        DiscoveryAccountSystemResponse<MemberTransactionDto> response = new DiscoveryAccountSystemResponse<>(true, memberTransactionResponse);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

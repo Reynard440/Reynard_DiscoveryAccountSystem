@@ -3,10 +3,10 @@ package za.ac.nwu.repo.persistence;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import za.ac.nwu.domain.persistence.Exchange_Medium;
 
-@Component
+@Repository
 public interface ExchangeMediumRepository extends JpaRepository<Exchange_Medium, Integer> {
 
     @Query(value = "SELECT em FROM Exchange_Medium em WHERE em.EM_Type = :type AND em.EM_ID = :id")

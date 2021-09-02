@@ -1,17 +1,13 @@
 package za.ac.nwu.repo.persistence;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
-import za.ac.nwu.domain.persistence.Member;
 import za.ac.nwu.domain.persistence.Member_Transaction;
 
 import java.time.LocalDate;
-//import za.ac.nwu.domain.persistence.Member_Transaction;
 
-@Component
+@Repository
 public interface MemberTransactionRepository extends JpaRepository<Member_Transaction, Integer>{
     /*@Query("SELECT u FROM User u WHERE u.email = ?1")
     Optional<User> findUserByEmail(String email);*/
