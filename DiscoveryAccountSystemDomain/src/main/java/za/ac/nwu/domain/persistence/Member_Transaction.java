@@ -1,5 +1,7 @@
 package za.ac.nwu.domain.persistence;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;

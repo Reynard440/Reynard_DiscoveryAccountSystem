@@ -36,12 +36,12 @@ public class ExchangeMediumServiceImpl implements ExchangeMediumService {
 
     @Override
     public ExchangeMediumDto decreaseExchangeMediumTotal(Integer id, Double amount) {
-        return exchangeMediumTranslator.increaseExchangeMediumTotal(id, amount);
+        return exchangeMediumTranslator.decreaseExchangeMediumTotal(id, amount);
     }
 
     @Override
-    public ExchangeMediumDto create(ExchangeMediumDto exchangeMedium) {
-        return exchangeMediumTranslator.create(exchangeMedium);
+    public ExchangeMediumDto newExchangeMedium(ExchangeMediumDto exchangeMediumDto) {
+        return exchangeMediumTranslator.newExchangeMedium(exchangeMediumDto);
     }
 
     @Override

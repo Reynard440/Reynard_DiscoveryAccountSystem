@@ -44,7 +44,7 @@ public class MemberTranslatorImpl implements MemberTranslator {
     }
 
     @Override
-    public MemberDto create(MemberDto memberDto) {
+    public MemberDto newMember(MemberDto memberDto) {
         try {
             Member member = memberRepository.save(memberDto.getMember());
             return new MemberDto(member);
@@ -60,6 +60,15 @@ public class MemberTranslatorImpl implements MemberTranslator {
             return new MemberDto(member);
         }catch(Exception e){
             throw new RuntimeException("Could not read from the DB",e);
+        }
+    }
+
+    @Override
+    public void deleteMember(String phone) {
+        try {
+            memberRepository.delete(phone);
+        }catch(Exception e){
+            throw new RuntimeException("Could not delete member from the DB",e);
         }
     }
 //

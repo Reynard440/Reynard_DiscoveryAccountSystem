@@ -7,6 +7,7 @@ import za.ac.nwu.domain.dto.MemberTransactionDto;
 import za.ac.nwu.logic.flow.ViewMemberTransactionService;
 import za.ac.nwu.translator.MemberTransactionTranslator;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Transactional
@@ -28,5 +29,10 @@ public class ViewMemberTransactionServiceImpl implements ViewMemberTransactionSe
     @Override
     public MemberTransactionDto getMemberTransactionID(Integer id) {
         return memberTransactionTranslator.getMemberTransactionID(id);
+    }
+
+    @Override
+    public MemberTransactionDto getTransactionByIdAndDate(Integer id, LocalDate date) {
+        return memberTransactionTranslator.getTransactionByIdAndDate(id, date);
     }
 }

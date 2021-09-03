@@ -7,6 +7,7 @@ import za.ac.nwu.domain.persistence.Member_Transaction;
 import za.ac.nwu.repo.persistence.MemberTransactionRepository;
 import za.ac.nwu.translator.MemberTransactionTranslator;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +47,16 @@ public class MemberTransactionTranslatorImpl implements MemberTransactionTransla
     public MemberTransactionDto getMemberTransactionID(Integer id) {
         try{
             Member_Transaction member_transaction = memberTransactionRepository.getMemberTransactionByID(id);
+            return new MemberTransactionDto(member_transaction);
+        }catch(Exception e){
+            throw new RuntimeException("Unable to read from the DB", e);
+        }
+    }
+
+    @Override
+    public MemberTransactionDto getTransactionByIdAndDate(Integer id, LocalDate date) {
+        try{
+            Member_Transaction member_transaction = memberTransactionRepository.getTransactionByIdAndDate(id, date);
             return new MemberTransactionDto(member_transaction);
         }catch(Exception e){
             throw new RuntimeException("Unable to read from the DB", e);

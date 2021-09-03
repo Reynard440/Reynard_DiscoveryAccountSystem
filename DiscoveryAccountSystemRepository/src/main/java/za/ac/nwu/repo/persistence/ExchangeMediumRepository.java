@@ -1,10 +1,11 @@
 package za.ac.nwu.repo.persistence;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import za.ac.nwu.domain.persistence.Exchange_Medium;
+
+import javax.transaction.Transactional;
 
 @Repository
 public interface ExchangeMediumRepository extends JpaRepository<Exchange_Medium, Integer> {
@@ -15,11 +16,10 @@ public interface ExchangeMediumRepository extends JpaRepository<Exchange_Medium,
     @Query(value = "SELECT em FROM Exchange_Medium em WHERE em.EM_ID = :emid")
     Exchange_Medium getAllExchangeMediumByEmID(Integer emid);
 
-    @Modifying
+    @Transactional
     @Query(value = "UPDATE Exchange_Medium SET EM_Balance=EM_Balance + :increase WHERE EM_ID = :id ")
     Exchange_Medium increaseBalance(double increase, Integer id);
 
-    @Modifying
     @Query(value = "UPDATE Exchange_Medium SET EM_Balance=EM_Balance - :decrease WHERE EM_Type = :type AND EM_ID = :id ")
     Exchange_Medium decreaseBalance(double decrease, Integer id);
 

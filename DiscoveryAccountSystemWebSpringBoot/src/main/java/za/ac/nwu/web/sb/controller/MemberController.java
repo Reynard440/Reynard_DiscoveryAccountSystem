@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import za.ac.nwu.domain.dto.MemberDto;
 import za.ac.nwu.domain.service.DiscoveryAccountSystemResponse;
-import za.ac.nwu.logic.flow.AddMemberService;
+import za.ac.nwu.logic.flow.MemberService;
 import za.ac.nwu.logic.flow.MemberServiceFlow;
 
 import java.util.List;
@@ -19,12 +19,12 @@ import java.util.List;
 @RequestMapping(path="/v1/c1")
 public class MemberController {
     private final MemberServiceFlow memberServiceFlow;
-    private final AddMemberService addMemberService;
+    private final MemberService memberService;
 
     @Autowired
-    public MemberController(MemberServiceFlow memberServiceFlow, AddMemberService addMemberService){
+    public MemberController(MemberServiceFlow memberServiceFlow, MemberService memberService){
         this.memberServiceFlow = memberServiceFlow;
-        this.addMemberService = addMemberService;
+        this.memberService = memberService;
     }
 
     @GetMapping("/getAllMembers")
@@ -34,7 +34,7 @@ public class MemberController {
             @ApiResponse(code = 400, message = "Bad Request", response = DiscoveryAccountSystemResponse.class),
             @ApiResponse(code = 404, message = "Not found", response = DiscoveryAccountSystemResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = DiscoveryAccountSystemResponse.class)})
-    public ResponseEntity<DiscoveryAccountSystemResponse<List<MemberDto>>> getAll(){
+    public ResponseEntity<DiscoveryAccountSystemResponse<List<MemberDto>>> getAllMembers(){
         List<MemberDto> members = memberServiceFlow.getMembers();
         DiscoveryAccountSystemResponse<List<MemberDto>> response = new DiscoveryAccountSystemResponse<>(true, members);
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -46,8 +46,8 @@ public class MemberController {
             @ApiResponse(code = 200, message = "Member successfully create", response = DiscoveryAccountSystemResponse.class),
             @ApiResponse(code = 400, message = "Bad Request", response = DiscoveryAccountSystemResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = DiscoveryAccountSystemResponse.class)})
-    public ResponseEntity<DiscoveryAccountSystemResponse<MemberDto>> create(@ApiParam(value = "Request body to create a new Member", required = true) @RequestBody MemberDto memberDto){
-        MemberDto memberResponse = addMemberService.create(memberDto);
+    public ResponseEntity<DiscoveryAccountSystemResponse<MemberDto>> newMember(@ApiParam(value = "Request body to create a new Member", required = true) @RequestBody MemberDto memberDto){
+        MemberDto memberResponse = memberService.newMember(memberDto);
         DiscoveryAccountSystemResponse<MemberDto> response = new DiscoveryAccountSystemResponse<>(true, memberResponse);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
@@ -77,6 +77,20 @@ public class MemberController {
         DiscoveryAccountSystemResponse<MemberDto> response = new DiscoveryAccountSystemResponse<>(true, memberResponse);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+//    @DeleteMapping(path = "/deleteMemberByPhoneNumber/{phone}")
+//    @ApiOperation(value = "Deletes a Member by their phone number.", notes = "Deletes a member by phone number from DB.")
+//    @ApiResponses(value = {
+//            @ApiResponse(code = 200, message = "Goal Found", response = DiscoveryAccountSystemResponse.class),
+//            @ApiResponse(code = 400, message = "Bad Request", response = DiscoveryAccountSystemResponse.class),
+//            @ApiResponse(code = 404, message = "Not found", response = DiscoveryAccountSystemResponse.class),
+//            @ApiResponse(code = 500, message = "Internal Server Error", response = DiscoveryAccountSystemResponse.class)})
+//    public ResponseEntity<DiscoveryAccountSystemResponse<MemberDto>> deleteMemberByPhoneNumber(@ApiParam(value = "The phone number is unique to each Member.", example = "0723949955", name = "phone", required = true) @PathVariable("phone") String phone){
+//        memberService.deleteMember(phone);
+//        //DiscoveryAccountSystemResponse<MemberDto> response = new DiscoveryAccountSystemResponse<>(true, memberResponse);
+//        return new ResponseEntity<>(response, HttpStatus.OK);
+//    }
+
     /*public DiscoveryAccountSystemResponse<String> getAll(){
         return new DiscoveryAccountSystemResponse<String>(true, "No types found");
     }*/

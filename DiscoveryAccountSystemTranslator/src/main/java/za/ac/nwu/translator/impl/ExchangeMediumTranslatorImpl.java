@@ -63,22 +63,12 @@ public class ExchangeMediumTranslatorImpl implements ExchangeMediumTranslator {
     }
 
     @Override
-    public ExchangeMediumDto decreaseBalance(Integer id, Double amount) {
+    public ExchangeMediumDto decreaseExchangeMediumTotal(Integer id, Double amount) {
         try{
             Exchange_Medium exchange_medium = exchangeMediumRepository.decreaseBalance(amount, id);
             return new ExchangeMediumDto(exchange_medium);
         }catch(Exception e){
             throw new RuntimeException("Unable to read from the DB", e);
-        }
-    }
-
-    @Override
-    public ExchangeMediumDto create(ExchangeMediumDto exchangeMedium) {
-        try {
-            Exchange_Medium exchange_medium = exchangeMediumRepository.save(exchangeMedium.getExchangeMedium());
-            return new ExchangeMediumDto(exchange_medium);
-        }catch(Exception e){
-            throw new RuntimeException("Could not add member to the DB",e);
         }
     }
 
@@ -89,6 +79,16 @@ public class ExchangeMediumTranslatorImpl implements ExchangeMediumTranslator {
             return new Integer(response);
         }catch(Exception e){
             throw new RuntimeException("Unable to read from the DB", e);
+        }
+    }
+
+    @Override
+    public ExchangeMediumDto newExchangeMedium(ExchangeMediumDto exchangeMediumDto) {
+        try {
+            Exchange_Medium exchange_medium = exchangeMediumRepository.save(exchangeMediumDto.getExchangeMedium());
+            return new ExchangeMediumDto(exchange_medium);
+        }catch(Exception e){
+            throw new RuntimeException("Could not add member to the DB",e);
         }
     }
 }

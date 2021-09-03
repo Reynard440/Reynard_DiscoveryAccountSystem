@@ -14,11 +14,13 @@ public interface MemberTranslator {
     MemberDto getOneMemberDto(Integer id);
 
     //Creating methods
-    MemberDto create(MemberDto member);
+    MemberDto newMember(MemberDto memberDto);
 
 //    MemberDto getMemberByEmailNativeQuery(String email);
 //
     MemberDto getMemberByEmail(String email);
+
+    void deleteMember(String phone);
 //
 //    MemberDto getMemberDtoByEmail(String email);
 }

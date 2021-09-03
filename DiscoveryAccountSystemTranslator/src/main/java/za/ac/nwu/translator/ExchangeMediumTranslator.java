@@ -15,9 +15,9 @@ public interface ExchangeMediumTranslator {
 
     ExchangeMediumDto increaseExchangeMediumTotal(Integer id, Double amount);
 
-    ExchangeMediumDto decreaseBalance(Integer id, Double amount);
-
-    ExchangeMediumDto create(ExchangeMediumDto exchangeMedium);
+    ExchangeMediumDto decreaseExchangeMediumTotal(Integer id, Double amount);
 
     Integer checkTypeExists(Integer id, String type);
+
+    ExchangeMediumDto newExchangeMedium(ExchangeMediumDto exchangeMediumDto);
 }
