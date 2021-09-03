@@ -13,13 +13,20 @@ public interface ExchangeMediumRepository extends JpaRepository<Exchange_Medium,
     @Query(value = "SELECT em FROM Exchange_Medium em WHERE em.EM_Type = :type AND em.EM_ID = :id")
     Exchange_Medium getExchange_MediumByTypeAndID(String type, Integer id);
 
-    @Query(value = "SELECT em FROM Exchange_Medium em WHERE em.EM_ID = :emid")
-    Exchange_Medium getAllExchangeMediumByEmID(Integer emid);
+    //change em_id to work with the foreign key member_id
+    @Query(value = "SELECT em FROM Exchange_Medium em WHERE em.EM_ID = :em_id")
+    Exchange_Medium getAllExchangeMediumByEmID(Integer em_id);
 
+    //change em_id to work with the foreign key member_id
+    @Query(value = "SELECT em FROM Exchange_Medium em WHERE em.EM_ID = :em_id and em.EM_Type = :type")
+    Double getExchangeMediumCurrentByTypeAndID(String type, Integer em_id);
+
+    //change em_id to work with the foreign key member_id
     @Transactional
     @Query(value = "UPDATE Exchange_Medium SET EM_Balance=EM_Balance + :increase WHERE EM_ID = :id ")
     Exchange_Medium increaseBalance(double increase, Integer id);
 
+    //change em_id to work with the foreign key member_id
     @Query(value = "UPDATE Exchange_Medium SET EM_Balance=EM_Balance - :decrease WHERE EM_Type = :type AND EM_ID = :id ")
     Exchange_Medium decreaseBalance(double decrease, Integer id);
 

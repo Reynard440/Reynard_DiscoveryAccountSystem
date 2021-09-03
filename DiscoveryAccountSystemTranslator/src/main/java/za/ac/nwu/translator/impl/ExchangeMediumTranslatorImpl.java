@@ -91,4 +91,14 @@ public class ExchangeMediumTranslatorImpl implements ExchangeMediumTranslator {
             throw new RuntimeException("Could not add member to the DB",e);
         }
     }
+
+    @Override
+    public Double getExchangeMediumCurrentByTypeAndID(String type, Integer id) {
+        try{
+            double current = exchangeMediumRepository.getExchangeMediumCurrentByTypeAndID(type, id);
+            return current;
+        }catch(Exception e){
+            throw new RuntimeException("Unable to read from the DB", e);
+        }
+    }
 }

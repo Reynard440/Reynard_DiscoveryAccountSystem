@@ -20,16 +20,6 @@ public class ExchangeMediumServiceImpl implements ExchangeMediumService {
     }
 
     @Override
-    public ExchangeMediumDto getExchangeMediumByEmID(Integer id) {
-        return exchangeMediumTranslator.getExchangeMediumByEmID(id);
-    }
-
-    @Override
-    public ExchangeMediumDto getExchangeMediumByTypeAndID(String type, Integer id) {
-        return exchangeMediumTranslator.getExchangeMediumByTypeAndID(type, id);
-    }
-
-    @Override
     public ExchangeMediumDto increaseExchangeMediumTotal(Integer id, Double amount) {
         return exchangeMediumTranslator.increaseExchangeMediumTotal(id, amount);
     }

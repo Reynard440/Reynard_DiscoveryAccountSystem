@@ -21,12 +21,27 @@ public class ViewExchangeMediumServiceImpl implements ViewExchangeMediumService 
     }
 
     @Override
+    public ExchangeMediumDto getExchangeMediumByEmID(Integer id) {
+        return exchangeMediumTranslator.getExchangeMediumByEmID(id);
+    }
+
+    @Override
+    public ExchangeMediumDto getExchangeMediumByTypeAndID(String type, Integer id) {
+        return exchangeMediumTranslator.getExchangeMediumByTypeAndID(type, id);
+    }
+
+    @Override
+    public Double getExchangeMediumCurrentByTypeAndID(String type, Integer id) {
+        return exchangeMediumTranslator.getExchangeMediumCurrentByTypeAndID(type, id);
+    }
+
+    @Override
     public List<ExchangeMediumDto> getAllExchangeMedium(){
         return exchangeMediumTranslator.getExchangeMediumDtos();
     }
 
     @Override
-    public ExchangeMediumDto getExchangeMediumDtoById(Integer emid) {
-        return exchangeMediumTranslator.getExchangeMediumByEmID(emid);
+    public ExchangeMediumDto getExchangeMediumDtoById(Integer em_id) {
+        return exchangeMediumTranslator.getExchangeMediumByEmID(em_id);
     }
 }

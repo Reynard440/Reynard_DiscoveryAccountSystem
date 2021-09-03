@@ -20,4 +20,6 @@ public interface ExchangeMediumTranslator {
     Integer checkTypeExists(Integer id, String type);
 
     ExchangeMediumDto newExchangeMedium(ExchangeMediumDto exchangeMediumDto);
+
+    Double getExchangeMediumCurrentByTypeAndID(String type, Integer id);
 }
