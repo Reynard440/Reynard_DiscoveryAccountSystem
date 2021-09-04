@@ -21,15 +21,15 @@ public class ExchangeMediumTranslatorImpl implements ExchangeMediumTranslator {
 
     @Override
     public List<ExchangeMediumDto> getExchangeMediumDtos(){
-        List<ExchangeMediumDto> exchangeMediumDtos = new ArrayList<>();
         try{
+            List<ExchangeMediumDto> exchangeMediumDtos = new ArrayList<>();
             for (Exchange_Medium exchange_medium : exchangeMediumRepository.findAll()){
                 exchangeMediumDtos.add(new ExchangeMediumDto(exchange_medium));
             }
+            return exchangeMediumDtos;
         }catch(Exception e){
             throw new RuntimeException("Unable to read from the DB", e);
         }
-        return exchangeMediumDtos;
     }
 
     @Override

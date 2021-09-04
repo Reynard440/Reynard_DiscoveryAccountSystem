@@ -79,7 +79,7 @@ public class ExchangeMediumController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping(path = "/getExchangeMediumCurrentByTypeAndID/{type}/{id}")
+    @GetMapping(path = "/getExchangeMediumCurrentByTypeAndID/type/{type}/id/{id}")
     @ApiOperation(value = "Fetches a Exchange Medium by its id and type.", notes = "Fetches exchange medium by id and type from DB.")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Goal Found", response = DiscoveryAccountSystemResponse.class),

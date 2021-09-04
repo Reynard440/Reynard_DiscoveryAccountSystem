@@ -5,20 +5,31 @@ import java.util.Objects;
 
 public class DiscoveryAccountSystemResponse<T> implements Serializable {
     private static final long serialVersionUID = 7734089948131092480L;
-    private final boolean confirmation;
-    private final transient T cargo;
+    private boolean confirmation;
+    private transient T cargo;
+
+    public DiscoveryAccountSystemResponse() {
+    }
 
     public DiscoveryAccountSystemResponse(boolean confirmation, T cargo){
         this.confirmation = confirmation;
         this.cargo = cargo;
     }
 
-    public boolean goodConfirmation() {
+    public boolean isConfirmation() {
         return confirmation;
+    }
+
+    public void setConfirmation(boolean confirmation) {
+        this.confirmation = confirmation;
     }
 
     public T getCargo() {
         return cargo;
+    }
+
+    public void setCargo(T cargo) {
+        this.cargo = cargo;
     }
 
     @Override
