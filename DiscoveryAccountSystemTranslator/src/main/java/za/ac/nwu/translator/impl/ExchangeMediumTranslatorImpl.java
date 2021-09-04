@@ -95,8 +95,7 @@ public class ExchangeMediumTranslatorImpl implements ExchangeMediumTranslator {
     @Override
     public Double getExchangeMediumCurrentByTypeAndID(String type, Integer id) {
         try{
-            double current = exchangeMediumRepository.getExchangeMediumCurrentByTypeAndID(type, id);
-            return current;
+            return exchangeMediumRepository.getExchangeMediumCurrentByTypeAndID(type, id);
         }catch(Exception e){
             throw new RuntimeException("Unable to read from the DB", e);
         }
