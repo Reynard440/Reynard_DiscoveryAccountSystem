@@ -7,11 +7,11 @@ import za.ac.nwu.logic.flow.ExchangeMediumService;
 import za.ac.nwu.translator.ExchangeMediumTranslator;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 
 @Transactional
 @Component("exchangeMediumViewFlow")
 public class ExchangeMediumServiceImpl implements ExchangeMediumService {
-
     private final ExchangeMediumTranslator exchangeMediumTranslator;
 
     @Autowired
@@ -31,6 +31,10 @@ public class ExchangeMediumServiceImpl implements ExchangeMediumService {
 
     @Override
     public ExchangeMediumDto newExchangeMedium(ExchangeMediumDto exchangeMediumDto) {
+        if(null == exchangeMediumDto.getEM_Date()){
+            exchangeMediumDto.setEM_Date(LocalDate.now());
+            exchangeMediumDto.setEM_Type("MILES");
+        }
         return exchangeMediumTranslator.newExchangeMedium(exchangeMediumDto);
     }
 

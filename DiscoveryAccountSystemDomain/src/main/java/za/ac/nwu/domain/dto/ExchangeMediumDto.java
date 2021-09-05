@@ -8,6 +8,7 @@ import za.ac.nwu.domain.persistence.Member;
 import za.ac.nwu.domain.persistence.Member_Transaction;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Set;
 
@@ -20,6 +21,8 @@ public class ExchangeMediumDto implements Serializable {
     private String EM_Description;
 
     private double EM_Balance;
+
+    private LocalDate EM_Date;
 
     private Member MEM_ID;
 
@@ -79,13 +82,28 @@ public class ExchangeMediumDto implements Serializable {
         this.MEM_ID = MEM_ID;
     }
 
+    @ApiModelProperty(position = 5,
+            value = "The date the specific exchange medium type was created for a member.",
+            name = "Creation date",
+            notes = "This field keeps track of when the type was initiated by a member.",
+            dataType = "java.lang.LocalDate",
+            example = "2021-08-05")
+    public LocalDate getEM_Date() {
+        return EM_Date;
+    }
+
+    public void setEM_Date(LocalDate EM_Date) {
+        this.EM_Date = EM_Date;
+    }
+
     public ExchangeMediumDto() {
     }
 
-    public ExchangeMediumDto(String EM_Type, String EM_Description, double EM_Balance, Member MEM_ID) {
+    public ExchangeMediumDto(String EM_Type, String EM_Description, double EM_Balance, LocalDate EM_Date, Member MEM_ID) {
         this.EM_Type = EM_Type;
         this.EM_Description = EM_Description;
         this.EM_Balance = EM_Balance;
+        this.EM_Date = EM_Date;
         this.MEM_ID = MEM_ID;
     }
 
@@ -93,12 +111,13 @@ public class ExchangeMediumDto implements Serializable {
         this.setEM_Type(exchange_medium.getEM_Type());
         this.setEM_Description(exchange_medium.getEM_Description());
         this.setEM_Balance(exchange_medium.getEM_Balance());
+        this.setEM_Date(exchange_medium.getEM_Date());
         this.setMEM_ID(exchange_medium.getMEM_ID());
     }
 
     @JsonIgnore
     public Exchange_Medium getExchangeMedium() {
-        return new Exchange_Medium(getEM_Type(), getEM_Description(), getEM_Balance(), getMEM_ID());
+        return new Exchange_Medium(getEM_Type(), getEM_Description(), getEM_Balance(), getEM_Date(), getMEM_ID());
     }
 
     @Override
@@ -106,12 +125,12 @@ public class ExchangeMediumDto implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ExchangeMediumDto that = (ExchangeMediumDto) o;
-        return Double.compare(that.EM_Balance, EM_Balance) == 0 && Objects.equals(EM_Type, that.EM_Type) && Objects.equals(EM_Description, that.EM_Description) && Objects.equals(MEM_ID, that.MEM_ID);
+        return Double.compare(that.EM_Balance, EM_Balance) == 0 && Objects.equals(EM_Type, that.EM_Type) && Objects.equals(EM_Description, that.EM_Description) && Objects.equals(EM_Date, that.EM_Date) && Objects.equals(MEM_ID, that.MEM_ID);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(EM_Type, EM_Description, EM_Balance, MEM_ID);
+        return Objects.hash(EM_Type, EM_Description, EM_Balance, EM_Date, MEM_ID);
     }
 
     @Override
@@ -120,6 +139,7 @@ public class ExchangeMediumDto implements Serializable {
                 "EM_Type='" + EM_Type + '\'' +
                 ", EM_Description='" + EM_Description + '\'' +
                 ", EM_Balance=" + EM_Balance +
+                ", EM_Date=" + EM_Date +
                 ", MEM_ID=" + MEM_ID +
                 '}';
     }

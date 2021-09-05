@@ -23,6 +23,9 @@ public class MemberServiceImpl implements MemberService {
     public MemberDto newMember(MemberDto memberDto) {
         if(null == memberDto.getMem_Phone_Number()){
             memberDto.setMem_Phone_Number("0000000000");
+            memberDto.setMem_FirstName("Example First Name");
+            memberDto.setMem_LastName("Example Last Name");
+            memberDto.setMem_Email("exampleEmail@gmail.com");
         }
         return memberTranslator.newMember(memberDto);
     }

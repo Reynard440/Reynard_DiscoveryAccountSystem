@@ -20,6 +20,9 @@ public class MemberDto implements Serializable {
 
     private String Mem_Phone_Number;
 
+    public MemberDto() {
+    }
+
     public MemberDto(Optional<Member> member) {
     }
 

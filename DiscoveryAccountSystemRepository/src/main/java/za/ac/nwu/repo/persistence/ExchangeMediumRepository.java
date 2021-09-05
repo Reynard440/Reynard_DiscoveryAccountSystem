@@ -6,9 +6,13 @@ import org.springframework.stereotype.Repository;
 import za.ac.nwu.domain.persistence.Exchange_Medium;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Repository
 public interface ExchangeMediumRepository extends JpaRepository<Exchange_Medium, Integer> {
+
+//    @Query(value = "SELECT em FROM Exchange_Medium em WHERE em.MEM_ID = :mem_id")
+//    List<Exchange_Medium> findByMemberMemID(Integer mem_id);
 
     @Query(value = "SELECT em FROM Exchange_Medium em WHERE em.EM_Type = :type AND em.EM_ID = :id")
     Exchange_Medium getExchange_MediumByTypeAndID(String type, Integer id);
