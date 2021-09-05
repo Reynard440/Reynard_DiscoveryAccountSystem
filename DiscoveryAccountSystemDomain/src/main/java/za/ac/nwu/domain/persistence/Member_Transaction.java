@@ -29,10 +29,6 @@ public class Member_Transaction implements Serializable {
     private Integer MT_ID;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "MemID")
-    private Member MemberID;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "EM_ID")
     private Exchange_Medium EM_ID;
 
@@ -51,8 +47,7 @@ public class Member_Transaction implements Serializable {
     public Member_Transaction() {
     }
 
-    public Member_Transaction(Member MemberID, Exchange_Medium EM_ID, LocalDate MT_TransactionDate, String MT_Description, double MT_Amount, double MT_Total) {
-        this.MemberID = MemberID;
+    public Member_Transaction(Exchange_Medium EM_ID, LocalDate MT_TransactionDate, String MT_Description, double MT_Amount, double MT_Total) {
         this.EM_ID = EM_ID;
         this.MT_TransactionDate = MT_TransactionDate;
         this.MT_Description = MT_Description;
@@ -60,9 +55,8 @@ public class Member_Transaction implements Serializable {
         this.MT_Total = MT_Total;
     }
 
-    public Member_Transaction(Integer MT_ID, Member MemberID, Exchange_Medium EM_ID, LocalDate MT_TransactionDate, String MT_Description, double MT_Amount, double MT_Total) {
+    public Member_Transaction(Integer MT_ID, Exchange_Medium EM_ID, LocalDate MT_TransactionDate, String MT_Description, double MT_Amount, double MT_Total) {
         this.MT_ID = MT_ID;
-        this.MemberID = MemberID;
         this.EM_ID = EM_ID;
         this.MT_TransactionDate = MT_TransactionDate;
         this.MT_Description = MT_Description;
@@ -70,21 +64,12 @@ public class Member_Transaction implements Serializable {
         this.MT_Total = MT_Total;
     }
 
-    public Member_Transaction(LocalDate mt_transactionDate, String mt_description, double mt_amount, double mt_total, Member memberID, Exchange_Medium exchange_medium) {
+    public Member_Transaction(LocalDate mt_transactionDate, String mt_description, double mt_amount, double mt_total, Exchange_Medium exchange_medium) {
         this.MT_TransactionDate = mt_transactionDate;
         this.MT_Description = mt_description;
         this.MT_Amount = mt_amount;
         this.MT_Total = mt_total;
-        this.MemberID = memberID;
         this.EM_ID = exchange_medium;
-    }
-
-    public Member getMemberID() {
-        return MemberID;
-    }
-
-    public void setMemberID(Member memberID) {
-        MemberID = memberID;
     }
 
     public Integer getMT_ID() {
@@ -140,28 +125,27 @@ public class Member_Transaction implements Serializable {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Member_Transaction that = (Member_Transaction) o;
+        return Double.compare(that.MT_Amount, MT_Amount) == 0 && Double.compare(that.MT_Total, MT_Total) == 0 && Objects.equals(MT_ID, that.MT_ID) && Objects.equals(EM_ID, that.EM_ID) && Objects.equals(MT_TransactionDate, that.MT_TransactionDate) && Objects.equals(MT_Description, that.MT_Description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(MT_ID, EM_ID, MT_TransactionDate, MT_Description, MT_Amount, MT_Total);
+    }
+
+    @Override
     public String toString() {
         return "Member_Transaction{" +
                 "MT_ID=" + MT_ID +
-                ", MemberID=" + MemberID +
                 ", EM_ID=" + EM_ID +
                 ", MT_TransactionDate=" + MT_TransactionDate +
                 ", MT_Description='" + MT_Description + '\'' +
                 ", MT_Amount=" + MT_Amount +
                 ", MT_Total=" + MT_Total +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Member_Transaction that = (Member_Transaction) o;
-        return Double.compare(that.MT_Amount, MT_Amount) == 0 && Double.compare(that.MT_Total, MT_Total) == 0 && Objects.equals(MT_ID, that.MT_ID) && Objects.equals(MemberID, that.MemberID) && Objects.equals(EM_ID, that.EM_ID) && Objects.equals(MT_TransactionDate, that.MT_TransactionDate) && Objects.equals(MT_Description, that.MT_Description);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(MT_ID, MemberID, EM_ID, MT_TransactionDate, MT_Description, MT_Amount, MT_Total);
     }
 }

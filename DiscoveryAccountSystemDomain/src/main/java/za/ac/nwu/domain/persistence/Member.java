@@ -41,9 +41,6 @@ public class Member implements Serializable {
     @Column(name = "Mem_Phone_Number")
     private String Mem_Phone_Number;
 
-    @OneToMany(targetEntity = Member_Transaction.class, fetch = FetchType.LAZY, mappedBy = "MemberID", orphanRemoval = true, cascade = CascadeType.ALL)
-    private Set<Member_Transaction> member_transactions;
-
     @OneToMany(targetEntity = Exchange_Medium.class, fetch = FetchType.LAZY, mappedBy = "MEM_ID", orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<Exchange_Medium> exchange_medium;
 
@@ -86,14 +83,6 @@ public class Member implements Serializable {
 
     public void setMemID(Integer memID) {
         MemID = memID;
-    }
-
-    public Set<Member_Transaction> getMember_transactions() {
-        return member_transactions;
-    }
-
-    public void setMember_transactions(Set<Member_Transaction> member_transactions) {
-        this.member_transactions = member_transactions;
     }
 
     public String getMem_FirstName() {
@@ -141,12 +130,12 @@ public class Member implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Member member = (Member) o;
-        return Objects.equals(MemID, member.MemID) && Objects.equals(Mem_FirstName, member.Mem_FirstName) && Objects.equals(Mem_LastName, member.Mem_LastName) && Objects.equals(Mem_Email, member.Mem_Email) && Objects.equals(Mem_Phone_Number, member.Mem_Phone_Number) && Objects.equals(member_transactions, member.member_transactions) && Objects.equals(exchange_medium, member.exchange_medium);
+        return Objects.equals(MemID, member.MemID) && Objects.equals(Mem_FirstName, member.Mem_FirstName) && Objects.equals(Mem_LastName, member.Mem_LastName) && Objects.equals(Mem_Email, member.Mem_Email) && Objects.equals(Mem_Phone_Number, member.Mem_Phone_Number) && Objects.equals(exchange_medium, member.exchange_medium);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(MemID, Mem_FirstName, Mem_LastName, Mem_Email, Mem_Phone_Number, member_transactions, exchange_medium);
+        return Objects.hash(MemID, Mem_FirstName, Mem_LastName, Mem_Email, Mem_Phone_Number, exchange_medium);
     }
 
     @Override
@@ -157,8 +146,6 @@ public class Member implements Serializable {
                 ", Mem_LastName='" + Mem_LastName + '\'' +
                 ", Mem_Email='" + Mem_Email + '\'' +
                 ", Mem_Phone_Number='" + Mem_Phone_Number + '\'' +
-                ", member_transactions=" + member_transactions +
-                ", exchange_medium=" + exchange_medium +
                 '}';
     }
 }

@@ -12,10 +12,10 @@ public interface MemberTransactionRepository extends JpaRepository<Member_Transa
     /*@Query("SELECT u FROM User u WHERE u.email = ?1")
     Optional<User> findUserByEmail(String email);*/
 
-    @Query(value = "SELECT mt FROM Member_Transaction mt WHERE mt.MemberID = :id")
+    @Query(value = "SELECT mt FROM Member_Transaction mt WHERE mt.EM_ID = :id")
     Member_Transaction getMemberTransactionByID(Integer id);
 
-    @Query(value = "SELECT mt FROM Member_Transaction mt WHERE mt.MemberID = :id AND mt.MT_TransactionDate = :date")
+    @Query(value = "SELECT mt FROM Member_Transaction mt WHERE mt.EM_ID = :id AND mt.MT_TransactionDate = :date")
     Member_Transaction getTransactionByIdAndDate(Integer id, LocalDate date);
 
 //    @Modifying

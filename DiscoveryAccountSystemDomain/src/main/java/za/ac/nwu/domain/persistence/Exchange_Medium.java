@@ -51,12 +51,13 @@ public class Exchange_Medium implements Serializable {
     public Exchange_Medium() {
     }
 
-    public Exchange_Medium(String EM_Type, String EM_Description, double EM_Balance, LocalDate EM_Date, Member MEM_ID) {
+    public Exchange_Medium(String EM_Type, String EM_Description, double EM_Balance, LocalDate EM_Date, Member MEM_ID, Set<Member_Transaction> member_transactions) {
         this.EM_Type = EM_Type;
         this.EM_Description = EM_Description;
         this.EM_Balance = EM_Balance;
         this.EM_Date = EM_Date;
         this.MEM_ID = MEM_ID;
+        this.member_transactions = member_transactions;
     }
 
     public Exchange_Medium(Integer EM_ID, String EM_Type, String EM_Description, double EM_Balance, LocalDate EM_Date, Member MEM_ID, Set<Member_Transaction> member_transactions) {

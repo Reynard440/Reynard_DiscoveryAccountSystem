@@ -35,7 +35,7 @@ public class MemberDto implements Serializable {
         this.Mem_LastName = mem_LastName;
         this.Mem_Email = mem_Email;
         this.Mem_Phone_Number = mem_Phone_Number;
-        this.exchange_medium = exchange_medium;
+        //this.exchange_medium = exchange_medium;
     }
 
     public MemberDto(Member member){
@@ -43,6 +43,7 @@ public class MemberDto implements Serializable {
         this.setMem_FirstName(member.getMem_FirstName());
         this.setMem_Email(member.getMem_Email());
         this.setMem_Phone_Number(member.getMem_Phone_Number());
+        //this.setExchange_medium(member.getExchange_medium());
     }
 
     @ApiModelProperty(position = 1,
@@ -101,12 +102,12 @@ public class MemberDto implements Serializable {
         Mem_Phone_Number = mem_Phone_Number;
     }
 
-    @ApiModelProperty(position = 5,
-            value = "Exchange Medium types owned by the member",
-            name = "Exchange Medium",
-            notes = "This is used as the foreign key .",
-            dataType = "java.lang.Set",
-            example = "{}")
+//    @ApiModelProperty(position = 5,
+//            value = "Exchange Medium types owned by the member",
+//            name = "Exchange Medium",
+//            notes = "This is used as the foreign key .",
+//            dataType = "java.lang.Set",
+//            example = "{}")
     public Set<Exchange_Medium> getExchange_medium() {
         return exchange_medium;
     }

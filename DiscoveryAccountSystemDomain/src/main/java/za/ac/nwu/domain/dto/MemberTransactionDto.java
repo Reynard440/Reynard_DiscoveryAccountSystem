@@ -24,8 +24,6 @@ public class MemberTransactionDto implements Serializable {
 
     private double MT_Total;
 
-    private Member MemberID;
-
     private Exchange_Medium EM_ID;
 
     @ApiModelProperty(position = 1,
@@ -85,20 +83,6 @@ public class MemberTransactionDto implements Serializable {
     }
 
     @ApiModelProperty(position = 5,
-            value = "The referenced id to indicate which member performed the transaction.",
-            name = "Member id",
-            notes = "This field keeps track of the member of the transaction.",
-            dataType = "java.lang.Integer",
-            example = "1")
-    public Member getMemberID() {
-        return MemberID;
-    }
-
-    public void setMemberID(Member memberID) {
-        MemberID = memberID;
-    }
-
-    @ApiModelProperty(position = 6,
             value = "The referenced id to indicate which exchange medium was used in the transaction.",
             name = "Exchange medium id.",
             notes = "This field keeps track of the type of exchange medium used in the transaction.",
@@ -115,21 +99,11 @@ public class MemberTransactionDto implements Serializable {
     public MemberTransactionDto() {
     }
 
-    public MemberTransactionDto(LocalDate MT_TransactionDate, String MT_Description, double MT_Amount, double MT_Total, Exchange_Medium EM_ID, Member memberID) {
+    public MemberTransactionDto(LocalDate MT_TransactionDate, String MT_Description, double MT_Amount, double MT_Total, Exchange_Medium EM_ID) {
         this.MT_TransactionDate = MT_TransactionDate;
         this.MT_Description = MT_Description;
         this.MT_Amount = MT_Amount;
         this.MT_Total = MT_Total;
-        this.MemberID = memberID;
-        this.EM_ID = EM_ID;
-    }
-
-    public MemberTransactionDto(LocalDate MT_TransactionDate, String MT_Description, double MT_Amount, double MT_Total, Member memberID, Exchange_Medium EM_ID) {
-        this.MT_TransactionDate = MT_TransactionDate;
-        this.MT_Description = MT_Description;
-        this.MT_Amount = MT_Amount;
-        this.MT_Total = MT_Total;
-        this.MemberID = memberID;
         this.EM_ID = EM_ID;
     }
 
@@ -138,13 +112,12 @@ public class MemberTransactionDto implements Serializable {
         this.setMT_Description(member_transaction.getMT_Description());
         this.setMT_Amount(member_transaction.getMT_Amount());
         this.setMT_Total(member_transaction.getMT_Total());
-        this.setMemberID(member_transaction.getMemberID());
         this.setEM_ID(member_transaction.getEM_ID());
     }
 
     @JsonIgnore
     public Member_Transaction getMemberTransaction() {
-        return new Member_Transaction(getMT_TransactionDate(), getMT_Description(), getMT_Amount(), getMT_Total(), getMemberID(), getEM_ID());
+        return new Member_Transaction(getMT_TransactionDate(), getMT_Description(), getMT_Amount(), getMT_Total(), getEM_ID());
     }
 
     @Override
@@ -152,12 +125,12 @@ public class MemberTransactionDto implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MemberTransactionDto that = (MemberTransactionDto) o;
-        return Double.compare(that.MT_Amount, MT_Amount) == 0 && Double.compare(that.MT_Total, MT_Total) == 0 && Objects.equals(MT_TransactionDate, that.MT_TransactionDate) && Objects.equals(MT_Description, that.MT_Description) && Objects.equals(MemberID, that.MemberID) && Objects.equals(EM_ID, that.EM_ID);
+        return Double.compare(that.MT_Amount, MT_Amount) == 0 && Double.compare(that.MT_Total, MT_Total) == 0 && Objects.equals(MT_TransactionDate, that.MT_TransactionDate) && Objects.equals(MT_Description, that.MT_Description) && Objects.equals(EM_ID, that.EM_ID);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(MT_TransactionDate, MT_Description, MT_Amount, MT_Total, MemberID, EM_ID);
+        return Objects.hash(MT_TransactionDate, MT_Description, MT_Amount, MT_Total, EM_ID);
     }
 
     @Override
@@ -167,7 +140,6 @@ public class MemberTransactionDto implements Serializable {
                 ", MT_Description='" + MT_Description + '\'' +
                 ", MT_Amount=" + MT_Amount +
                 ", MT_Total=" + MT_Total +
-                ", MemberID=" + MemberID +
                 ", EM_ID=" + EM_ID +
                 '}';
     }
