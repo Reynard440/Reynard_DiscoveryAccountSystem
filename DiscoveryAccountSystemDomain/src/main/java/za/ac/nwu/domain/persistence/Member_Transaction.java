@@ -1,6 +1,8 @@
 package za.ac.nwu.domain.persistence;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,6 +18,7 @@ import java.util.Objects;
 @NonNull*/
 @Entity
 @Table(name = "Member_Transaction")
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="MT_ID", scope = Member.class)
 public class Member_Transaction implements Serializable {
 
     private static final long serialVersionUID = 3177993474135305620L;
@@ -25,11 +28,11 @@ public class Member_Transaction implements Serializable {
     @Column(name = "MT_ID")
     private Integer MT_ID;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "MemID")
     private Member MemberID;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "EM_ID")
     private Exchange_Medium EM_ID;
 

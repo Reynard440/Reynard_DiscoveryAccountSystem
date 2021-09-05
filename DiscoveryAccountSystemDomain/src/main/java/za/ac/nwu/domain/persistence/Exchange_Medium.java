@@ -39,11 +39,13 @@ public class Exchange_Medium implements Serializable {
     @Column(name = "EM_Date")
     private LocalDate EM_Date;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "MemID")
+    @JsonBackReference
     private Member MEM_ID;
 
-    @OneToMany(targetEntity = Member_Transaction.class, fetch = FetchType.LAZY, mappedBy = "EM_ID", orphanRemoval = true, cascade = CascadeType.PERSIST)
+    @OneToMany(targetEntity = Member_Transaction.class, fetch = FetchType.LAZY, mappedBy = "EM_ID", orphanRemoval = true, cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Set<Member_Transaction> member_transactions;
 
     public Exchange_Medium() {

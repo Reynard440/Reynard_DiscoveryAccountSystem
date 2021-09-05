@@ -2,7 +2,9 @@ package za.ac.nwu.domain.persistence;
 
 //import lombok.*;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,8 +20,8 @@ import java.util.Set;
 @NonNull*/
 @Entity
 @Table(name = "Member")
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="MemID", scope = Member_Transaction.class)
 public class Member implements Serializable {
-
     private static final long serialVersionUID = -6965549404196897257L;
 
     @Id
@@ -39,10 +41,10 @@ public class Member implements Serializable {
     @Column(name = "Mem_Phone_Number")
     private String Mem_Phone_Number;
 
-    @OneToMany(targetEntity = Member_Transaction.class, fetch = FetchType.LAZY, mappedBy = "MemberID", orphanRemoval = true, cascade = CascadeType.PERSIST)
+    @OneToMany(targetEntity = Member_Transaction.class, fetch = FetchType.LAZY, mappedBy = "MemberID", orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<Member_Transaction> member_transactions;
 
-    @OneToMany(targetEntity = Exchange_Medium.class, fetch = FetchType.LAZY, mappedBy = "MEM_ID", orphanRemoval = true, cascade = CascadeType.PERSIST)
+    @OneToMany(targetEntity = Exchange_Medium.class, fetch = FetchType.LAZY, mappedBy = "MEM_ID", orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<Exchange_Medium> exchange_medium;
 
     public Member() {
@@ -72,8 +74,10 @@ public class Member implements Serializable {
         this.Mem_Phone_Number = mem_phone_number;
     }
 
-    public Member(Integer memID) {
+    public Member(Integer memID, String mem_FirstName, String mem_LastName) {
         MemID = memID;
+        this.Mem_FirstName = mem_FirstName;
+        this.Mem_LastName = mem_LastName;
     }
 
     public Integer getMemID() {
