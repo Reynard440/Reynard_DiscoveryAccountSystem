@@ -1,6 +1,7 @@
 package za.ac.nwu.domain.persistence;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -19,7 +20,6 @@ import java.util.Set;
 @Entity
 @Table(name = "Exchange_Medium")
 public class Exchange_Medium implements Serializable {
-
     private static final long serialVersionUID = 5381982572241988327L;
 
     @Id
@@ -44,8 +44,9 @@ public class Exchange_Medium implements Serializable {
     @JsonBackReference
     private Member MEM_ID;
 
+
     @OneToMany(targetEntity = Member_Transaction.class, fetch = FetchType.LAZY, mappedBy = "EM_ID", orphanRemoval = true, cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonIgnore
     private Set<Member_Transaction> member_transactions;
 
     public Exchange_Medium() {

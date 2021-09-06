@@ -3,6 +3,7 @@ package za.ac.nwu.domain.persistence;
 //import lombok.*;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -20,7 +21,7 @@ import java.util.Set;
 @NonNull*/
 @Entity
 @Table(name = "Member")
-@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="MemID", scope = Member_Transaction.class)
+//@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="MemID", scope = Member_Transaction.class)
 public class Member implements Serializable {
     private static final long serialVersionUID = -6965549404196897257L;
 
@@ -42,6 +43,7 @@ public class Member implements Serializable {
     private String Mem_Phone_Number;
 
     @OneToMany(targetEntity = Exchange_Medium.class, fetch = FetchType.LAZY, mappedBy = "MEM_ID", orphanRemoval = true, cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Exchange_Medium> exchange_medium;
 
     public Member() {

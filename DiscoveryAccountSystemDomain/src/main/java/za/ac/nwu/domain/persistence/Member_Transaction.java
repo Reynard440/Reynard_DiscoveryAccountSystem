@@ -18,7 +18,7 @@ import java.util.Objects;
 @NonNull*/
 @Entity
 @Table(name = "Member_Transaction")
-@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="MT_ID", scope = Member.class)
+//@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="MT_ID", scope = Member.class)
 public class Member_Transaction implements Serializable {
 
     private static final long serialVersionUID = 3177993474135305620L;
@@ -30,6 +30,7 @@ public class Member_Transaction implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "EM_ID")
+    @JsonBackReference
     private Exchange_Medium EM_ID;
 
     @Column(name = "MT_Transaction_Date")
