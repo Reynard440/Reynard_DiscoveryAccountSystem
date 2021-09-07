@@ -17,7 +17,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @NonNull*/
 @Entity
-@Table(name = "Member_Transaction")
+@Table(name = "Member_Transaction", schema = "discoveryDB")
 //@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="MT_ID", scope = Member.class)
 public class Member_Transaction implements Serializable {
 
@@ -65,7 +65,7 @@ public class Member_Transaction implements Serializable {
         this.Total = total;
     }
 
-    public Member_Transaction(LocalDate transactionDate, String description, double amount, double total/*, Exchange_Medium exchange_medium*/) {
+    public Member_Transaction(LocalDate transactionDate, String description, double amount, double total) {
         this.TransactionDate = transactionDate;
         this.Description = description;
         this.Amount = amount;
@@ -126,7 +126,7 @@ public class Member_Transaction implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Member_Transaction that = (Member_Transaction) o;
-        return Double.compare(that.Amount, Amount) == 0 && Double.compare(that.Total, Total) == 0 && Objects.equals(MtId, that.MtId) && Objects.equals(EmId, that.EmId) && Objects.equals(TransactionDate, that.TransactionDate) && Objects.equals(Description, that.Description);
+        return Double.compare(that.Amount, Amount) == 0 && Double.compare(that.Total, Total) == 0 && MtId.equals(that.MtId) && EmId.equals(that.EmId) && TransactionDate.equals(that.TransactionDate) && Description.equals(that.Description);
     }
 
     @Override

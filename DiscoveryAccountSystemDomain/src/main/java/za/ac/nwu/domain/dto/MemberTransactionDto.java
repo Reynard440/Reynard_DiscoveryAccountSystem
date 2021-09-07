@@ -87,13 +87,13 @@ public class MemberTransactionDto implements Serializable {
 //            notes = "This field keeps track of the type of exchange medium used in the transaction.",
 //            dataType = "java.lang.Integer",
 //            example = "1")
-    public Exchange_Medium getEmId() {
-        return EmId;
-    }
-
-    public void setEmId(Exchange_Medium emId) {
-        EmId = emId;
-    }
+//    public Exchange_Medium getEmId() {
+//        return EmId;
+//    }
+//
+//    public void setEmId(Exchange_Medium emId) {
+//        EmId = emId;
+//    }
 
     public MemberTransactionDto() {
     }
@@ -124,11 +124,11 @@ public class MemberTransactionDto implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MemberTransactionDto that = (MemberTransactionDto) o;
-        return Double.compare(that.Amount, Amount) == 0 && Double.compare(that.Total, Total) == 0 && Objects.equals(TransactionDate, that.TransactionDate) && Objects.equals(Description, that.Description) && Objects.equals(EmId, that.EmId);
+        return Double.compare(that.Amount, Amount) == 0 && Double.compare(that.Total, Total) == 0 && TransactionDate.equals(that.TransactionDate) && Description.equals(that.Description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(TransactionDate, Description, Amount, Total, EmId);
+        return Objects.hash(TransactionDate, Description, Amount, Total);
     }
 }

@@ -20,7 +20,7 @@ import java.util.Set;
 @NoArgsConstructor
 @NonNull*/
 @Entity
-@Table(name = "Member")
+@Table(name = "Member", schema = "discoveryDB")
 //@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="MemID", scope = Member_Transaction.class)
 public class Member implements Serializable {
     private static final long serialVersionUID = -6965549404196897257L;

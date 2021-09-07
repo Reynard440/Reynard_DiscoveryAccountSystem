@@ -106,14 +106,14 @@ public class MemberDto implements Serializable {
 //            name = "Exchange Medium",
 //            notes = "This is used as the foreign key .",
 //            dataType = "java.lang.Set",
-////            example = "{}")
-    public Set<Exchange_Medium> getExchangeMedium() {
-        return exchangeMedium;
-    }
-
-    public void setExchangeMedium(Set<Exchange_Medium> exchangeMedium) {
-        this.exchangeMedium = exchangeMedium;
-    }
+//            example = "{}")
+//    public Set<Exchange_Medium> getExchangeMedium() {
+//        return exchangeMedium;
+//    }
+//
+//    public void setExchangeMedium(Set<Exchange_Medium> exchangeMedium) {
+//        this.exchangeMedium = exchangeMedium;
+//    }
 
     @JsonIgnore
     public Member getMember() {
@@ -125,11 +125,11 @@ public class MemberDto implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MemberDto memberDto = (MemberDto) o;
-        return Objects.equals(FirstName, memberDto.FirstName) && Objects.equals(LastName, memberDto.LastName) && Objects.equals(Email, memberDto.Email) && Objects.equals(PhoneNumber, memberDto.PhoneNumber) && Objects.equals(exchangeMedium, memberDto.exchangeMedium);
+        return FirstName.equals(memberDto.FirstName) && LastName.equals(memberDto.LastName) && Email.equals(memberDto.Email) && PhoneNumber.equals(memberDto.PhoneNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(FirstName, LastName, Email, PhoneNumber/*, exchangeMedium*/);
+        return Objects.hash(FirstName, LastName, Email, PhoneNumber);
     }
 }

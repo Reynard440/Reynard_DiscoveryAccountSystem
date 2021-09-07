@@ -1,0 +1,1 @@
+#insert into MEMBER(MemID, Mem_First_Name, Mem_Last_Name, Mem_Email, Mem_Phone_Number) values ( 1, "Reynard", "Engels", "reynardengels@gmail.com", "0723949922" );

@@ -18,7 +18,7 @@ import java.util.Set;
 @NoArgsConstructor
 @NonNull*/
 @Entity
-@Table(name = "Exchange_Medium")
+@Table(name = "Exchange_Medium", schema = "discoveryDB")
 public class Exchange_Medium implements Serializable {
     private static final long serialVersionUID = 5381982572241988327L;
 
@@ -138,7 +138,7 @@ public class Exchange_Medium implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Exchange_Medium that = (Exchange_Medium) o;
-        return Double.compare(that.Balance, Balance) == 0 && Objects.equals(EmId, that.EmId) && Objects.equals(Type, that.Type) && Objects.equals(Description, that.Description) && Objects.equals(Date, that.Date) && Objects.equals(MemID, that.MemID) && Objects.equals(memberTransactions, that.memberTransactions);
+        return Double.compare(that.Balance, Balance) == 0 && EmId.equals(that.EmId) && Type.equals(that.Type) && Description.equals(that.Description) && Date.equals(that.Date) && MemID.equals(that.MemID) && memberTransactions.equals(that.memberTransactions);
     }
 
     @Override
