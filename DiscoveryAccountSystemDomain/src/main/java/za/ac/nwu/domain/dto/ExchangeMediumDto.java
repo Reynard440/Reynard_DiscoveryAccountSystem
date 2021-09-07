@@ -97,6 +97,20 @@ public class ExchangeMediumDto implements Serializable {
 //    public void setMemID(Member memID) {
 //        MemID = memID;
 //    }
+////
+//////    @ApiModelProperty(position = 6,
+//////            value = "The transactions that are recorded for each change made to exchange mediums..",
+//////            name = "Transactions",
+//////            notes = "This field keeps track of all the related transactions (changes) made to an exchange medium.",
+//////            dataType = "java.lang.Set",
+//////            example = "{}")
+////    public Set<Member_Transaction> getMemberTransactions() {
+////        return memberTransactions;
+////    }
+////
+////    public void setMemberTransactions(Set<Member_Transaction> memberTransactions) {
+////        this.memberTransactions = memberTransactions;
+////    }
 //
 ////    @ApiModelProperty(position = 6,
 ////            value = "The transactions that are recorded for each change made to exchange mediums..",
@@ -112,30 +126,16 @@ public class ExchangeMediumDto implements Serializable {
 //        this.memberTransactions = memberTransactions;
 //    }
 
-//    @ApiModelProperty(position = 6,
-//            value = "The transactions that are recorded for each change made to exchange mediums..",
-//            name = "Transactions",
-//            notes = "This field keeps track of all the related transactions (changes) made to an exchange medium.",
-//            dataType = "java.lang.Set",
-//            example = "{}")
-//    public Set<Member_Transaction> getMember_transactions() {
-//        return member_transactions;
-//    }
-//
-//    public void setMember_transactions(Set<Member_Transaction> member_transactions) {
-//        this.member_transactions = member_transactions;
-//    }
-
     public ExchangeMediumDto() {
     }
 
-    public ExchangeMediumDto(String type, String description, double balance, LocalDate date, Member memID, Set<Member_Transaction> memberTransactions) {
+    public ExchangeMediumDto(String type, String description, double balance, LocalDate date/*, Member memID, Set<Member_Transaction> memberTransactions*/) {
         this.Type = type;
         this.Description = description;
         this.Balance = balance;
         this.Date = date;
-        this.MemID = memID;
-        this.memberTransactions = memberTransactions;
+//        this.MemID = memID;
+//        this.memberTransactions = memberTransactions;
     }
 
     public ExchangeMediumDto(Exchange_Medium exchange_medium){
@@ -143,13 +143,13 @@ public class ExchangeMediumDto implements Serializable {
         this.setDescription(exchange_medium.getDescription());
         this.setBalance(exchange_medium.getBalance());
         this.setDate(exchange_medium.getDate());
-        //this.setMEM_ID(exchange_medium.getMEM_ID());
-//        this.setMember_transactions(exchange_medium.getMember_transactions());
+        //this.setMemID(exchange_medium.getMemID());
+        //this.setMemberTransactions(exchange_medium.getMemberTransactions());
     }
 
     @JsonIgnore
     public Exchange_Medium getExchangeMedium() {
-        return new Exchange_Medium(getType(), getDescription(), getBalance(), getDate()/*, getMEM_ID(), getMember_transactions()*/);
+        return new Exchange_Medium(getType(), getDescription(), getBalance(), getDate()/*, getMemID()/*, getMemberTransactions()*/);
     }
 
     @Override
@@ -157,11 +157,11 @@ public class ExchangeMediumDto implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ExchangeMediumDto that = (ExchangeMediumDto) o;
-        return Double.compare(that.Balance, Balance) == 0 && Objects.equals(Type, that.Type) && Objects.equals(Description, that.Description) && Objects.equals(Date, that.Date) && Objects.equals(MemID, that.MemID) && Objects.equals(memberTransactions, that.memberTransactions);
+        return Double.compare(that.Balance, Balance) == 0 && Objects.equals(Type, that.Type) && Objects.equals(Description, that.Description) && Objects.equals(Date, that.Date);/* && Objects.equals(MemID, that.MemID) && Objects.equals(memberTransactions, that.memberTransactions);*/
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(Type, Description, Balance, Date, MemID, memberTransactions);
+        return Objects.hash(Type, Description, Balance, Date/*, MemID, memberTransactions*/);
     }
 }

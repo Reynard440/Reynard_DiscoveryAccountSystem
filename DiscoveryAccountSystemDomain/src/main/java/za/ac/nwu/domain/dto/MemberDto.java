@@ -42,7 +42,7 @@ public class MemberDto implements Serializable {
         this.setFirstName(member.getFirstName());
         this.setEmail(member.getEmail());
         this.setPhoneNumber(member.getPhoneNumber());
-        //this.setExchange_medium(member.getExchange_medium());
+        //this.setExchangeMedium(member.getExchangeMedium());
     }
 
     @ApiModelProperty(position = 1,
@@ -117,7 +117,7 @@ public class MemberDto implements Serializable {
 
     @JsonIgnore
     public Member getMember() {
-        return new Member(getFirstName(), getLastName(), getEmail(), getPhoneNumber());
+        return new Member(getFirstName(), getLastName(), getEmail(), getPhoneNumber()/*, getExchangeMedium()*/);
     }
 
     @Override
@@ -130,6 +130,6 @@ public class MemberDto implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(FirstName, LastName, Email, PhoneNumber, exchangeMedium);
+        return Objects.hash(FirstName, LastName, Email, PhoneNumber/*, exchangeMedium*/);
     }
 }

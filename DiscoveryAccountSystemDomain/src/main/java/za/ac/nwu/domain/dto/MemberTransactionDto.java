@@ -87,14 +87,13 @@ public class MemberTransactionDto implements Serializable {
 //            notes = "This field keeps track of the type of exchange medium used in the transaction.",
 //            dataType = "java.lang.Integer",
 //            example = "1")
-//    public Exchange_Medium getEmId() {
-//        return EmId;
-//    }
-//
-//    public void setEmId(Exchange_Medium emId) {
-//        EmId = emId;
-//    }
-//
+    public Exchange_Medium getEmId() {
+        return EmId;
+    }
+
+    public void setEmId(Exchange_Medium emId) {
+        EmId = emId;
+    }
 
     public MemberTransactionDto() {
     }
@@ -112,12 +111,12 @@ public class MemberTransactionDto implements Serializable {
         this.setDescription(member_transaction.getDescription());
         this.setAmount(member_transaction.getAmount());
         this.setTotal(member_transaction.getTotal());
-        //this.setEM_ID(member_transaction.getEM_ID());
+        //this.setEmId(member_transaction.getEmId());
     }
 
     @JsonIgnore
     public Member_Transaction getMemberTransaction() {
-        return new Member_Transaction(getTransactionDate(), getDescription(), getAmount(), getTotal()/*, getEM_ID()*/);
+        return new Member_Transaction(getTransactionDate(), getDescription(), getAmount(), getTotal()/*, getEmId()*/);
     }
 
     @Override

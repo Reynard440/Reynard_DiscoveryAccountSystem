@@ -65,12 +65,12 @@ public class Member_Transaction implements Serializable {
         this.Total = total;
     }
 
-    public Member_Transaction(LocalDate transactionDate, String description, double amount, double total /*, Exchange_Medium exchange_medium*/) {
+    public Member_Transaction(LocalDate transactionDate, String description, double amount, double total/*, Exchange_Medium exchange_medium*/) {
         this.TransactionDate = transactionDate;
         this.Description = description;
         this.Amount = amount;
         this.Total = total;
-        //this.EM_ID = exchange_medium;
+        //this.EmId = exchange_medium;
     }
 
     public Integer getMtId() {
