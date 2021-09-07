@@ -35,7 +35,7 @@ public class ExchangeMediumTranslatorImpl implements ExchangeMediumTranslator {
     @Override
     public ExchangeMediumDto getExchangeMediumByEmID(Integer emid) {
         try{
-            Exchange_Medium exchange_medium = exchangeMediumRepository.getAllExchangeMediumByEmID(emid);
+            Exchange_Medium exchange_medium = exchangeMediumRepository.getByEM_ID(emid);
             return new ExchangeMediumDto(exchange_medium);
         }catch(Exception e){
             throw new RuntimeException("Unable to read from the DB", e);
@@ -43,30 +43,18 @@ public class ExchangeMediumTranslatorImpl implements ExchangeMediumTranslator {
     }
 
     @Override
-    public ExchangeMediumDto getExchangeMediumByTypeAndID(String type, Integer id) {
+    public void increaseExchangeMediumTotal(Integer id, double amount) {
         try{
-            Exchange_Medium exchange_medium = exchangeMediumRepository.getExchange_MediumByTypeAndID(type, id);
-            return new ExchangeMediumDto(exchange_medium);
+            exchangeMediumRepository.increaseBalance(amount, id);
         }catch(Exception e){
             throw new RuntimeException("Unable to read from the DB", e);
         }
     }
 
     @Override
-    public ExchangeMediumDto increaseExchangeMediumTotal(Integer id, Double amount) {
+    public void decreaseExchangeMediumTotal(Integer id, double amount) {
         try{
-            Exchange_Medium exchange_medium = exchangeMediumRepository.increaseBalance(amount, id);
-            return new ExchangeMediumDto(exchange_medium);
-        }catch(Exception e){
-            throw new RuntimeException("Unable to read from the DB", e);
-        }
-    }
-
-    @Override
-    public ExchangeMediumDto decreaseExchangeMediumTotal(Integer id, Double amount) {
-        try{
-            Exchange_Medium exchange_medium = exchangeMediumRepository.decreaseBalance(amount, id);
-            return new ExchangeMediumDto(exchange_medium);
+            exchangeMediumRepository.decreaseBalance(amount, id);
         }catch(Exception e){
             throw new RuntimeException("Unable to read from the DB", e);
         }
@@ -76,7 +64,7 @@ public class ExchangeMediumTranslatorImpl implements ExchangeMediumTranslator {
     public Integer checkTypeExists(Integer id, String type) {
         try{
             Integer response = exchangeMediumRepository.checkTypeExist(id, type);
-            return new Integer(response);
+            return response;
         }catch(Exception e){
             throw new RuntimeException("Unable to read from the DB", e);
         }
@@ -93,9 +81,10 @@ public class ExchangeMediumTranslatorImpl implements ExchangeMediumTranslator {
     }
 
     @Override
-    public Double getExchangeMediumCurrentByTypeAndID(String type, Integer id) {
+    public ExchangeMediumDto getExchangeMediumCurrentByTypeAndID(String type, Integer id) {
         try{
-            return exchangeMediumRepository.getExchangeMediumCurrentByTypeAndID(type, id);
+            Exchange_Medium exchange_medium = exchangeMediumRepository.getByTypeAndEmId(type, id);
+            return new ExchangeMediumDto(exchange_medium);
         }catch(Exception e){
             throw new RuntimeException("Unable to read from the DB", e);
         }

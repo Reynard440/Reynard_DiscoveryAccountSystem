@@ -22,9 +22,9 @@ public class NewTransactionServiceImpl implements NewTransactionService {
 
     @Override
     public MemberTransactionDto addTransactionDto(MemberTransactionDto memberTransactionDto) {
-        if(null == memberTransactionDto.getMT_TransactionDate()){
-            memberTransactionDto.setMT_TransactionDate(LocalDate.now());
-            memberTransactionDto.setMT_Description("Example description here.");
+        if(null == memberTransactionDto.getTransactionDate()){
+            memberTransactionDto.setTransactionDate(LocalDate.now());
+            memberTransactionDto.setDescription("Example description here.");
         }
         return memberTransactionTranslator.addMemberTransaction(memberTransactionDto);
     }

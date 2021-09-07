@@ -21,17 +21,17 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public MemberDto newMember(MemberDto memberDto) {
-        if(null == memberDto.getMem_Phone_Number()){
-            memberDto.setMem_Phone_Number("0000000000");
-            memberDto.setMem_FirstName("Example First Name");
-            memberDto.setMem_LastName("Example Last Name");
-            memberDto.setMem_Email("exampleEmail@gmail.com");
+        if(null == memberDto.getPhoneNumber()){
+            memberDto.setPhoneNumber("0000000000");
+            memberDto.setFirstName("Example First Name");
+            memberDto.setLastName("Example Last Name");
+            memberDto.setEmail("exampleEmail@gmail.com");
         }
         return memberTranslator.newMember(memberDto);
     }
 
     @Override
-    public void deleteMember(String phone) {
-        memberTranslator.deleteMember(phone);
+    public void deleteMember(Integer id) {
+        memberTranslator.deleteMember(id);
     }
 }

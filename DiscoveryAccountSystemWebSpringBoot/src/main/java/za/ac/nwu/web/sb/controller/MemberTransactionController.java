@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import za.ac.nwu.domain.dto.MemberTransactionDto;
 import za.ac.nwu.domain.service.DiscoveryAccountSystemResponse;
+import za.ac.nwu.logic.flow.ExchangeMediumService;
 import za.ac.nwu.logic.flow.NewTransactionService;
 import za.ac.nwu.logic.flow.ViewMemberTransactionService;
 
@@ -21,11 +22,13 @@ import java.util.List;
 public class MemberTransactionController {
     private final ViewMemberTransactionService memberTransactionService;
     private final NewTransactionService newTransactionService;
+    //private final ExchangeMediumService exchangeMediumService;
 
     @Autowired
-    public MemberTransactionController(ViewMemberTransactionService memberTransactionService, NewTransactionService newTransactionService){
+    public MemberTransactionController(ViewMemberTransactionService memberTransactionService, NewTransactionService newTransactionService/*, ExchangeMediumService exchangeMediumService*/){
         this.memberTransactionService = memberTransactionService;
         this.newTransactionService = newTransactionService;
+        //this.exchangeMediumService = exchangeMediumService;
     }
 
     @GetMapping("/getAllTransactions")
@@ -49,6 +52,11 @@ public class MemberTransactionController {
             @ApiResponse(code = 500, message = "Internal Server Error", response = DiscoveryAccountSystemResponse.class)})
     public ResponseEntity<DiscoveryAccountSystemResponse<MemberTransactionDto>> newTransaction(@ApiParam(value = "Request body to create a new Transaction", required = true) @RequestBody MemberTransactionDto memberTransactionDto){
         MemberTransactionDto memberTransactionResponse = newTransactionService.addTransactionDto(memberTransactionDto);
+//        if (memberTransactionResponse.getDescription() == "Deposit"){
+//            exchangeMediumService.increaseExchangeMediumTotal(id,amount);
+//        }else{
+//
+//        }
         DiscoveryAccountSystemResponse<MemberTransactionDto> response = new DiscoveryAccountSystemResponse<>(true, memberTransactionResponse);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
@@ -78,32 +86,4 @@ public class MemberTransactionController {
         DiscoveryAccountSystemResponse<MemberTransactionDto> response = new DiscoveryAccountSystemResponse<>(true, memberTransactionResponse);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
-
-        /*private final UserService userService;
-
-    @Autowired
-    public MemberController(UserService userService) {
-        this.userService = userService;
-    }
-
-    @GetMapping(path="/users")
-    public List<User> getUsers(){
-        return userService.getUsers();
-    }
-
-    @PostMapping
-    public void addUser(@RequestBody User user){
-        userService.addUser(user);
-    }
-
-    @DeleteMapping(path = "{userId}")
-    public void deleteUser(@PathVariable("userId") Integer id){
-        userService.deleteUser(id);
-    }
-
-    @PutMapping(path = "{userId}")
-    public void updateUser(@PathVariable("userId") Integer id, @RequestParam(required = false) String firstname, @RequestParam(required = false) String lastname){
-        userService.updateUser(id, firstname, lastname);
-    }*/
 }

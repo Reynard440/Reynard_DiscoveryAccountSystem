@@ -11,8 +11,6 @@ public interface ViewExchangeMediumService {
 
     ExchangeMediumDto getExchangeMediumByEmID(Integer id);
 
-    ExchangeMediumDto getExchangeMediumByTypeAndID(String type, Integer id);
-
-    Double getExchangeMediumCurrentByTypeAndID(String type, Integer id);
+    ExchangeMediumDto getExchangeMediumCurrentByTypeAndID(String type, Integer id);
 
 }

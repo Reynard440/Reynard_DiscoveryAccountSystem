@@ -20,20 +20,20 @@ public class ExchangeMediumServiceImpl implements ExchangeMediumService {
     }
 
     @Override
-    public ExchangeMediumDto increaseExchangeMediumTotal(Integer id, Double amount) {
-        return exchangeMediumTranslator.increaseExchangeMediumTotal(id, amount);
+    public void increaseExchangeMediumTotal(Integer id, double amount) {
+        exchangeMediumTranslator.increaseExchangeMediumTotal(id, amount);
     }
 
     @Override
-    public ExchangeMediumDto decreaseExchangeMediumTotal(Integer id, Double amount) {
-        return exchangeMediumTranslator.decreaseExchangeMediumTotal(id, amount);
+    public void decreaseExchangeMediumTotal(Integer id, double amount) {
+        exchangeMediumTranslator.decreaseExchangeMediumTotal(id, amount);
     }
 
     @Override
     public ExchangeMediumDto newExchangeMedium(ExchangeMediumDto exchangeMediumDto) {
-        if(null == exchangeMediumDto.getEM_Date()){
-            exchangeMediumDto.setEM_Date(LocalDate.now());
-            exchangeMediumDto.setEM_Type("MILES");
+        if(null == exchangeMediumDto.getDate()){
+            exchangeMediumDto.setDate(LocalDate.now());
+            exchangeMediumDto.setType("MILES");
         }
         return exchangeMediumTranslator.newExchangeMedium(exchangeMediumDto);
     }

@@ -12,6 +12,7 @@ import za.ac.nwu.domain.dto.ExchangeMediumDto;
 import za.ac.nwu.domain.dto.MemberDto;
 import za.ac.nwu.domain.service.DiscoveryAccountSystemResponse;
 import za.ac.nwu.logic.flow.ExchangeMediumService;
+import za.ac.nwu.logic.flow.NewTransactionService;
 import za.ac.nwu.logic.flow.ViewExchangeMediumService;
 
 import java.util.List;
@@ -66,30 +67,16 @@ public class ExchangeMediumController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping(path = "/getExchangeMediumByTypeAndId/{id}/{type}")
+    @GetMapping(path = "/getExchangeMediumCurrentByTypeAndID/{type}/{id}")
     @ApiOperation(value = "Fetches a Exchange Medium by its id and type.", notes = "Fetches exchange medium by id and type from DB.")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Goal Found", response = DiscoveryAccountSystemResponse.class),
             @ApiResponse(code = 400, message = "Bad Request", response = DiscoveryAccountSystemResponse.class),
             @ApiResponse(code = 404, message = "Not found", response = DiscoveryAccountSystemResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = DiscoveryAccountSystemResponse.class)})
-    public ResponseEntity<DiscoveryAccountSystemResponse<ExchangeMediumDto>> getExchangeMediumByTypeAndId(@ApiParam(value = "The id that is unique to each exchange medium.", example = "1", name = "id", required = true) @PathVariable("id") Integer id, @ApiParam(value = "The type of exchange medium.", example = "Rand", name = "type", required = true) @PathVariable("type") String type){
-        ExchangeMediumDto exchangeMediumResponse = viewExchangeMediumService.getExchangeMediumByTypeAndID(type,id);
+    public ResponseEntity<DiscoveryAccountSystemResponse<ExchangeMediumDto>> getExchangeMediumCurrentByTypeAndID(@ApiParam(value = "The type of the Exchange Medium.", example = "PLAYS", name = "type", required = true) @PathVariable("type") String type, @ApiParam(value = "The id of the exchange medium.", example = "1", name = "id", required = true) @PathVariable("id") Integer id){
+        ExchangeMediumDto exchangeMediumResponse = viewExchangeMediumService.getExchangeMediumCurrentByTypeAndID(type, id);
         DiscoveryAccountSystemResponse<ExchangeMediumDto> response = new DiscoveryAccountSystemResponse<>(true, exchangeMediumResponse);
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
-
-    @GetMapping(path = "/getExchangeMediumCurrentByTypeAndID/{type_name}/{id}")
-    @ApiOperation(value = "Fetches a Exchange Medium by its id and type.", notes = "Fetches exchange medium by id and type from DB.")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Goal Found", response = DiscoveryAccountSystemResponse.class),
-            @ApiResponse(code = 400, message = "Bad Request", response = DiscoveryAccountSystemResponse.class),
-            @ApiResponse(code = 404, message = "Not found", response = DiscoveryAccountSystemResponse.class),
-            @ApiResponse(code = 500, message = "Internal Server Error", response = DiscoveryAccountSystemResponse.class)})
-    public ResponseEntity<DiscoveryAccountSystemResponse<Double>> getExchangeMediumCurrentByTypeAndID(@ApiParam(value = "The type of the Exchange Medium.", example = "PLAYS", name = "type_name", required = true) @PathVariable("type_name") String type, @ApiParam(value = "The id of the exchange medium." /*change to work with the member id rather*/, example = "1", name = "id", required = true) @PathVariable("id") Integer id){
-        double exchangeMediumResponse = viewExchangeMediumService.getExchangeMediumCurrentByTypeAndID(type, id);
-        System.out.println(type + id);
-        DiscoveryAccountSystemResponse<Double> response = new DiscoveryAccountSystemResponse<>(true, exchangeMediumResponse);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -113,8 +100,9 @@ public class ExchangeMediumController {
             @ApiResponse(code = 400, message = "Bad Request", response = DiscoveryAccountSystemResponse.class),
             @ApiResponse(code = 404, message = "Not found", response = DiscoveryAccountSystemResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = DiscoveryAccountSystemResponse.class)})
-    public ResponseEntity<DiscoveryAccountSystemResponse<ExchangeMediumDto>> increaseExchangeMediumTotal(@ApiParam(value = "The id that is unique to each exchange medium.", example = "1", name = "id", required = true) @PathVariable("id") Integer id, @ApiParam(value = "The type of exchange medium.", example = "100", name = "amount", required = true) @PathVariable("amount") Double amount){
-        ExchangeMediumDto exchangeMediumResponse = exchangeMediumService.increaseExchangeMediumTotal(id,amount);
+    public ResponseEntity<DiscoveryAccountSystemResponse<ExchangeMediumDto>> increaseExchangeMediumTotal(@ApiParam(value = "The id that is unique to each exchange medium.", example = "1", name = "id", required = true) @PathVariable("id") Integer id, @ApiParam(value = "The type of exchange medium.", example = "100", name = "amount", required = true) @PathVariable("amount") double amount){
+        exchangeMediumService.increaseExchangeMediumTotal(id,amount);
+        ExchangeMediumDto exchangeMediumResponse = viewExchangeMediumService.getExchangeMediumByEmID(id);
         DiscoveryAccountSystemResponse<ExchangeMediumDto> response = new DiscoveryAccountSystemResponse<>(true, exchangeMediumResponse);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -126,36 +114,10 @@ public class ExchangeMediumController {
             @ApiResponse(code = 400, message = "Bad Request", response = DiscoveryAccountSystemResponse.class),
             @ApiResponse(code = 404, message = "Not found", response = DiscoveryAccountSystemResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = DiscoveryAccountSystemResponse.class)})
-    public ResponseEntity<DiscoveryAccountSystemResponse<ExchangeMediumDto>> decreaseExchangeMediumTotal(@ApiParam(value = "The id that is unique to each exchange medium.", example = "1", name = "id", required = true) @PathVariable("id") Integer id, @ApiParam(value = "The type of exchange medium.", example = "100", name = "amount", required = true) @PathVariable("amount") Double amount){
-        ExchangeMediumDto exchangeMediumResponse = exchangeMediumService.decreaseExchangeMediumTotal(id,amount);
+    public ResponseEntity<DiscoveryAccountSystemResponse<ExchangeMediumDto>> decreaseExchangeMediumTotal(@ApiParam(value = "The id that is unique to each exchange medium.", example = "1", name = "id", required = true) @PathVariable("id") Integer id, @ApiParam(value = "The type of exchange medium.", example = "100", name = "amount", required = true) @PathVariable("amount") double amount){
+        exchangeMediumService.decreaseExchangeMediumTotal(id,amount);
+        ExchangeMediumDto exchangeMediumResponse = viewExchangeMediumService.getExchangeMediumByEmID(id);
         DiscoveryAccountSystemResponse<ExchangeMediumDto> response = new DiscoveryAccountSystemResponse<>(true, exchangeMediumResponse);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
-    /*private final UserService userService;
-
-    @Autowired
-    public MemberController(UserService userService) {
-        this.userService = userService;
-    }
-
-    @GetMapping(path="/users")
-    public List<User> getUsers(){
-        return userService.getUsers();
-    }
-
-    @PostMapping
-    public void addUser(@RequestBody User user){
-        userService.addUser(user);
-    }
-
-    @DeleteMapping(path = "{userId}")
-    public void deleteUser(@PathVariable("userId") Integer id){
-        userService.deleteUser(id);
-    }
-
-    @PutMapping(path = "{userId}")
-    public void updateUser(@PathVariable("userId") Integer id, @RequestParam(required = false) String firstname, @RequestParam(required = false) String lastname){
-        userService.updateUser(id, firstname, lastname);
-    }*/
 }

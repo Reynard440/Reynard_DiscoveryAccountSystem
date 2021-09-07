@@ -40,8 +40,8 @@ public class NewTransactionServiceImplTest {
             when(serviceMemberTransactionTranslator.addMemberTransaction(any(MemberTransactionDto.class))).then(returnsFirstArg()); // if get anything of MemberTransactionDto
             MemberTransactionDto result = transactionService.addTransactionDto(new MemberTransactionDto());
             assertNotNull(result);
-            assertEquals(LocalDate.now(), result.getMT_TransactionDate());
-            assertFalse(result.getMT_Description().isEmpty());
+            assertEquals(LocalDate.now(), result.getTransactionDate());
+            assertFalse(result.getDescription().isEmpty());
             verify(serviceMemberTransactionTranslator, atLeastOnce()).addMemberTransaction(any(MemberTransactionDto.class));
         } catch(Exception e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred during the creation of a new transaction."));

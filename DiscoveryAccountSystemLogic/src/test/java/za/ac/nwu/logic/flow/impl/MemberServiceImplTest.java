@@ -38,9 +38,9 @@ public class MemberServiceImplTest {
             when(serviceTranslator.newMember(any(MemberDto.class))).then(returnsFirstArg()); // if get anything of MemberDto
             MemberDto result = memberService.newMember(new MemberDto());
             assertNotNull(result);
-            assertTrue(result.getMem_Email().contains("@gmail.com"));
-            assertEquals(10, result.getMem_Phone_Number().length());
-            assertEquals(0, result.getMem_Phone_Number().indexOf("0"));
+            assertTrue(result.getEmail().contains("@gmail.com"));
+            assertEquals(10, result.getPhoneNumber().length());
+            assertEquals(0, result.getPhoneNumber().indexOf("0"));
             verify(serviceTranslator, atLeastOnce()).newMember(any(MemberDto.class));
         } catch(Exception e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred during the creation of a member."));

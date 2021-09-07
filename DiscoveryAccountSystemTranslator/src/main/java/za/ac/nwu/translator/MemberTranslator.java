@@ -20,7 +20,7 @@ public interface MemberTranslator {
 //
     MemberDto getMemberByEmail(String email);
 
-    void deleteMember(String phone);
+    void deleteMember(Integer id);
 //
 //    MemberDto getMemberDtoByEmail(String email);
 }

@@ -11,15 +11,13 @@ public interface ExchangeMediumTranslator {
 
     ExchangeMediumDto getExchangeMediumByEmID(Integer emid);
 
-    ExchangeMediumDto getExchangeMediumByTypeAndID(String type, Integer id);
+    void increaseExchangeMediumTotal(Integer id, double amount);
 
-    ExchangeMediumDto increaseExchangeMediumTotal(Integer id, Double amount);
-
-    ExchangeMediumDto decreaseExchangeMediumTotal(Integer id, Double amount);
+    void decreaseExchangeMediumTotal(Integer id, double amount);
 
     Integer checkTypeExists(Integer id, String type);
 
     ExchangeMediumDto newExchangeMedium(ExchangeMediumDto exchangeMediumDto);
 
-    Double getExchangeMediumCurrentByTypeAndID(String type, Integer id);
+    ExchangeMediumDto getExchangeMediumCurrentByTypeAndID(String type, Integer id);
 }

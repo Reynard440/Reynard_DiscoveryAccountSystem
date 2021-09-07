@@ -46,7 +46,7 @@ public class MemberTransactionTranslatorImpl implements MemberTransactionTransla
     @Override
     public MemberTransactionDto getMemberTransactionID(Integer id) {
         try{
-            Member_Transaction member_transaction = memberTransactionRepository.getMemberTransactionByID(id);
+            Member_Transaction member_transaction = memberTransactionRepository.getByMtId(id);
             return new MemberTransactionDto(member_transaction);
         }catch(Exception e){
             throw new RuntimeException("Unable to read from the DB", e);
@@ -56,7 +56,7 @@ public class MemberTransactionTranslatorImpl implements MemberTransactionTransla
     @Override
     public MemberTransactionDto getTransactionByIdAndDate(Integer id, LocalDate date) {
         try{
-            Member_Transaction member_transaction = memberTransactionRepository.getTransactionByIdAndDate(id, date);
+            Member_Transaction member_transaction = memberTransactionRepository.getByMtIdAndTransactionDate(id, date);
             return new MemberTransactionDto(member_transaction);
         }catch(Exception e){
             throw new RuntimeException("Unable to read from the DB", e);

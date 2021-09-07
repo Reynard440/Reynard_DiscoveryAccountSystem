@@ -36,7 +36,7 @@ public class MemberTranslatorImpl implements MemberTranslator {
     @Override
     public MemberDto getOneMemberDto(Integer id) {
         try{
-            Member member = memberRepository.getMemberById(id);
+            Member member = memberRepository.getById(id);
             return new MemberDto(member);
         }catch(Exception e){
             throw new RuntimeException("Unable to read from the DB", e);
@@ -56,7 +56,7 @@ public class MemberTranslatorImpl implements MemberTranslator {
     @Override
     public MemberDto getMemberByEmail(String email) {
         try{
-            Member member = memberRepository.getMemberByEmail(email);
+            Member member = memberRepository.getByEmail(email);
             return new MemberDto(member);
         }catch(Exception e){
             throw new RuntimeException("Could not read from the DB",e);
@@ -64,21 +64,11 @@ public class MemberTranslatorImpl implements MemberTranslator {
     }
 
     @Override
-    public void deleteMember(String phone) {
+    public void deleteMember(Integer id) {
         try {
-            memberRepository.delete(phone);
+            memberRepository.deleteById(id);
         }catch(Exception e){
             throw new RuntimeException("Could not delete member from the DB",e);
         }
     }
-//
-//    @Override
-//    public MemberDto getMemberDtoByEmail(String email) {
-//        try{
-//            Member member = memberRepository.getMemberDtoByEmail(email);
-//            return new MemberDto(member);
-//        }catch(Exception e){
-//            throw new RuntimeException("Could not read from the DB",e);
-//        }
-//    }
 }

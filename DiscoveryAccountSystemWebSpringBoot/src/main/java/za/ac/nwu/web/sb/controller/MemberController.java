@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import za.ac.nwu.domain.dto.ExchangeMediumDto;
 import za.ac.nwu.domain.dto.MemberDto;
 import za.ac.nwu.domain.service.DiscoveryAccountSystemResponse;
 import za.ac.nwu.logic.flow.MemberService;
@@ -78,50 +79,17 @@ public class MemberController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-//    @DeleteMapping(path = "/deleteMemberByPhoneNumber/{phone}")
-//    @ApiOperation(value = "Deletes a Member by their phone number.", notes = "Deletes a member by phone number from DB.")
-//    @ApiResponses(value = {
-//            @ApiResponse(code = 200, message = "Goal Found", response = DiscoveryAccountSystemResponse.class),
-//            @ApiResponse(code = 400, message = "Bad Request", response = DiscoveryAccountSystemResponse.class),
-//            @ApiResponse(code = 404, message = "Not found", response = DiscoveryAccountSystemResponse.class),
-//            @ApiResponse(code = 500, message = "Internal Server Error", response = DiscoveryAccountSystemResponse.class)})
-//    public ResponseEntity<DiscoveryAccountSystemResponse<MemberDto>> deleteMemberByPhoneNumber(@ApiParam(value = "The phone number is unique to each Member.", example = "0723949955", name = "phone", required = true) @PathVariable("phone") String phone){
-//        memberService.deleteMember(phone);
-//        //DiscoveryAccountSystemResponse<MemberDto> response = new DiscoveryAccountSystemResponse<>(true, memberResponse);
-//        return new ResponseEntity<>(response, HttpStatus.OK);
-//    }
-
-    /*public DiscoveryAccountSystemResponse<String> getAll(){
-        return new DiscoveryAccountSystemResponse<String>(true, "No types found");
-    }*/
-
-   /*@GetMapping("/all")
-   public String getAll(){return "Hello World!";}*/
-
-    /*private final MemberServiceFlow memberServiceFlow;
-
-    @Autowired
-    public MemberController(MemberServiceFlow memberServiceFlow) {
-        this.memberServiceFlow = memberServiceFlow;
+    @DeleteMapping(path = "/deleteMemberByID/{id}")
+    @ApiOperation(value = "Deletes a Member by their phone number.", notes = "Deletes a member by phone number from DB.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Goal Found", response = DiscoveryAccountSystemResponse.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = DiscoveryAccountSystemResponse.class),
+            @ApiResponse(code = 404, message = "Not found", response = DiscoveryAccountSystemResponse.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = DiscoveryAccountSystemResponse.class)})
+    public ResponseEntity<DiscoveryAccountSystemResponse<MemberDto>> deleteMemberByID(@ApiParam(value = "The id is unique to each Member.", example = "1", name = "id", required = true) @PathVariable("id") Integer id){
+        memberService.deleteMember(id);
+        MemberDto memberDtoResponse = memberServiceFlow.getMemberById(id);
+        DiscoveryAccountSystemResponse<MemberDto> response = new DiscoveryAccountSystemResponse<>(true, memberDtoResponse);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
-    @GetMapping(path="/members")
-    public List<MemberDto> getMembers(){
-        return memberServiceFlow.getMembers();
-    }
-
-    /*@PostMapping(path = "{userId}")
-    public void addUser(@RequestBody Member member){
-        memberService.addUser((za.ac.nwu.domain.persistence.Member) member);
-    }
-
-    @DeleteMapping(path = "{userId}")
-    public void deleteUser(@PathVariable("userId") Integer id){
-        memberService.deleteUser(id);
-    }
-
-    @PutMapping(path = "{userId}")
-    public void updateUser(@PathVariable("userId") Integer id, @RequestParam(required = false) String firstname, @RequestParam(required = false) String lastname){
-        memberService.updateUser(id, firstname, lastname);
-    }*/
 }

@@ -28,103 +28,97 @@ public class Member implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "MemID")
-    private Integer MemID;
+    private Integer Id;
 
     @Column(name = "Mem_First_Name")
-    private String Mem_FirstName;
+    private String FirstName;
 
     @Column(name = "Mem_Last_Name")
-    private String Mem_LastName;
+    private String LastName;
 
     @Column(name = "Mem_Email")
-    private String Mem_Email;
+    private String Email;
 
     @Column(name = "Mem_Phone_Number")
-    private String Mem_Phone_Number;
+    private String PhoneNumber;
 
-    @OneToMany(targetEntity = Exchange_Medium.class, fetch = FetchType.LAZY, mappedBy = "MEM_ID", orphanRemoval = true, cascade = CascadeType.ALL)
-    @JsonIgnore
-    private Set<Exchange_Medium> exchange_medium;
+    @OneToMany(targetEntity = Exchange_Medium.class, fetch = FetchType.LAZY, mappedBy = "MemID", orphanRemoval = true, cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private Set<Exchange_Medium> exchangeMedium;
 
     public Member() {
     }
 
-    public Member(String mem_FirstName, String mem_LastName, String mem_Email, String mem_Phone_Number, Set<Exchange_Medium> exchange_medium) {
-        this.Mem_FirstName = mem_FirstName;
-        this.Mem_Phone_Number = mem_Phone_Number;
-        this.Mem_LastName = mem_LastName;
-        this.Mem_Email = mem_Email;
-        this.exchange_medium = exchange_medium;
+    public Member(String firstName, String lastName, String email, String phoneNumber) {
+        this.FirstName = firstName;
+        this.LastName = lastName;
+        this.Email = email;
+        this.PhoneNumber = phoneNumber;
     }
 
-    public Member(Integer memID, String mem_FirstName, String mem_LastName, String mem_Email, String mem_Phone_Number, Set<Exchange_Medium> exchange_medium) {
-        this.MemID = memID;
-        this.Mem_FirstName = mem_FirstName;
-        this.Mem_LastName = mem_LastName;
-        this.Mem_Email = mem_Email;
-        this.Mem_Phone_Number = mem_Phone_Number;
-        this.exchange_medium = exchange_medium;
+    public Member(String firstName, String lastName, String email, String phoneNumber, Set<Exchange_Medium> exchangeMedium) {
+        this.FirstName = firstName;
+        this.LastName = lastName;
+        this.Email = email;
+        this.PhoneNumber = phoneNumber;
+        this.exchangeMedium = exchangeMedium;
     }
 
-    public Member(String mem_firstName, String mem_lastName, String mem_email, String mem_phone_number) {
-        this.Mem_FirstName = mem_firstName;
-        this.Mem_LastName = mem_lastName;
-        this.Mem_Email = mem_email;
-        this.Mem_Phone_Number = mem_phone_number;
+    public Member(Integer id, String firstName, String lastName, String email, String phoneNumber, Set<Exchange_Medium> exchangeMedium) {
+        this.Id = id;
+        this.FirstName = firstName;
+        this.LastName = lastName;
+        this.Email = email;
+        this.PhoneNumber = phoneNumber;
+        this.exchangeMedium = exchangeMedium;
     }
 
-    public Member(Integer memID, String mem_FirstName, String mem_LastName) {
-        MemID = memID;
-        this.Mem_FirstName = mem_FirstName;
-        this.Mem_LastName = mem_LastName;
+    public Integer getId() {
+        return Id;
     }
 
-    public Integer getMemID() {
-        return MemID;
+    public void setId(Integer id) {
+        Id = id;
     }
 
-    public void setMemID(Integer memID) {
-        MemID = memID;
+    public String getFirstName() {
+        return FirstName;
     }
 
-    public String getMem_FirstName() {
-        return Mem_FirstName;
+    public void setFirstName(String firstName) {
+        FirstName = firstName;
     }
 
-    public void setMem_FirstName(String mem_FirstName) {
-        Mem_FirstName = mem_FirstName;
+    public String getLastName() {
+        return LastName;
     }
 
-    public String getMem_LastName() {
-        return Mem_LastName;
+    public void setLastName(String lastName) {
+        LastName = lastName;
     }
 
-    public void setMem_LastName(String mem_LastName) {
-        Mem_LastName = mem_LastName;
+    public String getEmail() {
+        return Email;
     }
 
-    public String getMem_Email() {
-        return Mem_Email;
+    public void setEmail(String email) {
+        Email = email;
     }
 
-    public void setMem_Email(String mem_Email) {
-        Mem_Email = mem_Email;
+    public String getPhoneNumber() {
+        return PhoneNumber;
     }
 
-    public String getMem_Phone_Number() {
-        return Mem_Phone_Number;
+    public void setPhoneNumber(String phoneNumber) {
+        PhoneNumber = phoneNumber;
     }
 
-    public void setMem_Phone_Number(String mem_Phone_Number) {
-        Mem_Phone_Number = mem_Phone_Number;
+    public Set<Exchange_Medium> getExchangeMedium() {
+        return exchangeMedium;
     }
 
-    public Set<Exchange_Medium> getExchange_medium() {
-        return exchange_medium;
-    }
-
-    public void setExchange_medium(Set<Exchange_Medium> exchange_medium) {
-        this.exchange_medium = exchange_medium;
+    public void setExchangeMedium(Set<Exchange_Medium> exchangeMedium) {
+        this.exchangeMedium = exchangeMedium;
     }
 
     @Override
@@ -132,22 +126,11 @@ public class Member implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Member member = (Member) o;
-        return Objects.equals(MemID, member.MemID) && Objects.equals(Mem_FirstName, member.Mem_FirstName) && Objects.equals(Mem_LastName, member.Mem_LastName) && Objects.equals(Mem_Email, member.Mem_Email) && Objects.equals(Mem_Phone_Number, member.Mem_Phone_Number) && Objects.equals(exchange_medium, member.exchange_medium);
+        return Objects.equals(Id, member.Id) && Objects.equals(FirstName, member.FirstName) && Objects.equals(LastName, member.LastName) && Objects.equals(Email, member.Email) && Objects.equals(PhoneNumber, member.PhoneNumber) && Objects.equals(exchangeMedium, member.exchangeMedium);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(MemID, Mem_FirstName, Mem_LastName, Mem_Email, Mem_Phone_Number, exchange_medium);
-    }
-
-    @Override
-    public String toString() {
-        return "Member{" +
-                "MemID=" + MemID +
-                ", Mem_FirstName='" + Mem_FirstName + '\'' +
-                ", Mem_LastName='" + Mem_LastName + '\'' +
-                ", Mem_Email='" + Mem_Email + '\'' +
-                ", Mem_Phone_Number='" + Mem_Phone_Number + '\'' +
-                '}';
+        return Objects.hash(Id, FirstName, LastName, Email, PhoneNumber, exchangeMedium);
     }
 }

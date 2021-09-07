@@ -9,14 +9,11 @@ import java.time.LocalDate;
 
 @Repository
 public interface MemberTransactionRepository extends JpaRepository<Member_Transaction, Integer>{
-    /*@Query("SELECT u FROM User u WHERE u.email = ?1")
-    Optional<User> findUserByEmail(String email);*/
+    @Query("select m from Member_Transaction m where m.MtId = ?1")
+    Member_Transaction getByMtId(Integer MtId);
 
-    @Query(value = "SELECT mt FROM Member_Transaction mt WHERE mt.EM_ID = :id")
-    Member_Transaction getMemberTransactionByID(Integer id);
-
-    @Query(value = "SELECT mt FROM Member_Transaction mt WHERE mt.EM_ID = :id AND mt.MT_TransactionDate = :date")
-    Member_Transaction getTransactionByIdAndDate(Integer id, LocalDate date);
+    @Query("select m from Member_Transaction m where m.MtId = ?1 and m.TransactionDate = ?2")
+    Member_Transaction getByMtIdAndTransactionDate(Integer MtId, LocalDate TransactionDate);
 
 //    @Modifying
 //    @Query(value = "UPDATE Member_Transaction SET MT_Total = MT_Total + :amount WHERE MemberID = :mem_id and MT_ID = :mt_id")

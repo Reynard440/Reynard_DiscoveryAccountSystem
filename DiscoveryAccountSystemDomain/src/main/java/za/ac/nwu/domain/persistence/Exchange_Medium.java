@@ -25,110 +25,112 @@ public class Exchange_Medium implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "EM_ID")
-    private Integer EM_ID;
+    private Integer EmId;
 
     @Column(name = "EM_Type")
-    private String EM_Type;
+    private String Type;
 
     @Column(name = "EM_Description")
-    private String EM_Description;
+    private String Description;
 
     @Column(name = "EM_Balance")
-    private double EM_Balance;
+    private double Balance;
 
     @Column(name = "EM_Date")
-    private LocalDate EM_Date;
+    private LocalDate Date;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "MemID")
     @JsonBackReference
-    private Member MEM_ID;
+    private Member MemID;
 
-
-    @OneToMany(targetEntity = Member_Transaction.class, fetch = FetchType.LAZY, mappedBy = "EM_ID", orphanRemoval = true, cascade = CascadeType.ALL)
-    @JsonIgnore
-    private Set<Member_Transaction> member_transactions;
+    @OneToMany(targetEntity = Member_Transaction.class, fetch = FetchType.LAZY, mappedBy = "EmId", orphanRemoval = true, cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private Set<Member_Transaction> memberTransactions;
 
     public Exchange_Medium() {
     }
 
-    public Exchange_Medium(String EM_Type, String EM_Description, double EM_Balance, LocalDate EM_Date, Member MEM_ID, Set<Member_Transaction> member_transactions) {
-        this.EM_Type = EM_Type;
-        this.EM_Description = EM_Description;
-        this.EM_Balance = EM_Balance;
-        this.EM_Date = EM_Date;
-        this.MEM_ID = MEM_ID;
-        this.member_transactions = member_transactions;
+    public Exchange_Medium(String type, String description, double balance, LocalDate date) {
+        this.Type = type;
+        this.Description = description;
+        this.Balance = balance;
+        this.Date = date;
     }
 
-    public Exchange_Medium(Integer EM_ID, String EM_Type, String EM_Description, double EM_Balance, LocalDate EM_Date, Member MEM_ID, Set<Member_Transaction> member_transactions) {
-        this.EM_ID = EM_ID;
-        this.EM_Type = EM_Type;
-        this.EM_Description = EM_Description;
-        this.EM_Balance = EM_Balance;
-        this.EM_Date = EM_Date;
-        this.MEM_ID = MEM_ID;
-        this.member_transactions = member_transactions;
+    public Exchange_Medium(String type, String Description, double balance, LocalDate date, Member memID, Set<Member_Transaction> memberTransactions) {
+        this.Type = type;
+        this.Description = Description;
+        this.Balance = balance;
+        this.Date = date;
+        this.MemID = memID;
+        this.memberTransactions = memberTransactions;
     }
 
-    public Exchange_Medium(Integer EM_ID) {
-        this.EM_ID = EM_ID;
+    public Exchange_Medium(Integer emId, String type, String Description, double balance, LocalDate date, Member memID, Set<Member_Transaction> memberTransactions) {
+        this.EmId = emId;
+        this.Type = type;
+        this.Description = Description;
+        this.Balance = balance;
+        this.Date = date;
+        this.MemID = memID;
+        this.memberTransactions = memberTransactions;
     }
 
-    public Integer getEM_ID() {
-        return EM_ID;
+    public Integer getEmId() {
+        return EmId;
     }
 
-    public void setEM_ID(Integer EM_ID) {
-        this.EM_ID = EM_ID;
+    public void setEmId(Integer emId) {
+        EmId = emId;
     }
 
-    public Set<Member_Transaction> getMember_transactions() {
-        return member_transactions;
+    public String getType() {
+        return Type;
     }
 
-    public void setMember_transactions(Set<Member_Transaction> member_transactions) {
-        this.member_transactions = member_transactions;
+    public void setType(String type) {
+        Type = type;
     }
 
-    public String getEM_Type() {
-        return EM_Type;
+    public String getDescription() {
+        return Description;
     }
 
-    public void setEM_Type(String EM_Type) {
-        this.EM_Type = EM_Type;
+    public void setDescription(String description) {
+        Description = description;
     }
 
-    public String getEM_Description() {
-        return EM_Description;
+    public double getBalance() {
+        return Balance;
     }
 
-    public void setEM_Description(String EM_Description) {
-        this.EM_Description = EM_Description;
+    public void setBalance(double balance) {
+        Balance = balance;
     }
 
-    public double getEM_Balance() {
-        return EM_Balance;
+    public LocalDate getDate() {
+        return Date;
     }
 
-    public void setEM_Balance(double EM_Balance) {
-        this.EM_Balance = EM_Balance;
+    public void setDate(LocalDate date) {
+        Date = date;
     }
 
-    public Member getMEM_ID() {
-        return MEM_ID;
+    public Member getMemID() {
+        return MemID;
     }
 
-    public void setMEM_ID(Member MEM_ID) {
-        this.MEM_ID = MEM_ID;
+    public void setMemID(Member memID) {
+        MemID = memID;
     }
 
-    public LocalDate getEM_Date() {
-        return EM_Date;
+    public Set<Member_Transaction> getMemberTransactions() {
+        return memberTransactions;
     }
 
-    public void setEM_Date(LocalDate EM_Date) {
-        this.EM_Date = EM_Date;
+    public void setMemberTransactions(Set<Member_Transaction> memberTransactions) {
+        this.memberTransactions = memberTransactions;
     }
 
     @Override
@@ -136,24 +138,11 @@ public class Exchange_Medium implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Exchange_Medium that = (Exchange_Medium) o;
-        return Double.compare(that.EM_Balance, EM_Balance) == 0 && Objects.equals(EM_ID, that.EM_ID) && Objects.equals(EM_Type, that.EM_Type) && Objects.equals(EM_Description, that.EM_Description) && Objects.equals(EM_Date, that.EM_Date) && Objects.equals(MEM_ID, that.MEM_ID) && Objects.equals(member_transactions, that.member_transactions);
+        return Double.compare(that.Balance, Balance) == 0 && Objects.equals(EmId, that.EmId) && Objects.equals(Type, that.Type) && Objects.equals(Description, that.Description) && Objects.equals(Date, that.Date) && Objects.equals(MemID, that.MemID) && Objects.equals(memberTransactions, that.memberTransactions);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(EM_ID, EM_Type, EM_Description, EM_Balance, EM_Date, MEM_ID, member_transactions);
-    }
-
-    @Override
-    public String toString() {
-        return "Exchange_Medium{" +
-                "EM_ID=" + EM_ID +
-                ", EM_Type='" + EM_Type + '\'' +
-                ", EM_Description='" + EM_Description + '\'' +
-                ", EM_Balance=" + EM_Balance +
-                ", EM_Date=" + EM_Date +
-                ", MEM_ID=" + MEM_ID +
-                ", member_transactions=" + member_transactions +
-                '}';
+        return Objects.hash(EmId, Type, Description, Balance, Date, MemID, memberTransactions);
     }
 }

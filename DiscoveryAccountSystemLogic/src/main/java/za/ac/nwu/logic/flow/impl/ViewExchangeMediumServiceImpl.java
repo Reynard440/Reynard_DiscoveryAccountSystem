@@ -26,12 +26,7 @@ public class ViewExchangeMediumServiceImpl implements ViewExchangeMediumService 
     }
 
     @Override
-    public ExchangeMediumDto getExchangeMediumByTypeAndID(String type, Integer id) {
-        return exchangeMediumTranslator.getExchangeMediumByTypeAndID(type, id);
-    }
-
-    @Override
-    public Double getExchangeMediumCurrentByTypeAndID(String type, Integer id) {
+    public ExchangeMediumDto getExchangeMediumCurrentByTypeAndID(String type, Integer id) {
         return exchangeMediumTranslator.getExchangeMediumCurrentByTypeAndID(type, id);
     }
 
