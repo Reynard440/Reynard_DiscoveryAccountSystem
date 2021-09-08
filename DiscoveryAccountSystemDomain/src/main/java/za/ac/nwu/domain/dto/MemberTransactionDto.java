@@ -22,8 +22,8 @@ public class MemberTransactionDto implements Serializable {
     private double Amount;
 
     private double Total;
-
-    private Exchange_Medium EmId;
+//
+//    private Exchange_Medium EmId;
 
     @ApiModelProperty(position = 1,
             value = "Date of the transaction",
@@ -98,12 +98,11 @@ public class MemberTransactionDto implements Serializable {
     public MemberTransactionDto() {
     }
 
-    public MemberTransactionDto(LocalDate transactionDate, String description, double amount, double total, Exchange_Medium emId) {
+    public MemberTransactionDto(LocalDate transactionDate, String description, double amount, double total) {
         this.TransactionDate = transactionDate;
         this.Description = description;
         this.Amount = amount;
         this.Total = total;
-        this.EmId = emId;
     }
 
     public MemberTransactionDto(Member_Transaction member_transaction){

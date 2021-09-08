@@ -22,7 +22,7 @@ public class MemberDto implements Serializable {
 
     private String PhoneNumber;
 
-    private Set<Exchange_Medium> exchangeMedium;
+    //private Set<Exchange_Medium> exchangeMedium;
 
     public MemberDto() {
     }
@@ -55,8 +55,8 @@ public class MemberDto implements Serializable {
         return FirstName;
     }
 
-    public void setFirstName(String FirstName) {
-        FirstName = FirstName;
+    public void setFirstName(String firstName) {
+        FirstName = firstName;
     }
 
     @ApiModelProperty(position = 2,

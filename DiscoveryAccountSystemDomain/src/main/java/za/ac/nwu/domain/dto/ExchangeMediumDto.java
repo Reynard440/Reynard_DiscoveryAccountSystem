@@ -24,9 +24,9 @@ public class ExchangeMediumDto implements Serializable {
 
     private LocalDate Date;
 
-    private Member MemID;
-
-    private Set<Member_Transaction> memberTransactions;
+//    private Member MemID;
+//
+//    private Set<Member_Transaction> memberTransactions;
 
     @ApiModelProperty(position = 1,
             value = "Type of exchange medium",
@@ -115,13 +115,11 @@ public class ExchangeMediumDto implements Serializable {
     public ExchangeMediumDto() {
     }
 
-    public ExchangeMediumDto(String type, String description, double balance, LocalDate date, Member memID, Set<Member_Transaction> memberTransactions) {
+    public ExchangeMediumDto(String type, String description, double balance, LocalDate date) {
         this.Type = type;
         this.Description = description;
         this.Balance = balance;
         this.Date = date;
-        this.MemID = memID;
-        this.memberTransactions = memberTransactions;
     }
 
     public ExchangeMediumDto(Exchange_Medium exchange_medium){
