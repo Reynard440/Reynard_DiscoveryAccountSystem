@@ -11,6 +11,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import za.ac.nwu.domain.persistence.Member;
 import za.ac.nwu.repo.config.RepositoryTestConfig;
 
+import java.sql.SQLException;
+
 import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
@@ -29,7 +31,7 @@ public class MemberRepositoryTest {
     }
 
     @Test
-    public void getById() {
+    public void getById() throws Exception {
 //        Member member = memberRepository.getById(1);
 //        assertNotNull(member);
 //        assertEquals(1, java.util.Optional.ofNullable(member.getId()));

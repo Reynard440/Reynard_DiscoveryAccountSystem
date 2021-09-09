@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Set;
 
 /*@Getter
 @Setter
@@ -18,9 +19,7 @@ import java.util.Objects;
 @NonNull*/
 @Entity
 @Table(name = "Member_Transaction", schema = "discoveryDB")
-//@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="MT_ID", scope = Member.class)
 public class Member_Transaction implements Serializable {
-
     private static final long serialVersionUID = 3177993474135305620L;
 
     @Id
@@ -28,7 +27,7 @@ public class Member_Transaction implements Serializable {
     @Column(name = "MT_ID")
     private Integer MtId;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "EM_ID")
     @JsonBackReference
     private Exchange_Medium EmId;
@@ -49,15 +48,14 @@ public class Member_Transaction implements Serializable {
     }
 
     public Member_Transaction(Exchange_Medium emId, LocalDate transactionDate, String description, double amount, double total) {
-        this.EmId = emId;
-        this.TransactionDate = transactionDate;
-        this.Description = description;
-        this.Amount = amount;
-        this.Total = total;
+        EmId = emId;
+        TransactionDate = transactionDate;
+        Description = description;
+        Amount = amount;
+        Total = total;
     }
 
-    public Member_Transaction(Integer mtId, Exchange_Medium emId, LocalDate transactionDate, String description, double amount, double total) {
-        this.MtId = mtId;
+    public Member_Transaction(LocalDate transactionDate, String description, double amount, double total, Exchange_Medium emId) {
         this.EmId = emId;
         this.TransactionDate = transactionDate;
         this.Description = description;
@@ -66,12 +64,38 @@ public class Member_Transaction implements Serializable {
     }
 
     public Member_Transaction(LocalDate transactionDate, String description, double amount, double total) {
-        this.TransactionDate = transactionDate;
-        this.Description = description;
-        this.Amount = amount;
-        this.Total = total;
-        //this.EmId = exchange_medium;
+        TransactionDate = transactionDate;
+        Description = description;
+        Amount = amount;
+        Total = total;
     }
+
+    public Member_Transaction(Set<Member_Transaction> memberTransactions) {
+        memberTransactions.add( new Member_Transaction(
+                this.getEmId(),
+                this.getTransactionDate(),
+                this.getDescription(),
+                this.getAmount(),
+                this.getTotal()
+        ));
+    }
+//
+//    public Member_Transaction(Integer mtId, Exchange_Medium emId, LocalDate transactionDate, String description, double amount, double total) {
+//        this.MtId = mtId;
+//        this.EmId = emId;
+//        this.TransactionDate = transactionDate;
+//        this.Description = description;
+//        this.Amount = amount;
+//        this.Total = total;
+//    }
+
+//    public Member_Transaction(LocalDate transactionDate, String description, double amount, double total) {
+//        this.TransactionDate = transactionDate;
+//        this.Description = description;
+//        this.Amount = amount;
+//        this.Total = total;
+//        //this.EmId = exchange_medium;
+//    }
 
     public Integer getMtId() {
         return MtId;

@@ -46,7 +46,7 @@ public class MemberTranslatorImpl implements MemberTranslator {
     @Override
     public MemberDto newMember(MemberDto memberDto) {
         try {
-            Member member = memberRepository.save(memberDto.getMember());
+            Member member = memberRepository.save(memberDto.buildMember());
             return new MemberDto(member);
         }catch(Exception e){
             throw new RuntimeException("Could not add member to the DB",e);

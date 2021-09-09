@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import za.ac.nwu.domain.dto.ExchangeMediumDto;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -42,7 +43,7 @@ public class Member implements Serializable {
     @Column(name = "Mem_Phone_Number")
     private String PhoneNumber;
 
-    @OneToMany(targetEntity = Exchange_Medium.class, fetch = FetchType.LAZY, mappedBy = "MemID", orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Exchange_Medium.class, fetch = FetchType.LAZY, mappedBy = "MemID"/*, orphanRemoval = true, cascade = CascadeType.ALL*/)
     @JsonManagedReference
     private Set<Exchange_Medium> exchangeMedium;
 
@@ -71,6 +72,16 @@ public class Member implements Serializable {
         this.Email = email;
         this.PhoneNumber = phoneNumber;
         this.exchangeMedium = exchangeMedium;
+    }
+
+    public Member(Member memID) {
+        memID = new Member(
+                this.getFirstName(),
+                this.getLastName(),
+                this.getEmail(),
+                this.getPhoneNumber(),
+                this.getExchangeMedium()
+        );
     }
 
     public Integer getId() {

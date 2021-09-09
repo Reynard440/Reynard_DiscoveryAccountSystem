@@ -9,6 +9,8 @@ import za.ac.nwu.domain.persistence.Member_Transaction;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -24,9 +26,7 @@ public class ExchangeMediumDto implements Serializable {
 
     private LocalDate Date;
 
-//    private Member MemID;
-//
-//    private Set<Member_Transaction> memberTransactions;
+    private MemberDto MemID;
 
     @ApiModelProperty(position = 1,
             value = "Type of exchange medium",
@@ -84,31 +84,31 @@ public class ExchangeMediumDto implements Serializable {
         Date = date;
     }
 
-//    @ApiModelProperty(position = 5,
-//            value = "The referenced id of the member of the exchange medium type.",
-//            name = "Member id",
-//            notes = "This field keeps track of the member of the exchange medium type.",
-//            dataType = "java.lang.Integer",
-//            example = "1")
-//    public Member getMemID() {
-//        return MemID;
-//    }
-//
-//    public void setMemID(Member memID) {
-//        MemID = memID;
-//    }
-//
+    @ApiModelProperty(position = 5,
+            value = "The referenced id of the member of the exchange medium type.",
+            name = "Member id",
+            notes = "This field keeps track of the member of the exchange medium type.",
+            dataType = "java.lang.Integer",
+            example = "1")
+    public MemberDto getMemID() {
+        return MemID;
+    }
+
+    public void setMemID(MemberDto memID) {
+        MemID = memID;
+    }
+
 //    @ApiModelProperty(position = 6,
 //            value = "The transactions that are recorded for each change made to exchange mediums..",
 //            name = "Transactions",
 //            notes = "This field keeps track of all the related transactions (changes) made to an exchange medium.",
-//            dataType = "java.lang.Set",
-//            example = "{}")
-//    public Set<Member_Transaction> getMemberTransactions() {
+//            dataType = "java.lang.Integer",
+//            example = "1")
+//    public Set getMemberTransactions() {
 //        return memberTransactions;
 //    }
 //
-//    public void setMemberTransactions(Set<Member_Transaction> memberTransactions) {
+//    public void setMemberTransactions(Set memberTransactions) {
 //        this.memberTransactions = memberTransactions;
 //    }
 
@@ -123,15 +123,26 @@ public class ExchangeMediumDto implements Serializable {
     }
 
     public ExchangeMediumDto(Exchange_Medium exchange_medium){
-        this.setType(exchange_medium.getType());
-        this.setDescription(exchange_medium.getDescription());
-        this.setBalance(exchange_medium.getBalance());
-        this.setDate(exchange_medium.getDate());
+        this.Type = exchange_medium.getType();
+        this.Description = exchange_medium.getDescription();
+        this.Balance = exchange_medium.getBalance();
+        this.Date = exchange_medium.getDate();
+        if (null != exchange_medium.getMemID()) {
+            this.MemID = new MemberDto(exchange_medium.getMemID());
+        }
+        //this.MemID = exchange_medium.getMemID().getId();
+        //this.memberTransactions = exchange_medium.getMemberTransactions();
+    }
+
+    @JsonIgnore
+    public Exchange_Medium buildExchangeMedium(Member member) {
+        return new Exchange_Medium(this.getType(), this.getDescription(), this.getBalance(), this.getDate(),
+                member/*, this.getMemberTransactions()*/);
     }
 
     @JsonIgnore
     public Exchange_Medium getExchangeMedium() {
-        return new Exchange_Medium(getType(), getDescription(), getBalance(), getDate());
+        return new Exchange_Medium(getType(), getDescription(), getBalance(), getDate()/*, getMemID(), getMemberTransactions()*/);
     }
 
     @Override
@@ -139,11 +150,11 @@ public class ExchangeMediumDto implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ExchangeMediumDto that = (ExchangeMediumDto) o;
-        return Double.compare(that.Balance, Balance) == 0 && Type.equals(that.Type) && Description.equals(that.Description) && Date.equals(that.Date);
+        return Double.compare(that.Balance, Balance) == 0 && Objects.equals(Type, that.Type) && Objects.equals(Description, that.Description) && Objects.equals(Date, that.Date) && Objects.equals(MemID, that.MemID);/* && Objects.equals(memberTransactions, that.memberTransactions);*/
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(Type, Description, Balance, Date);
+        return Objects.hash(Type, Description, Balance, Date, MemID/*, memberTransactions*/);
     }
 }

@@ -9,10 +9,10 @@ import za.ac.nwu.domain.persistence.Member_Transaction;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Set;
 
 @ApiModel(value = "MemberTransactionDto", description = "A DTO that represents the Member transactions")
 public class MemberTransactionDto implements Serializable {
-
     private static final long serialVersionUID = -286232694247187358L;
 
     private LocalDate TransactionDate;
@@ -22,8 +22,8 @@ public class MemberTransactionDto implements Serializable {
     private double Amount;
 
     private double Total;
-//
-//    private Exchange_Medium EmId;
+
+    private ExchangeMediumDto EmId;
 
     @ApiModelProperty(position = 1,
             value = "Date of the transaction",
@@ -81,41 +81,50 @@ public class MemberTransactionDto implements Serializable {
         Total = total;
     }
 
-//    @ApiModelProperty(position = 5,
-//            value = "The referenced id to indicate which exchange medium was used in the transaction.",
-//            name = "Exchange medium id.",
-//            notes = "This field keeps track of the type of exchange medium used in the transaction.",
-//            dataType = "java.lang.Integer",
-//            example = "1")
-//    public Exchange_Medium getEmId() {
-//        return EmId;
-//    }
-//
-//    public void setEmId(Exchange_Medium emId) {
-//        EmId = emId;
-//    }
+    @ApiModelProperty(position = 5,
+            value = "The referenced id to indicate which exchange medium was used in the transaction.",
+            name = "Exchange medium id.",
+            notes = "This field keeps track of the type of exchange medium used in the transaction.",
+            dataType = "java.lang.Integer",
+            example = "1")
+    public ExchangeMediumDto getEmId() {
+        return EmId;
+    }
+
+    public void setEmId(ExchangeMediumDto emId) {
+        EmId = emId;
+    }
 
     public MemberTransactionDto() {
     }
 
-    public MemberTransactionDto(LocalDate transactionDate, String description, double amount, double total) {
+    public MemberTransactionDto(LocalDate transactionDate, String description, double amount, double total, ExchangeMediumDto exchangeMedium) {
         this.TransactionDate = transactionDate;
         this.Description = description;
         this.Amount = amount;
         this.Total = total;
+        this.EmId = exchangeMedium;
     }
 
     public MemberTransactionDto(Member_Transaction member_transaction){
-        this.setTransactionDate(member_transaction.getTransactionDate());
-        this.setDescription(member_transaction.getDescription());
-        this.setAmount(member_transaction.getAmount());
-        this.setTotal(member_transaction.getTotal());
-        //this.setEmId(member_transaction.getEmId());
+        this.TransactionDate = member_transaction.getTransactionDate();
+        this.Description = member_transaction.getDescription();
+        this.Amount = member_transaction.getAmount();
+        this.Total = member_transaction.getTotal();
+        if (null != member_transaction.getEmId()) {
+            this.EmId = new ExchangeMediumDto(member_transaction.getEmId());
+        }
+    }
+
+    @JsonIgnore
+    public Member_Transaction buildMemberTransaction(Exchange_Medium exchange_medium) {
+        return new Member_Transaction(exchange_medium, this.getTransactionDate(), this.getDescription(),
+                this.getAmount(), this.getTotal());
     }
 
     @JsonIgnore
     public Member_Transaction getMemberTransaction() {
-        return new Member_Transaction(getTransactionDate(), getDescription(), getAmount(), getTotal()/*, getEmId()*/);
+        return new Member_Transaction(getTransactionDate(), getDescription(), getAmount(), getTotal());
     }
 
     @Override

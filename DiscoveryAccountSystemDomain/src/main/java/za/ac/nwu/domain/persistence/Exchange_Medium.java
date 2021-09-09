@@ -39,12 +39,12 @@ public class Exchange_Medium implements Serializable {
     @Column(name = "EM_Date")
     private LocalDate Date;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MemID")
     @JsonBackReference
     private Member MemID;
 
-    @OneToMany(targetEntity = Member_Transaction.class, fetch = FetchType.LAZY, mappedBy = "EmId", orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Member_Transaction.class, mappedBy = "EmId")
     @JsonManagedReference
     private Set<Member_Transaction> memberTransactions;
 
@@ -56,6 +56,14 @@ public class Exchange_Medium implements Serializable {
         this.Description = description;
         this.Balance = balance;
         this.Date = date;
+    }
+
+    public Exchange_Medium(String type, String description, double balance, LocalDate date, Member memID) {
+        Type = type;
+        Description = description;
+        Balance = balance;
+        Date = date;
+        MemID = memID;
     }
 
     public Exchange_Medium(String type, String Description, double balance, LocalDate date, Member memID, Set<Member_Transaction> memberTransactions) {

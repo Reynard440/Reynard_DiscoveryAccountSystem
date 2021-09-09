@@ -13,6 +13,7 @@ import java.util.Set;
 
 @ApiModel(value = "MemberDto", description = "A DTO that represents the Member")
 public class MemberDto implements Serializable {
+    private static final long serialVersionUID = -8972933183152228911L;
 
     private String FirstName;
 
@@ -21,29 +22,6 @@ public class MemberDto implements Serializable {
     private String Email;
 
     private String PhoneNumber;
-
-    //private Set<Exchange_Medium> exchangeMedium;
-
-    public MemberDto() {
-    }
-
-    public MemberDto(Optional<Member> member) {
-    }
-
-    public MemberDto(String firstName, String lastName, String email, String phoneNumber) {
-        this.FirstName = firstName;
-        this.LastName = lastName;
-        this.Email = email;
-        this.PhoneNumber = phoneNumber;
-    }
-
-    public MemberDto(Member member){
-        this.setLastName(member.getLastName());
-        this.setFirstName(member.getFirstName());
-        this.setEmail(member.getEmail());
-        this.setPhoneNumber(member.getPhoneNumber());
-        //this.setExchangeMedium(member.getExchangeMedium());
-    }
 
     @ApiModelProperty(position = 1,
             value = "Member first name",
@@ -101,23 +79,41 @@ public class MemberDto implements Serializable {
         PhoneNumber = phoneNumber;
     }
 
-//    @ApiModelProperty(position = 5,
-//            value = "Exchange Medium types owned by the member",
-//            name = "Exchange Medium",
-//            notes = "This is used as the foreign key .",
-//            dataType = "java.lang.Set",
-//            example = "{}")
-//    public Set<Exchange_Medium> getExchangeMedium() {
-//        return exchangeMedium;
-//    }
-//
-//    public void setExchangeMedium(Set<Exchange_Medium> exchangeMedium) {
-//        this.exchangeMedium = exchangeMedium;
-//    }
+    public MemberDto() {
+    }
+
+    public MemberDto(Optional<Member> member) {
+    }
+
+    public MemberDto(String firstName, String lastName, String email, String phoneNumber) {
+        this.FirstName = firstName;
+        this.LastName = lastName;
+        this.Email = email;
+        this.PhoneNumber = phoneNumber;
+    }
+
+    public MemberDto(Member member){
+        this.FirstName = member.getFirstName();
+        this.LastName = member.getLastName();
+        this.Email = member.getEmail();
+        this.PhoneNumber = member.getPhoneNumber();
+    }
+
+    @JsonIgnore
+    public Member buildMember(Set<Exchange_Medium> exchange_medium) {
+        return new Member(this.getFirstName(), this.getLastName(), this.getEmail(),
+                this.getPhoneNumber(), exchange_medium);
+    }
+
+    @JsonIgnore
+    public Member buildMember() {
+        return new Member(this.getFirstName(), this.getLastName(), this.getEmail(),
+                this.getPhoneNumber());
+    }
 
     @JsonIgnore
     public Member getMember() {
-        return new Member(getFirstName(), getLastName(), getEmail(), getPhoneNumber()/*, getExchangeMedium()*/);
+        return new Member(getFirstName(), getLastName(), getEmail(), getPhoneNumber());
     }
 
     @Override
@@ -125,7 +121,7 @@ public class MemberDto implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MemberDto memberDto = (MemberDto) o;
-        return FirstName.equals(memberDto.FirstName) && LastName.equals(memberDto.LastName) && Email.equals(memberDto.Email) && PhoneNumber.equals(memberDto.PhoneNumber);
+        return Objects.equals(FirstName, memberDto.FirstName) && Objects.equals(LastName, memberDto.LastName) && Objects.equals(Email, memberDto.Email) && Objects.equals(PhoneNumber, memberDto.PhoneNumber);
     }
 
     @Override
