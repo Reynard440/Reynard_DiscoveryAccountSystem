@@ -25,6 +25,8 @@ public class MemberTransactionDto implements Serializable {
 
     private ExchangeMediumDto EmId;
 
+    private Integer exID;
+
     @ApiModelProperty(position = 1,
             value = "Date of the transaction",
             name = "Transaction Date",
@@ -85,14 +87,22 @@ public class MemberTransactionDto implements Serializable {
             value = "The referenced id to indicate which exchange medium was used in the transaction.",
             name = "Exchange medium id.",
             notes = "This field keeps track of the type of exchange medium used in the transaction.",
-            dataType = "java.lang.Integer",
-            example = "1")
+            dataType = "java.lang.Object",
+            example = "{}")
     public ExchangeMediumDto getEmId() {
         return EmId;
     }
 
     public void setEmId(ExchangeMediumDto emId) {
         EmId = emId;
+    }
+
+    public Integer getExID() {
+        return exID;
+    }
+
+    public void setExID(Integer exID) {
+        this.exID = exID;
     }
 
     public MemberTransactionDto() {
@@ -125,6 +135,11 @@ public class MemberTransactionDto implements Serializable {
     @JsonIgnore
     public Member_Transaction getMemberTransaction() {
         return new Member_Transaction(getTransactionDate(), getDescription(), getAmount(), getTotal());
+    }
+
+    @JsonIgnore
+    public Member_Transaction getExchangeId() {
+        return new Member_Transaction(getExID());
     }
 
     @Override

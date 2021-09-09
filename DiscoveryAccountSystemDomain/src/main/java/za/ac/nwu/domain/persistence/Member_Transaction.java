@@ -70,32 +70,9 @@ public class Member_Transaction implements Serializable {
         Total = total;
     }
 
-    public Member_Transaction(Set<Member_Transaction> memberTransactions) {
-        memberTransactions.add( new Member_Transaction(
-                this.getEmId(),
-                this.getTransactionDate(),
-                this.getDescription(),
-                this.getAmount(),
-                this.getTotal()
-        ));
+    public Member_Transaction(Integer exID) {
+        exID = EmId.getEmId();
     }
-//
-//    public Member_Transaction(Integer mtId, Exchange_Medium emId, LocalDate transactionDate, String description, double amount, double total) {
-//        this.MtId = mtId;
-//        this.EmId = emId;
-//        this.TransactionDate = transactionDate;
-//        this.Description = description;
-//        this.Amount = amount;
-//        this.Total = total;
-//    }
-
-//    public Member_Transaction(LocalDate transactionDate, String description, double amount, double total) {
-//        this.TransactionDate = transactionDate;
-//        this.Description = description;
-//        this.Amount = amount;
-//        this.Total = total;
-//        //this.EmId = exchange_medium;
-//    }
 
     public Integer getMtId() {
         return MtId;

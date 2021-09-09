@@ -18,6 +18,8 @@ import java.util.Set;
 public class ExchangeMediumDto implements Serializable {
     private static final long serialVersionUID = 5108461587671472664L;
 
+    private Integer exchangeMediumID;
+
     private String Type;
 
     private String Description;
@@ -98,19 +100,13 @@ public class ExchangeMediumDto implements Serializable {
         MemID = memID;
     }
 
-//    @ApiModelProperty(position = 6,
-//            value = "The transactions that are recorded for each change made to exchange mediums..",
-//            name = "Transactions",
-//            notes = "This field keeps track of all the related transactions (changes) made to an exchange medium.",
-//            dataType = "java.lang.Integer",
-//            example = "1")
-//    public Set getMemberTransactions() {
-//        return memberTransactions;
-//    }
-//
-//    public void setMemberTransactions(Set memberTransactions) {
-//        this.memberTransactions = memberTransactions;
-//    }
+    public Integer getExchangeMediumID() {
+        return exchangeMediumID;
+    }
+
+    public void setExchangeMediumID(Integer exchangeMediumID) {
+        this.exchangeMediumID = exchangeMediumID;
+    }
 
     public ExchangeMediumDto() {
     }
@@ -130,8 +126,6 @@ public class ExchangeMediumDto implements Serializable {
         if (null != exchange_medium.getMemID()) {
             this.MemID = new MemberDto(exchange_medium.getMemID());
         }
-        //this.MemID = exchange_medium.getMemID().getId();
-        //this.memberTransactions = exchange_medium.getMemberTransactions();
     }
 
     @JsonIgnore
@@ -143,6 +137,11 @@ public class ExchangeMediumDto implements Serializable {
     @JsonIgnore
     public Exchange_Medium getExchangeMedium() {
         return new Exchange_Medium(getType(), getDescription(), getBalance(), getDate()/*, getMemID(), getMemberTransactions()*/);
+    }
+
+    @JsonIgnore
+    public Exchange_Medium getExchangeMediumId() {
+        return new Exchange_Medium(getExchangeMediumID());
     }
 
     @Override
