@@ -2,25 +2,21 @@ package za.ac.nwu.translator;
 
 import org.springframework.stereotype.Component;
 import za.ac.nwu.domain.dto.MemberDto;
+import za.ac.nwu.domain.persistence.Member;
 
 import java.util.List;
 
 @Component
 public interface MemberTranslator {
     //All the listing methods
-    List<MemberDto> getAllMembers();
+    List<Member> getAllMembers();
 
     //Get single record methods
-    MemberDto getOneMemberDto(Integer id);
+    Member getOneMember(Integer id);
+    Member getMemberByEmail(String email);
 
     //Creating methods
-    MemberDto newMember(MemberDto memberDto);
-
-//    MemberDto getMemberByEmailNativeQuery(String email);
-//
-    MemberDto getMemberByEmail(String email);
+    Member newMember(Member member);
 
     void deleteMember(Integer id);
-//
-//    MemberDto getMemberDtoByEmail(String email);
 }

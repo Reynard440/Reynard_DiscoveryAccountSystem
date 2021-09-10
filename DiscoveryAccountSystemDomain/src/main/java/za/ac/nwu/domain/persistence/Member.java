@@ -22,7 +22,6 @@ import java.util.Set;
 @NonNull*/
 @Entity
 @Table(name = "Member", schema = "discoveryDB")
-//@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="MemID", scope = Member_Transaction.class)
 public class Member implements Serializable {
     private static final long serialVersionUID = -6965549404196897257L;
 
@@ -72,16 +71,6 @@ public class Member implements Serializable {
         this.Email = email;
         this.PhoneNumber = phoneNumber;
         this.exchangeMedium = exchangeMedium;
-    }
-
-    public Member(Member memID) {
-        memID = new Member(
-                this.getFirstName(),
-                this.getLastName(),
-                this.getEmail(),
-                this.getPhoneNumber(),
-                this.getExchangeMedium()
-        );
     }
 
     public Integer getId() {

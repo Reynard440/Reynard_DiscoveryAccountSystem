@@ -2,17 +2,18 @@ package za.ac.nwu.translator;
 
 import org.springframework.stereotype.Component;
 import za.ac.nwu.domain.dto.MemberTransactionDto;
+import za.ac.nwu.domain.persistence.Member_Transaction;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Component
 public interface MemberTransactionTranslator {
-    List<MemberTransactionDto> getMemberTransactionDtos();
+    List<Member_Transaction> getMemberTransactions();
 
-    MemberTransactionDto addMemberTransaction(MemberTransactionDto memberTransactionDto);
+    Member_Transaction addMemberTransaction(Member_Transaction memberTransaction);
 
-    MemberTransactionDto getMemberTransactionID(Integer id);
+    Member_Transaction getMemberTransactionID(Integer id);
 
-    MemberTransactionDto getTransactionByIdAndDate(Integer id, LocalDate date);
+    Member_Transaction getTransactionByIdAndDate(Integer id, LocalDate date);
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import za.ac.nwu.domain.dto.ExchangeMediumDto;
+import za.ac.nwu.domain.persistence.Exchange_Medium;
 import za.ac.nwu.logic.flow.ViewExchangeMediumService;
 import za.ac.nwu.translator.ExchangeMediumTranslator;
 
@@ -22,12 +23,13 @@ public class ViewExchangeMediumServiceImpl implements ViewExchangeMediumService 
 
     @Override
     public ExchangeMediumDto getExchangeMediumByEmID(Integer id) {
-        return exchangeMediumTranslator.getExchangeMediumByEmID(id);
+        Exchange_Medium exchangeMedium = exchangeMediumTranslator.getExchangeMediumByEmID(id);
+        return null != exchangeMedium ? new ExchangeMediumDto(exchangeMedium) : null;
     }
 
     @Override
     public ExchangeMediumDto getExchangeMediumCurrentByTypeAndID(String type, Integer id) {
-        return exchangeMediumTranslator.getExchangeMediumCurrentByTypeAndID(type, id);
+        return new ExchangeMediumDto(exchangeMediumTranslator.getExchangeMediumCurrentByTypeAndID(type, id));
     }
 
     @Override
@@ -35,8 +37,4 @@ public class ViewExchangeMediumServiceImpl implements ViewExchangeMediumService 
         return exchangeMediumTranslator.getExchangeMediumDtos();
     }
 
-    @Override
-    public ExchangeMediumDto getExchangeMediumDtoById(Integer em_id) {
-        return exchangeMediumTranslator.getExchangeMediumByEmID(em_id);
-    }
 }

@@ -4,9 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import za.ac.nwu.domain.dto.MemberDto;
+import za.ac.nwu.domain.dto.MemberTransactionDto;
+import za.ac.nwu.domain.persistence.Member;
+import za.ac.nwu.domain.persistence.Member_Transaction;
 import za.ac.nwu.logic.flow.MemberServiceFlow;
 import za.ac.nwu.translator.MemberTranslator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
@@ -22,17 +26,21 @@ public class GetMemberFlowImpl implements MemberServiceFlow {
 
     @Override
     public List<MemberDto> getMembers(){
-        return memberTranslator.getAllMembers();
+        List<MemberDto> memberDtos = new ArrayList<>();
+        for (Member member : memberTranslator.getAllMembers()) {
+            memberDtos.add(new MemberDto(member));
+        }
+        return memberDtos;
     }
 
     @Override
     public MemberDto getMemberByEmail(String email) {
-        return memberTranslator.getMemberByEmail(email);
+        return new MemberDto(memberTranslator.getMemberByEmail(email));
     }
 
     @Override
     public MemberDto getMemberById(Integer id) {
-        return memberTranslator.getOneMemberDto(id);
+        return new MemberDto(memberTranslator.getOneMember(id));
     }
 
     public boolean methodToTest(){

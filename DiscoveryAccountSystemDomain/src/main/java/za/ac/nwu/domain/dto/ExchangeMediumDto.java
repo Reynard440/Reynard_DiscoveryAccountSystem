@@ -111,7 +111,8 @@ public class ExchangeMediumDto implements Serializable {
     public ExchangeMediumDto() {
     }
 
-    public ExchangeMediumDto(String type, String description, double balance, LocalDate date) {
+    public ExchangeMediumDto(Integer exchangeMediumID, String type, String description, double balance, LocalDate date) {
+        this.exchangeMediumID = exchangeMediumID;
         this.Type = type;
         this.Description = description;
         this.Balance = balance;
@@ -119,6 +120,7 @@ public class ExchangeMediumDto implements Serializable {
     }
 
     public ExchangeMediumDto(Exchange_Medium exchange_medium){
+        this.exchangeMediumID = exchange_medium.getEmId();
         this.Type = exchange_medium.getType();
         this.Description = exchange_medium.getDescription();
         this.Balance = exchange_medium.getBalance();

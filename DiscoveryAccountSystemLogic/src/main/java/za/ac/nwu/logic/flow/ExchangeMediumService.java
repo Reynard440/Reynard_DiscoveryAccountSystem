@@ -1,6 +1,7 @@
 package za.ac.nwu.logic.flow;
 
 import za.ac.nwu.domain.dto.ExchangeMediumDto;
+import za.ac.nwu.domain.persistence.Exchange_Medium;
 
 public interface ExchangeMediumService {
     void increaseExchangeMediumTotal(Integer id, double amount);

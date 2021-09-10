@@ -108,7 +108,8 @@ public class MemberTransactionDto implements Serializable {
     public MemberTransactionDto() {
     }
 
-    public MemberTransactionDto(LocalDate transactionDate, String description, double amount, double total, ExchangeMediumDto exchangeMedium) {
+    public MemberTransactionDto(Integer exID, LocalDate transactionDate, String description, double amount, double total, ExchangeMediumDto exchangeMedium) {
+        this.exID = exID;
         this.TransactionDate = transactionDate;
         this.Description = description;
         this.Amount = amount;
@@ -121,6 +122,7 @@ public class MemberTransactionDto implements Serializable {
         this.Description = member_transaction.getDescription();
         this.Amount = member_transaction.getAmount();
         this.Total = member_transaction.getTotal();
+        this.exID = member_transaction.getMtId();
         if (null != member_transaction.getEmId()) {
             this.EmId = new ExchangeMediumDto(member_transaction.getEmId());
         }
@@ -132,26 +134,16 @@ public class MemberTransactionDto implements Serializable {
                 this.getAmount(), this.getTotal());
     }
 
-    @JsonIgnore
-    public Member_Transaction getMemberTransaction() {
-        return new Member_Transaction(getTransactionDate(), getDescription(), getAmount(), getTotal());
-    }
-
-    @JsonIgnore
-    public Member_Transaction getExchangeId() {
-        return new Member_Transaction(getExID());
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MemberTransactionDto that = (MemberTransactionDto) o;
-        return Double.compare(that.Amount, Amount) == 0 && Double.compare(that.Total, Total) == 0 && TransactionDate.equals(that.TransactionDate) && Description.equals(that.Description);
+        return Double.compare(that.Amount, Amount) == 0 && Double.compare(that.Total, Total) == 0 && Objects.equals(TransactionDate, that.TransactionDate) && Objects.equals(Description, that.Description) && Objects.equals(EmId, that.EmId) && Objects.equals(exID, that.exID);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(TransactionDate, Description, Amount, Total);
+        return Objects.hash(TransactionDate, Description, Amount, Total, EmId, exID);
     }
 }

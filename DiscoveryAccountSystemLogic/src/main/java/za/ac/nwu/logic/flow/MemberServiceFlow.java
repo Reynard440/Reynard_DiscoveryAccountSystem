@@ -10,6 +10,4 @@ public interface MemberServiceFlow {
     MemberDto getMemberByEmail(String email);
 
     MemberDto getMemberById(Integer id);
-
-    /*MemberDto getMemberByEmail(String email)*/
 }

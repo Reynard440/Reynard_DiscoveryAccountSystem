@@ -20,44 +20,44 @@ public class MemberTranslatorImpl implements MemberTranslator {
     }
 
     @Override
-    public List<MemberDto> getAllMembers(){
+    public List<Member> getAllMembers(){
 
-        List<MemberDto> memberDtos = new ArrayList<>();
+        List<Member> member = new ArrayList<>();
         try{
-            for (Member member : memberRepository.findAll()){
-                memberDtos.add(new MemberDto(member));
+            for (Member members : memberRepository.findAll()){
+                member.add(members);
             }
         }catch(Exception e){
             throw new RuntimeException("Unable to read from the DB", e);
         }
-        return memberDtos;
+        return member;
     }
 
     @Override
-    public MemberDto getOneMemberDto(Integer id) {
+    public Member getOneMember(Integer id) {
         try{
-            Member member = memberRepository.getById(id);
-            return new MemberDto(member);
+            return memberRepository.getById(id);
+            //return new MemberDto(member);
         }catch(Exception e){
             throw new RuntimeException("Unable to read from the DB", e);
         }
     }
 
     @Override
-    public MemberDto newMember(MemberDto memberDto) {
+    public Member newMember(Member member) {
         try {
-            Member member = memberRepository.save(memberDto.buildMember());
-            return new MemberDto(member);
+            return memberRepository.save(member);
+            //return new MemberDto(member);
         }catch(Exception e){
             throw new RuntimeException("Could not add member to the DB",e);
         }
     }
 
     @Override
-    public MemberDto getMemberByEmail(String email) {
+    public Member getMemberByEmail(String email) {
         try{
-            Member member = memberRepository.getByEmail(email);
-            return new MemberDto(member);
+            return memberRepository.getByEmail(email);
+            //return new MemberDto(member);
         }catch(Exception e){
             throw new RuntimeException("Could not read from the DB",e);
         }

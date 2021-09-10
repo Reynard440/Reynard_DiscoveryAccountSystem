@@ -5,9 +5,11 @@ import org.springframework.stereotype.Component;
 import za.ac.nwu.domain.dto.ExchangeMediumDto;
 import za.ac.nwu.domain.dto.MemberTransactionDto;
 import za.ac.nwu.domain.persistence.Exchange_Medium;
+import za.ac.nwu.domain.persistence.Member;
 import za.ac.nwu.domain.persistence.Member_Transaction;
 import za.ac.nwu.logic.flow.NewTransactionService;
 import za.ac.nwu.logic.flow.ViewExchangeMediumService;
+import za.ac.nwu.translator.ExchangeMediumTranslator;
 import za.ac.nwu.translator.MemberTransactionTranslator;
 import za.ac.nwu.translator.MemberTranslator;
 
@@ -18,30 +20,27 @@ import java.time.LocalDate;
 @Component("newMemberTransaction")
 public class NewTransactionServiceImpl implements NewTransactionService {
     private final MemberTransactionTranslator memberTransactionTranslator;
-    private final ViewExchangeMediumService viewExchangeMediumService;
+    private final ExchangeMediumTranslator exchangeMediumTranslator;
 
     @Autowired
-    public NewTransactionServiceImpl(MemberTransactionTranslator memberTransactionTranslator, ViewExchangeMediumService viewExchangeMediumService) {
+    public NewTransactionServiceImpl(MemberTransactionTranslator memberTransactionTranslator, ExchangeMediumTranslator exchangeMediumTranslator) {
         this.memberTransactionTranslator = memberTransactionTranslator;
-        this.viewExchangeMediumService = viewExchangeMediumService;
+        this.exchangeMediumTranslator = exchangeMediumTranslator;
     }
 
     @Override
     public MemberTransactionDto addTransactionDto(MemberTransactionDto memberTransactionDto) {
-        ExchangeMediumDto exchange_medium = viewExchangeMediumService.getExchangeMediumByEmID(memberTransactionDto.getExID());
 
-        Member_Transaction memberTransaction = memberTransactionDto.buildMemberTransaction(exchange_medium.getExchangeMedium());
+        Exchange_Medium exchange_medium = exchangeMediumTranslator.getExchangeMediumByEmID(memberTransactionDto.getExID());
 
-        MemberTransactionDto newMemberTransaction = memberTransactionTranslator.addMemberTransaction(memberTransactionDto);
+        Member_Transaction memberTransaction = memberTransactionDto.buildMemberTransaction(exchange_medium);
 
-//        if (null != memberTransactionDto.getEmId()) {
-//            Exchange_Medium exchangeMedium = memberTransactionDto.getMemberTransaction().getEmId().buildExchangeMedium(new);
-//        }
+        Member_Transaction addedMemberTransaction = memberTransactionTranslator.addMemberTransaction(memberTransaction);
 
         if(null == memberTransactionDto.getTransactionDate()){
             memberTransactionDto.setTransactionDate(LocalDate.now());
             memberTransactionDto.setDescription("Example description here.");
         }
-        return newMemberTransaction;
+        return new MemberTransactionDto(addedMemberTransaction);
     }
 }

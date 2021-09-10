@@ -21,43 +21,42 @@ public class MemberTransactionTranslatorImpl implements MemberTransactionTransla
     }
 
     @Override
-    public List<MemberTransactionDto> getMemberTransactionDtos() {
-        List<MemberTransactionDto> memberTransactionDtos = new ArrayList<>();
+    public List<Member_Transaction> getMemberTransactions() {
+        List<Member_Transaction> memberTransactions = new ArrayList<>();
         try{
             for (Member_Transaction member_transaction : memberTransactionRepository.findAll()){
-                memberTransactionDtos.add(new MemberTransactionDto(member_transaction));
+                memberTransactions.add(member_transaction);
             }
         }catch(Exception e){
             throw new RuntimeException("Unable to read from the DB", e);
         }
-        return memberTransactionDtos;
+        return memberTransactions;
     }
 
     @Override
-    public MemberTransactionDto addMemberTransaction(MemberTransactionDto memberTransactionDto) {
+    public Member_Transaction addMemberTransaction(Member_Transaction memberTransaction) {
         try{
-            Member_Transaction memberTransaction = memberTransactionRepository.save(memberTransactionDto.getMemberTransaction());
-            return new MemberTransactionDto(memberTransaction);
+            return memberTransactionRepository.save(memberTransaction);
         }catch(Exception e){
             throw new RuntimeException("Could not add member transaction to the DB",e);
         }
     }
 
     @Override
-    public MemberTransactionDto getMemberTransactionID(Integer id) {
+    public Member_Transaction getMemberTransactionID(Integer id) {
         try{
-            Member_Transaction member_transaction = memberTransactionRepository.getByMtId(id);
-            return new MemberTransactionDto(member_transaction);
+            return memberTransactionRepository.getByMtId(id);
+            //return new MemberTransactionDto(member_transaction);
         }catch(Exception e){
             throw new RuntimeException("Unable to read from the DB", e);
         }
     }
 
     @Override
-    public MemberTransactionDto getTransactionByIdAndDate(Integer id, LocalDate date) {
+    public Member_Transaction getTransactionByIdAndDate(Integer id, LocalDate date) {
         try{
-            Member_Transaction member_transaction = memberTransactionRepository.getByMtIdAndTransactionDate(id, date);
-            return new MemberTransactionDto(member_transaction);
+            return memberTransactionRepository.getByMtIdAndTransactionDate(id, date);
+            //return new MemberTransactionDto(member_transaction);
         }catch(Exception e){
             throw new RuntimeException("Unable to read from the DB", e);
         }

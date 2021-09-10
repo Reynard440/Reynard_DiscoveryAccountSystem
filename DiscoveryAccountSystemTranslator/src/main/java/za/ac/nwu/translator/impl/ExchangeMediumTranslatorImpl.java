@@ -12,7 +12,7 @@ import java.util.List;
 
 @Component
 public class ExchangeMediumTranslatorImpl implements ExchangeMediumTranslator {
-    private final ExchangeMediumRepository exchangeMediumRepository;
+    private ExchangeMediumRepository exchangeMediumRepository;
 
     @Autowired
     public ExchangeMediumTranslatorImpl(ExchangeMediumRepository exchangeMediumRepository) {
@@ -33,10 +33,10 @@ public class ExchangeMediumTranslatorImpl implements ExchangeMediumTranslator {
     }
 
     @Override
-    public ExchangeMediumDto getExchangeMediumByEmID(Integer emid) {
+    public Exchange_Medium getExchangeMediumByEmID(Integer emid) {
         try{
             Exchange_Medium exchange_medium = exchangeMediumRepository.getByEM_ID(emid);
-            return new ExchangeMediumDto(exchange_medium);
+            return exchange_medium;
         }catch(Exception e){
             throw new RuntimeException("Unable to read from the DB", e);
         }
@@ -71,20 +71,18 @@ public class ExchangeMediumTranslatorImpl implements ExchangeMediumTranslator {
     }
 
     @Override
-    public ExchangeMediumDto newExchangeMedium(ExchangeMediumDto exchangeMediumDto) {
+    public Exchange_Medium newExchangeMedium(Exchange_Medium exchange_medium) {
         try {
-            Exchange_Medium exchange_medium = exchangeMediumRepository.save(exchangeMediumDto.getExchangeMedium());
-            return new ExchangeMediumDto(exchange_medium);
+            return exchangeMediumRepository.save(exchange_medium);
         }catch(Exception e){
             throw new RuntimeException("Could not add member to the DB",e);
         }
     }
 
     @Override
-    public ExchangeMediumDto getExchangeMediumCurrentByTypeAndID(String type, Integer id) {
+    public Exchange_Medium getExchangeMediumCurrentByTypeAndID(String type, Integer id) {
         try{
-            Exchange_Medium exchange_medium = exchangeMediumRepository.getByTypeAndEmId(type, id);
-            return new ExchangeMediumDto(exchange_medium);
+            return exchangeMediumRepository.getByTypeAndEmId(type, id);
         }catch(Exception e){
             throw new RuntimeException("Unable to read from the DB", e);
         }

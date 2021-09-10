@@ -2,6 +2,7 @@ package za.ac.nwu.translator;
 
 import org.springframework.stereotype.Component;
 import za.ac.nwu.domain.dto.ExchangeMediumDto;
+import za.ac.nwu.domain.persistence.Exchange_Medium;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
 public interface ExchangeMediumTranslator {
     List<ExchangeMediumDto> getExchangeMediumDtos();
 
-    ExchangeMediumDto getExchangeMediumByEmID(Integer emid);
+    Exchange_Medium getExchangeMediumByEmID(Integer emid);
 
     void increaseExchangeMediumTotal(Integer id, double amount);
 
@@ -17,7 +18,7 @@ public interface ExchangeMediumTranslator {
 
     Integer checkTypeExists(Integer id, String type);
 
-    ExchangeMediumDto newExchangeMedium(ExchangeMediumDto exchangeMediumDto);
+    Exchange_Medium newExchangeMedium(Exchange_Medium exchange_medium);
 
-    ExchangeMediumDto getExchangeMediumCurrentByTypeAndID(String type, Integer id);
+    Exchange_Medium getExchangeMediumCurrentByTypeAndID(String type, Integer id);
 }

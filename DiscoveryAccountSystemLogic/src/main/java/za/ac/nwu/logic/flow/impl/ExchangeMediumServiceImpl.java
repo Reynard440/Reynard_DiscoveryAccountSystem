@@ -3,8 +3,11 @@ package za.ac.nwu.logic.flow.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import za.ac.nwu.domain.dto.ExchangeMediumDto;
+import za.ac.nwu.domain.persistence.Exchange_Medium;
+import za.ac.nwu.domain.persistence.Member;
 import za.ac.nwu.logic.flow.ExchangeMediumService;
 import za.ac.nwu.translator.ExchangeMediumTranslator;
+import za.ac.nwu.translator.MemberTranslator;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
@@ -13,10 +16,12 @@ import java.time.LocalDate;
 @Component("exchangeMediumViewFlow")
 public class ExchangeMediumServiceImpl implements ExchangeMediumService {
     private final ExchangeMediumTranslator exchangeMediumTranslator;
+    private final MemberTranslator memberTranslator;
 
     @Autowired
-    public ExchangeMediumServiceImpl(ExchangeMediumTranslator exchangeMediumTranslator){
+    public ExchangeMediumServiceImpl(ExchangeMediumTranslator exchangeMediumTranslator, MemberTranslator memberTranslator){
         this.exchangeMediumTranslator = exchangeMediumTranslator;
+        this.memberTranslator = memberTranslator;
     }
 
     @Override
@@ -31,11 +36,17 @@ public class ExchangeMediumServiceImpl implements ExchangeMediumService {
 
     @Override
     public ExchangeMediumDto newExchangeMedium(ExchangeMediumDto exchangeMediumDto) {
+        Member member = memberTranslator.getOneMember(exchangeMediumDto.getExchangeMediumID());
+
+        Exchange_Medium exchangeMedium = exchangeMediumDto.buildExchangeMedium(member);
+
+        Exchange_Medium addedExchangeMedium = exchangeMediumTranslator.newExchangeMedium(exchangeMedium);
+
         if(null == exchangeMediumDto.getDate()){
             exchangeMediumDto.setDate(LocalDate.now());
             exchangeMediumDto.setType("MILES");
         }
-        return exchangeMediumTranslator.newExchangeMedium(exchangeMediumDto);
+        return new ExchangeMediumDto(addedExchangeMedium);
     }
 
     @Override
