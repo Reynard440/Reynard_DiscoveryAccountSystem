@@ -10,5 +10,5 @@ public interface ExchangeMediumService {
 
     ExchangeMediumDto newExchangeMedium(ExchangeMediumDto exchangeMediumDto);
 
-    Integer checkTypeExist(Integer id, String type);
+    boolean checkTypeExist(Integer id, String type);
 }

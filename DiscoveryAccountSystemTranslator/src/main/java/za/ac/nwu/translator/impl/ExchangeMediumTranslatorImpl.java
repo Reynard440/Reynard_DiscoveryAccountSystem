@@ -61,9 +61,9 @@ public class ExchangeMediumTranslatorImpl implements ExchangeMediumTranslator {
     }
 
     @Override
-    public Integer checkTypeExists(Integer id, String type) {
+    public boolean checkTypeExists(Integer id, String type) {
         try{
-            Integer response = exchangeMediumRepository.checkTypeExist(id, type);
+            boolean response = exchangeMediumRepository.existsByTypeAndMemID_Id(type, id);
             return response;
         }catch(Exception e){
             throw new RuntimeException("Unable to read from the DB", e);
@@ -82,7 +82,7 @@ public class ExchangeMediumTranslatorImpl implements ExchangeMediumTranslator {
     @Override
     public Exchange_Medium getExchangeMediumCurrentByTypeAndID(String type, Integer id) {
         try{
-            return exchangeMediumRepository.getByTypeAndEmId(type, id);
+            return exchangeMediumRepository.getExchangeMediumCurrentByTypeAndID(type, id);
         }catch(Exception e){
             throw new RuntimeException("Unable to read from the DB", e);
         }

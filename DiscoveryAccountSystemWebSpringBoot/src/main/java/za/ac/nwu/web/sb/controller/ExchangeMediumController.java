@@ -87,9 +87,9 @@ public class ExchangeMediumController {
             @ApiResponse(code = 400, message = "Bad Request", response = DiscoveryAccountSystemResponse.class),
             @ApiResponse(code = 404, message = "Not found", response = DiscoveryAccountSystemResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = DiscoveryAccountSystemResponse.class)})
-    public ResponseEntity<DiscoveryAccountSystemResponse<Integer>> checkTypeExist(@ApiParam(value = "The id that is unique to each exchange medium.", example = "1", name = "id", required = true) @PathVariable("id") Integer id, @ApiParam(value = "The type of exchange medium.", example = "Rand", name = "type", required = true) @PathVariable("type") String type){
-        Integer intResponse = exchangeMediumService.checkTypeExist(id, type);
-        DiscoveryAccountSystemResponse<Integer> response = new DiscoveryAccountSystemResponse<>(true, intResponse);
+    public ResponseEntity<DiscoveryAccountSystemResponse<Boolean>> checkTypeExist(@ApiParam(value = "The id that is unique to each exchange medium.", example = "1", name = "id", required = true) @PathVariable("id") Integer id, @ApiParam(value = "The type of exchange medium.", example = "Rand", name = "type", required = true) @PathVariable("type") String type){
+        boolean intResponse = exchangeMediumService.checkTypeExist(id, type);
+        DiscoveryAccountSystemResponse<Boolean> response = new DiscoveryAccountSystemResponse<>(true, intResponse);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

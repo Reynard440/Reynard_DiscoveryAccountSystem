@@ -50,7 +50,7 @@ public class ExchangeMediumServiceImpl implements ExchangeMediumService {
     }
 
     @Override
-    public Integer checkTypeExist(Integer id, String type) {
+    public boolean checkTypeExist(Integer id, String type) {
         return exchangeMediumTranslator.checkTypeExists(id, type);
     }
 }

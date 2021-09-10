@@ -16,7 +16,7 @@ public interface ExchangeMediumTranslator {
 
     void decreaseExchangeMediumTotal(Integer id, double amount);
 
-    Integer checkTypeExists(Integer id, String type);
+    boolean checkTypeExists(Integer id, String type);
 
     Exchange_Medium newExchangeMedium(Exchange_Medium exchange_medium);
 

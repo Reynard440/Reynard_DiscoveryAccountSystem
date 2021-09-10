@@ -12,6 +12,9 @@ import java.util.Optional;
 
 @Repository
 public interface ExchangeMediumRepository extends JpaRepository<Exchange_Medium, Integer> {
+    @Query("select (count(e) > 0) from Exchange_Medium e where e.Type = ?1 and e.MemID.Id = ?2")
+    boolean existsByTypeAndMemID_Id(String Type, Integer Id);
+
     @Query("select e from Exchange_Medium e where e.Type = ?1 and e.EmId = ?2")
     Exchange_Medium getByTypeAndEmId(String Type, Integer EmId);
 
