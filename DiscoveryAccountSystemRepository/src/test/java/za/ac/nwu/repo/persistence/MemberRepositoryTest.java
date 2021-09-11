@@ -31,10 +31,14 @@ public class MemberRepositoryTest {
     }
 
     @Test
-    public void getById() throws Exception {
-//        Member member = memberRepository.getById(1);
-//        assertNotNull(member);
-//        assertEquals(1, java.util.Optional.ofNullable(member.getId()));
+    public void getById()  {
+//        try {
+//            Member member = memberRepository.getById(1);
+//            assertNotNull(member);
+//            assertEquals("1", member.getId().toString());
+//        } catch (Exception e) {
+//            throw new RuntimeException("An error has occurred!", e);
+//        }
     }
 
     @Test

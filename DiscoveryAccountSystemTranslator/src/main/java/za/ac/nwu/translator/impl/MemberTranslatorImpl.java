@@ -39,7 +39,7 @@ public class MemberTranslatorImpl implements MemberTranslator {
             return memberRepository.getById(id);
             //return new MemberDto(member);
         }catch(Exception e){
-            throw new RuntimeException("Unable to read from the DB", e);
+            throw new NullPointerException();
         }
     }
 

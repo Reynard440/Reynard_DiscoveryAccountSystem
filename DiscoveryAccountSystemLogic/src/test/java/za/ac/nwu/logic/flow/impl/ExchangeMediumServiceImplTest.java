@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import za.ac.nwu.domain.dto.ExchangeMediumDto;
 import za.ac.nwu.domain.dto.MemberDto;
+import za.ac.nwu.domain.persistence.Exchange_Medium;
 import za.ac.nwu.translator.ExchangeMediumTranslator;
 import za.ac.nwu.translator.MemberTranslator;
 
@@ -37,15 +38,51 @@ public class ExchangeMediumServiceImplTest {
 
     @Test
     public void newExchangeMedium() {
-//        try {
-//            when(serviceExchangeMediumTranslator.newExchangeMedium(any(ExchangeMediumDto.class))).then(returnsFirstArg()); // if get anything of MemberDto
-//            ExchangeMediumDto result = exchangeMediumService.newExchangeMedium(new ExchangeMediumDto());
-//            assertNotNull(result);
-//            assertEquals(LocalDate.now(), result.getDate());
-//            assertFalse(result.getType().isEmpty());
-//            verify(serviceExchangeMediumTranslator, atLeastOnce()).newExchangeMedium(any(ExchangeMediumDto.class));
-//        } catch(Exception e) {
-//            assertTrue(e.getMessage().equalsIgnoreCase("An error occurred during the creation of a exchange medium."));
-//        }
+        try {
+            when(serviceExchangeMediumTranslator.newExchangeMedium(any(Exchange_Medium.class))).then(returnsFirstArg()); // if get anything of MemberDto
+            ExchangeMediumDto result = exchangeMediumService.newExchangeMedium(new ExchangeMediumDto());
+            assertNotNull(result);
+            assertEquals(LocalDate.now(), result.getDate());
+            assertFalse(result.getType().isEmpty());
+            verify(serviceExchangeMediumTranslator, atLeastOnce()).newExchangeMedium(any(Exchange_Medium.class));
+        } catch(Exception e) {
+            assertTrue(e.getMessage().equalsIgnoreCase("An error occurred during the creation of a exchange medium."));
+        }
+    }
+
+    @Test
+    public void increaseExchangeMediumTotal() {
+        try {
+            ExchangeMediumDto exchangeMediumDto = new ExchangeMediumDto();
+            assertNotNull(exchangeMediumDto);
+            serviceExchangeMediumTranslator.increaseExchangeMediumTotal(exchangeMediumDto.getExchangeMediumID(), exchangeMediumDto.getBalance());
+            verify(serviceExchangeMediumTranslator, atLeastOnce()).increaseExchangeMediumTotal(exchangeMediumDto.getExchangeMediumID(), exchangeMediumDto.getBalance());
+        } catch (Exception e) {
+            assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while increasing a specific exchange medium's balance."));
+        }
+    }
+
+    @Test
+    public void decreaseExchangeMediumTotal() {
+        try {
+            ExchangeMediumDto exchangeMediumDto = new ExchangeMediumDto();
+            assertNotNull(exchangeMediumDto);
+            serviceExchangeMediumTranslator.decreaseExchangeMediumTotal(exchangeMediumDto.getExchangeMediumID(), exchangeMediumDto.getBalance());
+            verify(serviceExchangeMediumTranslator, atLeastOnce()).decreaseExchangeMediumTotal(exchangeMediumDto.getExchangeMediumID(), exchangeMediumDto.getBalance());
+        } catch (Exception e) {
+            assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while decreasing a specific exchange medium's balance."));
+        }
+    }
+
+    @Test
+    public void checkTypeExist() {
+        try {
+            ExchangeMediumDto exchangeMediumDto = new ExchangeMediumDto();
+            assertNotNull(exchangeMediumDto);
+            serviceExchangeMediumTranslator.checkTypeExists(exchangeMediumDto.getExchangeMediumID(), exchangeMediumDto.getType());
+            verify(serviceExchangeMediumTranslator, atLeastOnce()).checkTypeExists(exchangeMediumDto.getExchangeMediumID(), exchangeMediumDto.getType());
+        } catch (Exception e) {
+            assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while checking whether or not a specific exchange medium exists."));
+        }
     }
 }

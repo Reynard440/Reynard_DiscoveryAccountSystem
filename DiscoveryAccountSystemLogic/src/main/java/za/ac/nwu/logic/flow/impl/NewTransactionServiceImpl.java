@@ -37,9 +37,9 @@ public class NewTransactionServiceImpl implements NewTransactionService {
             memberTransactionDto.setDescription("Example description here.");
         }
 
-        Exchange_Medium exchange_medium = exchangeMediumTranslator.getExchangeMediumByEmID(memberTransactionDto.getExID());
+//        Exchange_Medium exchange_medium = exchangeMediumTranslator.getExchangeMediumByEmID(memberTransactionDto.getExID());
 
-        Member_Transaction memberTransaction = memberTransactionDto.buildMemberTransaction(exchange_medium);
+        Member_Transaction memberTransaction = memberTransactionDto.buildMemberTransaction();
 
         Member_Transaction addedMemberTransaction = memberTransactionTranslator.addMemberTransaction(memberTransaction);
 

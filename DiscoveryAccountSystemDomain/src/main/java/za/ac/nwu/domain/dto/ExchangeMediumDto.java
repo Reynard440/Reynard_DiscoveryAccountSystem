@@ -137,6 +137,11 @@ public class ExchangeMediumDto implements Serializable {
     }
 
     @JsonIgnore
+    public Exchange_Medium buildExchangeMedium() {
+        return new Exchange_Medium(this.getType(), this.getDescription(), this.getBalance(), this.getDate());
+    }
+
+    @JsonIgnore
     public Exchange_Medium getExchangeMedium() {
         return new Exchange_Medium(getType(), getDescription(), getBalance(), getDate()/*, getMemID(), getMemberTransactions()*/);
     }

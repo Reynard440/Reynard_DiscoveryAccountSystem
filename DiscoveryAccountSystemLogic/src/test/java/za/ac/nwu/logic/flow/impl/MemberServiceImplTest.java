@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito.*;
 import org.mockito.junit.MockitoJUnitRunner;
 import za.ac.nwu.domain.dto.MemberDto;
+import za.ac.nwu.domain.persistence.Member;
 import za.ac.nwu.translator.MemberTranslator;
 
 import static org.junit.Assert.*;
@@ -33,17 +34,28 @@ public class MemberServiceImplTest {
     }
 
     @Test
-    public void newMember() {
-//        try {
-//            when(serviceTranslator.newMember(any(MemberDto.class))).then(returnsFirstArg()); // if get anything of MemberDto
-//            MemberDto result = memberService.newMember(new MemberDto());
-//            assertNotNull(result);
-//            assertTrue(result.getEmail().contains("@gmail.com"));
-//            assertEquals(10, result.getPhoneNumber().length());
-//            assertEquals(0, result.getPhoneNumber().indexOf("0"));
-//            verify(serviceTranslator, atLeastOnce()).newMember(any(MemberDto.class));
-//        } catch(Exception e) {
-//            assertTrue(e.getMessage().equalsIgnoreCase("An error occurred during the creation of a member."));
-//        }
+    public void newMember() throws Exception{
+        try {
+            when(serviceTranslator.newMember(any(Member.class))).then(returnsFirstArg()); // if get anything of MemberDto
+            MemberDto result = memberService.newMember(new MemberDto());
+            assertNotNull(result);
+            assertTrue(result.getEmail().contains("@gmail.com"));
+            assertEquals(10, result.getPhoneNumber().length());
+            assertEquals(0, result.getPhoneNumber().indexOf("0"));
+            verify(serviceTranslator, atLeastOnce()).newMember(any(Member.class));
+        } catch(Exception e) {
+            assertTrue(e.getMessage().equalsIgnoreCase("An error occurred during the creation of a member."));
+        }
+    }
+
+    @Test
+    public void deleteMember() throws Exception {
+        try {
+            MemberDto memberDto = new MemberDto();
+            serviceTranslator.deleteMember(memberDto.getMemId());
+            verify(serviceTranslator).deleteMember(memberDto.getMemId());
+        } catch(Exception e) {
+            assertTrue(e.getMessage().equalsIgnoreCase("An error occurred during the deletion of the member."));
+        }
     }
 }

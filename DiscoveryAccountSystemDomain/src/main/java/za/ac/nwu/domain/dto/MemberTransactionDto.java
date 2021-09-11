@@ -134,6 +134,12 @@ public class MemberTransactionDto implements Serializable {
                 this.getAmount(), this.getTotal());
     }
 
+    @JsonIgnore
+    public Member_Transaction buildMemberTransaction() {
+        return new Member_Transaction(this.getTransactionDate(), this.getDescription(),
+                this.getAmount(), this.getTotal());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

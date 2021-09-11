@@ -10,6 +10,7 @@ import za.ac.nwu.translator.ExchangeMediumTranslator;
 import za.ac.nwu.translator.MemberTranslator;
 
 import javax.transaction.Transactional;
+import java.util.Set;
 
 @Transactional
 @Component("MemberServiceName")
@@ -26,11 +27,6 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public MemberDto newMember(MemberDto memberDto) {
-        Exchange_Medium exchangeMedium = exchangeMediumTranslator.getExchangeMediumByEmID(memberDto.getMemId());
-
-        Member member = memberDto.buildMember();
-
-        Member addedmember = memberTranslator.newMember(member);
 
         if(null == memberDto.getPhoneNumber()){
             memberDto.setPhoneNumber("0000000000");
@@ -38,7 +34,14 @@ public class MemberServiceImpl implements MemberService {
             memberDto.setLastName("Example Last Name");
             memberDto.setEmail("exampleEmail@gmail.com");
         }
-        return new MemberDto(memberTranslator.newMember(addedmember));
+
+        //Exchange_Medium exchangeMedium = exchangeMediumTranslator.getExchangeMediumByEmID(memberDto.getMemId());
+
+        Member member = memberDto.buildMember();
+
+        Member addedMember = memberTranslator.newMember(member);
+
+        return new MemberDto(memberTranslator.newMember(addedMember));
     }
 
     @Override

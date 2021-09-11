@@ -36,21 +36,24 @@ public class ExchangeMediumServiceImpl implements ExchangeMediumService {
 
     @Override
     public ExchangeMediumDto newExchangeMedium(ExchangeMediumDto exchangeMediumDto) {
+        if(null == exchangeMediumDto.getDate()){
+            exchangeMediumDto.setDate(LocalDate.now());
+            exchangeMediumDto.setType("MILES");
+        }
+
         Member member = memberTranslator.getOneMember(exchangeMediumDto.getExchangeMediumID());
 
         Exchange_Medium exchangeMedium = exchangeMediumDto.buildExchangeMedium(member);
 
         Exchange_Medium addedExchangeMedium = exchangeMediumTranslator.newExchangeMedium(exchangeMedium);
-
-        if(null == exchangeMediumDto.getDate()){
-            exchangeMediumDto.setDate(LocalDate.now());
-            exchangeMediumDto.setType("MILES");
-        }
         return new ExchangeMediumDto(addedExchangeMedium);
     }
 
     @Override
     public boolean checkTypeExist(Integer id, String type) {
+        if (null == type) {
+            type = "Miles";
+        }
         return exchangeMediumTranslator.checkTypeExists(id, type);
     }
 }
