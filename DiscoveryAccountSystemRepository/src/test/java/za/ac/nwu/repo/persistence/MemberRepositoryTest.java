@@ -4,6 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ContextConfiguration;
@@ -13,6 +14,7 @@ import za.ac.nwu.repo.config.RepositoryTestConfig;
 
 import java.sql.SQLException;
 
+import static com.sun.javaws.JnlpxArgs.verify;
 import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
@@ -20,7 +22,7 @@ import static org.junit.Assert.*;
 @ContextConfiguration(classes = {RepositoryTestConfig.class})
 public class MemberRepositoryTest {
     @Autowired
-    MemberRepository memberRepository;
+    private MemberRepository memberRepository;
 
     @Before
     public void setUp() throws Exception {
@@ -37,15 +39,20 @@ public class MemberRepositoryTest {
 //            assertNotNull(member);
 //            assertEquals("1", member.getId().toString());
 //        } catch (Exception e) {
-//            throw new RuntimeException("An error has occurred!", e);
+//            assertTrue(e.getMessage().equalsIgnoreCase("An error occurred during the creation of a exchange medium."));
 //        }
     }
 
     @Test
     public void getByEmail() {
-//        Member member = memberRepository.getByEmail("reynardengels@gmail.com");
-//        assertNotNull(member);
-//        assertEquals("reynardengels@gmail.com", member.getEmail());
+//        try {
+//            Member member = memberRepository.getByEmail("reynardengels@gmail.com");
+//            assertNotNull(member);
+//            assertEquals("Reynard", member.getFirstName());
+//            assertEquals("reynardengels@gmail.com", member.getEmail());
+//        } catch (Exception e) {
+//            assertTrue(e.getMessage().equalsIgnoreCase("An error occurred during the creation of a exchange medium."));
+//        }
     }
 
     @Test

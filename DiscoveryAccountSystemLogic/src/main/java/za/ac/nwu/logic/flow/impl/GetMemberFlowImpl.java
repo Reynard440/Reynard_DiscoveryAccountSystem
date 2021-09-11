@@ -3,8 +3,10 @@ package za.ac.nwu.logic.flow.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import za.ac.nwu.domain.dto.ExchangeMediumDto;
 import za.ac.nwu.domain.dto.MemberDto;
 import za.ac.nwu.domain.dto.MemberTransactionDto;
+import za.ac.nwu.domain.persistence.Exchange_Medium;
 import za.ac.nwu.domain.persistence.Member;
 import za.ac.nwu.domain.persistence.Member_Transaction;
 import za.ac.nwu.logic.flow.MemberServiceFlow;
@@ -14,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
-@Component
+@Component("GetMemberFlow")
 public class GetMemberFlowImpl implements MemberServiceFlow {
 
     private final MemberTranslator memberTranslator;
@@ -35,43 +37,13 @@ public class GetMemberFlowImpl implements MemberServiceFlow {
 
     @Override
     public MemberDto getMemberByEmail(String email) {
-        return new MemberDto(memberTranslator.getMemberByEmail(email));
+        Member member = memberTranslator.getMemberByEmail(email);
+        return null != member ? new MemberDto(member) : null;
     }
 
     @Override
     public MemberDto getMemberById(Integer id) {
-        return new MemberDto(memberTranslator.getOneMember(id));
+        Member member = memberTranslator.getOneMember(id);
+        return null != member ? new MemberDto(member) : null;
     }
-
-    public boolean methodToTest(){
-        return true;
-    }
-
-    /*public void addUser(Member member) {
-        Optional<Member> userOptional = memRepo.findMemberByEmail(member.getMem_Email());
-        if(userOptional.isPresent()){
-            throw new IllegalStateException("email already in use!");
-        }
-        memRepo.save(member);
-    }
-
-    public void deleteUser(Integer id) {
-        boolean user = memRepo.existsById(id);
-        if(!user){
-            throw new IllegalStateException("user with id " + id + " does not exist!");
-        }
-        memRepo.deleteById(id);
-    }
-
-    @Transactional
-    public void updateUser(Integer id, String firstname, String lastname) {
-        Member member = memRepo.findById(id).orElseThrow(() -> new IllegalStateException("user with id " + id + " does not exist!"));
-        if (firstname != null && (firstname.length() > 0) && !Objects.equals(member.getMem_FirstName(), firstname)) {
-            member.setMem_FirstName(firstname);
-        }
-
-        if (lastname != null && lastname.length() > 0 && !Objects.equals(member.getMem_LastName(), lastname)){
-            member.setMem_LastName(lastname);
-        }
-    }*/
 }

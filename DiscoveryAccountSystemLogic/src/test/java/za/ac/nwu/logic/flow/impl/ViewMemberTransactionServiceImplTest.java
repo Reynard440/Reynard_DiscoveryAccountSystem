@@ -32,7 +32,7 @@ public class ViewMemberTransactionServiceImplTest {
     }
 
     @Test
-    public void getAllMemberTransaction() {
+    public void getAllMemberTransaction() throws Exception {
         try {
             MemberTransactionDto memberTransactionDto = new MemberTransactionDto();
             assertNotNull(memberTransactionDto);
@@ -44,7 +44,7 @@ public class ViewMemberTransactionServiceImplTest {
     }
 
     @Test
-    public void getMemberTransactionID() {
+    public void getMemberTransactionID() throws Exception {
         try {
             MemberTransactionDto memberTransactionDto = new MemberTransactionDto();
             assertNotNull(memberTransactionDto);
@@ -56,7 +56,7 @@ public class ViewMemberTransactionServiceImplTest {
     }
 
     @Test
-    public void getTransactionByIdAndDate() {
+    public void getTransactionByIdAndDate() throws Exception {
         try {
             MemberTransactionDto memberTransactionDto = new MemberTransactionDto();
             assertNotNull(memberTransactionDto);

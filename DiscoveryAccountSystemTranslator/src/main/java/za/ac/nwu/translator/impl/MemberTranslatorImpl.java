@@ -56,6 +56,9 @@ public class MemberTranslatorImpl implements MemberTranslator {
     @Override
     public Member getMemberByEmail(String email) {
         try{
+            if (null == email) {
+                email = "reynardengels@gmai.com";
+            }
             return memberRepository.getByEmail(email);
             //return new MemberDto(member);
         }catch(Exception e){

@@ -26,11 +26,25 @@ public class ExchangeMediumServiceImpl implements ExchangeMediumService {
 
     @Override
     public void increaseExchangeMediumTotal(Integer id, double amount) {
+        if (null == id) {
+            id = 1;
+        }
+
+        if (amount == 0) {
+            amount = 0.0;
+        }
         exchangeMediumTranslator.increaseExchangeMediumTotal(id, amount);
     }
 
     @Override
     public void decreaseExchangeMediumTotal(Integer id, double amount) {
+        if (null == id) {
+            id = 1;
+        }
+
+        if (amount == 0) {
+            amount = 0.0;
+        }
         exchangeMediumTranslator.decreaseExchangeMediumTotal(id, amount);
     }
 

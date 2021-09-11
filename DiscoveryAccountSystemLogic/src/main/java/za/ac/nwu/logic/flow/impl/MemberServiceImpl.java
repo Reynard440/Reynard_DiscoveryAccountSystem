@@ -34,9 +34,6 @@ public class MemberServiceImpl implements MemberService {
             memberDto.setLastName("Example Last Name");
             memberDto.setEmail("exampleEmail@gmail.com");
         }
-
-        //Exchange_Medium exchangeMedium = exchangeMediumTranslator.getExchangeMediumByEmID(memberDto.getMemId());
-
         Member member = memberDto.buildMember();
 
         Member addedMember = memberTranslator.newMember(member);
@@ -46,6 +43,9 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void deleteMember(Integer id) {
+        if (null == id) {
+            id = 1;
+        }
         memberTranslator.deleteMember(id);
     }
 }
