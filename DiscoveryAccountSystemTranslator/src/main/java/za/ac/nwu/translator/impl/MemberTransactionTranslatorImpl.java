@@ -7,10 +7,12 @@ import za.ac.nwu.domain.persistence.Member_Transaction;
 import za.ac.nwu.repo.persistence.MemberTransactionRepository;
 import za.ac.nwu.translator.MemberTransactionTranslator;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Transactional
 @Component
 public class MemberTransactionTranslatorImpl implements MemberTransactionTranslator {
     private final MemberTransactionRepository memberTransactionRepository;

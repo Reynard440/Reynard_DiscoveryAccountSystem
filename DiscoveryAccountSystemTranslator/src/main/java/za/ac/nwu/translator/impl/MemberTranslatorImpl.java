@@ -7,9 +7,11 @@ import za.ac.nwu.domain.persistence.Member;
 import za.ac.nwu.repo.persistence.MemberRepository;
 import za.ac.nwu.translator.MemberTranslator;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+@Transactional
 @Component
 public class MemberTranslatorImpl implements MemberTranslator {
     private final MemberRepository memberRepository;
@@ -37,7 +39,6 @@ public class MemberTranslatorImpl implements MemberTranslator {
     public Member getOneMember(Integer id) {
         try{
             return memberRepository.getById(id);
-            //return new MemberDto(member);
         }catch(Exception e){
             throw new NullPointerException();
         }

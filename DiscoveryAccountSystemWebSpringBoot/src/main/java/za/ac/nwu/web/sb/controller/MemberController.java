@@ -8,23 +8,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import za.ac.nwu.domain.dto.ExchangeMediumDto;
 import za.ac.nwu.domain.dto.MemberDto;
 import za.ac.nwu.domain.service.DiscoveryAccountSystemResponse;
 import za.ac.nwu.logic.flow.MemberService;
-import za.ac.nwu.logic.flow.MemberServiceFlow;
 
 import java.util.List;
 
 @RestController
 @RequestMapping(path="/v1/c1")
 public class MemberController {
-    private final MemberServiceFlow memberServiceFlow;
     private final MemberService memberService;
 
     @Autowired
-    public MemberController(MemberServiceFlow memberServiceFlow, MemberService memberService){
-        this.memberServiceFlow = memberServiceFlow;
+    public MemberController(MemberService memberService){
         this.memberService = memberService;
     }
 
@@ -36,7 +32,7 @@ public class MemberController {
             @ApiResponse(code = 404, message = "Not found", response = DiscoveryAccountSystemResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = DiscoveryAccountSystemResponse.class)})
     public ResponseEntity<DiscoveryAccountSystemResponse<List<MemberDto>>> getAllMembers(){
-        List<MemberDto> members = memberServiceFlow.getMembers();
+        List<MemberDto> members = memberService.getMembers();
         DiscoveryAccountSystemResponse<List<MemberDto>> response = new DiscoveryAccountSystemResponse<>(true, members);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -61,7 +57,7 @@ public class MemberController {
             @ApiResponse(code = 404, message = "Not found", response = DiscoveryAccountSystemResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = DiscoveryAccountSystemResponse.class)})
     public ResponseEntity<DiscoveryAccountSystemResponse<MemberDto>> getMemberByEmail(@ApiParam(value = "The email that is unique to each member", example = "reynardengels@gmail.com", name = "email", required = true) @PathVariable("email") String email){
-        MemberDto memberResponse = memberServiceFlow.getMemberByEmail(email);
+        MemberDto memberResponse = memberService.getMemberByEmail(email);
         DiscoveryAccountSystemResponse<MemberDto> response = new DiscoveryAccountSystemResponse<>(true, memberResponse);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -74,7 +70,7 @@ public class MemberController {
             @ApiResponse(code = 404, message = "Not found", response = DiscoveryAccountSystemResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = DiscoveryAccountSystemResponse.class)})
     public ResponseEntity<DiscoveryAccountSystemResponse<MemberDto>> getMemberById(@ApiParam(value = "The id that is unique to each member", example = "1", name = "id", required = true) @PathVariable("id") Integer id){
-        MemberDto memberResponse = memberServiceFlow.getMemberById(id);
+        MemberDto memberResponse = memberService.getMemberById(id);
         DiscoveryAccountSystemResponse<MemberDto> response = new DiscoveryAccountSystemResponse<>(true, memberResponse);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -88,7 +84,7 @@ public class MemberController {
             @ApiResponse(code = 500, message = "Internal Server Error", response = DiscoveryAccountSystemResponse.class)})
     public ResponseEntity<DiscoveryAccountSystemResponse<MemberDto>> deleteMemberByID(@ApiParam(value = "The id is unique to each Member.", example = "1", name = "id", required = true) @PathVariable("id") Integer id){
         memberService.deleteMember(id);
-        MemberDto memberDtoResponse = memberServiceFlow.getMemberById(id);
+        MemberDto memberDtoResponse = memberService.getMemberById(id);
         DiscoveryAccountSystemResponse<MemberDto> response = new DiscoveryAccountSystemResponse<>(true, memberDtoResponse);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

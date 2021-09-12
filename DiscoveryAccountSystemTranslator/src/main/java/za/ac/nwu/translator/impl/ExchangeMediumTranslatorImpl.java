@@ -7,9 +7,11 @@ import za.ac.nwu.domain.persistence.Exchange_Medium;
 import za.ac.nwu.repo.persistence.ExchangeMediumRepository;
 import za.ac.nwu.translator.ExchangeMediumTranslator;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+@Transactional
 @Component
 public class ExchangeMediumTranslatorImpl implements ExchangeMediumTranslator {
     private ExchangeMediumRepository exchangeMediumRepository;

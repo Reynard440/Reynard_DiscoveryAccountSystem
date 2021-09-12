@@ -112,6 +112,14 @@ public class MemberDto implements Serializable {
         this.PhoneNumber = phoneNumber;
     }
 
+    public MemberDto(Integer memId, String firstName, String lastName, String email, String phoneNumber) {
+        this.memId = memId;
+        FirstName = firstName;
+        LastName = lastName;
+        Email = email;
+        PhoneNumber = phoneNumber;
+    }
+
     public MemberDto(Member member){
         this.memId = member.getId();
         this.FirstName = member.getFirstName();

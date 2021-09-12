@@ -16,12 +16,10 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import za.ac.nwu.domain.dto.MemberDto;
 import za.ac.nwu.logic.flow.MemberService;
-import za.ac.nwu.logic.flow.MemberServiceFlow;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -33,9 +31,6 @@ import static org.junit.Assert.*;
 public class MemberControllerTest {
     private static final String URL = "/discovery-account-system/mvc";
     private static final String MEMBER_CONTROLLER_URL = URL + "/v1/c1";
-
-    @Mock
-    private MemberServiceFlow memberServiceFlow;
 
     @Mock
     private MemberService memberService;
@@ -57,25 +52,35 @@ public class MemberControllerTest {
     @SneakyThrows
     @Test
     public void getAllMembers() throws Exception {
-//        String expectedConfirmation = "{\"confirmation\": true, \"cargo\": [" +
-//                "{\"firstName\": Reynard, \"lastName\": \"Engels\", \"email\": \"reynardengels@gmail.com\", \"phoneNumber\": \"0723949955\" }," +
-//                "{\"firstName\": Lourenz, \"lastName\": \"Engels\", \"email\": \"lourenzengels@gmail.com\", \"phoneNumber\": \"0826516473\" }," +
-//                "{\"firstName\": Rudi, \"lastName\": \"Dreyer\", \"email\": \"rudidreyer@gmail.com\", \"phoneNumber\": \"0795046299\"}";
-//        List<MemberDto> memberDtos = new ArrayList<>();
-//        memberDtos.add(new MemberDto("Reynard", "Engels", "reynardengels@gmail.com", "0723949955"));
-//        memberDtos.add(new MemberDto("Lourenz", "Engels", "lourenzengels@gmail.com", "0826516473"));
-//        memberDtos.add(new MemberDto("Rudi", "Dreyer", "rudidreyer@gmail.com", "0795046299"));
-//
-//        when(memberServiceFlow.getMembers()).thenReturn(memberDtos);
-//
-//        MvcResult mvcResult = mockMvc.perform(get((String.format("%s/%s", MEMBER_CONTROLLER_URL, "getAllMembers")))
-//                        .servletPath(URL)
-//                        .accept(MediaType.APPLICATION_JSON)
-//                        .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andReturn();
-//        verify(memberServiceFlow, times(1)).getMembers();
-//        assertEquals(expectedConfirmation, mvcResult.getResponse().getContentAsString());
+        String value = "{" +
+                "  \"confirmation\": true," +
+                "  \"cargo\": {" +
+                "    \"memId\": 1," +
+                "    \"email\": \"reynardengels@gmail.com\"," +
+                "    \"phoneNumber\": \"0723949955\"," +
+                "    \"lastName\": \"Engels\"," +
+                "    \"firstName\": \"Reynard\"" +
+                "  }" +
+                "}";
+        String expectedConfirmation = "{\"confirmation\": true, \" cargo\": [ " +
+                "{\"firstName\": Reynard, \"lastName\": \"Engels\", \"email\": \"reynardengels@gmail.com\", \"phoneNumber\": \"0723949955\" }," +
+                "{\"firstName\": Lourenz, \"lastName\": \"Engels\", \"email\": \"lourenzengels@gmail.com\", \"phoneNumber\": \"0826516473\" }," +
+                "{\"firstName\": Rudi, \"lastName\": \"Dreyer\", \"email\": \"rudidreyer@gmail.com\", \"phoneNumber\": \"0795046299\"}";
+        List<MemberDto> memberDtos = new ArrayList<>();
+        memberDtos.add(new MemberDto("Reynard", "Engels", "reynardengels@gmail.com", "0723949955"));
+        memberDtos.add(new MemberDto("Lourenz", "Engels", "lourenzengels@gmail.com", "0826516473"));
+        memberDtos.add(new MemberDto("Rudi", "Dreyer", "rudidreyer@gmail.com", "0795046299"));
+
+        when(memberService.getMembers()).thenReturn(memberDtos);
+
+        MvcResult mvcResult = mockMvc.perform(get((String.format("%s/%s", MEMBER_CONTROLLER_URL, "getAllMembers")))
+                        .servletPath(URL)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn();
+        verify(memberService, times(1)).getMembers();
+        assertEquals(expectedConfirmation, mvcResult.getResponse().getContentAsString());
     }
 
     @Test
@@ -105,5 +110,32 @@ public class MemberControllerTest {
 
     @Test
     public void getMemberById() throws Exception {
+        String expectedConfirmation = "{" +
+                "\"confirmation\":true," +
+                "\"cargo\":{" +
+                "\"memId\":1," +
+                "\"email\":\"reynardengels@gmail.com\"," +
+                "\"phoneNumber\":\"0723949955\"," +
+                "\"firstName\":\"Reynard\"," +
+                "\"lastName\":\"Engels\"" +
+                "}" +
+                "}";
+        MemberDto memberDto = new MemberDto(
+                1,
+                "Reynard",
+                "Engels",
+                "reynardengels@gmail.com",
+                "0723949955"
+        );
+        when(memberService.getMemberById(1)).thenReturn(memberDto);
+
+        MvcResult mvcResult = mockMvc.perform(get((String.format("%s/%s", MEMBER_CONTROLLER_URL, "getMemberById/1")))
+                        .servletPath(URL)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn();
+        verify(memberService, times(1)).getMemberById(1);
+        assertEquals(expectedConfirmation, mvcResult.getResponse().getContentAsString());
     }
 }

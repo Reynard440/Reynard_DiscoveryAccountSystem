@@ -10,6 +10,8 @@ import za.ac.nwu.translator.ExchangeMediumTranslator;
 import za.ac.nwu.translator.MemberTranslator;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Transactional
@@ -29,10 +31,11 @@ public class MemberServiceImpl implements MemberService {
     public MemberDto newMember(MemberDto memberDto) {
 
         if(null == memberDto.getPhoneNumber()){
-            memberDto.setPhoneNumber("0000000000");
-            memberDto.setFirstName("Example First Name");
-            memberDto.setLastName("Example Last Name");
-            memberDto.setEmail("exampleEmail@gmail.com");
+            memberDto.setMemId(1);
+            memberDto.setPhoneNumber("0723949955");
+            memberDto.setFirstName("Reynard");
+            memberDto.setLastName("Engels");
+            memberDto.setEmail("reynardengels@gmail.com");
         }
         Member member = memberDto.buildMember();
 
@@ -48,4 +51,27 @@ public class MemberServiceImpl implements MemberService {
         }
         memberTranslator.deleteMember(id);
     }
+
+    @Override
+    public List<MemberDto> getMembers(){
+        List<MemberDto> memberDtos = new ArrayList<>();
+        for (Member member : memberTranslator.getAllMembers()) {
+            memberDtos.add(new MemberDto(member));
+        }
+        return memberDtos;
+    }
+
+    @Override
+    public MemberDto getMemberByEmail(String email) {
+        Member member = memberTranslator.getMemberByEmail(email);
+        return new MemberDto(member);
+        //return null != member ? new MemberDto(member) : null;
+    }
+
+    @Override
+    public MemberDto getMemberById(Integer id) {
+        Member member = memberTranslator.getOneMember(id);
+        return null != member ? new MemberDto(member) : null;
+    }
+
 }

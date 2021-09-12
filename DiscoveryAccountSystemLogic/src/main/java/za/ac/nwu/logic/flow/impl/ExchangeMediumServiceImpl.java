@@ -51,8 +51,11 @@ public class ExchangeMediumServiceImpl implements ExchangeMediumService {
     @Override
     public ExchangeMediumDto newExchangeMedium(ExchangeMediumDto exchangeMediumDto) {
         if(null == exchangeMediumDto.getDate()){
+            exchangeMediumDto.setExchangeMediumID(1);
             exchangeMediumDto.setDate(LocalDate.now());
-            exchangeMediumDto.setType("MILES");
+            exchangeMediumDto.setType("Miles");
+            exchangeMediumDto.setBalance(0.0);
+            exchangeMediumDto.setDescription("Discovery currency");
         }
 
         Member member = memberTranslator.getOneMember(exchangeMediumDto.getExchangeMediumID());
