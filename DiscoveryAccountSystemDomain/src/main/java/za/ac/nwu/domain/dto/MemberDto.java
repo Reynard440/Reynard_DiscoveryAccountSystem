@@ -98,9 +98,6 @@ public class MemberDto implements Serializable {
     public MemberDto() {
     }
 
-    public MemberDto(Optional<Member> member) {
-    }
-
     public MemberDto(Integer memId) {
         this.memId = memId;
     }
@@ -112,12 +109,12 @@ public class MemberDto implements Serializable {
         this.PhoneNumber = phoneNumber;
     }
 
-    public MemberDto(Integer memId, String firstName, String lastName, String email, String phoneNumber) {
+    public MemberDto(Integer memId, String email, String phoneNumber, String firstName, String lastName) {
         this.memId = memId;
-        FirstName = firstName;
-        LastName = lastName;
-        Email = email;
-        PhoneNumber = phoneNumber;
+        this.Email = email;
+        this.PhoneNumber = phoneNumber;
+        this.FirstName = firstName;
+        this.LastName = lastName;
     }
 
     public MemberDto(Member member){
@@ -138,11 +135,6 @@ public class MemberDto implements Serializable {
     public Member buildMember() {
         return new Member(this.getFirstName(), this.getLastName(), this.getEmail(),
                 this.getPhoneNumber());
-    }
-
-    @JsonIgnore
-    public Member getMember() {
-        return new Member(getFirstName(), getLastName(), getEmail(), getPhoneNumber());
     }
 
     @Override
