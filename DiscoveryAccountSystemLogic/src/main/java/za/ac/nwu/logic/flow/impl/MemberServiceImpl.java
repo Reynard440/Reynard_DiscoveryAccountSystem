@@ -29,7 +29,6 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public MemberDto newMember(MemberDto memberDto) {
-
         if(null == memberDto.getPhoneNumber()){
             memberDto.setMemId(1);
             memberDto.setPhoneNumber("0723949955");
@@ -38,9 +37,7 @@ public class MemberServiceImpl implements MemberService {
             memberDto.setEmail("reynardengels@gmail.com");
         }
         Member member = memberDto.buildMember();
-
         Member addedMember = memberTranslator.newMember(member);
-
         return new MemberDto(memberTranslator.newMember(addedMember));
     }
 

@@ -30,30 +30,39 @@ public class NewTransactionServiceImpl implements NewTransactionService {
 
     @Override
     public MemberTransactionDto addTransactionDto(MemberTransactionDto memberTransactionDto) {
-//        Member_Transaction addedMemberTransaction = null;
-
         if(null == memberTransactionDto.getTransactionDate()){
             memberTransactionDto.setTransactionDate(LocalDate.now());
             memberTransactionDto.setDescription("Example description here.");
         }
 
-        Exchange_Medium exchange_medium = exchangeMediumTranslator.getExchangeMediumByEmID(memberTransactionDto.getExID());
-
-        Member_Transaction memberTransaction = memberTransactionDto.buildMemberTransaction(exchange_medium);
-
-        Member_Transaction addedMemberTransaction = memberTransactionTranslator.addMemberTransaction(memberTransaction);
-
-//        if (exchangeMediumTranslator.checkTypeExists(exchange_medium.getMemID().getId(), exchange_medium.getType())) {
-//            //if a member with emId #1 already has an exchange medium type like MILES, code follows:
-//            if (memberTransaction.getDescription().contains("Deposit") || memberTransaction.getDescription().contains("deposit")) {
-//                exchangeMediumTranslator.increaseExchangeMediumTotal(memberTransaction.getEmId().getEmId(), memberTransaction.getAmount());
-//            } else {
-//                exchangeMediumTranslator.decreaseExchangeMediumTotal(memberTransaction.getEmId().getEmId(), memberTransaction.getAmount());
-//            }
-//        } else { //else the new exchange medium will be added for the specific member
-//            addedMemberTransaction = memberTransactionTranslator.addMemberTransaction(memberTransaction);
+//        Member_Transaction memberTransaction = memberTransactionDto.buildMemberTransaction();
+//        Member_Transaction addedMemberTransaction = memberTransactionTranslator.addMemberTransaction(memberTransaction);
+//        //if a member with emId #1 already has an exchange medium type like MILES, code follows:
+//        if (memberTransaction.getDescription().equals("Deposit") || memberTransaction.getDescription().equals("deposit")) {
+//            exchangeMediumTranslator.increaseExchangeMediumTotal(memberTransaction.getEmId().getEmId(), memberTransaction.getAmount());
+//        } else {
+//            exchangeMediumTranslator.decreaseExchangeMediumTotal(memberTransaction.getEmId().getEmId(), memberTransaction.getAmount());
 //        }
-//        assert addedMemberTransaction != null;
-        return new MemberTransactionDto(addedMemberTransaction);
+//
+//        return new MemberTransactionDto(addedMemberTransaction);
+
+        Exchange_Medium exchange_medium = exchangeMediumTranslator.getExchangeMediumByEmID(memberTransactionDto.getEmId());
+
+        if (exchangeMediumTranslator.checkTypeExists(exchange_medium.getMemID().getId(), exchange_medium.getType())) {
+            Member_Transaction memberTransaction = memberTransactionDto.buildMemberTransaction();
+            Member_Transaction addedMemberTransaction = memberTransactionTranslator.addMemberTransaction(memberTransaction);
+            //if a member with emId #1 already has an exchange medium type like MILES, code follows:
+            if (memberTransaction.getDescription().equals("Deposit") || memberTransaction.getDescription().equals("deposit")) {
+                exchangeMediumTranslator.increaseExchangeMediumTotal(memberTransaction.getEmId().getEmId(), memberTransaction.getAmount());
+            } else if (memberTransaction.getDescription().equals("Withdrawal") || memberTransaction.getDescription().equals("withdrawal")) {
+                exchangeMediumTranslator.decreaseExchangeMediumTotal(memberTransaction.getEmId().getEmId(), memberTransaction.getAmount());
+            }
+            return new MemberTransactionDto(addedMemberTransaction);
+        } else { //else the new exchange medium will be added for the specific member
+            Member_Transaction memberTransaction = memberTransactionDto.buildMemberTransaction(exchange_medium);
+            Member_Transaction addedMemberTransaction = memberTransactionTranslator.addMemberTransaction(memberTransaction);
+            addedMemberTransaction = memberTransactionTranslator.addMemberTransaction(memberTransaction);
+            return new MemberTransactionDto(addedMemberTransaction);
+        }
     }
 }

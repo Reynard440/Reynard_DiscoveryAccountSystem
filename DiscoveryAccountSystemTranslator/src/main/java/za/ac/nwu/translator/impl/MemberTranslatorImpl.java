@@ -60,8 +60,8 @@ public class MemberTranslatorImpl implements MemberTranslator {
             if (null == email) {
                 email = "reynardengels@gmai.com";
             }
-            return memberRepository.getByEmail(email);
-            //return new MemberDto(member);
+            Member member = memberRepository.getByEmail(email);
+            return member;
         }catch(Exception e){
             throw new RuntimeException("Could not read from the DB",e);
         }

@@ -43,7 +43,8 @@ public class MemberController {
             @ApiResponse(code = 200, message = "Member successfully create", response = DiscoveryAccountSystemResponse.class),
             @ApiResponse(code = 400, message = "Bad Request", response = DiscoveryAccountSystemResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = DiscoveryAccountSystemResponse.class)})
-    public ResponseEntity<DiscoveryAccountSystemResponse<MemberDto>> newMember(@ApiParam(value = "Request body to create a new Member", required = true) @RequestBody MemberDto memberDto){
+    public ResponseEntity<DiscoveryAccountSystemResponse<MemberDto>> newMember(@ApiParam(value = "Request body to create a new Member", required = true)
+                                                                                   @RequestBody MemberDto memberDto){
         MemberDto memberResponse = memberService.newMember(memberDto);
         DiscoveryAccountSystemResponse<MemberDto> response = new DiscoveryAccountSystemResponse<>(true, memberResponse);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
@@ -56,7 +57,8 @@ public class MemberController {
             @ApiResponse(code = 400, message = "Bad Request", response = DiscoveryAccountSystemResponse.class),
             @ApiResponse(code = 404, message = "Not found", response = DiscoveryAccountSystemResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = DiscoveryAccountSystemResponse.class)})
-    public ResponseEntity<DiscoveryAccountSystemResponse<MemberDto>> getMemberByEmail(@ApiParam(value = "The email that is unique to each member", example = "reynardengels@gmail.com", name = "email", required = true) @PathVariable("email") String email){
+    public ResponseEntity<DiscoveryAccountSystemResponse<MemberDto>> getMemberByEmail(@ApiParam(value = "The email that is unique to each member",
+            example = "reynardengels@gmail.com", name = "email", required = true) @PathVariable("email") String email){
         MemberDto memberResponse = memberService.getMemberByEmail(email);
         DiscoveryAccountSystemResponse<MemberDto> response = new DiscoveryAccountSystemResponse<>(true, memberResponse);
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -69,7 +71,8 @@ public class MemberController {
             @ApiResponse(code = 400, message = "Bad Request", response = DiscoveryAccountSystemResponse.class),
             @ApiResponse(code = 404, message = "Not found", response = DiscoveryAccountSystemResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = DiscoveryAccountSystemResponse.class)})
-    public ResponseEntity<DiscoveryAccountSystemResponse<MemberDto>> getMemberById(@ApiParam(value = "The id that is unique to each member", example = "1", name = "id", required = true) @PathVariable("id") Integer id){
+    public ResponseEntity<DiscoveryAccountSystemResponse<MemberDto>> getMemberById(@ApiParam(value = "The id that is unique to each member",
+            example = "1", name = "id", required = true) @PathVariable("id") Integer id){
         MemberDto memberResponse = memberService.getMemberById(id);
         DiscoveryAccountSystemResponse<MemberDto> response = new DiscoveryAccountSystemResponse<>(true, memberResponse);
         return new ResponseEntity<>(response, HttpStatus.OK);

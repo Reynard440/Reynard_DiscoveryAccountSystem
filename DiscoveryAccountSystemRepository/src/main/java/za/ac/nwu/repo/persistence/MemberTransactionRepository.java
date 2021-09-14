@@ -14,12 +14,4 @@ public interface MemberTransactionRepository extends JpaRepository<Member_Transa
 
     @Query("select m from Member_Transaction m where m.MtId = ?1 and m.TransactionDate = ?2")
     Member_Transaction getByMtIdAndTransactionDate(Integer MtId, LocalDate TransactionDate);
-
-//    @Modifying
-//    @Query(value = "UPDATE Member_Transaction SET MT_Total = MT_Total + :amount WHERE MemberID = :mem_id and MT_ID = :mt_id")
-//    Member_Transaction increaseTotal(Integer mem_id, Integer mt_id, double amount);
-//
-//    @Modifying
-//    @Query(value = "UPDATE Member_Transaction SET MT_Total = MT_Total - :amount WHERE MemberID = :mem_id and MT_ID = :mt_id")
-//    Member_Transaction decreaseTotal(Integer mem_id, Integer mt_id, double amount);
 }

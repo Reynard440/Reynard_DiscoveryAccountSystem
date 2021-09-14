@@ -48,11 +48,11 @@ public class Member_Transaction implements Serializable {
     }
 
     public Member_Transaction(Exchange_Medium emId, LocalDate transactionDate, String description, double amount, double total) {
-        EmId = emId;
-        TransactionDate = transactionDate;
-        Description = description;
-        Amount = amount;
-        Total = total;
+        this.EmId = emId;
+        this.TransactionDate = transactionDate;
+        this.Description = description;
+        this.Amount = amount;
+        this.Total = total;
     }
 
     public Member_Transaction(LocalDate transactionDate, String description, double amount, double total, Exchange_Medium emId) {
@@ -64,14 +64,18 @@ public class Member_Transaction implements Serializable {
     }
 
     public Member_Transaction(LocalDate transactionDate, String description, double amount, double total) {
-        TransactionDate = transactionDate;
-        Description = description;
-        Amount = amount;
-        Total = total;
+        this.TransactionDate = transactionDate;
+        this.Description = description;
+        this.Amount = amount;
+        this.Total = total;
     }
 
-    public Member_Transaction(Integer exID) {
-        exID = EmId.getEmId();
+    public Member_Transaction(Integer emId, LocalDate transactionDate, String description, double amount, double total) {
+        this.EmId = new Exchange_Medium(emId);
+        this.TransactionDate = transactionDate;
+        this.Description = description;
+        this.Amount = amount;
+        this.Total = total;
     }
 
     public Integer getMtId() {

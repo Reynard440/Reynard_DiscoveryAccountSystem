@@ -9,7 +9,6 @@ import za.ac.nwu.domain.persistence.Member_Transaction;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
-import java.util.Set;
 
 @ApiModel(value = "MemberTransactionDto", description = "A DTO that represents the Member transactions")
 public class MemberTransactionDto implements Serializable {
@@ -23,7 +22,7 @@ public class MemberTransactionDto implements Serializable {
 
     private double Total;
 
-    private ExchangeMediumDto EmId;
+    private Integer EmId;
 
     private Integer exID;
 
@@ -87,13 +86,13 @@ public class MemberTransactionDto implements Serializable {
             value = "The referenced id to indicate which exchange medium was used in the transaction.",
             name = "Exchange medium id.",
             notes = "This field keeps track of the type of exchange medium used in the transaction.",
-            dataType = "java.lang.Object",
-            example = "{}")
-    public ExchangeMediumDto getEmId() {
+            dataType = "java.lang.Integer",
+            example = "1")
+    public Integer getEmId() {
         return EmId;
     }
 
-    public void setEmId(ExchangeMediumDto emId) {
+    public void setEmId(Integer emId) {
         EmId = emId;
     }
 
@@ -108,7 +107,7 @@ public class MemberTransactionDto implements Serializable {
     public MemberTransactionDto() {
     }
 
-    public MemberTransactionDto(Integer exID, LocalDate transactionDate, String description, double amount, double total, ExchangeMediumDto exchangeMedium) {
+    public MemberTransactionDto(Integer exID, LocalDate transactionDate, String description, double amount, double total, Integer exchangeMedium) {
         this.exID = exID;
         this.TransactionDate = transactionDate;
         this.Description = description;
@@ -123,9 +122,7 @@ public class MemberTransactionDto implements Serializable {
         this.Amount = member_transaction.getAmount();
         this.Total = member_transaction.getTotal();
         this.exID = member_transaction.getMtId();
-        if (null != member_transaction.getEmId()) {
-            this.EmId = new ExchangeMediumDto(member_transaction.getEmId());
-        }
+        this.EmId = member_transaction.getEmId().getEmId();
     }
 
     @JsonIgnore
@@ -136,7 +133,7 @@ public class MemberTransactionDto implements Serializable {
 
     @JsonIgnore
     public Member_Transaction buildMemberTransaction() {
-        return new Member_Transaction(this.getTransactionDate(), this.getDescription(),
+        return new Member_Transaction(this.getEmId(), this.getTransactionDate(), this.getDescription(),
                 this.getAmount(), this.getTotal());
     }
 
