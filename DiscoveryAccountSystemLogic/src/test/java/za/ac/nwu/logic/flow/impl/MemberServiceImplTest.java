@@ -34,7 +34,7 @@ public class MemberServiceImplTest {
     }
 
     @Test
-    public void newMember() throws Exception {
+    public void shouldAddNewMember() throws Exception {
         try {
             when(serviceTranslator.newMember(any(Member.class))).then(returnsFirstArg()); // if get anything of MemberDto
             MemberDto result = memberService.newMember(new MemberDto());
@@ -49,7 +49,7 @@ public class MemberServiceImplTest {
     }
 
     @Test
-    public void deleteMember() throws Exception {
+    public void shouldDeleteMember() throws Exception {
         try {
             when(serviceTranslator.newMember(any(Member.class))).then(returnsFirstArg());
             MemberDto result = memberService.newMember(new MemberDto());
@@ -59,49 +59,6 @@ public class MemberServiceImplTest {
             verify(serviceTranslator, atLeastOnce()).deleteMember(result.getMemId());
         } catch(Exception e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred during the deletion of the member."));
-        }
-    }
-
-    @Test
-    public void getMembers() throws Exception {
-        try {
-            when(serviceTranslator.newMember(any(Member.class))).then(returnsFirstArg());
-            MemberDto result = memberService.newMember(new MemberDto());
-            assertNotNull(result);
-            serviceTranslator.getAllMembers();
-            verify(serviceTranslator, atLeastOnce()).getAllMembers();
-        } catch (Exception e) {
-            assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while retrieving all members."));
-        }
-    }
-
-    @Test
-    public void getMemberByEmail() throws Exception {
-        try {
-            when(serviceTranslator.newMember(any(Member.class))).then(returnsFirstArg());
-            MemberDto result = memberService.newMember(new MemberDto());
-            assertNotNull(result);
-            System.out.println(result.getFirstName());
-            serviceTranslator.getMemberByEmail(result.getEmail());
-            assertEquals("reynardengels@gmail.com", result.getEmail());
-            verify(serviceTranslator, atLeastOnce()).getMemberByEmail(result.getEmail());
-        } catch (Exception e) {
-            assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while retrieving a member by their email address."));
-        }
-    }
-
-    @Test
-    public void getMemberById() throws Exception {
-        try {
-            when(serviceTranslator.newMember(any(Member.class))).then(returnsFirstArg());
-            MemberDto result = memberService.newMember(new MemberDto());
-            assertNotNull(result);
-            serviceTranslator.getOneMember(result.getMemId());
-            assertEquals("reynardengels@gmail.com", result.getEmail());
-            assertEquals("0723949955", result.getPhoneNumber());
-            verify(serviceTranslator, atLeastOnce()).getOneMember(result.getMemId());
-        } catch (Exception e) {
-            assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while retrieving a member by their id."));
         }
     }
 }

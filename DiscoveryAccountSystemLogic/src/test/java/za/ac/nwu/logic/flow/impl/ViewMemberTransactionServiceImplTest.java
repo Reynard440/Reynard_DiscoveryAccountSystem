@@ -48,8 +48,8 @@ public class ViewMemberTransactionServiceImplTest {
         try {
             MemberTransactionDto memberTransactionDto = new MemberTransactionDto();
             assertNotNull(memberTransactionDto);
-            memberTransactionTranslator.getMemberTransactionID(memberTransactionDto.getExID());
-            verify(memberTransactionTranslator, atLeastOnce()).getMemberTransactionID(memberTransactionDto.getExID());
+            memberTransactionTranslator.getMemberTransactionID(memberTransactionDto.getMtId());
+            verify(memberTransactionTranslator, atLeastOnce()).getMemberTransactionID(memberTransactionDto.getMtId());
         } catch (Exception e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while retrieving a member's transaction by id."));
         }
@@ -60,8 +60,8 @@ public class ViewMemberTransactionServiceImplTest {
         try {
             MemberTransactionDto memberTransactionDto = new MemberTransactionDto();
             assertNotNull(memberTransactionDto);
-            memberTransactionTranslator.getTransactionByIdAndDate(memberTransactionDto.getExID(), memberTransactionDto.getTransactionDate());
-            verify(memberTransactionTranslator, atLeastOnce()).getTransactionByIdAndDate(memberTransactionDto.getExID(), memberTransactionDto.getTransactionDate());
+            memberTransactionTranslator.getTransactionByIdAndDate(memberTransactionDto.getMtId(), memberTransactionDto.getTransactionDate());
+            verify(memberTransactionTranslator, atLeastOnce()).getTransactionByIdAndDate(memberTransactionDto.getMtId(), memberTransactionDto.getTransactionDate());
         } catch (Exception e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while retrieving a member's transaction by id and a given date."));
         }

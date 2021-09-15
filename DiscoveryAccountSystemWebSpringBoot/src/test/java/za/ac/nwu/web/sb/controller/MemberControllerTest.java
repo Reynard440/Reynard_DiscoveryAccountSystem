@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import za.ac.nwu.domain.dto.MemberDto;
 import za.ac.nwu.logic.flow.MemberService;
+import za.ac.nwu.logic.flow.ViewMemberService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,9 @@ public class MemberControllerTest {
 
     @Mock
     private MemberService memberService;
+
+    @Mock
+    private ViewMemberService viewMemberService;
 
     @InjectMocks
     private MemberController controller;
@@ -134,7 +138,7 @@ public class MemberControllerTest {
         memberDtos.add(new MemberDto(10,"johankohuman@gmail.com", "0816574582", "Johanko", "Human"));
         memberDtos.add(new MemberDto(11,"marnusjacobs@gmail.com", "0765047431", "Marnus", "Jacobs"));
 
-        when(memberService.getMembers()).thenReturn(memberDtos);
+        when(viewMemberService.getMembers()).thenReturn(memberDtos);
 
         MvcResult mvcResult = mockMvc.perform(get((String.format("%s/%s", MEMBER_CONTROLLER_URL, "getAllMembers")))
                         .servletPath(URL)
@@ -142,7 +146,7 @@ public class MemberControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
-        verify(memberService, times(1)).getMembers();
+        verify(viewMemberService, times(1)).getMembers();
         assertEquals(expectedConfirmation, mvcResult.getResponse().getContentAsString());
     }
 
@@ -179,7 +183,7 @@ public class MemberControllerTest {
                 "reynardengels@gmail.com",
                 "0723949955"
         );
-        when(memberService.getMemberByEmail("reynardengels@gmail.com")).thenReturn(memberDto);
+        when(viewMemberService.getMemberByEmail("reynardengels@gmail.com")).thenReturn(memberDto);
 
         MvcResult mvcResult = mockMvc.perform(get((String.format("%s/%s", MEMBER_CONTROLLER_URL, "getMemberByEmail/reynardengels@gmail.com")))
                         .servletPath(URL)
@@ -187,7 +191,7 @@ public class MemberControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
-        verify(memberService, times(1)).getMemberByEmail("reynardengels@gmail.com");
+        verify(viewMemberService, times(1)).getMemberByEmail("reynardengels@gmail.com");
         assertEquals(expectedConfirmation, mvcResult.getResponse().getContentAsString());
     }
 
@@ -203,7 +207,7 @@ public class MemberControllerTest {
                 "reynardengels@gmail.com",
                 "0723949955"
         );
-        when(memberService.getMemberById(1)).thenReturn(memberDto);
+        when(viewMemberService.getMemberById(1)).thenReturn(memberDto);
 
         MvcResult mvcResult = mockMvc.perform(get((String.format("%s/%s", MEMBER_CONTROLLER_URL, "getMemberById/1")))
                         .servletPath(URL)
@@ -211,7 +215,7 @@ public class MemberControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
-        verify(memberService, times(1)).getMemberById(1);
+        verify(viewMemberService, times(1)).getMemberById(1);
         assertEquals(expectedConfirmation, mvcResult.getResponse().getContentAsString());
     }
 }

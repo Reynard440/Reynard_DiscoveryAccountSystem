@@ -52,7 +52,7 @@ public class Exchange_Medium implements Serializable {
     }
 
     public Exchange_Medium(Integer emId) {
-        EmId = emId;
+        this.EmId = emId;
     }
 
     public Exchange_Medium(String type, String description, double balance, LocalDate date) {

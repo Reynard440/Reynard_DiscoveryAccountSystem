@@ -19,12 +19,10 @@ import java.util.Set;
 public class MemberServiceImpl implements MemberService {
 
     private final MemberTranslator memberTranslator;
-    private final ExchangeMediumTranslator exchangeMediumTranslator;
 
     @Autowired
-    public MemberServiceImpl(MemberTranslator memberTranslator, ExchangeMediumTranslator exchangeMediumTranslator){
+    public MemberServiceImpl(MemberTranslator memberTranslator){
         this.memberTranslator = memberTranslator;
-        this.exchangeMediumTranslator = exchangeMediumTranslator;
     }
 
     @Override
@@ -48,27 +46,4 @@ public class MemberServiceImpl implements MemberService {
         }
         memberTranslator.deleteMember(id);
     }
-
-    @Override
-    public List<MemberDto> getMembers(){
-        List<MemberDto> memberDtos = new ArrayList<>();
-        for (Member member : memberTranslator.getAllMembers()) {
-            memberDtos.add(new MemberDto(member));
-        }
-        return memberDtos;
-    }
-
-    @Override
-    public MemberDto getMemberByEmail(String email) {
-        Member member = memberTranslator.getMemberByEmail(email);
-        return new MemberDto(member);
-        //return null != member ? new MemberDto(member) : null;
-    }
-
-    @Override
-    public MemberDto getMemberById(Integer id) {
-        Member member = memberTranslator.getOneMember(id);
-        return null != member ? new MemberDto(member) : null;
-    }
-
 }

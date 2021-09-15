@@ -9,13 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-//import za.ac.nwu.domain.persistence.Member;
+import za.ac.nwu.domain.persistence.Member;
 import za.ac.nwu.repo.config.RepositoryTestConfig;
 
-/*import java.sql.SQLException;
+import static org.junit.Assert.*;
+
+import java.sql.SQLException;
 
 import static com.sun.javaws.JnlpxArgs.verify;
-import static org.junit.Assert.*;*/
+import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest

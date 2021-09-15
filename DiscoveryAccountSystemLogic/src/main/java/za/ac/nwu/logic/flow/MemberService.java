@@ -8,10 +8,4 @@ public interface MemberService {
     MemberDto newMember(MemberDto memberDto);
 
     void deleteMember(Integer id);
-
-    List<MemberDto> getMembers();
-
-    MemberDto getMemberByEmail(String email);
-
-    MemberDto getMemberById(Integer id);
 }

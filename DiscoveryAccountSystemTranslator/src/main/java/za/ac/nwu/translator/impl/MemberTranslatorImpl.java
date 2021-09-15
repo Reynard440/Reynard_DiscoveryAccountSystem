@@ -16,6 +16,8 @@ import java.util.List;
 public class MemberTranslatorImpl implements MemberTranslator {
     private final MemberRepository memberRepository;
 
+    //use DTO
+
     @Autowired
     public MemberTranslatorImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
@@ -40,7 +42,7 @@ public class MemberTranslatorImpl implements MemberTranslator {
         try{
             return memberRepository.getById(id);
         }catch(Exception e){
-            throw new NullPointerException();
+            throw new RuntimeException("An error occurred while getting the member by id.", e);
         }
     }
 

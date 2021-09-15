@@ -41,41 +41,34 @@ public class Member_Transaction implements Serializable {
     @Column(name = "MT_Amount")
     private double Amount;
 
-    @Column(name = "MT_Total")
-    private double Total;
-
     public Member_Transaction() {
     }
 
-    public Member_Transaction(Exchange_Medium emId, LocalDate transactionDate, String description, double amount, double total) {
+    public Member_Transaction(Exchange_Medium emId, LocalDate transactionDate, String description, double amount) {
         this.EmId = emId;
         this.TransactionDate = transactionDate;
         this.Description = description;
         this.Amount = amount;
-        this.Total = total;
     }
 
-    public Member_Transaction(LocalDate transactionDate, String description, double amount, double total, Exchange_Medium emId) {
+    public Member_Transaction(LocalDate transactionDate, String description, double amount, Exchange_Medium emId) {
         this.EmId = emId;
         this.TransactionDate = transactionDate;
         this.Description = description;
         this.Amount = amount;
-        this.Total = total;
     }
 
-    public Member_Transaction(LocalDate transactionDate, String description, double amount, double total) {
+    public Member_Transaction(LocalDate transactionDate, String description, double amount) {
         this.TransactionDate = transactionDate;
         this.Description = description;
         this.Amount = amount;
-        this.Total = total;
     }
 
-    public Member_Transaction(Integer emId, LocalDate transactionDate, String description, double amount, double total) {
+    public Member_Transaction(Integer emId, LocalDate transactionDate, String description, double amount) {
         this.EmId = new Exchange_Medium(emId);
         this.TransactionDate = transactionDate;
         this.Description = description;
         this.Amount = amount;
-        this.Total = total;
     }
 
     public Integer getMtId() {
@@ -118,24 +111,16 @@ public class Member_Transaction implements Serializable {
         Amount = amount;
     }
 
-    public double getTotal() {
-        return Total;
-    }
-
-    public void setTotal(double total) {
-        Total = total;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Member_Transaction that = (Member_Transaction) o;
-        return Double.compare(that.Amount, Amount) == 0 && Double.compare(that.Total, Total) == 0 && MtId.equals(that.MtId) && EmId.equals(that.EmId) && TransactionDate.equals(that.TransactionDate) && Description.equals(that.Description);
+        return Double.compare(that.Amount, Amount) == 0 && Objects.equals(MtId, that.MtId) && Objects.equals(EmId, that.EmId) && Objects.equals(TransactionDate, that.TransactionDate) && Objects.equals(Description, that.Description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(MtId, EmId, TransactionDate, Description, Amount, Total);
+        return Objects.hash(MtId, EmId, TransactionDate, Description, Amount);
     }
 }
