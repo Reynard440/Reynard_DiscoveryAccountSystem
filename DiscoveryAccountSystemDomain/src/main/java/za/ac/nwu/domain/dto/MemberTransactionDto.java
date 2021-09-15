@@ -105,6 +105,14 @@ public class MemberTransactionDto implements Serializable {
         this.EmId = exchangeMedium;
     }
 
+    public MemberTransactionDto(String description, LocalDate transactionDate, double amount, Integer emId, Integer mtId) {
+        this.TransactionDate = transactionDate;
+        this.Description = description;
+        this.Amount = amount;
+        this.EmId = emId;
+        this.MtId = mtId;
+    }
+
     public MemberTransactionDto(Member_Transaction member_transaction){
         this.TransactionDate = member_transaction.getTransactionDate();
         this.Description = member_transaction.getDescription();

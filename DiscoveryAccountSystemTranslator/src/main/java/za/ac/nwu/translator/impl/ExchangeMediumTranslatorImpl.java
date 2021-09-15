@@ -14,7 +14,7 @@ import java.util.List;
 @Transactional
 @Component
 public class ExchangeMediumTranslatorImpl implements ExchangeMediumTranslator {
-    private ExchangeMediumRepository exchangeMediumRepository;
+    private final ExchangeMediumRepository exchangeMediumRepository;
 
     @Autowired
     public ExchangeMediumTranslatorImpl(ExchangeMediumRepository exchangeMediumRepository) {

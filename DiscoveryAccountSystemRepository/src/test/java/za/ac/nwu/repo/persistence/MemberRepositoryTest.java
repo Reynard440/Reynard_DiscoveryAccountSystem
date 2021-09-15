@@ -35,29 +35,31 @@ public class MemberRepositoryTest {
     }
 
     @Test
-    public void getById()  {
-//        try {
-//            Member member = memberRepository.getById(1);
-//            assertNotNull(member);
-//            assertEquals("1", member.getId().toString());
-//        } catch (Exception e) {
-//            assertTrue(e.getMessage().equalsIgnoreCase("An error occurred during the creation of a exchange medium."));
-//        }
+    public void shouldGetById() throws Exception {
+        try {
+            Member member = memberRepository.getById(1);
+            assertNotNull(member);
+            assertEquals("1", member.getId().toString());
+        } catch (Exception e) {
+            throw new RuntimeException("An error occurred", e);
+            //assertTrue(e.getMessage().equalsIgnoreCase("An error occurred during the creation of a exchange medium."));
+        }
     }
 
     @Test
-    public void getByEmail() {
-//        try {
-//            Member member = memberRepository.getByEmail("reynardengels@gmail.com");
-//            assertNotNull(member);
-//            assertEquals("Reynard", member.getFirstName());
-//            assertEquals("reynardengels@gmail.com", member.getEmail());
-//        } catch (Exception e) {
-//            assertTrue(e.getMessage().equalsIgnoreCase("An error occurred during the creation of a exchange medium."));
-//        }
+    public void shouldGetByEmail() throws Exception {
+        try {
+            Member member = memberRepository.getByEmail("reynardengels@gmail.com");
+            assertNotNull(member);
+            assertEquals("Reynard", member.getFirstName());
+            assertEquals("reynardengels@gmail.com", member.getEmail());
+        } catch (Exception e) {
+            throw new RuntimeException("An error occurred", e);
+            //assertTrue(e.getMessage().equalsIgnoreCase("An error occurred during the creation of a exchange medium."));
+        }
     }
 
     @Test
-    public void deleteById() {
+    public void shouldDeleteById() throws Exception {
     }
 }

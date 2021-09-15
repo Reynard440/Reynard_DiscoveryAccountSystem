@@ -119,6 +119,24 @@ public class ExchangeMediumDto implements Serializable {
         this.Date = date;
     }
 
+    public ExchangeMediumDto(int exchangeMediumID, String type, String description, int balance, LocalDate date, int id) {
+        this.exchangeMediumID = exchangeMediumID;
+        this.Type = type;
+        this.Description = description;
+        this.Balance = balance;
+        this.Date = date;
+        this.MemID = new MemberDto(id);
+    }
+
+    public ExchangeMediumDto(Integer exchangeMediumID, String type, String description, double balance, LocalDate date, MemberDto memID) {
+        this.exchangeMediumID = exchangeMediumID;
+        this.Type = type;
+        this.Description = description;
+        this.Balance = balance;
+        this.Date = date;
+        this.MemID = memID;
+    }
+
     public ExchangeMediumDto(Exchange_Medium exchange_medium){
         this.exchangeMediumID = exchange_medium.getEmId();
         this.Type = exchange_medium.getType();

@@ -155,7 +155,7 @@ public class MemberControllerTest {
         String memberExpected = "{\"memId\":12,\"email\":\"reynardengels@gmail.com\",\"phoneNumber\":\"0723949955\",\"firstName\":\"Reynard\",\"lastName\":\"Engels\" }";
         String memberActual = "{\"confirmation\":true,\"cargo\":[" +
                 "{\"memId\":12,\"email\":\"reynardengels@gmail.com\",\"phoneNumber\":\"0723949955\",\"firstName\":\"Reynard\",\"lastName\":\"Engels\" }";
-        MemberDto memberDto = new MemberDto(12, "reynardengels@gmail.com", "0723949955","Reynard", "Engels");
+        MemberDto memberDto = new MemberDto(12,"reynardengels@gmail.com","0723949955","Reynard","Engels");
 
         when(memberService.newMember(eq(memberDto))).then(returnsFirstArg());
 

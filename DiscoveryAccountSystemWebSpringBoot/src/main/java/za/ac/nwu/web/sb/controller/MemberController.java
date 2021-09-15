@@ -46,8 +46,7 @@ public class MemberController {
             @ApiResponse(code = 200, message = "Member successfully create", response = DiscoveryAccountSystemResponse.class),
             @ApiResponse(code = 400, message = "Bad Request", response = DiscoveryAccountSystemResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = DiscoveryAccountSystemResponse.class)})
-    public ResponseEntity<DiscoveryAccountSystemResponse<MemberDto>> newMember(@ApiParam(value = "Request body to create a new Member", required = true)
-                                                                                   @RequestBody MemberDto memberDto){
+    public ResponseEntity<DiscoveryAccountSystemResponse<MemberDto>> newMember(@ApiParam(value = "Request body to create a new Member", required = true) @RequestBody MemberDto memberDto){
         MemberDto memberResponse = memberService.newMember(memberDto);
         DiscoveryAccountSystemResponse<MemberDto> response = new DiscoveryAccountSystemResponse<>(true, memberResponse);
         return new ResponseEntity<>(response, HttpStatus.CREATED);

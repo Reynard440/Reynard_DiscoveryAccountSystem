@@ -3,6 +3,7 @@ package za.ac.nwu.logic.flow.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import za.ac.nwu.domain.dto.ExchangeMediumDto;
+import za.ac.nwu.domain.dto.MemberDto;
 import za.ac.nwu.domain.persistence.Exchange_Medium;
 import za.ac.nwu.domain.persistence.Member;
 import za.ac.nwu.logic.flow.ExchangeMediumService;
@@ -26,25 +27,11 @@ public class ExchangeMediumServiceImpl implements ExchangeMediumService {
 
     @Override
     public void increaseExchangeMediumTotal(Integer id, double amount) {
-        if (null == id) {
-            id = 1;
-        }
-
-        if (amount == 0) {
-            amount = 0.0;
-        }
         exchangeMediumTranslator.increaseExchangeMediumTotal(id, amount);
     }
 
     @Override
     public void decreaseExchangeMediumTotal(Integer id, double amount) {
-        if (null == id) {
-            id = 1;
-        }
-
-        if (amount == 0) {
-            amount = 0.0;
-        }
         exchangeMediumTranslator.decreaseExchangeMediumTotal(id, amount);
     }
 
@@ -52,10 +39,11 @@ public class ExchangeMediumServiceImpl implements ExchangeMediumService {
     public ExchangeMediumDto newExchangeMedium(ExchangeMediumDto exchangeMediumDto) {
         if(null == exchangeMediumDto.getDate()){
             exchangeMediumDto.setExchangeMediumID(1);
-            exchangeMediumDto.setDate(LocalDate.now());
+            exchangeMediumDto.setDate(LocalDate.parse("2021-08-05"));
             exchangeMediumDto.setType("Miles");
-            exchangeMediumDto.setBalance(0.0);
-            exchangeMediumDto.setDescription("Discovery currency");
+            exchangeMediumDto.setBalance(40);
+            exchangeMediumDto.setDescription("This is a new Discovery currency type that keeps track of all your MILES");
+            exchangeMediumDto.setMemID(new MemberDto(1));
         }
 
         Member member = memberTranslator.getOneMember(exchangeMediumDto.getExchangeMediumID());

@@ -49,6 +49,10 @@ public class Member implements Serializable {
     public Member() {
     }
 
+    public Member(Integer id) {
+        this.Id = id;
+    }
+
     public Member(String firstName, String lastName, String email, String phoneNumber) {
         this.FirstName = firstName;
         this.LastName = lastName;

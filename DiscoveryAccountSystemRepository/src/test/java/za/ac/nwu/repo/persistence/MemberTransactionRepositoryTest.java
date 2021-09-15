@@ -12,6 +12,8 @@ import za.ac.nwu.domain.persistence.Member;
 import za.ac.nwu.domain.persistence.Member_Transaction;
 import za.ac.nwu.repo.config.RepositoryTestConfig;
 
+import java.time.LocalDate;
+
 import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
@@ -30,13 +32,26 @@ public class MemberTransactionRepositoryTest {
     }
 
     @Test
-    public void getByMtId() {
-//        Member_Transaction member_transaction = memberTransactionRepository.getByMtId(1);
-//        assertNotNull(member_transaction);
-//        assertEquals(java.util.Optional.of(1), member_transaction.getMtId());
+    public void shouldGetByMtId() throws Exception {
+        try {
+            Member_Transaction memberTransaction = memberTransactionRepository.getByMtId(1);
+            assertNotNull(memberTransaction);
+            assertEquals(LocalDate.parse("2021-08-31"), memberTransaction.getTransactionDate());
+        } catch (Exception e) {
+            throw new RuntimeException("An error occurred", e);
+            //assertTrue(e.getMessage().equalsIgnoreCase("An error occurred during the creation of a exchange medium."));
+        }
     }
 
     @Test
-    public void getByMtIdAndTransactionDate() {
+    public void shouldGetByMtIdAndTransactionDate() throws Exception {
+        try {
+            Member_Transaction memberTransaction = memberTransactionRepository.getByMtIdAndTransactionDate(1, LocalDate.parse("2021-08-31"));
+            assertNotNull(memberTransaction);
+            assertEquals("Deposit", memberTransaction.getDescription());
+        } catch (Exception e) {
+            throw new RuntimeException("An error occurred", e);
+            //assertTrue(e.getMessage().equalsIgnoreCase("An error occurred during the creation of a exchange medium."));
+        }
     }
 }
