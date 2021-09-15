@@ -25,19 +25,22 @@ public class MemberServiceImplTest {
     @InjectMocks //translator is now mocked
     private MemberServiceImpl memberService;
 
+    MemberDto result;
+
     @Before
     public void setUp() {
+        when(serviceTranslator.newMember(any(Member.class))).then(returnsFirstArg()); // if get anything of MemberDto
+        result = memberService.newMember(new MemberDto());
     }
 
     @After
     public void tearDown() {
+        result = null;
     }
 
     @Test
-    public void shouldAddNewMember() throws Exception {
+    public void shouldAddNewMember() {
         try {
-            when(serviceTranslator.newMember(any(Member.class))).then(returnsFirstArg()); // if get anything of MemberDto
-            MemberDto result = memberService.newMember(new MemberDto());
             assertNotNull(result);
             assertTrue(result.getEmail().contains("@gmail.com"));
             assertEquals(10, result.getPhoneNumber().length());
@@ -49,10 +52,8 @@ public class MemberServiceImplTest {
     }
 
     @Test
-    public void shouldDeleteMember() throws Exception {
+    public void shouldDeleteMember() {
         try {
-            when(serviceTranslator.newMember(any(Member.class))).then(returnsFirstArg());
-            MemberDto result = memberService.newMember(new MemberDto());
             assertNotNull(result);
             serviceTranslator.deleteMember(result.getMemId());
             assertEquals("Reynard", result.getFirstName());

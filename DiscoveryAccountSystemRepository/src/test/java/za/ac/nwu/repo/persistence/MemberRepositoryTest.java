@@ -2,6 +2,7 @@ package za.ac.nwu.repo.persistence;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.ComparisonFailure;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import za.ac.nwu.domain.dto.MemberDto;
+import za.ac.nwu.domain.persistence.Exchange_Medium;
 import za.ac.nwu.domain.persistence.Member;
 import za.ac.nwu.repo.config.RepositoryTestConfig;
 
@@ -26,16 +29,19 @@ public class MemberRepositoryTest {
     @Autowired
     private MemberRepository memberRepository;
 
+    //MemberDto memberDto;
+
     @Before
     public void setUp() throws Exception {
+        //memberDto = new MemberDto(1, "reynardengels@gmail.com", "0723949955", "Reynard", "Engels");
     }
 
     @After
     public void tearDown() throws Exception {
     }
 
-    @Test
-    public void shouldGetById() throws Exception {
+    @Test//(expected = ComparisonFailure.class)
+    public void shouldGetById() {
         try {
             Member member = memberRepository.getById(1);
             assertNotNull(member);
@@ -47,7 +53,7 @@ public class MemberRepositoryTest {
     }
 
     @Test
-    public void shouldGetByEmail() throws Exception {
+    public void shouldGetByEmail() {
         try {
             Member member = memberRepository.getByEmail("reynardengels@gmail.com");
             assertNotNull(member);
@@ -60,6 +66,6 @@ public class MemberRepositoryTest {
     }
 
     @Test
-    public void shouldDeleteById() throws Exception {
+    public void shouldDeleteById() {
     }
 }

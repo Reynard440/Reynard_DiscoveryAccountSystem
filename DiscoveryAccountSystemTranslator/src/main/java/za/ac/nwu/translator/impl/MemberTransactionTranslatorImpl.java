@@ -26,9 +26,7 @@ public class MemberTransactionTranslatorImpl implements MemberTransactionTransla
     public List<Member_Transaction> getMemberTransactions() {
         List<Member_Transaction> memberTransactions = new ArrayList<>();
         try{
-            for (Member_Transaction member_transaction : memberTransactionRepository.findAll()){
-                memberTransactions.add(member_transaction);
-            }
+            memberTransactions.addAll(memberTransactionRepository.findAll());
         }catch(Exception e){
             throw new RuntimeException("Unable to read from the DB", e);
         }
@@ -58,7 +56,6 @@ public class MemberTransactionTranslatorImpl implements MemberTransactionTransla
     public Member_Transaction getTransactionByIdAndDate(Integer id, LocalDate date) {
         try{
             return memberTransactionRepository.getByMtIdAndTransactionDate(id, date);
-            //return new MemberTransactionDto(member_transaction);
         }catch(Exception e){
             throw new RuntimeException("Unable to read from the DB", e);
         }

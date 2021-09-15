@@ -26,19 +26,22 @@ public class ViewMemberServiceImplTest {
     @InjectMocks //translator is now mocked
     private MemberServiceImpl memberService;
 
+    MemberDto result;
+
     @Before
     public void setUp() throws Exception {
+        when(serviceTranslator.newMember(any(Member.class))).then(returnsFirstArg());
+        result = memberService.newMember(new MemberDto());
     }
 
     @After
     public void tearDown() throws Exception {
+        result = null;
     }
 
     @Test
-    public void shouldGetMembers() throws Exception {
+    public void shouldGetMembers() {
         try {
-            when(serviceTranslator.newMember(any(Member.class))).then(returnsFirstArg());
-            MemberDto result = memberService.newMember(new MemberDto());
             assertNotNull(result);
             serviceTranslator.getAllMembers();
             verify(serviceTranslator, atLeastOnce()).getAllMembers();
@@ -48,10 +51,8 @@ public class ViewMemberServiceImplTest {
     }
 
     @Test
-    public void shouldGetMemberByEmail() throws Exception {
+    public void shouldGetMemberByEmail() {
         try {
-            when(serviceTranslator.newMember(any(Member.class))).then(returnsFirstArg());
-            MemberDto result = memberService.newMember(new MemberDto());
             assertNotNull(result);
             System.out.println(result.getFirstName());
             serviceTranslator.getMemberByEmail(result.getEmail());
@@ -63,10 +64,8 @@ public class ViewMemberServiceImplTest {
     }
 
     @Test
-    public void shouldGetMemberById() throws Exception {
+    public void shouldGetMemberById() {
         try {
-            when(serviceTranslator.newMember(any(Member.class))).then(returnsFirstArg());
-            MemberDto result = memberService.newMember(new MemberDto());
             assertNotNull(result);
             serviceTranslator.getOneMember(result.getMemId());
             assertEquals("reynardengels@gmail.com", result.getEmail());

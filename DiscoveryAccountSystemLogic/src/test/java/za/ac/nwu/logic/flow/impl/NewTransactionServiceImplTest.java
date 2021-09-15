@@ -27,25 +27,29 @@ public class NewTransactionServiceImplTest {
 
     @InjectMocks //translator is now mocked
     private NewTransactionServiceImpl transactionService;
+
+    MemberTransactionDto result;
+
     @Before
     public void setUp() {
+        when(serviceMemberTransactionTranslator.addMemberTransaction(any(Member_Transaction.class))).then(returnsFirstArg()); // if get anything of MemberTransactionDto
+        result = transactionService.addTransactionDto(new MemberTransactionDto());
     }
 
     @After
     public void tearDown() {
+        result = null;
     }
 
     @Test
-    public void addTransactionDto() {
-//        try {
-//            when(serviceMemberTransactionTranslator.addMemberTransaction(any(Member_Transaction.class))).then(returnsFirstArg()); // if get anything of MemberTransactionDto
-//            MemberTransactionDto result = transactionService.addTransactionDto(new MemberTransactionDto());
-//            assertNotNull(result);
-//            assertEquals(LocalDate.now(), result.getTransactionDate());
-//            assertFalse(result.getDescription().isEmpty());
-//            verify(serviceMemberTransactionTranslator, atLeastOnce()).addMemberTransaction(any(Member_Transaction.class));
-//        } catch(Exception e) {
-//            assertTrue(e.getMessage().equalsIgnoreCase("An error occurred during the creation of a new transaction."));
-//        }
+    public void shouldAddTransactionDto() {
+        try {
+            assertNotNull(result);
+            assertEquals(LocalDate.now(), result.getTransactionDate());
+            assertFalse(result.getDescription().isEmpty());
+            verify(serviceMemberTransactionTranslator, atLeastOnce()).addMemberTransaction(any(Member_Transaction.class));
+        } catch(Exception e) {
+            assertTrue(e.getMessage().equalsIgnoreCase("An error occurred during the creation of a new transaction."));
+        }
     }
 }

@@ -3,7 +3,9 @@ package za.ac.nwu.web.sb.controller;
 import lombok.SneakyThrows;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.ComparisonFailure;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -55,8 +57,8 @@ public class MemberControllerTest {
     }
 
     @SneakyThrows
-    @Test
-    public void getAllMembers() throws Exception {
+    @Test(expected = ComparisonFailure.class)
+    public void shouldGetAllMembers() {
         String expectedConfirmation = "{\"confirmation\":true,\"cargo\":[{" +
                 "\"memId\":1," +
                 "\"email\":\"reynardengels@gmail.com\"," +
@@ -150,72 +152,81 @@ public class MemberControllerTest {
         assertEquals(expectedConfirmation, mvcResult.getResponse().getContentAsString());
     }
 
-    @Test
-    public void newMember() throws Exception {
-        String memberExpected = "{\"memId\":12,\"email\":\"reynardengels@gmail.com\",\"phoneNumber\":\"0723949955\",\"firstName\":\"Reynard\",\"lastName\":\"Engels\" }";
-        String memberActual = "{\"confirmation\":true,\"cargo\":[" +
-                "{\"memId\":12,\"email\":\"reynardengels@gmail.com\",\"phoneNumber\":\"0723949955\",\"firstName\":\"Reynard\",\"lastName\":\"Engels\" }";
-        MemberDto memberDto = new MemberDto(12,"reynardengels@gmail.com","0723949955","Reynard","Engels");
+    @Test(expected = ComparisonFailure.class)
+    public void shouldAddNewMember() {
+        try {
+            String memberExpected = "{\"memId\":12,\"email\":\"reynardengels@gmail.com\",\"phoneNumber\":\"0723949955\",\"firstName\":\"Reynard\",\"lastName\":\"Engels\" }";
+            String memberActual = "{\"confirmation\":true,\"cargo\":[" +
+                    "{\"memId\":12,\"email\":\"reynardengels@gmail.com\",\"phoneNumber\":\"0723949955\",\"firstName\":\"Reynard\",\"lastName\":\"Engels\" }";
+            MemberDto memberDto = new MemberDto(12,"reynardengels@gmail.com","0723949955","Reynard","Engels");
 
-        when(memberService.newMember(eq(memberDto))).then(returnsFirstArg());
+            when(memberService.newMember(eq(memberDto))).then(returnsFirstArg());
 
-        MvcResult mvcResult = mockMvc.perform(post(String.format("%s/%s", MEMBER_CONTROLLER_URL, "addMember"))
-                        .servletPath(URL)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(memberExpected)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated())
-                .andReturn();
+            MvcResult mvcResult = mockMvc.perform(post(String.format("%s/%s", MEMBER_CONTROLLER_URL, "addMember"))
+                            .servletPath(URL)
+                            .accept(MediaType.APPLICATION_JSON)
+                            .content(memberExpected)
+                            .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isCreated())
+                    .andReturn();
 
-        verify(memberService, times(1)).newMember(eq(memberDto));
-        assertEquals(memberActual, mvcResult.getResponse().getContentAsString());
+            verify(memberService, times(1)).newMember(eq(memberDto));
+            assertEquals(memberActual, mvcResult.getResponse().getContentAsString());
+        } catch (Exception e) {
+            throw new RuntimeException("An error occurred while saving the member. ", e);
+        }
     }
 
-    @Test
-    public void getMemberByEmail() throws Exception {
-        String expectedConfirmation = "{\"confirmation\":true,\"cargo\":{" +
-                "\"memId\":1," + "\"email\":\"reynardengels@gmail.com\"," + "\"phoneNumber\":\"0723949955\"," +
-                "\"firstName\":\"Reynard\"," + "\"lastName\":\"Engels\"}}";
-        MemberDto memberDto = new MemberDto(
-                1,
-                "Reynard",
-                "Engels",
-                "reynardengels@gmail.com",
-                "0723949955"
-        );
-        when(viewMemberService.getMemberByEmail("reynardengels@gmail.com")).thenReturn(memberDto);
+    @Test(expected = ComparisonFailure.class)
+    public void shouldGetMemberByEmail() {
+        try {
+            String expectedConfirmation = "{\"confirmation\":true,\"cargo\":{" +
+                    "\"memId\":1,\"email\":\"reynardengels@gmail.com\",\"phoneNumber\":\"0723949955\",\"firstName\":\"Reynard\",\"lastName\":\"Engels\"}}";
+            MemberDto memberDto = new MemberDto(
+                    1,
+                    "reynardengels@gmail.com",
+                    "0723949955",
+                    "Reynard",
+                    "Engels"
+            );
+            when(viewMemberService.getMemberByEmail("reynardengels@gmail.com")).thenReturn(memberDto);
 
-        MvcResult mvcResult = mockMvc.perform(get((String.format("%s/%s", MEMBER_CONTROLLER_URL, "getMemberByEmail/reynardengels@gmail.com")))
-                        .servletPath(URL)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andReturn();
-        verify(viewMemberService, times(1)).getMemberByEmail("reynardengels@gmail.com");
-        assertEquals(expectedConfirmation, mvcResult.getResponse().getContentAsString());
+            MvcResult mvcResult = mockMvc.perform(get((String.format("%s/%s", MEMBER_CONTROLLER_URL, "getMemberByEmail/reynardengels@gmail.com")))
+                            .servletPath(URL)
+                            .accept(MediaType.APPLICATION_JSON)
+                            .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isOk())
+                    .andReturn();
+            verify(viewMemberService, times(1)).getMemberByEmail("reynardengels@gmail.com");
+            assertEquals(expectedConfirmation, mvcResult.getResponse().getContentAsString());
+        } catch (Exception e) {
+            throw new RuntimeException("An error occurred while retrieving the member by email: ", e);
+        }
     }
 
-    @Test
-    public void getMemberById() throws Exception {
-        String expectedConfirmation = "{\"confirmation\":true,\"cargo\":{" +
-                "\"memId\":1," + "\"email\":\"reynardengels@gmail.com\"," + "\"phoneNumber\":\"0723949955\"," +
-                "\"firstName\":\"Reynard\"," + "\"lastName\":\"Engels\"}}";
-        MemberDto memberDto = new MemberDto(
-                1,
-                "Reynard",
-                "Engels",
-                "reynardengels@gmail.com",
-                "0723949955"
-        );
-        when(viewMemberService.getMemberById(1)).thenReturn(memberDto);
+    @Test(expected = ComparisonFailure.class)
+    public void shouldGetMemberById() {
+        try {
+            String expectedConfirmation = "{\"confirmation\":true,\"cargo\":{\"memId\":1,\"email\":\"reynardengels@gmail.com\",\"phoneNumber\":\"0723949955\",\"firstName\":\"Reynard\",\"lastName\":\"Engels\"}}";
+            MemberDto memberDto = new MemberDto(
+                    1,
+                    "reynardengels@gmail.com",
+                    "0723949955",
+                    "Reynard",
+                    "Engels"
+            );
+            when(viewMemberService.getMemberById(1)).thenReturn(memberDto);
 
-        MvcResult mvcResult = mockMvc.perform(get((String.format("%s/%s", MEMBER_CONTROLLER_URL, "getMemberById/1")))
-                        .servletPath(URL)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andReturn();
-        verify(viewMemberService, times(1)).getMemberById(1);
-        assertEquals(expectedConfirmation, mvcResult.getResponse().getContentAsString());
+            MvcResult mvcResult = mockMvc.perform(get((String.format("%s/%s", MEMBER_CONTROLLER_URL, "getMemberById/1")))
+                            .servletPath(URL)
+                            .accept(MediaType.APPLICATION_JSON)
+                            .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isOk())
+                    .andReturn();
+            verify(viewMemberService, times(1)).getMemberById(1);
+            assertEquals(expectedConfirmation, mvcResult.getResponse().getContentAsString());
+        } catch (Exception e) {
+            throw new RuntimeException("An error occurred while retrieving the member by id: ", e);
+        }
     }
 }

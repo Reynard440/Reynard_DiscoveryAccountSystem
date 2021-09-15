@@ -20,6 +20,7 @@ import java.util.List;
 public class MemberController {
     private final MemberService memberService;
     private final ViewMemberService viewMemberService;
+    private String email;
 
     @Autowired
     public MemberController(MemberService memberService, ViewMemberService viewMemberService){

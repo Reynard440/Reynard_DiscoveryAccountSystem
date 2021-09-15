@@ -9,11 +9,15 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import za.ac.nwu.domain.dto.ExchangeMediumDto;
 import za.ac.nwu.domain.dto.MemberTransactionDto;
+import za.ac.nwu.domain.persistence.Member_Transaction;
 import za.ac.nwu.translator.MemberTransactionTranslator;
 
+import java.time.LocalDate;
+
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.verify;
+import static org.mockito.AdditionalAnswers.returnsFirstArg;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ViewMemberTransactionServiceImplTest {
@@ -23,19 +27,26 @@ public class ViewMemberTransactionServiceImplTest {
     @InjectMocks //translator is now mocked
     private ViewMemberTransactionServiceImpl viewMemberTransactionService;
 
+    @InjectMocks
+    private NewTransactionServiceImpl transactionService;
+
+    MemberTransactionDto result;
+
     @Before
     public void setUp() throws Exception {
+        when(memberTransactionTranslator.addMemberTransaction(any(Member_Transaction.class))).then(returnsFirstArg()); // if get anything of MemberTransactionDto
+        result = transactionService.addTransactionDto(new MemberTransactionDto());
     }
 
     @After
     public void tearDown() throws Exception {
+        result = null;
     }
 
     @Test
-    public void getAllMemberTransaction() throws Exception {
+    public void shouldGetAllMemberTransaction() {
         try {
-            MemberTransactionDto memberTransactionDto = new MemberTransactionDto();
-            assertNotNull(memberTransactionDto);
+            assertNotNull(result);
             memberTransactionTranslator.getMemberTransactions();
             verify(memberTransactionTranslator, atLeastOnce()).getMemberTransactions();
         } catch (Exception e) {
@@ -44,24 +55,23 @@ public class ViewMemberTransactionServiceImplTest {
     }
 
     @Test
-    public void getMemberTransactionID() throws Exception {
+    public void shouldGetMemberTransactionID() {
         try {
-            MemberTransactionDto memberTransactionDto = new MemberTransactionDto();
-            assertNotNull(memberTransactionDto);
-            memberTransactionTranslator.getMemberTransactionID(memberTransactionDto.getMtId());
-            verify(memberTransactionTranslator, atLeastOnce()).getMemberTransactionID(memberTransactionDto.getMtId());
+            assertNotNull(result);
+            memberTransactionTranslator.getMemberTransactionID(1);
+            assertEquals(LocalDate.now(), result.getTransactionDate());
+            verify(memberTransactionTranslator, atLeastOnce()).getMemberTransactionID(1);
         } catch (Exception e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while retrieving a member's transaction by id."));
         }
     }
 
     @Test
-    public void getTransactionByIdAndDate() throws Exception {
+    public void shouldGetTransactionByIdAndDate() {
         try {
-            MemberTransactionDto memberTransactionDto = new MemberTransactionDto();
-            assertNotNull(memberTransactionDto);
-            memberTransactionTranslator.getTransactionByIdAndDate(memberTransactionDto.getMtId(), memberTransactionDto.getTransactionDate());
-            verify(memberTransactionTranslator, atLeastOnce()).getTransactionByIdAndDate(memberTransactionDto.getMtId(), memberTransactionDto.getTransactionDate());
+            assertNotNull(result);
+            memberTransactionTranslator.getTransactionByIdAndDate(1, LocalDate.parse("2021-08-31"));
+            verify(memberTransactionTranslator, atLeastOnce()).getTransactionByIdAndDate(1, LocalDate.parse("2021-08-31"));
         } catch (Exception e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while retrieving a member's transaction by id and a given date."));
         }

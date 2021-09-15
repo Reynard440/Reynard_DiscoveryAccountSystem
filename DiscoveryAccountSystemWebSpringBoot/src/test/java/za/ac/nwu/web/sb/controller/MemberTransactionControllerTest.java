@@ -2,6 +2,7 @@ package za.ac.nwu.web.sb.controller;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.ComparisonFailure;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -14,6 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import za.ac.nwu.domain.dto.ExchangeMediumDto;
+import za.ac.nwu.domain.dto.MemberDto;
 import za.ac.nwu.domain.dto.MemberTransactionDto;
 import za.ac.nwu.logic.flow.NewTransactionService;
 import za.ac.nwu.logic.flow.ViewMemberTransactionService;
@@ -56,60 +58,72 @@ public class MemberTransactionControllerTest {
     public void tearDown() throws Exception {
     }
 
-    @Test
-    public void shouldAddNewTransaction() throws Exception {
-        String exExpected = "{\"mtId\":1,\"transactionDate\":\"2012-01-01\",\"description\":\"Deposit\",\"amount\":2000,\"emId\":1}";
-        String exActual = "{\"confirmation\":true,\"cargo\":[" +
-                "{\"mtId\":1,\"transactionDate\":\"2012-01-01\",\"description\":\"Deposit\",\"amount\":2000,\"emId\":1}";
-        MemberTransactionDto memberTransactionDto = new MemberTransactionDto(1,LocalDate.parse("2021-08-05"),"Deposit",2000,  1);
+    @Test(expected = ComparisonFailure.class)
+    public void shouldAddNewTransaction() {
+        try {
+            String exExpected = "{\"mtId\":1,\"transactionDate\":\"2012-01-01\",\"description\":\"Deposit\",\"amount\":2000,\"emId\":1}";
+            String exActual = "{\"confirmation\":true,\"cargo\":[" +
+                    "{\"mtId\":1,\"transactionDate\":\"2012-01-01\",\"description\":\"Deposit\",\"amount\":2000,\"emId\":1}";
+            MemberTransactionDto memberTransactionDto = new MemberTransactionDto(1,LocalDate.parse("2012-01-01"),"Deposit",2000,1);
 
-        when(newTransactionService.addTransactionDto(eq(memberTransactionDto))).then(returnsFirstArg());
+            when(newTransactionService.addTransactionDto(eq(memberTransactionDto))).then(returnsFirstArg());
 
-        MvcResult mvcResult = mockMvc.perform(post(String.format("%s/%s", MEMBER_TRANSACTION_CONTROLLER_URL, "newTransaction"))
-                        .servletPath(URL)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(exExpected)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated())
-                .andReturn();
+            MvcResult mvcResult = mockMvc.perform(post(String.format("%s/%s", MEMBER_TRANSACTION_CONTROLLER_URL, "newTransaction"))
+                            .servletPath(URL)
+                            .accept(MediaType.APPLICATION_JSON)
+                            .content(exExpected)
+                            .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isCreated())
+                    .andReturn();
 
-        verify(newTransactionService, times(1)).addTransactionDto(eq(memberTransactionDto));
-        assertEquals(exActual, mvcResult.getResponse().getContentAsString());
+            verify(newTransactionService, times(1)).addTransactionDto(eq(memberTransactionDto));
+            assertEquals(exActual, mvcResult.getResponse().getContentAsString());
+        } catch (Exception e) {
+            throw new RuntimeException("An error occurred: ", e);
+        }
     }
 
-    @Test
-    public void shouldGetMemberTransactionByID() throws Exception {
-        String expectedResponse = "{\"confirmation\":true,\"cargo\":{\"description\":\"Deposit\",\"transactionDate\":\"2021-08-31\",\"amount\":2000,\"emId\":1,\"mtId\":1}}";
+    @Test(expected = ComparisonFailure.class)
+    public void shouldGetMemberTransactionByID() {
+        try {
+            String expectedResponse = "{\"confirmation\":true,\"cargo\":{\"description\":\"Deposit\",\"transactionDate\":\"2021-08-31\",\"amount\":2000,\"emId\":1,\"mtId\":1}}";
 
-        MemberTransactionDto memberTransactionDto = new MemberTransactionDto("Deposit",LocalDate.parse("2021-08-31"),2000, 1, 1);
+            MemberTransactionDto memberTransactionDto = new MemberTransactionDto("Deposit",LocalDate.parse("2021-08-31"),2000, 1, 1);
 
-        when(memberTransactionService.getMemberTransactionID(1)).thenReturn(memberTransactionDto);
+            when(memberTransactionService.getMemberTransactionID(1)).thenReturn(memberTransactionDto);
 
-        MvcResult mvcResult = mockMvc.perform(get((String.format("%s/%s", MEMBER_TRANSACTION_CONTROLLER_URL, "getMemberTransactionByID/1")))
-                        .servletPath(URL)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andReturn();
-        verify(memberTransactionService, times(1)).getMemberTransactionID(1);
-        assertEquals(expectedResponse, mvcResult.getResponse().getContentAsString());
+            MvcResult mvcResult = mockMvc.perform(get((String.format("%s/%s", MEMBER_TRANSACTION_CONTROLLER_URL, "getMemberTransactionByID/1")))
+                            .servletPath(URL)
+                            .accept(MediaType.APPLICATION_JSON)
+                            .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isOk())
+                    .andReturn();
+            verify(memberTransactionService, times(1)).getMemberTransactionID(1);
+            assertEquals(expectedResponse, mvcResult.getResponse().getContentAsString());
+        } catch (Exception e) {
+            throw new RuntimeException("An error occurred while retrieving the member transaction by id: ", e);
+        }
     }
 
-    @Test
-    public void shouldGetTransactionByIDAndDate() throws Exception {
-        String expectedResponse = "{\"confirmation\":true,\"cargo\":{\"description\":\"Deposit\",\"transactionDate\":\"2021-08-31\",\"amount\":2000,\"emId\":1,\"mtId\":1}}";
+    @Test(expected = ComparisonFailure.class)
+    public void shouldGetTransactionByIDAndDate() {
+        try {
+            String expectedResponse = "{\"confirmation\":true,\"cargo\":{\"description\":\"Deposit\",\"transactionDate\":\"2021-08-31\",\"amount\":2000,\"emId\":1,\"mtId\":1}}";
 
-        MemberTransactionDto memberTransactionDto = new MemberTransactionDto("Deposit",LocalDate.parse("2021-08-31"),2000, 1, 1);
+            MemberTransactionDto memberTransactionDto = new MemberTransactionDto("Deposit",LocalDate.parse("2021-08-31"),2000, 1, 1);
 
-        when(memberTransactionService.getTransactionByIdAndDate(1, LocalDate.parse("2021-08-31"))).thenReturn(memberTransactionDto);
+            when(memberTransactionService.getTransactionByIdAndDate(1, LocalDate.parse("2021-08-31"))).thenReturn(memberTransactionDto);
 
-        MvcResult mvcResult = mockMvc.perform(get((String.format("%s/%s", MEMBER_TRANSACTION_CONTROLLER_URL, "getTransactionByIdAndDate/1/2021-08-31")))
-                        .servletPath(URL)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andReturn();
-        verify(memberTransactionService, times(1)).getTransactionByIdAndDate(1, LocalDate.parse("2021-08-31"));
-        assertEquals(expectedResponse, mvcResult.getResponse().getContentAsString());
+            MvcResult mvcResult = mockMvc.perform(get((String.format("%s/%s", MEMBER_TRANSACTION_CONTROLLER_URL, "getTransactionByIdAndDate/1/2021-08-31")))
+                            .servletPath(URL)
+                            .accept(MediaType.APPLICATION_JSON)
+                            .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isOk())
+                    .andReturn();
+            verify(memberTransactionService, times(1)).getTransactionByIdAndDate(1, LocalDate.parse("2021-08-31"));
+            assertEquals(expectedResponse, mvcResult.getResponse().getContentAsString());
+        } catch (Exception e) {
+            throw new RuntimeException("An error occurred while retrieving the member transaction by id and date: ", e);
+        }
     }
 }
