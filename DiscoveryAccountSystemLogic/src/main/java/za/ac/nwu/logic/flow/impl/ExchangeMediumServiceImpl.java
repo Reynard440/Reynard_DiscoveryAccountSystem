@@ -11,6 +11,7 @@ import za.ac.nwu.translator.ExchangeMediumTranslator;
 import za.ac.nwu.translator.MemberTranslator;
 
 import javax.transaction.Transactional;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 @Transactional
@@ -26,7 +27,7 @@ public class ExchangeMediumServiceImpl implements ExchangeMediumService {
     }
 
     @Override
-    public void increaseExchangeMediumTotal(Integer id, double amount) {
+    public void increaseExchangeMediumTotal(Integer id, double amount)  {
         exchangeMediumTranslator.increaseExchangeMediumTotal(id, amount);
     }
 
@@ -39,7 +40,7 @@ public class ExchangeMediumServiceImpl implements ExchangeMediumService {
     public ExchangeMediumDto newExchangeMedium(ExchangeMediumDto exchangeMediumDto) {
         if(null == exchangeMediumDto.getDate()){
             exchangeMediumDto.setExchangeMediumID(1);
-            exchangeMediumDto.setDate(LocalDate.parse("2021-08-05"));
+            exchangeMediumDto.setDate(LocalDate.now());
             exchangeMediumDto.setType("Miles");
             exchangeMediumDto.setBalance(40);
             exchangeMediumDto.setDescription("This is a new Discovery currency type that keeps track of all your MILES");

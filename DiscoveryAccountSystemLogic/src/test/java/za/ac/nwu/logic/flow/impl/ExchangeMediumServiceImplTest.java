@@ -10,10 +10,13 @@ import org.mockito.junit.MockitoJUnitRunner;
 import za.ac.nwu.domain.dto.ExchangeMediumDto;
 import za.ac.nwu.domain.dto.MemberDto;
 import za.ac.nwu.domain.persistence.Exchange_Medium;
+import za.ac.nwu.domain.persistence.Member;
 import za.ac.nwu.translator.ExchangeMediumTranslator;
 import za.ac.nwu.translator.MemberTranslator;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
@@ -25,6 +28,9 @@ public class ExchangeMediumServiceImplTest {
     @Mock //creates a mock of ExchangeMediumTranslator (not the actual ExchangeMediumTranslator)
     private ExchangeMediumTranslator serviceExchangeMediumTranslator;
 
+    @Mock
+    private MemberTranslator memberTranslator;
+
     @InjectMocks //translator is now mocked
     private ExchangeMediumServiceImpl exchangeMediumService;
 
@@ -32,7 +38,8 @@ public class ExchangeMediumServiceImplTest {
 
     @Before
     public void setUp() {
-        when(serviceExchangeMediumTranslator.newExchangeMedium(any(Exchange_Medium.class))).then(returnsFirstArg()); // if get anything of MemberDto
+        lenient().when(serviceExchangeMediumTranslator.newExchangeMedium(any(Exchange_Medium.class))).then(returnsFirstArg()); // if get anything of MemberDto
+        lenient().when(memberTranslator.newMember(any(Member.class))).then(returnsFirstArg());
         result = exchangeMediumService.newExchangeMedium(new ExchangeMediumDto());
     }
 
@@ -57,7 +64,7 @@ public class ExchangeMediumServiceImplTest {
     public void shouldIncreaseExchangeMediumTotal() {
         try {
             assertNotNull(result);
-            assertEquals("Discovery currency", result.getDescription());
+            assertEquals("This is a new Discovery currency type that keeps track of all your MILES", result.getDescription());
             assertEquals("Miles", result.getType());
             assertEquals(LocalDate.now(), result.getDate());
             serviceExchangeMediumTranslator.increaseExchangeMediumTotal(result.getExchangeMediumID(), result.getBalance());
@@ -71,7 +78,7 @@ public class ExchangeMediumServiceImplTest {
     public void shouldDecreaseExchangeMediumTotal() {
         try {
             assertNotNull(result);
-            assertEquals("Discovery currency", result.getDescription());
+            assertEquals("This is a new Discovery currency type that keeps track of all your MILES", result.getDescription());
             assertEquals("Miles", result.getType());
             assertEquals(LocalDate.now(), result.getDate());
             serviceExchangeMediumTranslator.decreaseExchangeMediumTotal(result.getExchangeMediumID(), result.getBalance());
@@ -85,7 +92,7 @@ public class ExchangeMediumServiceImplTest {
     public void shouldCheckTypeExist() {
         try {
             assertNotNull(result);
-            assertEquals("Discovery currency", result.getDescription());
+            assertEquals("This is a new Discovery currency type that keeps track of all your MILES", result.getDescription());
             assertEquals("Miles", result.getType());
             serviceExchangeMediumTranslator.checkTypeExists(result.getExchangeMediumID(), result.getType());
             verify(serviceExchangeMediumTranslator, atLeastOnce()).checkTypeExists(result.getExchangeMediumID(), result.getType());

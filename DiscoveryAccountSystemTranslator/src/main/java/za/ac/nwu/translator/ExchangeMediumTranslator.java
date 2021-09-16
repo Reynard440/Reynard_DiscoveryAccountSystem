@@ -4,21 +4,22 @@ import org.springframework.stereotype.Component;
 import za.ac.nwu.domain.dto.ExchangeMediumDto;
 import za.ac.nwu.domain.persistence.Exchange_Medium;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Component
 public interface ExchangeMediumTranslator {
-    List<ExchangeMediumDto> getExchangeMediumDtos();
+    List<ExchangeMediumDto> getExchangeMediumDtos() ;
 
     Exchange_Medium getExchangeMediumByEmID(Integer emid);
 
     void increaseExchangeMediumTotal(Integer id, double amount);
 
-    void decreaseExchangeMediumTotal(Integer id, double amount);
+    void decreaseExchangeMediumTotal(Integer id, double amount) ;
 
     boolean checkTypeExists(Integer id, String type);
 
-    Exchange_Medium newExchangeMedium(Exchange_Medium exchange_medium);
+    Exchange_Medium newExchangeMedium(Exchange_Medium exchange_medium) ;
 
     Exchange_Medium getExchangeMediumCurrentByTypeAndID(String type, Integer id);
 }

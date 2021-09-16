@@ -14,6 +14,7 @@ import za.ac.nwu.translator.MemberTransactionTranslator;
 import za.ac.nwu.translator.MemberTranslator;
 
 import javax.transaction.Transactional;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 @Transactional

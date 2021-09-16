@@ -159,21 +159,16 @@ public class ExchangeMediumDto implements Serializable {
         return new Exchange_Medium(this.getType(), this.getDescription(), this.getBalance(), this.getDate());
     }
 
-    @JsonIgnore
-    public Exchange_Medium getExchangeMediumId() {
-        return new Exchange_Medium(getExchangeMediumID());
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ExchangeMediumDto that = (ExchangeMediumDto) o;
-        return Double.compare(that.Balance, Balance) == 0 && Objects.equals(Type, that.Type) && Objects.equals(Description, that.Description) && Objects.equals(Date, that.Date) && Objects.equals(MemID, that.MemID);/* && Objects.equals(memberTransactions, that.memberTransactions);*/
+        return Double.compare(that.Balance, Balance) == 0 && Objects.equals(exchangeMediumID, that.exchangeMediumID) && Objects.equals(Type, that.Type) && Objects.equals(Description, that.Description) && Objects.equals(Date, that.Date) && Objects.equals(MemID, that.MemID);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(Type, Description, Balance, Date, MemID/*, memberTransactions*/);
+        return Objects.hash(exchangeMediumID, Type, Description, Balance, Date, MemID);
     }
 }

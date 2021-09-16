@@ -1,5 +1,6 @@
 package za.ac.nwu.repo.persistence;
 
+import lombok.SneakyThrows;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,27 +32,19 @@ public class MemberTransactionRepositoryTest {
     public void tearDown() throws Exception {
     }
 
+    @SneakyThrows
     @Test
-    public void shouldGetByMtId() throws Exception {
-        try {
-            Member_Transaction memberTransaction = memberTransactionRepository.getByMtId(1);
-            assertNotNull(memberTransaction);
-            assertEquals(LocalDate.parse("2021-08-31"), memberTransaction.getTransactionDate());
-        } catch (Exception e) {
-            throw new RuntimeException("An error occurred", e);
-            //assertTrue(e.getMessage().equalsIgnoreCase("An error occurred during the creation of a exchange medium."));
-        }
+    public void shouldGetByMtId() {
+        Member_Transaction memberTransaction = memberTransactionRepository.getByMtId(1);
+        assertNotNull(memberTransaction);
+        assertEquals(LocalDate.parse("2021-08-31"), memberTransaction.getTransactionDate());
     }
 
+    @SneakyThrows
     @Test
-    public void shouldGetByMtIdAndTransactionDate() throws Exception {
-        try {
-            Member_Transaction memberTransaction = memberTransactionRepository.getByMtIdAndTransactionDate(1, LocalDate.parse("2021-08-31"));
-            assertNotNull(memberTransaction);
-            assertEquals("Deposit", memberTransaction.getDescription());
-        } catch (Exception e) {
-            throw new RuntimeException("An error occurred", e);
-            //assertTrue(e.getMessage().equalsIgnoreCase("An error occurred during the creation of a exchange medium."));
-        }
+    public void shouldGetByMtIdAndTransactionDate() {
+        Member_Transaction memberTransaction = memberTransactionRepository.getByMtIdAndTransactionDate(1, LocalDate.parse("2021-08-31"));
+        assertNotNull(memberTransaction);
+        assertEquals("Deposit", memberTransaction.getDescription());
     }
 }

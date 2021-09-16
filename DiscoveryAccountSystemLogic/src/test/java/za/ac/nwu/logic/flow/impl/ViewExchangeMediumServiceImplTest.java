@@ -10,7 +10,9 @@ import org.mockito.junit.MockitoJUnitRunner;
 import za.ac.nwu.domain.dto.ExchangeMediumDto;
 import za.ac.nwu.domain.dto.MemberDto;
 import za.ac.nwu.domain.persistence.Exchange_Medium;
+import za.ac.nwu.domain.persistence.Member;
 import za.ac.nwu.translator.ExchangeMediumTranslator;
+import za.ac.nwu.translator.MemberTranslator;
 
 import static org.junit.Assert.*;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
@@ -22,8 +24,8 @@ public class ViewExchangeMediumServiceImplTest {
     @Mock
     private ExchangeMediumTranslator exchangeMediumTranslator;
 
-    @InjectMocks
-    private ViewExchangeMediumServiceImpl viewExchangeMediumService;
+    @Mock
+    private MemberTranslator memberTranslator;
 
     @InjectMocks //translator is now mocked
     private ExchangeMediumServiceImpl exchangeMediumService;
@@ -32,7 +34,8 @@ public class ViewExchangeMediumServiceImplTest {
 
     @Before
     public void setUp() throws Exception {
-        when(exchangeMediumTranslator.newExchangeMedium(any(Exchange_Medium.class))).then(returnsFirstArg()); // if get anything of MemberDto
+        lenient().when(exchangeMediumTranslator.newExchangeMedium(any(Exchange_Medium.class))).then(returnsFirstArg()); // if get anything of MemberDto
+        lenient().when(memberTranslator.newMember(any(Member.class))).then(returnsFirstArg());
         result = exchangeMediumService.newExchangeMedium(new ExchangeMediumDto());
     }
 

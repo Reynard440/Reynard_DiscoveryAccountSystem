@@ -1,1 +1,3 @@
-//insert into member(MemID, Mem_First_Name, Mem_Last_Name, Mem_Email, Mem_Phone_Number) values ( 1, "Reynard", "Engels", "reynardengels@gmail.com", "0723949922" );
+insert into discoverydb.member(MemID, Mem_First_Name, Mem_Last_Name, Mem_Email, Mem_Phone_Number) values ( 1, 'Reynard', 'Engels', 'reynardengels@gmail.com', '0723949955' );
+insert into discoverydb.exchange_medium(memId, EM_Date, EM_Type, EM_Description, EM_Balance, EM_ID) values (1, '2021-08-31', 'Miles', 'Discovery currency', 0, 1);
+insert into discoverydb.member_transaction(MT_ID, MT_Amount, MT_Description, MT_Transaction_Date, Em_ID) values (1, 100, 'Deposit', '2021-08-31', 1);
