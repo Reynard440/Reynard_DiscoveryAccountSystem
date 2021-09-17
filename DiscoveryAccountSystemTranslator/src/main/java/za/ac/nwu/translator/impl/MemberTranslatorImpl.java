@@ -24,20 +24,6 @@ public class MemberTranslatorImpl implements MemberTranslator {
     }
 
     @Override
-    public List<Member> getAllMembers(){
-
-        List<Member> member = new ArrayList<>();
-        try{
-            for (Member members : memberRepository.findAll()){
-                member.add(members);
-            }
-        }catch(Exception e){
-            throw new RuntimeException("Unable to read from the DB", e);
-        }
-        return member;
-    }
-
-    @Override
     public Member getOneMember(Integer id) {
         try{
             return memberRepository.getById(id);

@@ -62,4 +62,26 @@ public class ExchangeMediumServiceImpl implements ExchangeMediumService {
         }
         return exchangeMediumTranslator.checkTypeExists(id, type);
     }
+
+//    @Override
+//    public void switchExchangeMedium(Integer id, String type, String newType, double adjust, Integer mem) {
+//        exchangeMediumTranslator.switchExchangeMedium(id, type, newType, adjust, mem);
+//        if (checkTypeExist(id,newType)) {
+//            exchangeMediumTranslator.switchExchangeMedium(id, type, newType, adjust, mem);
+//        } else {
+//            ExchangeMediumDto exchangeMediumDto = new ExchangeMediumDto();
+//            exchangeMediumDto.setExchangeMediumID(id);
+//            exchangeMediumDto.setDate(LocalDate.now());
+//            exchangeMediumDto.setType(newType);
+//            exchangeMediumDto.setBalance(0);
+//            exchangeMediumDto.setDescription("This is a new Discovery currency type that keeps track of all your MILES");
+//            exchangeMediumDto.setMemID(new MemberDto(mem));
+//
+//            Member member = memberTranslator.getOneMember(exchangeMediumDto.getExchangeMediumID());
+//
+//            Exchange_Medium exchangeMedium = exchangeMediumDto.buildExchangeMedium(member);
+//
+//            Exchange_Medium addedExchangeMedium = exchangeMediumTranslator.newExchangeMedium(exchangeMedium);
+//        }
+//    }
 }

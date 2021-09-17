@@ -22,4 +22,6 @@ public interface ExchangeMediumTranslator {
     Exchange_Medium newExchangeMedium(Exchange_Medium exchange_medium) ;
 
     Exchange_Medium getExchangeMediumCurrentByTypeAndID(String type, Integer id);
+
+    //void switchExchangeMedium(Integer id, String type, String newType, double adjust, Integer mem);
 }

@@ -40,17 +40,6 @@ public class ViewMemberServiceImplTest {
     }
 
     @Test
-    public void shouldGetMembers() {
-        try {
-            assertNotNull(result);
-            serviceTranslator.getAllMembers();
-            verify(serviceTranslator, atLeastOnce()).getAllMembers();
-        } catch (Exception e) {
-            assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while retrieving all members."));
-        }
-    }
-
-    @Test
     public void shouldGetMemberByEmail() {
         try {
             assertNotNull(result);

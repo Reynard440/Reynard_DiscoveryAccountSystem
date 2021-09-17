@@ -34,6 +34,11 @@ public interface ExchangeMediumRepository extends JpaRepository<Exchange_Medium,
     @Query(value = "UPDATE Exchange_Medium SET Balance=Balance - :decrease WHERE EmId = :id ")
     void decreaseBalance(double decrease, Integer id);
 
-    @Query(value = "SELECT COUNT(EmId) FROM Exchange_Medium WHERE EmId=:id and Type=:type")
+    @Query(value = "SELECT COUNT(EmId) FROM Exchange_Medium WHERE MemID=:id and Type=:type")
     Integer checkTypeExist(Integer id, String type);
+
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE Exchange_Medium SET Balance=Balance*:adjust, Type = :newType WHERE EmId = :id and MemID=:mem and Type=:type ")
+    void switchExchangeMedium(Integer id, String type, String newType, double adjust, Integer mem);
 }

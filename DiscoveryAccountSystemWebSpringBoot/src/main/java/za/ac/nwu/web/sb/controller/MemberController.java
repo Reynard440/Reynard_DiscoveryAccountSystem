@@ -28,19 +28,6 @@ public class MemberController {
         this.viewMemberService = viewMemberService;
     }
 
-    @GetMapping("/getAllMembers")
-    @ApiOperation(value = "Gets all the Members.", notes = "Returns a list of members.")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Members returned", response = DiscoveryAccountSystemResponse.class),
-            @ApiResponse(code = 400, message = "Bad Request", response = DiscoveryAccountSystemResponse.class),
-            @ApiResponse(code = 404, message = "Not found", response = DiscoveryAccountSystemResponse.class),
-            @ApiResponse(code = 500, message = "Internal Server Error", response = DiscoveryAccountSystemResponse.class)})
-    public ResponseEntity<DiscoveryAccountSystemResponse<List<MemberDto>>> getAllMembers(){
-        List<MemberDto> members = viewMemberService.getMembers();
-        DiscoveryAccountSystemResponse<List<MemberDto>> response = new DiscoveryAccountSystemResponse<>(true, members);
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
-
     @PostMapping("/addMember")
     @ApiOperation(value = "Create a new Member.", notes = "Creates a new Member in the DB.")
     @ApiResponses(value = {

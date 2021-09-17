@@ -22,15 +22,6 @@ public class ViewMemberServiceImpl implements ViewMemberService {
     }
 
     @Override
-    public List<MemberDto> getMembers(){
-        List<MemberDto> memberDtos = new ArrayList<>();
-        for (Member member : memberTranslator.getAllMembers()) {
-            memberDtos.add(new MemberDto(member));
-        }
-        return memberDtos;
-    }
-
-    @Override
     public MemberDto getMemberByEmail(String email) {
         Member member = memberTranslator.getMemberByEmail(email);
         return new MemberDto(member);

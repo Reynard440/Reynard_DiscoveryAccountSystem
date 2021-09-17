@@ -8,8 +8,6 @@ import java.util.List;
 
 @Component
 public interface MemberTranslator {
-    List<Member> getAllMembers();
-
     Member getOneMember(Integer id);
 
     Member getMemberByEmail(String email);
