@@ -11,7 +11,6 @@ import za.ac.nwu.translator.ExchangeMediumTranslator;
 import za.ac.nwu.translator.MemberTranslator;
 
 import javax.transaction.Transactional;
-import java.sql.SQLException;
 import java.time.LocalDate;
 
 @Transactional
@@ -62,26 +61,15 @@ public class ExchangeMediumServiceImpl implements ExchangeMediumService {
         }
         return exchangeMediumTranslator.checkTypeExists(id, type);
     }
-
+//
 //    @Override
-//    public void switchExchangeMedium(Integer id, String type, String newType, double adjust, Integer mem) {
-//        exchangeMediumTranslator.switchExchangeMedium(id, type, newType, adjust, mem);
-//        if (checkTypeExist(id,newType)) {
-//            exchangeMediumTranslator.switchExchangeMedium(id, type, newType, adjust, mem);
-//        } else {
-//            ExchangeMediumDto exchangeMediumDto = new ExchangeMediumDto();
-//            exchangeMediumDto.setExchangeMediumID(id);
-//            exchangeMediumDto.setDate(LocalDate.now());
-//            exchangeMediumDto.setType(newType);
-//            exchangeMediumDto.setBalance(0);
-//            exchangeMediumDto.setDescription("This is a new Discovery currency type that keeps track of all your MILES");
-//            exchangeMediumDto.setMemID(new MemberDto(mem));
-//
-//            Member member = memberTranslator.getOneMember(exchangeMediumDto.getExchangeMediumID());
-//
-//            Exchange_Medium exchangeMedium = exchangeMediumDto.buildExchangeMedium(member);
-//
-//            Exchange_Medium addedExchangeMedium = exchangeMediumTranslator.newExchangeMedium(exchangeMedium);
+//    public void configureExchangeMedium(String type, String newType, double adjust, Integer mem, Integer id) {
+//        try {
+//            Exchange_Medium exchange_medium = exchangeMediumTranslator.getExchangeMediumByEmID(id);
+//            double balance = exchange_medium.getBalance();
+//            exchangeMediumTranslator.configureExchangeMedium(type, newType, adjust, mem, id);
+//        } catch (Exception e) {
+//            throw new RuntimeException("An error occurred while configuring to new exchange medium", e);
 //        }
 //    }
 }

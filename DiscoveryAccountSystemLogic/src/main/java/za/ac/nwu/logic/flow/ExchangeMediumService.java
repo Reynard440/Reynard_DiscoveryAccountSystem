@@ -12,5 +12,5 @@ public interface ExchangeMediumService {
 
     boolean checkTypeExist(Integer id, String type);
 
-    //void switchExchangeMedium(Integer id, String type, String newType, double adjust, Integer mem);
+    //void configureExchangeMedium(String type, String newType, double adjust, Integer mem, Integer id);
 }

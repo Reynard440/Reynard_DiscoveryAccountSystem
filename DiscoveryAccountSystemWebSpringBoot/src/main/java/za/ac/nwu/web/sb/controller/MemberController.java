@@ -20,7 +20,6 @@ import java.util.List;
 public class MemberController {
     private final MemberService memberService;
     private final ViewMemberService viewMemberService;
-    private String email;
 
     @Autowired
     public MemberController(MemberService memberService, ViewMemberService viewMemberService){
@@ -63,20 +62,6 @@ public class MemberController {
     public ResponseEntity<DiscoveryAccountSystemResponse<MemberDto>> getMemberById(@ApiParam(value = "The id that is unique to each member", example = "1", name = "id", required = true) @PathVariable("id") Integer id){
         MemberDto memberResponse = viewMemberService.getMemberById(id);
         DiscoveryAccountSystemResponse<MemberDto> response = new DiscoveryAccountSystemResponse<>(true, memberResponse);
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
-
-    @DeleteMapping(path = "/deleteMemberByID/{id}")
-    @ApiOperation(value = "Deletes a Member by their phone number.", notes = "Deletes a member by phone number from DB.")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Goal Found", response = DiscoveryAccountSystemResponse.class),
-            @ApiResponse(code = 400, message = "Bad Request", response = DiscoveryAccountSystemResponse.class),
-            @ApiResponse(code = 404, message = "Not found", response = DiscoveryAccountSystemResponse.class),
-            @ApiResponse(code = 500, message = "Internal Server Error", response = DiscoveryAccountSystemResponse.class)})
-    public ResponseEntity<DiscoveryAccountSystemResponse<MemberDto>> deleteMemberByID(@ApiParam(value = "The id is unique to each Member.", example = "1", name = "id", required = true) @PathVariable("id") Integer id){
-        memberService.deleteMember(id);
-        MemberDto memberDtoResponse = viewMemberService.getMemberById(id);
-        DiscoveryAccountSystemResponse<MemberDto> response = new DiscoveryAccountSystemResponse<>(true, memberDtoResponse);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

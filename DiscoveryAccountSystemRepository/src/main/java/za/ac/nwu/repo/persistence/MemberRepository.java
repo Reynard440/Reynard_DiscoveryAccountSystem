@@ -18,9 +18,4 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
 
     @Query("select m from Member m where m.Email = ?1")
     Member getByEmail(String Email);
-
-    @Modifying
-    @Transactional
-    @Query("delete from Member m where m.Id = ?1")
-    void deleteById(Integer integer);
 }

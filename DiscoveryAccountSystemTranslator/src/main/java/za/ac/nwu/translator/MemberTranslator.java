@@ -13,8 +13,6 @@ public interface MemberTranslator {
     Member getMemberByEmail(String email);
 
     Member newMember(Member member);
-
-    void deleteMember(Integer id);
 }
 
 

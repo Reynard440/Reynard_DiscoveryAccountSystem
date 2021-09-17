@@ -47,10 +47,4 @@ public class MemberRepositoryTest {
         assertEquals("Reynard", member.getFirstName());
         assertEquals("reynardengels@gmail.com", member.getEmail());
     }
-
-//    @SneakyThrows
-//    @Test
-//    public void shouldDeleteById() {
-//        memberRepository.deleteById(1);
-//    }
 }

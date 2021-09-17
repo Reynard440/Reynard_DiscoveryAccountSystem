@@ -4,7 +4,6 @@ import org.springframework.stereotype.Component;
 import za.ac.nwu.domain.dto.ExchangeMediumDto;
 import za.ac.nwu.domain.persistence.Exchange_Medium;
 
-import java.sql.SQLException;
 import java.util.List;
 
 @Component
@@ -23,5 +22,5 @@ public interface ExchangeMediumTranslator {
 
     Exchange_Medium getExchangeMediumCurrentByTypeAndID(String type, Integer id);
 
-    //void switchExchangeMedium(Integer id, String type, String newType, double adjust, Integer mem);
+    //void configureExchangeMedium(String type, String newType, double adjust, Integer mem, Integer id);
 }

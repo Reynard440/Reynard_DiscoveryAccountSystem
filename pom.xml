@@ -21,6 +21,7 @@
         <maven.compiler.target>8</maven.compiler.target>
         <springfox-swagger.version>2.9.2</springfox-swagger.version>
         <swagger.version>1.5.20</swagger.version>
+        <haltOnFailure>false</haltOnFailure>
     </properties>
 
     <modules>
@@ -117,11 +118,79 @@
             <artifactId>mockito-junit-jupiter</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>0.8.3</version>
+                    <configuration>
+<!--                        TODO: Use: "mvn clean install -DhaltOnFailure=false" to continue builds locally that fail test coverage-->
+                        <haltOnFailure>${haltOnFailure}</haltOnFailure>
+                        <rules>
+                            <rule>
+                                <element>CLASS</element>
+                                <excludes>
+                                    <exclude>za.ac.nwu.domain.*</exclude>
+                                    <exclude>za.ac.nwu.logic.config.LogicConfig</exclude>
+                                    <exclude>za.ac.nwu.repo.config.RepositoryConfig</exclude>
+                                    <exclude>za.ac.nwu.translator.config.TranslatorConfig</exclude>
+                                    <exclude>za.ac.nwu.web.sb.config.SwaggerConfiguration</exclude>
+                                    <exclude>za.ac.nwu.web.sb.config.WebConfig</exclude>
+                                    <exclude>za.ac.nwu.web.sb.RestServiceApplication</exclude>
+                                </excludes>
+                                <limits>
+                                    <limit>
+                                        <counter>INSTRUCTION</counter>
+                                        <value>COVEREDRATIO</value>
+                                        <minimum>0.8</minimum>
+                                    </limit>
+                                    <limit>
+                                        <counter>LINE</counter>
+                                        <value>COVEREDRATIO</value>
+                                        <minimum>0.8</minimum>
+                                    </limit>
+                                    <limit>
+                                        <counter>BRANCH</counter>
+                                        <value>COVEREDRATIO</value>
+                                        <minimum>0.8</minimum>
+                                    </limit>
+                                </limits>
+                            </rule>
+                        </rules>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>jacoco-check</id>
+                            <phase>test</phase>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>default-prepare-agent</id>
+                            <goals>
+                                <goal>prepare-agent</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>default-report</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>report</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>

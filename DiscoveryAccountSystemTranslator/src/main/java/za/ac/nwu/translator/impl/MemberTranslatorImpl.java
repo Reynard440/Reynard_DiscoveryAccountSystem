@@ -16,8 +16,6 @@ import java.util.List;
 public class MemberTranslatorImpl implements MemberTranslator {
     private final MemberRepository memberRepository;
 
-    //use DTO
-
     @Autowired
     public MemberTranslatorImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
@@ -36,7 +34,6 @@ public class MemberTranslatorImpl implements MemberTranslator {
     public Member newMember(Member member) {
         try {
             return memberRepository.save(member);
-            //return new MemberDto(member);
         }catch(Exception e){
             throw new RuntimeException("Could not add member to the DB",e);
         }
@@ -48,19 +45,9 @@ public class MemberTranslatorImpl implements MemberTranslator {
             if (null == email) {
                 email = "reynardengels@gmai.com";
             }
-            Member member = memberRepository.getByEmail(email);
-            return member;
+            return memberRepository.getByEmail(email);
         }catch(Exception e){
             throw new RuntimeException("Could not read from the DB",e);
-        }
-    }
-
-    @Override
-    public void deleteMember(Integer id) {
-        try {
-            memberRepository.deleteById(id);
-        }catch(Exception e){
-            throw new RuntimeException("Could not delete member from the DB",e);
         }
     }
 }

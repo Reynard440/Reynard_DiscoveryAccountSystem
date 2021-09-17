@@ -8,8 +8,6 @@ import za.ac.nwu.logic.flow.ViewMemberService;
 import za.ac.nwu.translator.MemberTranslator;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
 
 @Transactional
 @Component("ViewMemberService")
@@ -24,8 +22,7 @@ public class ViewMemberServiceImpl implements ViewMemberService {
     @Override
     public MemberDto getMemberByEmail(String email) {
         Member member = memberTranslator.getMemberByEmail(email);
-        return new MemberDto(member);
-        //return null != member ? new MemberDto(member) : null;
+        return null != member ? new MemberDto(member) : null;
     }
 
     @Override

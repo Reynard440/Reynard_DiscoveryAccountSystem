@@ -50,16 +50,4 @@ public class MemberServiceImplTest {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred during the creation of a member."));
         }
     }
-
-    @Test
-    public void shouldDeleteMember() {
-        try {
-            assertNotNull(result);
-            serviceTranslator.deleteMember(result.getMemId());
-            assertEquals("Reynard", result.getFirstName());
-            verify(serviceTranslator, atLeastOnce()).deleteMember(result.getMemId());
-        } catch(Exception e) {
-            assertTrue(e.getMessage().equalsIgnoreCase("An error occurred during the deletion of the member."));
-        }
-    }
 }

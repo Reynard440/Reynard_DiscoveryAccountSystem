@@ -6,6 +6,4 @@ import java.util.List;
 
 public interface MemberService {
     MemberDto newMember(MemberDto memberDto);
-
-    void deleteMember(Integer id);
 }

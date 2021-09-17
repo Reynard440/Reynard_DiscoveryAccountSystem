@@ -67,20 +67,20 @@ public class ExchangeMediumController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-//    @PutMapping(path = "/switchToExchangeMedium/{id}/{type}/{newType}/{adjust}/{member}")
-//    @ApiOperation(value = "Fetches a Exchange Medium by its id and amount to increase the type with.", notes = "Fetches exchange medium by id from the DB and then increases the type with the amount.")
+//    @PutMapping(path = "/switchToExchangeMedium/{name}/{newType}/{adjust}/{member}/{id}")
+//    @ApiOperation(value = "Configures one Exchange Medium to another.", notes = "Configures to another exchange medium.")
 //    @ApiResponses(value = {
 //            @ApiResponse(code = 200, message = "Goal Found", response = DiscoveryAccountSystemResponse.class),
 //            @ApiResponse(code = 400, message = "Bad Request", response = DiscoveryAccountSystemResponse.class),
 //            @ApiResponse(code = 404, message = "Not found", response = DiscoveryAccountSystemResponse.class),
 //            @ApiResponse(code = 500, message = "Internal Server Error", response = DiscoveryAccountSystemResponse.class)})
-//    public ResponseEntity<DiscoveryAccountSystemResponse<ExchangeMediumDto>> switchToExchangeMedium(@ApiParam(value = "The id that is unique to each exchange medium.", example = "1", name = "id", required = true) @PathVariable("id") Integer id,
-//                                                                                                    @ApiParam(value = "The type of exchange medium.", example = "Miles", name = "type", required = true) @PathVariable("type") String type,
-//                                                                                                    @ApiParam(value = "The new type of exchange medium the member wants to convert to.", example = "Miles", name = "newType", required = true) @PathVariable("newType") String newType,
+//    public ResponseEntity<DiscoveryAccountSystemResponse<ExchangeMediumDto>> configureExchangeMedium(@ApiParam(value = "The type of exchange medium.", example = "Miles", name = "name", required = true) @PathVariable("name") String name,
+//                                                                                                    @ApiParam(value = "The new type of exchange medium the member wants to convert to.", example = "Dollars", name = "newType", required = true) @PathVariable("newType") String newType,
 //                                                                                                    @ApiParam(value = "The amount the old exchange medium should be adjusted with.", example = "0.5", name = "adjust", required = true) @PathVariable("adjust") double adjust,
-//                                                                                                    @ApiParam(value = "The id of the member for the specified exchange medium.", example = "1", name = "member", required = true) @PathVariable("member") Integer member){
+//                                                                                                    @ApiParam(value = "The id of the member for the specified exchange medium.", example = "1", name = "member", required = true) @PathVariable("member") Integer member,
+//                                                                                                     @ApiParam(value = "The id that is unique to each exchange medium.", example = "1", name = "id", required = true) @PathVariable("id") Integer id){
 //        ExchangeMediumDto exchangeMediumResponse1 = viewExchangeMediumService.getExchangeMediumByEmID(id);
-//        exchangeMediumService.switchExchangeMedium(id, type, newType, adjust, member);
+//        exchangeMediumService.configureExchangeMedium(name, newType, adjust, member, id);
 //        ExchangeMediumDto exchangeMediumResponse = viewExchangeMediumService.getExchangeMediumByEmID(id);
 //        DiscoveryAccountSystemResponse<ExchangeMediumDto> response = new DiscoveryAccountSystemResponse<>(true, exchangeMediumResponse);
 //        return new ResponseEntity<>(response, HttpStatus.OK);
