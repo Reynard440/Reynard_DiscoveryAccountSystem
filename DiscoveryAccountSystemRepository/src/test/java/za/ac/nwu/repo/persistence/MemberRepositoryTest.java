@@ -1,6 +1,5 @@
 package za.ac.nwu.repo.persistence;
 
-import lombok.SneakyThrows;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,18 +29,16 @@ public class MemberRepositoryTest {
     public void tearDown() throws Exception {
     }
 
-    @SneakyThrows
     @Test
-    public void shouldGetById() {
+    public void shouldGetById() throws  Exception {
         Member member = memberRepository.getById(1);
         assertNotNull(member);
         assertEquals("Reynard", member.getFirstName());
         assertEquals("0723949955", member.getPhoneNumber());
     }
 
-    @SneakyThrows
     @Test
-    public void shouldGetByEmail() {
+    public void shouldGetByEmail() throws  Exception {
         Member member = memberRepository.getByEmail("reynardengels@gmail.com");
         assertNotNull(member);
         assertEquals("Reynard", member.getFirstName());
