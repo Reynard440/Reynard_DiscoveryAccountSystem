@@ -39,7 +39,7 @@ public interface ExchangeMediumRepository extends JpaRepository<Exchange_Medium,
 
     @Transactional
     @Modifying
-    @Query(value = "UPDATE Exchange_Medium SET Balance=Balance * :adjust, Type=:newType WHERE MemID=:mem and Type=:type and EmId=:id ")
+    @Query(value = "UPDATE Exchange_Medium SET Balance=Balance * :adjust, Type=:newType WHERE MemID.Id=:mem and Type=:type and EmId=:id ")
     void switchExchangeMedium(String type, String newType, double adjust, Integer mem, Integer id);
 
 }

@@ -97,12 +97,12 @@ public class ExchangeMediumTranslatorImpl implements ExchangeMediumTranslator {
         }
     }
 
-//    @Override
-//    public void configureExchangeMedium(String type, String newType, double adjust, Integer mem, Integer id) {
-//        try{
-//            exchangeMediumRepository.switchExchangeMedium(type, newType, adjust, mem, id);
-//        }catch(Exception e){
-//            throw new RuntimeException("Unable to read from the DB", e);
-//        }
-//    }
+    @Override
+    public void configureExchangeMedium(String type, String newType, double adjust, Integer mem, Integer id) {
+        try{
+            exchangeMediumRepository.switchExchangeMedium(type, newType, adjust, mem, id);
+        }catch(Exception e){
+            throw new RuntimeException("Unable to read from the DB", e);
+        }
+    }
 }

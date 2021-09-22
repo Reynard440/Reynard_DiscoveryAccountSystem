@@ -37,7 +37,7 @@ public class ExchangeMediumServiceImpl implements ExchangeMediumService {
 
     @Override
     public ExchangeMediumDto newExchangeMedium(ExchangeMediumDto exchangeMediumDto) {
-        if(null == exchangeMediumDto.getDate()){
+        if(null == exchangeMediumDto.getExchangeMediumID()){
             exchangeMediumDto.setExchangeMediumID(1);
             exchangeMediumDto.setDate(LocalDate.now());
             exchangeMediumDto.setType("Miles");
@@ -61,15 +61,14 @@ public class ExchangeMediumServiceImpl implements ExchangeMediumService {
         }
         return exchangeMediumTranslator.checkTypeExists(id, type);
     }
-//
-//    @Override
-//    public void configureExchangeMedium(String type, String newType, double adjust, Integer mem, Integer id) {
-//        try {
-//            Exchange_Medium exchange_medium = exchangeMediumTranslator.getExchangeMediumByEmID(id);
-//            double balance = exchange_medium.getBalance();
-//            exchangeMediumTranslator.configureExchangeMedium(type, newType, adjust, mem, id);
-//        } catch (Exception e) {
-//            throw new RuntimeException("An error occurred while configuring to new exchange medium", e);
-//        }
-//    }
+
+    @Override
+    public void configureExchangeMedium(String type, String newType, double adjust, Integer mem, Integer id) {
+        try {
+            //Exchange_Medium exchange_medium = exchangeMediumTranslator.getExchangeMediumByEmID(id);
+            exchangeMediumTranslator.configureExchangeMedium(type, newType, adjust, mem, id);
+        } catch (Exception e) {
+            throw new RuntimeException("An error occurred while configuring to new exchange medium", e);
+        }
+    }
 }

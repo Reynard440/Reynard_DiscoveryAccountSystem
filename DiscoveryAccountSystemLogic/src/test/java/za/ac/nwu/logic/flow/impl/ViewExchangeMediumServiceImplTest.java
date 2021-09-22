@@ -48,6 +48,7 @@ public class ViewExchangeMediumServiceImplTest {
     public void shouldGetExchangeMediumByEmID() {
         try {
             assertNotNull(result);
+            assertEquals("Miles", result.getType());
             exchangeMediumTranslator.getExchangeMediumByEmID(result.getExchangeMediumID());
             verify(exchangeMediumTranslator, atLeastOnce()).getExchangeMediumByEmID(result.getExchangeMediumID());
         } catch (Exception e) {
