@@ -39,9 +39,9 @@ public class ExchangeMediumTranslatorImpl implements ExchangeMediumTranslator {
     }
 
     @Override
-    public Exchange_Medium getExchangeMediumByEmID(Integer emid)  {
+    public Exchange_Medium getExchangeMediumByEmID(Integer EmId)  {
         try{
-            return exchangeMediumRepository.getByEM_ID(emid);
+            return exchangeMediumRepository.getByEM_ID(EmId);
         }catch(Exception e){
             throw new RuntimeException("Unable to read from the DB", e);
         }

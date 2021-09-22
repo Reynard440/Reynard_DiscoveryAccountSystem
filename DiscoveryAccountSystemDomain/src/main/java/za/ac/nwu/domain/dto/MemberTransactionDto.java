@@ -145,4 +145,15 @@ public class MemberTransactionDto implements Serializable {
     public int hashCode() {
         return Objects.hash(TransactionDate, Description, Amount, EmId, MtId);
     }
+
+    @Override
+    public String toString() {
+        return "MemberTransactionDto{" +
+                "TransactionDate=" + TransactionDate +
+                ", Description='" + Description + '\'' +
+                ", Amount=" + Amount +
+                ", EmId=" + EmId +
+                ", MtId=" + MtId +
+                '}';
+    }
 }

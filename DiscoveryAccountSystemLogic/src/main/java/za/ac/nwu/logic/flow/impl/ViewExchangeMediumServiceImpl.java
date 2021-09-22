@@ -1,5 +1,7 @@
 package za.ac.nwu.logic.flow.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +15,7 @@ import java.util.List;
 @Transactional
 @Component("ViewExchangeMediums")
 public class ViewExchangeMediumServiceImpl implements ViewExchangeMediumService {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(ViewExchangeMediumServiceImpl.class);
     private final ExchangeMediumTranslator exchangeMediumTranslator;
 
     @Autowired
@@ -23,19 +25,28 @@ public class ViewExchangeMediumServiceImpl implements ViewExchangeMediumService 
 
     @Override
     public ExchangeMediumDto getExchangeMediumByEmID(Integer id) {
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("The input for id was {}", id);
+        }
         Exchange_Medium exchangeMedium = exchangeMediumTranslator.getExchangeMediumByEmID(id);
-        return null != exchangeMedium ? new ExchangeMediumDto(exchangeMedium) : null;
+        ExchangeMediumDto result = null != exchangeMedium ? new ExchangeMediumDto(exchangeMedium) : null;
+        LOGGER.info("The return object is {} ", result);
+        return result;
     }
 
     @Override
     public ExchangeMediumDto getExchangeMediumCurrentByTypeAndID(String type, Integer id) {
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("The input for type is {} and id is {} ", type, id);
+        }
         Exchange_Medium exchangeMedium = exchangeMediumTranslator.getExchangeMediumCurrentByTypeAndID(type, id);
-        return null != exchangeMedium ? new ExchangeMediumDto(exchangeMedium) : null;
+        ExchangeMediumDto result = null != exchangeMedium ? new ExchangeMediumDto(exchangeMedium) : null;
+        LOGGER.info("The return object is {} ", result);
+        return result;
     }
 
     @Override
     public List<ExchangeMediumDto> getAllExchangeMedium(){
         return exchangeMediumTranslator.getExchangeMediumDtos();
     }
-
 }

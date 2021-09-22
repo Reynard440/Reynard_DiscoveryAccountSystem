@@ -171,4 +171,16 @@ public class ExchangeMediumDto implements Serializable {
     public int hashCode() {
         return Objects.hash(exchangeMediumID, Type, Description, Balance, Date, MemID);
     }
+
+    @Override
+    public String toString() {
+        return "ExchangeMediumDto{" +
+                "exchangeMediumID=" + exchangeMediumID +
+                ", Type='" + Type + '\'' +
+                ", Description='" + Description + '\'' +
+                ", Balance=" + Balance +
+                ", Date=" + Date +
+                ", MemID=" + MemID +
+                '}';
+    }
 }

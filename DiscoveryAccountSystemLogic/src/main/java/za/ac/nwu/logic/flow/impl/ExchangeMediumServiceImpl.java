@@ -1,5 +1,7 @@
 package za.ac.nwu.logic.flow.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import za.ac.nwu.domain.dto.ExchangeMediumDto;
@@ -16,6 +18,7 @@ import java.time.LocalDate;
 @Transactional
 @Component("exchangeMediumViewFlow")
 public class ExchangeMediumServiceImpl implements ExchangeMediumService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ExchangeMediumServiceImpl.class);
     private final ExchangeMediumTranslator exchangeMediumTranslator;
     private final MemberTranslator memberTranslator;
 
@@ -27,16 +30,25 @@ public class ExchangeMediumServiceImpl implements ExchangeMediumService {
 
     @Override
     public void increaseExchangeMediumTotal(Integer id, double amount)  {
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("The input for id is {} and the amount is {}", id, amount);
+        }
         exchangeMediumTranslator.increaseExchangeMediumTotal(id, amount);
     }
 
     @Override
     public void decreaseExchangeMediumTotal(Integer id, double amount) {
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("The input for id is {} and the amount is {}", id, amount);
+        }
         exchangeMediumTranslator.decreaseExchangeMediumTotal(id, amount);
     }
 
     @Override
     public ExchangeMediumDto newExchangeMedium(ExchangeMediumDto exchangeMediumDto) {
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("The input object is {}", exchangeMediumDto);
+        }
         if(null == exchangeMediumDto.getExchangeMediumID()){
             exchangeMediumDto.setExchangeMediumID(1);
             exchangeMediumDto.setDate(LocalDate.now());
@@ -45,17 +57,20 @@ public class ExchangeMediumServiceImpl implements ExchangeMediumService {
             exchangeMediumDto.setDescription("This is a new Discovery currency type that keeps track of all your MILES");
             exchangeMediumDto.setMemID(new MemberDto(1));
         }
-
         Member member = memberTranslator.getOneMember(exchangeMediumDto.getExchangeMediumID());
-
         Exchange_Medium exchangeMedium = exchangeMediumDto.buildExchangeMedium(member);
 
         Exchange_Medium addedExchangeMedium = exchangeMediumTranslator.newExchangeMedium(exchangeMedium);
-        return new ExchangeMediumDto(addedExchangeMedium);
+        ExchangeMediumDto result = new ExchangeMediumDto(addedExchangeMedium);
+        LOGGER.info("The return object is {}", result);
+        return result;
     }
 
     @Override
     public boolean checkTypeExist(Integer id, String type) {
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("The input for type is {} and the Exchange Medium id is {}", type, id);
+        }
         if (null == type) {
             type = "Miles";
         }
@@ -65,7 +80,9 @@ public class ExchangeMediumServiceImpl implements ExchangeMediumService {
     @Override
     public void configureExchangeMedium(String type, String newType, double adjust, Integer mem, Integer id) {
         try {
-            //Exchange_Medium exchange_medium = exchangeMediumTranslator.getExchangeMediumByEmID(id);
+            if (LOGGER.isInfoEnabled()) {
+                LOGGER.info("The input for type is {}, the newType is {}, the amount to be adjusted is {}, the MemberId is {}, and the Exchange Medium id is {}", type, newType, adjust, mem, id);
+            }
             exchangeMediumTranslator.configureExchangeMedium(type, newType, adjust, mem, id);
         } catch (Exception e) {
             throw new RuntimeException("An error occurred while configuring to new exchange medium", e);

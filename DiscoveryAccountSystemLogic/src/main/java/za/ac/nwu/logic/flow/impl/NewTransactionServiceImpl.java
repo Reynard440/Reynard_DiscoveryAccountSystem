@@ -1,5 +1,7 @@
 package za.ac.nwu.logic.flow.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import za.ac.nwu.domain.dto.MemberTransactionDto;
@@ -14,6 +16,7 @@ import java.time.LocalDate;
 @Transactional
 @Component("newMemberTransaction")
 public class NewTransactionServiceImpl implements NewTransactionService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(NewTransactionServiceImpl.class);
     private final MemberTransactionTranslator memberTransactionTranslator;
     private final ExchangeMediumTranslator exchangeMediumTranslator;
 
@@ -25,6 +28,9 @@ public class NewTransactionServiceImpl implements NewTransactionService {
 
     @Override
     public MemberTransactionDto addTransactionDto(MemberTransactionDto memberTransactionDto) {
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("The input object is {}", memberTransactionDto);
+        }
         if(null == memberTransactionDto.getTransactionDate()){
             memberTransactionDto.setTransactionDate(LocalDate.now());
             memberTransactionDto.setDescription("Example description here.");
@@ -38,6 +44,8 @@ public class NewTransactionServiceImpl implements NewTransactionService {
         } else if (memberTransaction.getDescription().equals("Withdrawal") || memberTransaction.getDescription().equals("withdrawal")) {
             exchangeMediumTranslator.decreaseExchangeMediumTotal(memberTransaction.getEmId().getEmId(), memberTransaction.getAmount());
         }
-        return new MemberTransactionDto(addedMemberTransaction);
+        MemberTransactionDto result = new MemberTransactionDto(addedMemberTransaction);
+        LOGGER.info("The return object is {}", result);
+        return result;
     }
 }

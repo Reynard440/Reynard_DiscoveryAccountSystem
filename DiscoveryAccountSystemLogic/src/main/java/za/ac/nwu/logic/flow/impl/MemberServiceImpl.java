@@ -1,5 +1,7 @@
 package za.ac.nwu.logic.flow.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import za.ac.nwu.domain.dto.MemberDto;
@@ -12,7 +14,7 @@ import javax.transaction.Transactional;
 @Transactional
 @Component("MemberServiceName")
 public class MemberServiceImpl implements MemberService {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(MemberServiceImpl.class);
     private final MemberTranslator memberTranslator;
 
     @Autowired
@@ -22,6 +24,9 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public MemberDto newMember(MemberDto memberDto) {
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("The input object is {}", memberDto);
+        }
         if(null == memberDto.getPhoneNumber()){
             memberDto.setMemId(1);
             memberDto.setPhoneNumber("0723949955");
@@ -31,6 +36,8 @@ public class MemberServiceImpl implements MemberService {
         }
         Member member = memberDto.buildMember();
         Member addedMember = memberTranslator.newMember(member);
-        return new MemberDto(memberTranslator.newMember(addedMember));
+        MemberDto result = new MemberDto(memberTranslator.newMember(addedMember));
+        LOGGER.info("The return object is {}", result);
+        return result;
     }
 }

@@ -1,5 +1,7 @@
 package za.ac.nwu.logic.flow.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +17,7 @@ import java.util.List;
 @Transactional
 @Component("ViewMemberTransactionService")
 public class ViewMemberTransactionServiceImpl implements ViewMemberTransactionService {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(ViewMemberTransactionServiceImpl.class);
     private final MemberTransactionTranslator memberTransactionTranslator;
 
     @Autowired
@@ -34,13 +36,23 @@ public class ViewMemberTransactionServiceImpl implements ViewMemberTransactionSe
 
     @Override
     public MemberTransactionDto getMemberTransactionID(Integer id) {
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("The input for Member Transaction id is {}", id);
+        }
         Member_Transaction memberTransaction = memberTransactionTranslator.getMemberTransactionID(id);
-        return null != memberTransaction ? new MemberTransactionDto(memberTransaction) : null;
+        MemberTransactionDto result = null != memberTransaction ? new MemberTransactionDto(memberTransaction) : null;
+        LOGGER.info("The return object is {} ", result);
+        return result;
     }
 
     @Override
     public MemberTransactionDto getTransactionByIdAndDate(Integer id, LocalDate date) {
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("The input for Member Transaction id is {} and for date is {}", id, date);
+        }
         Member_Transaction memberTransaction = memberTransactionTranslator.getTransactionByIdAndDate(id, date);
-        return null != memberTransaction ? new MemberTransactionDto(memberTransaction) : null;
+        MemberTransactionDto result = null != memberTransaction ? new MemberTransactionDto(memberTransaction) : null;
+        LOGGER.info("The return object is {} ", result);
+        return result;
     }
 }

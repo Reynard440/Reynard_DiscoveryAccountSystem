@@ -149,4 +149,15 @@ public class MemberDto implements Serializable {
     public int hashCode() {
         return Objects.hash(memId, FirstName, LastName, Email, PhoneNumber);
     }
+
+    @Override
+    public String toString() {
+        return "MemberDto{" +
+                "memId=" + memId +
+                ", FirstName='" + FirstName + '\'' +
+                ", LastName='" + LastName + '\'' +
+                ", Email='" + Email + '\'' +
+                ", PhoneNumber='" + PhoneNumber + '\'' +
+                '}';
+    }
 }
