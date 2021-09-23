@@ -68,17 +68,4 @@ public class MemberTransactionController {
         DiscoveryAccountSystemResponse<MemberTransactionDto> response = new DiscoveryAccountSystemResponse<>(true, memberTransactionResponse);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
-//    @GetMapping("/getAllTransactions")
-//    @ApiOperation(value = "Gets all the Member Transactions.", notes = "Returns a list of member transactions.")
-//    @ApiResponses(value = {
-//            @ApiResponse(code = 200, message = "Member Transactions returned", response = DiscoveryAccountSystemResponse.class),
-//            @ApiResponse(code = 400, message = "Bad Request", response = DiscoveryAccountSystemResponse.class),
-//            @ApiResponse(code = 404, message = "Not found", response = DiscoveryAccountSystemResponse.class),
-//            @ApiResponse(code = 500, message = "Internal Server Error", response = DiscoveryAccountSystemResponse.class)})
-//    public ResponseEntity<DiscoveryAccountSystemResponse<List<MemberTransactionDto>>> getAllMemberTransactions(){
-//        List<MemberTransactionDto> memberTransactions = memberTransactionService.getAllMemberTransaction();
-//        DiscoveryAccountSystemResponse<List<MemberTransactionDto>> response = new DiscoveryAccountSystemResponse<>(true, memberTransactions);
-//        return new ResponseEntity<>(response, HttpStatus.OK);
-//    }
 }

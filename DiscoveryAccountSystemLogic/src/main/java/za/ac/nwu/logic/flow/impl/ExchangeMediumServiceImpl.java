@@ -49,15 +49,15 @@ public class ExchangeMediumServiceImpl implements ExchangeMediumService {
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info("The input object is {}", exchangeMediumDto);
         }
-        if(null == exchangeMediumDto.getExchangeMediumID()){
+        if(null == exchangeMediumDto.getMemID()){
             exchangeMediumDto.setExchangeMediumID(1);
             exchangeMediumDto.setDate(LocalDate.now());
             exchangeMediumDto.setType("Miles");
             exchangeMediumDto.setBalance(40);
-            exchangeMediumDto.setDescription("This is a new Discovery currency type that keeps track of all your MILES");
+            exchangeMediumDto.setDescription("Discovery Miles");
             exchangeMediumDto.setMemID(new MemberDto(1));
         }
-        Member member = memberTranslator.getOneMember(exchangeMediumDto.getExchangeMediumID());
+        Member member = memberTranslator.getOneMember(exchangeMediumDto.getMemID().getMemId());
         Exchange_Medium exchangeMedium = exchangeMediumDto.buildExchangeMedium(member);
 
         Exchange_Medium addedExchangeMedium = exchangeMediumTranslator.newExchangeMedium(exchangeMedium);

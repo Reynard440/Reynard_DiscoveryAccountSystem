@@ -23,17 +23,6 @@ public class MemberTransactionTranslatorImpl implements MemberTransactionTransla
     }
 
     @Override
-    public List<Member_Transaction> getMemberTransactions() {
-        List<Member_Transaction> memberTransactions = new ArrayList<>();
-        try{
-            memberTransactions.addAll(memberTransactionRepository.findAll());
-        }catch(Exception e){
-            throw new RuntimeException("Unable to read from the DB", e);
-        }
-        return memberTransactions;
-    }
-
-    @Override
     public Member_Transaction addMemberTransaction(Member_Transaction memberTransaction) {
         try{
             return memberTransactionRepository.save(memberTransaction);

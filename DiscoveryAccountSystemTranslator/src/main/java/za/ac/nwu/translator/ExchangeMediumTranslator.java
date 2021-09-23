@@ -1,15 +1,10 @@
 package za.ac.nwu.translator;
 
 import org.springframework.stereotype.Component;
-import za.ac.nwu.domain.dto.ExchangeMediumDto;
 import za.ac.nwu.domain.persistence.Exchange_Medium;
-
-import java.util.List;
 
 @Component
 public interface ExchangeMediumTranslator {
-    List<ExchangeMediumDto> getExchangeMediumDtos() ;
-
     Exchange_Medium getExchangeMediumByEmID(Integer emid);
 
     void increaseExchangeMediumTotal(Integer id, double amount);

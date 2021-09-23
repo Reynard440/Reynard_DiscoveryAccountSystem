@@ -26,15 +26,6 @@ public class ViewMemberTransactionServiceImpl implements ViewMemberTransactionSe
     }
 
     @Override
-    public List<MemberTransactionDto> getAllMemberTransaction(){
-        List<MemberTransactionDto> memberTransactionDtos = new ArrayList<>();
-        for (Member_Transaction memberTransaction : memberTransactionTranslator.getMemberTransactions()) {
-            memberTransactionDtos.add(new MemberTransactionDto(memberTransaction));
-        }
-        return memberTransactionDtos;
-    }
-
-    @Override
     public MemberTransactionDto getMemberTransactionID(Integer id) {
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info("The input for Member Transaction id is {}", id);

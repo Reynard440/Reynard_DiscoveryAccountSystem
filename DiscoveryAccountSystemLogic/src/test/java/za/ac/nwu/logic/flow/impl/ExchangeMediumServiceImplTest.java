@@ -64,7 +64,7 @@ public class ExchangeMediumServiceImplTest {
     public void shouldIncreaseExchangeMediumTotal() {
         try {
             assertNotNull(result);
-            assertEquals("This is a new Discovery currency type that keeps track of all your MILES", result.getDescription());
+            assertEquals("Discovery Miles", result.getDescription());
             assertEquals("Miles", result.getType());
             assertEquals(LocalDate.now(), result.getDate());
             serviceExchangeMediumTranslator.increaseExchangeMediumTotal(result.getExchangeMediumID(), result.getBalance());
@@ -78,7 +78,7 @@ public class ExchangeMediumServiceImplTest {
     public void shouldDecreaseExchangeMediumTotal() {
         try {
             assertNotNull(result);
-            assertEquals("This is a new Discovery currency type that keeps track of all your MILES", result.getDescription());
+            assertEquals("Discovery Miles", result.getDescription());
             assertEquals("Miles", result.getType());
             assertEquals(LocalDate.now(), result.getDate());
             serviceExchangeMediumTranslator.decreaseExchangeMediumTotal(result.getExchangeMediumID(), result.getBalance());
@@ -92,12 +92,23 @@ public class ExchangeMediumServiceImplTest {
     public void shouldCheckTypeExist() {
         try {
             assertNotNull(result);
-            assertEquals("This is a new Discovery currency type that keeps track of all your MILES", result.getDescription());
+            assertEquals("Discovery Miles", result.getDescription());
             assertEquals("Miles", result.getType());
             serviceExchangeMediumTranslator.checkTypeExists(result.getExchangeMediumID(), result.getType());
             verify(serviceExchangeMediumTranslator, atLeastOnce()).checkTypeExists(result.getExchangeMediumID(), result.getType());
         } catch (Exception e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while checking whether or not a specific exchange medium exists."));
+        }
+    }
+
+    @Test
+    public void shouldConfigureExchangeMedium() {
+        try {
+            assertNotNull(result);
+            serviceExchangeMediumTranslator.configureExchangeMedium(result.getType(), "Dollars", 0.14, 1, 1);
+            verify(serviceExchangeMediumTranslator, atLeastOnce()).configureExchangeMedium(result.getType(), "Dollars", 0.14, 1, 1);
+        } catch (Exception e) {
+            assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while configuring to a specific exchange medium."));
         }
     }
 }

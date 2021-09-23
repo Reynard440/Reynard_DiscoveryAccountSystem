@@ -44,17 +44,6 @@ public class ViewMemberTransactionServiceImplTest {
     }
 
     @Test
-    public void shouldGetAllMemberTransaction() {
-        try {
-            assertNotNull(result);
-            memberTransactionTranslator.getMemberTransactions();
-            verify(memberTransactionTranslator, atLeastOnce()).getMemberTransactions();
-        } catch (Exception e) {
-            assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while retrieving all member transactions."));
-        }
-    }
-
-    @Test
     public void shouldGetMemberTransactionID() {
         try {
             assertNotNull(result);

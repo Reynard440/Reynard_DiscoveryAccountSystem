@@ -9,8 +9,6 @@ import java.util.List;
 
 @Component
 public interface MemberTransactionTranslator {
-    List<Member_Transaction> getMemberTransactions();
-
     Member_Transaction addMemberTransaction(Member_Transaction memberTransaction);
 
     Member_Transaction getMemberTransactionID(Integer id);

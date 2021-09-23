@@ -44,9 +44,4 @@ public class ViewExchangeMediumServiceImpl implements ViewExchangeMediumService 
         LOGGER.info("The return object is {} ", result);
         return result;
     }
-
-    @Override
-    public List<ExchangeMediumDto> getAllExchangeMedium(){
-        return exchangeMediumTranslator.getExchangeMediumDtos();
-    }
 }

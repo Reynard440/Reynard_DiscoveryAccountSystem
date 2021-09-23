@@ -66,15 +66,4 @@ public class ViewExchangeMediumServiceImplTest {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while retrieving the balance of an exchange medium via its type and id."));
         }
     }
-
-    @Test
-    public void shouldGetAllExchangeMedium() {
-        try {
-            assertNotNull(result);
-            exchangeMediumTranslator.getExchangeMediumDtos();
-            verify(exchangeMediumTranslator, atLeastOnce()).getExchangeMediumDtos();
-        } catch (Exception e) {
-            assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while retrieving all the exchange mediums."));
-        }
-    }
 }
