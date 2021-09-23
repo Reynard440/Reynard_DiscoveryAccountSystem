@@ -10,6 +10,7 @@ import za.ac.nwu.domain.persistence.Exchange_Medium;
 import za.ac.nwu.logic.flow.ViewExchangeMediumService;
 import za.ac.nwu.translator.ExchangeMediumTranslator;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Transactional
@@ -24,7 +25,7 @@ public class ViewExchangeMediumServiceImpl implements ViewExchangeMediumService 
     }
 
     @Override
-    public ExchangeMediumDto getExchangeMediumByEmID(Integer id) {
+    public ExchangeMediumDto getExchangeMediumByEmID(Integer id) throws SQLException {
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info("The input for id was {}", id);
         }
@@ -35,7 +36,7 @@ public class ViewExchangeMediumServiceImpl implements ViewExchangeMediumService 
     }
 
     @Override
-    public ExchangeMediumDto getExchangeMediumCurrentByTypeAndID(String type, Integer id) {
+    public ExchangeMediumDto getExchangeMediumCurrentByTypeAndID(String type, Integer id) throws SQLException {
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info("The input for type is {} and id is {} ", type, id);
         }

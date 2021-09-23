@@ -14,6 +14,7 @@ import za.ac.nwu.domain.persistence.Member;
 import za.ac.nwu.translator.ExchangeMediumTranslator;
 import za.ac.nwu.translator.MemberTranslator;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -37,7 +38,7 @@ public class ExchangeMediumServiceImplTest {
     ExchangeMediumDto result;
 
     @Before
-    public void setUp() {
+    public void setUp() throws SQLException {
         lenient().when(serviceExchangeMediumTranslator.newExchangeMedium(any(Exchange_Medium.class))).then(returnsFirstArg()); // if get anything of MemberDto
         lenient().when(memberTranslator.newMember(any(Member.class))).then(returnsFirstArg());
         result = exchangeMediumService.newExchangeMedium(new ExchangeMediumDto());

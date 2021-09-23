@@ -13,6 +13,7 @@ import za.ac.nwu.translator.ExchangeMediumTranslator;
 import za.ac.nwu.translator.MemberTranslator;
 
 import javax.transaction.Transactional;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 @Transactional
@@ -29,7 +30,7 @@ public class ExchangeMediumServiceImpl implements ExchangeMediumService {
     }
 
     @Override
-    public void increaseExchangeMediumTotal(Integer id, double amount)  {
+    public void increaseExchangeMediumTotal(Integer id, double amount) throws SQLException {
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info("The input for id is {} and the amount is {}", id, amount);
         }
@@ -37,7 +38,7 @@ public class ExchangeMediumServiceImpl implements ExchangeMediumService {
     }
 
     @Override
-    public void decreaseExchangeMediumTotal(Integer id, double amount) {
+    public void decreaseExchangeMediumTotal(Integer id, double amount) throws SQLException {
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info("The input for id is {} and the amount is {}", id, amount);
         }
@@ -45,7 +46,7 @@ public class ExchangeMediumServiceImpl implements ExchangeMediumService {
     }
 
     @Override
-    public ExchangeMediumDto newExchangeMedium(ExchangeMediumDto exchangeMediumDto) {
+    public ExchangeMediumDto newExchangeMedium(ExchangeMediumDto exchangeMediumDto) throws SQLException {
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info("The input object is {}", exchangeMediumDto);
         }

@@ -10,6 +10,7 @@ import za.ac.nwu.logic.flow.ViewMemberService;
 import za.ac.nwu.translator.MemberTranslator;
 
 import javax.transaction.Transactional;
+import java.sql.SQLException;
 
 @Transactional
 @Component("ViewMemberService")
@@ -23,7 +24,7 @@ public class ViewMemberServiceImpl implements ViewMemberService {
     }
 
     @Override
-    public MemberDto getMemberByEmail(String email) {
+    public MemberDto getMemberByEmail(String email) throws SQLException {
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info("The input for Member email is {}", email);
         }
@@ -34,7 +35,7 @@ public class ViewMemberServiceImpl implements ViewMemberService {
     }
 
     @Override
-    public MemberDto getMemberById(Integer id) {
+    public MemberDto getMemberById(Integer id) throws SQLException {
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info("The input for Member id is {}", id);
         }

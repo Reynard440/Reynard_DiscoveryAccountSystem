@@ -1,10 +1,7 @@
 package za.ac.nwu.translator.impl;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import za.ac.nwu.domain.dto.ExchangeMediumDto;
 import za.ac.nwu.domain.persistence.Exchange_Medium;
 import za.ac.nwu.repo.persistence.ExchangeMediumRepository;
 import za.ac.nwu.translator.ExchangeMediumTranslator;
@@ -18,42 +15,51 @@ import java.sql.SQLException;
 @Component
 public class ExchangeMediumTranslatorImpl implements ExchangeMediumTranslator {
     private final ExchangeMediumRepository exchangeMediumRepository;
-    //Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/DiscoveryDB", "root", "King6");
+    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/DiscoveryDB", "root", "King6");
 
     @Autowired
-    public ExchangeMediumTranslatorImpl(ExchangeMediumRepository exchangeMediumRepository) {
+    public ExchangeMediumTranslatorImpl(ExchangeMediumRepository exchangeMediumRepository) throws SQLException {
         this.exchangeMediumRepository = exchangeMediumRepository;
+        con.setAutoCommit(false);
     }
 
     @Override
-    public Exchange_Medium getExchangeMediumByEmID(Integer EmId)  {
+    public Exchange_Medium getExchangeMediumByEmID(Integer EmId) throws SQLException {
         try{
-            return exchangeMediumRepository.getByEM_ID(EmId);
+            Exchange_Medium result = exchangeMediumRepository.getByEM_ID(EmId);
+            con.commit();
+            return result;
         }catch(Exception e){
-            throw new RuntimeException("Unable to read from the DB", e);
+            con.rollback();
+            throw new SQLException("Rollback occurred while retrieving by ID: ", e);
         }
     }
 
     @Override
-    public void increaseExchangeMediumTotal(Integer id, double amount) {
+    public void increaseExchangeMediumTotal(Integer id, double amount) throws SQLException {
         try{
             exchangeMediumRepository.increaseBalance(amount, id);
+            con.commit();
         }catch(Exception e){
-            throw new RuntimeException("Unable to read from the DB", e);
+            con.rollback();
+            throw new SQLException("Rollback occurred while updating an exchange medium: ", e);
         }
     }
 
     @Override
-    public void decreaseExchangeMediumTotal(Integer id, double amount)  {
+    public void decreaseExchangeMediumTotal(Integer id, double amount) throws SQLException {
         try{
             Exchange_Medium exchange_medium = exchangeMediumRepository.getByEM_ID(id);
             if (exchange_medium.getBalance() < 0) {
-                throw new RuntimeException("Unable to read from the DB");
+                con.rollback();
+                throw new SQLException("Rollback occurred while updating an exchange medium.");
             } else {
                 exchangeMediumRepository.decreaseBalance(amount, id);
+                con.commit();
             }
         }catch(Exception e){
-            throw new RuntimeException("Unable to read from the DB", e);
+            con.rollback();
+            throw new SQLException("Rollback occurred while updating an exchange medium: ", e);
         }
     }
 
@@ -67,29 +73,37 @@ public class ExchangeMediumTranslatorImpl implements ExchangeMediumTranslator {
     }
 
     @Override
-    public Exchange_Medium newExchangeMedium(Exchange_Medium exchange_medium) {
+    public Exchange_Medium newExchangeMedium(Exchange_Medium exchange_medium) throws SQLException {
         try {
-            return exchangeMediumRepository.save(exchange_medium);
+            Exchange_Medium save = exchangeMediumRepository.save(exchange_medium);
+            con.commit();
+            return save;
         }catch(Exception e){
-            throw new RuntimeException("Could not add member to the DB",e);
+            con.rollback();
+            throw new SQLException("Rollback occurred while creating a new exchange medium: ", e);
         }
     }
 
     @Override
-    public Exchange_Medium getExchangeMediumCurrentByTypeAndID(String type, Integer id) {
+    public Exchange_Medium getExchangeMediumCurrentByTypeAndID(String type, Integer id) throws SQLException {
         try{
-            return exchangeMediumRepository.getExchangeMediumCurrentByTypeAndID(type, id);
+            Exchange_Medium result = exchangeMediumRepository.getExchangeMediumCurrentByTypeAndID(type, id);
+            con.commit();
+            return result;
         }catch(Exception e){
-            throw new RuntimeException("Unable to read from the DB", e);
+            con.rollback();
+            throw new SQLException("Rollback occurred while retrieving an exchange medium: ", e);
         }
     }
 
     @Override
-    public void configureExchangeMedium(String type, String newType, double adjust, Integer mem, Integer id) {
+    public void configureExchangeMedium(String type, String newType, double adjust, Integer mem, Integer id) throws SQLException {
         try{
             exchangeMediumRepository.switchExchangeMedium(type, newType, adjust, mem, id);
+            con.commit();
         }catch(Exception e){
-            throw new RuntimeException("Unable to read from the DB", e);
+            con.rollback();
+            throw new SQLException("Rollback occurred while configuring to another exchange medium: ", e);
         }
     }
 }

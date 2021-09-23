@@ -8,6 +8,9 @@ import za.ac.nwu.repo.persistence.MemberRepository;
 import za.ac.nwu.translator.MemberTranslator;
 
 import javax.transaction.Transactional;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,39 +18,50 @@ import java.util.List;
 @Component
 public class MemberTranslatorImpl implements MemberTranslator {
     private final MemberRepository memberRepository;
+    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/DiscoveryDB", "root", "King6");
 
     @Autowired
-    public MemberTranslatorImpl(MemberRepository memberRepository) {
+    public MemberTranslatorImpl(MemberRepository memberRepository) throws SQLException {
         this.memberRepository = memberRepository;
+        con.setAutoCommit(false);
     }
 
     @Override
-    public Member getOneMember(Integer id) {
+    public Member getOneMember(Integer id) throws SQLException {
         try{
-            return memberRepository.getById(id);
+            Member result = memberRepository.getById(id);
+            con.commit();
+            return result;
         }catch(Exception e){
-            throw new RuntimeException("An error occurred while getting the member by id.", e);
+            con.rollback();
+            throw new SQLException("Rollback occurred while retrieving a member: ",e);
         }
     }
 
     @Override
-    public Member newMember(Member member) {
+    public Member newMember(Member member) throws SQLException {
         try {
-            return memberRepository.save(member);
+            Member save = memberRepository.save(member);
+            con.commit();
+            return save;
         }catch(Exception e){
-            throw new RuntimeException("Could not add member to the DB",e);
+            con.rollback();
+            throw new SQLException("Rollback occurred while creating a new member: ",e);
         }
     }
 
     @Override
-    public Member getMemberByEmail(String email) {
+    public Member getMemberByEmail(String email) throws SQLException {
         try{
             if (null == email) {
                 email = "reynardengels@gmai.com";
             }
-            return memberRepository.getByEmail(email);
+            Member result = memberRepository.getByEmail(email);
+            con.commit();
+            return result;
         }catch(Exception e){
-            throw new RuntimeException("Could not read from the DB",e);
+            con.rollback();
+            throw new SQLException("Rollback occurred while retrieving a member: ",e);
         }
     }
 }

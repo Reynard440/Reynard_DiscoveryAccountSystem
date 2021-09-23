@@ -11,6 +11,7 @@ import za.ac.nwu.translator.ExchangeMediumTranslator;
 import za.ac.nwu.translator.MemberTransactionTranslator;
 
 import javax.transaction.Transactional;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 @Transactional
@@ -27,7 +28,7 @@ public class NewTransactionServiceImpl implements NewTransactionService {
     }
 
     @Override
-    public MemberTransactionDto addTransactionDto(MemberTransactionDto memberTransactionDto) {
+    public MemberTransactionDto addTransactionDto(MemberTransactionDto memberTransactionDto) throws SQLException {
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info("The input object is {}", memberTransactionDto);
         }

@@ -10,9 +10,12 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import za.ac.nwu.domain.dto.MemberDto;
 import za.ac.nwu.domain.dto.MemberTransactionDto;
+import za.ac.nwu.domain.persistence.Exchange_Medium;
 import za.ac.nwu.domain.persistence.Member_Transaction;
+import za.ac.nwu.translator.ExchangeMediumTranslator;
 import za.ac.nwu.translator.MemberTransactionTranslator;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 import static org.junit.Assert.*;
@@ -22,6 +25,9 @@ import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class NewTransactionServiceImplTest {
+    @Mock
+    private ExchangeMediumTranslator exchangeMediumTranslator;
+
     @Mock //creates a mock of MemberTransactionTranslator (not the actual MemberTransactionTranslator)
     private MemberTransactionTranslator serviceMemberTransactionTranslator;
 
@@ -31,8 +37,9 @@ public class NewTransactionServiceImplTest {
     MemberTransactionDto result;
 
     @Before
-    public void setUp() {
-        when(serviceMemberTransactionTranslator.addMemberTransaction(any(Member_Transaction.class))).then(returnsFirstArg()); // if get anything of MemberTransactionDto
+    public void setUp() throws SQLException {
+        lenient().when(exchangeMediumTranslator.newExchangeMedium(any(Exchange_Medium.class))).then(returnsFirstArg());
+        lenient().when(serviceMemberTransactionTranslator.addMemberTransaction(any(Member_Transaction.class))).then(returnsFirstArg()); // if get anything of MemberTransactionDto
         result = transactionService.addTransactionDto(new MemberTransactionDto());
     }
 

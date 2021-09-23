@@ -10,6 +10,7 @@ import za.ac.nwu.domain.persistence.Member_Transaction;
 import za.ac.nwu.logic.flow.ViewMemberTransactionService;
 import za.ac.nwu.translator.MemberTransactionTranslator;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ public class ViewMemberTransactionServiceImpl implements ViewMemberTransactionSe
     }
 
     @Override
-    public MemberTransactionDto getMemberTransactionID(Integer id) {
+    public MemberTransactionDto getMemberTransactionID(Integer id) throws SQLException {
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info("The input for Member Transaction id is {}", id);
         }
@@ -37,7 +38,7 @@ public class ViewMemberTransactionServiceImpl implements ViewMemberTransactionSe
     }
 
     @Override
-    public MemberTransactionDto getTransactionByIdAndDate(Integer id, LocalDate date) {
+    public MemberTransactionDto getTransactionByIdAndDate(Integer id, LocalDate date) throws SQLException {
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info("The input for Member Transaction id is {} and for date is {}", id, date);
         }

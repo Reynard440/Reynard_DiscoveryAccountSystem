@@ -12,6 +12,8 @@ import za.ac.nwu.domain.dto.MemberDto;
 import za.ac.nwu.domain.persistence.Member;
 import za.ac.nwu.translator.MemberTranslator;
 
+import java.sql.SQLException;
+
 import static org.junit.Assert.*;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.any;
@@ -28,7 +30,7 @@ public class MemberServiceImplTest {
     MemberDto result;
 
     @Before
-    public void setUp() {
+    public void setUp() throws SQLException {
         when(serviceTranslator.newMember(any(Member.class))).then(returnsFirstArg()); // if get anything of MemberDto
         result = memberService.newMember(new MemberDto());
     }

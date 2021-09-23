@@ -10,6 +10,7 @@ import za.ac.nwu.logic.flow.MemberService;
 import za.ac.nwu.translator.MemberTranslator;
 
 import javax.transaction.Transactional;
+import java.sql.SQLException;
 
 @Transactional
 @Component("MemberServiceName")
@@ -23,7 +24,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public MemberDto newMember(MemberDto memberDto) {
+    public MemberDto newMember(MemberDto memberDto) throws SQLException {
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info("The input object is {}", memberDto);
         }
