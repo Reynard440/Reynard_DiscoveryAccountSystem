@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import za.ac.nwu.domain.dto.MemberTransactionDto;
+import za.ac.nwu.domain.persistence.Exchange_Medium;
 import za.ac.nwu.domain.persistence.Member_Transaction;
 import za.ac.nwu.logic.flow.NewTransactionService;
 import za.ac.nwu.translator.ExchangeMediumTranslator;
@@ -43,7 +44,12 @@ public class NewTransactionServiceImpl implements NewTransactionService {
         if (memberTransaction.getDescription().equals("Deposit") || memberTransaction.getDescription().equals("deposit")) {
             exchangeMediumTranslator.increaseExchangeMediumTotal(memberTransaction.getEmId().getEmId(), memberTransaction.getAmount());
         } else if (memberTransaction.getDescription().equals("Withdrawal") || memberTransaction.getDescription().equals("withdrawal")) {
-            exchangeMediumTranslator.decreaseExchangeMediumTotal(memberTransaction.getEmId().getEmId(), memberTransaction.getAmount());
+            Exchange_Medium exchange_medium = exchangeMediumTranslator.getExchangeMediumByEmID(memberTransaction.getEmId().getEmId());
+            if (exchange_medium.getBalance() - memberTransaction.getAmount() < 0) {
+                throw  new SQLException("Insufficient funds");
+            } else{
+                exchangeMediumTranslator.decreaseExchangeMediumTotal(memberTransaction.getEmId().getEmId(), memberTransaction.getAmount());
+            }
         }
         MemberTransactionDto result = new MemberTransactionDto(addedMemberTransaction);
         LOGGER.info("The return object is {}", result);
