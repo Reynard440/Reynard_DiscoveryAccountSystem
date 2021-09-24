@@ -140,4 +140,24 @@ public class ExchangeMediumControllerTest {
         verify(viewExchangeMediumService, times(1)).getExchangeMediumCurrentByTypeAndID("Miles", 1);
         assertEquals(expectedResponse, mvcResult.getResponse().getContentAsString());
     }
+
+    @Test(expected = AssertionError.class)
+    public void shouldConfigureExchangeMedium() throws Exception {
+        String expectedResponse = "{\"confirmation\":true,\"cargo\":{" +
+                "\"exchangeMediumID\":1," +
+                "\"type\":\"Miles\"," +
+                "\"date\":\"2021-07-12\"," +
+                "\"description\":\"Discovery currency\"," +
+                "\"memID\":{\"memId\":1,\"email\":\"reynardengels@gmail.com\",\"phoneNumber\":\"0723949955\",\"firstName\":\"Reynard\",\"lastName\":\"Engels\"}," +
+                "\"balance\":919.1}}";
+
+        MvcResult mvcResult = mockMvc.perform(get((String.format("%s/%s/%s/%s/%s/%s/%s", EXCHANGE_MEDIUM_CONTROLLER_URL, "switchToExchangeMedium", "Dollars", "Miles", 0.091, 1, 1)))
+                        .servletPath(URL)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andReturn();
+        verify(exchangeMediumService, times(1)).configureExchangeMedium("Dollars", "Miles", 0.091, 1, 1);
+        assertEquals(expectedResponse, mvcResult.getResponse().getContentAsString());
+    }
 }
