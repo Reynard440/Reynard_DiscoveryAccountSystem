@@ -1,11 +1,9 @@
 package za.ac.nwu.translator.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import za.ac.nwu.repo.config.RepositoryConfig;
-import za.ac.nwu.repo.persistence.MemberRepository;
 
 @Import({RepositoryConfig.class})
 @Configuration
