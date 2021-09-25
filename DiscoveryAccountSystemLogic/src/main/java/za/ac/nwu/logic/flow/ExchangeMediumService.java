@@ -1,7 +1,6 @@
 package za.ac.nwu.logic.flow;
 
 import za.ac.nwu.domain.dto.ExchangeMediumDto;
-import za.ac.nwu.domain.persistence.Exchange_Medium;
 
 import java.sql.SQLException;
 
@@ -14,5 +13,5 @@ public interface ExchangeMediumService {
 
     boolean checkTypeExist(Integer id, String type);
 
-    void configureExchangeMedium(String type, String newType, double adjust, Integer mem, Integer id);
+    void configureExchangeMedium(String type, String newType, double adjust, Integer mem, Integer id) throws SQLException;
 }

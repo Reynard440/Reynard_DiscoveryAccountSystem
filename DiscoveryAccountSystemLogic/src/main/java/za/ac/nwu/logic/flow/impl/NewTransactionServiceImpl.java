@@ -16,7 +16,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 
 @Transactional
-@Component("newMemberTransaction")
+@Component("newMemberTransactionFlow")
 public class NewTransactionServiceImpl implements NewTransactionService {
     private static final Logger LOGGER = LoggerFactory.getLogger(NewTransactionServiceImpl.class);
     private final MemberTransactionTranslator memberTransactionTranslator;
@@ -30,26 +30,15 @@ public class NewTransactionServiceImpl implements NewTransactionService {
 
     @Override
     public MemberTransactionDto addTransactionDto(MemberTransactionDto memberTransactionDto) throws SQLException {
-        if (LOGGER.isInfoEnabled()) {
-            LOGGER.info("The input object is {}", memberTransactionDto);
-        }
-        if(null == memberTransactionDto.getTransactionDate()){
-            memberTransactionDto.setTransactionDate(LocalDate.now());
-            memberTransactionDto.setDescription("Example description here.");
-        }
+        LOGGER.info("The input object is {}", memberTransactionDto);
 
         Member_Transaction memberTransaction = memberTransactionDto.buildMemberTransaction();
         Member_Transaction addedMemberTransaction = memberTransactionTranslator.addMemberTransaction(memberTransaction);
 
-        if (memberTransaction.getDescription().equals("Deposit") || memberTransaction.getDescription().equals("deposit")) {
+        if (memberTransaction.getDescription().equals("Withdrawal") && memberTransaction.getEmId().getBalance() > 0) {
+            exchangeMediumTranslator.decreaseExchangeMediumTotal(memberTransaction.getEmId().getEmId(), memberTransaction.getAmount());
+        } else {
             exchangeMediumTranslator.increaseExchangeMediumTotal(memberTransaction.getEmId().getEmId(), memberTransaction.getAmount());
-        } else if (memberTransaction.getDescription().equals("Withdrawal") || memberTransaction.getDescription().equals("withdrawal")) {
-            Exchange_Medium exchange_medium = exchangeMediumTranslator.getExchangeMediumByEmID(memberTransaction.getEmId().getEmId());
-            if (exchange_medium.getBalance() - memberTransaction.getAmount() < 0) {
-                throw  new SQLException("Insufficient funds");
-            } else{
-                exchangeMediumTranslator.decreaseExchangeMediumTotal(memberTransaction.getEmId().getEmId(), memberTransaction.getAmount());
-            }
         }
         MemberTransactionDto result = new MemberTransactionDto(addedMemberTransaction);
         LOGGER.info("The return object is {}", result);

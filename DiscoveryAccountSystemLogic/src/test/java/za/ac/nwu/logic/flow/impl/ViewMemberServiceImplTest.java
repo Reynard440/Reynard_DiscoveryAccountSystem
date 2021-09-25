@@ -26,12 +26,21 @@ public class ViewMemberServiceImplTest {
     @InjectMocks //translator is now mocked
     private MemberServiceImpl memberService;
 
+    @InjectMocks //translator is now mocked
+    private ViewMemberServiceImpl viewMemberService;
+
     MemberDto result;
 
     @Before
     public void setUp() throws Exception {
         when(serviceTranslator.newMember(any(Member.class))).then(returnsFirstArg());
-        result = memberService.newMember(new MemberDto());
+        result = memberService.newMember(new MemberDto(
+                1,
+                "reynardengels@gmail.com",
+                "0723949955",
+                "Reynard",
+                "Engels"
+        ));
     }
 
     @After
@@ -44,8 +53,8 @@ public class ViewMemberServiceImplTest {
         try {
             assertNotNull(result);
             System.out.println(result.getFirstName());
-            serviceTranslator.getMemberByEmail(result.getEmail());
             assertEquals("reynardengels@gmail.com", result.getEmail());
+            viewMemberService.getMemberByEmail(result.getEmail());
             verify(serviceTranslator, atLeastOnce()).getMemberByEmail(result.getEmail());
         } catch (Exception e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while retrieving a member by their email address."));
@@ -56,9 +65,9 @@ public class ViewMemberServiceImplTest {
     public void shouldGetMemberById() {
         try {
             assertNotNull(result);
-            serviceTranslator.getOneMember(result.getMemId());
             assertEquals("reynardengels@gmail.com", result.getEmail());
             assertEquals("0723949955", result.getPhoneNumber());
+            viewMemberService.getMemberById(result.getMemId());
             verify(serviceTranslator, atLeastOnce()).getOneMember(result.getMemId());
         } catch (Exception e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while retrieving a member by their id."));

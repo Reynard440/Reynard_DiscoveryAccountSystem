@@ -25,85 +25,45 @@ public class ExchangeMediumTranslatorImpl implements ExchangeMediumTranslator {
 
     @Override
     public Exchange_Medium getExchangeMediumByEmID(Integer EmId) throws SQLException {
-        try{
-            Exchange_Medium result = exchangeMediumRepository.getByEM_ID(EmId);
-            con.commit();
-            return result;
-        }catch(Exception e){
-            con.rollback();
-            throw new SQLException("Rollback occurred while retrieving by ID: ", e);
-        }
+        Exchange_Medium result = exchangeMediumRepository.getByEM_ID(EmId);
+        con.commit();
+        return result;
     }
 
     @Override
     public void increaseExchangeMediumTotal(Integer id, double amount) throws SQLException {
-        try{
-            exchangeMediumRepository.increaseBalance(amount, id);
-            con.commit();
-        }catch(Exception e){
-            con.rollback();
-            throw new SQLException("Rollback occurred while updating an exchange medium: ", e);
-        }
+        exchangeMediumRepository.increaseBalance(amount, id);
+        con.commit();
     }
 
     @Override
     public void decreaseExchangeMediumTotal(Integer id, double amount) throws SQLException {
-        try{
-            Exchange_Medium exchange_medium = exchangeMediumRepository.getByEM_ID(id);
-            if (exchange_medium.getBalance() < 0) {
-                con.rollback();
-                throw new SQLException("Rollback occurred while updating an exchange medium.");
-            } else {
-                exchangeMediumRepository.decreaseBalance(amount, id);
-                con.commit();
-            }
-        }catch(Exception e){
-            con.rollback();
-            throw new SQLException("Rollback occurred while updating an exchange medium: ", e);
-        }
+        exchangeMediumRepository.decreaseBalance(amount, id);
+        con.commit();
     }
 
     @Override
     public boolean checkTypeExists(Integer id, String type) {
-        try{
-            return exchangeMediumRepository.existsByTypeAndMemID_Id(type, id);
-        }catch(Exception e){
-            throw new RuntimeException("Unable to read from the DB", e);
-        }
+        return exchangeMediumRepository.existsByTypeAndMemID_Id(type, id);
     }
 
     @Override
     public Exchange_Medium newExchangeMedium(Exchange_Medium exchange_medium) throws SQLException {
-        try {
-            Exchange_Medium save = exchangeMediumRepository.save(exchange_medium);
-            con.commit();
-            return save;
-        }catch(Exception e){
-            con.rollback();
-            throw new SQLException("Rollback occurred while creating a new exchange medium: ", e);
-        }
+        Exchange_Medium save = exchangeMediumRepository.save(exchange_medium);
+        con.commit();
+        return save;
     }
 
     @Override
     public Exchange_Medium getExchangeMediumCurrentByTypeAndID(String type, Integer id) throws SQLException {
-        try{
-            Exchange_Medium result = exchangeMediumRepository.getExchangeMediumCurrentByTypeAndID(type, id);
-            con.commit();
-            return result;
-        }catch(Exception e){
-            con.rollback();
-            throw new SQLException("Rollback occurred while retrieving an exchange medium: ", e);
-        }
+        Exchange_Medium result = exchangeMediumRepository.getExchangeMediumCurrentByTypeAndID(type, id);
+        con.commit();
+        return result;
     }
 
     @Override
     public void configureExchangeMedium(String type, String newType, double adjust, Integer mem, Integer id) throws SQLException {
-        try{
-            exchangeMediumRepository.switchExchangeMedium(type, newType, adjust, mem, id);
-            con.commit();
-        }catch(Exception e){
-            con.rollback();
-            throw new SQLException("Rollback occurred while configuring to another exchange medium: ", e);
-        }
+        exchangeMediumRepository.switchExchangeMedium(type, newType, adjust, mem, id);
+        con.commit();
     }
 }

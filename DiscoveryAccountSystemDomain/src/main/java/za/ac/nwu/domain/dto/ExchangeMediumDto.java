@@ -119,7 +119,7 @@ public class ExchangeMediumDto implements Serializable {
         this.Date = date;
     }
 
-    public ExchangeMediumDto(int exchangeMediumID, String type, String description, int balance, LocalDate date, int id) {
+    public ExchangeMediumDto(Integer exchangeMediumID, String type, String description, double balance, LocalDate date, Integer id) {
         this.exchangeMediumID = exchangeMediumID;
         this.Type = type;
         this.Description = description;

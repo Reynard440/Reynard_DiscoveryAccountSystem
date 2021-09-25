@@ -51,7 +51,7 @@ public class MemberTransactionController {
             @ApiResponse(code = 400, message = "Bad Request", response = DiscoveryAccountSystemResponse.class),
             @ApiResponse(code = 404, message = "Not found", response = DiscoveryAccountSystemResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = DiscoveryAccountSystemResponse.class)})
-    public ResponseEntity<DiscoveryAccountSystemResponse<MemberTransactionDto>> getMemberTransactionByID(@ApiParam(value = "The id that is unique to each exchange medium.", example = "1", name = "id", required = true) @PathVariable("id") Integer id) throws SQLException {
+    public ResponseEntity<DiscoveryAccountSystemResponse<MemberTransactionDto>> getMemberTransactionByID(@ApiParam(value = "The id that is unique to each transaction.", example = "1", name = "id", required = true) @PathVariable("id") Integer id) throws SQLException {
         MemberTransactionDto memberTransactionResponse = memberTransactionService.getMemberTransactionID(id);
         DiscoveryAccountSystemResponse<MemberTransactionDto> response = new DiscoveryAccountSystemResponse<>(true, memberTransactionResponse);
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -64,7 +64,7 @@ public class MemberTransactionController {
             @ApiResponse(code = 400, message = "Bad Request", response = DiscoveryAccountSystemResponse.class),
             @ApiResponse(code = 404, message = "Not found", response = DiscoveryAccountSystemResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = DiscoveryAccountSystemResponse.class)})
-    public ResponseEntity<DiscoveryAccountSystemResponse<MemberTransactionDto>> getTransactionByIDAndDate(@ApiParam(value = "The id that is unique to each exchange medium.", example = "1", name = "id", required = true) @PathVariable("id") Integer id, @ApiParam(value = "The date of the transaction.", example = "2021-08-31", name = "date", required = true) @PathVariable("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) throws SQLException {
+    public ResponseEntity<DiscoveryAccountSystemResponse<MemberTransactionDto>> getTransactionByIDAndDate(@ApiParam(value = "The id that is unique to each transaction.", example = "1", name = "id", required = true) @PathVariable("id") Integer id, @ApiParam(value = "The date of the transaction.", example = "2021-08-31", name = "date", required = true) @PathVariable("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) throws SQLException {
         MemberTransactionDto memberTransactionResponse = memberTransactionService.getTransactionByIdAndDate(id, date);
         DiscoveryAccountSystemResponse<MemberTransactionDto> response = new DiscoveryAccountSystemResponse<>(true, memberTransactionResponse);
         return new ResponseEntity<>(response, HttpStatus.OK);

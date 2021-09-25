@@ -41,7 +41,14 @@ public class ExchangeMediumServiceImplTest {
     public void setUp() throws SQLException {
         lenient().when(serviceExchangeMediumTranslator.newExchangeMedium(any(Exchange_Medium.class))).then(returnsFirstArg()); // if get anything of MemberDto
         lenient().when(memberTranslator.newMember(any(Member.class))).then(returnsFirstArg());
-        result = exchangeMediumService.newExchangeMedium(new ExchangeMediumDto());
+        result = exchangeMediumService.newExchangeMedium(new ExchangeMediumDto(
+                1,
+                "Miles",
+                "Discovery Miles",
+                40,
+                LocalDate.now(),
+                new MemberDto(1)
+        ));
     }
 
     @After
@@ -68,7 +75,7 @@ public class ExchangeMediumServiceImplTest {
             assertEquals("Discovery Miles", result.getDescription());
             assertEquals("Miles", result.getType());
             assertEquals(LocalDate.now(), result.getDate());
-            serviceExchangeMediumTranslator.increaseExchangeMediumTotal(result.getExchangeMediumID(), result.getBalance());
+            exchangeMediumService.increaseExchangeMediumTotal(result.getExchangeMediumID(), result.getBalance());
             verify(serviceExchangeMediumTranslator, atLeastOnce()).increaseExchangeMediumTotal(result.getExchangeMediumID(), result.getBalance());
         } catch (Exception e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while increasing a specific exchange medium's balance."));
@@ -82,7 +89,7 @@ public class ExchangeMediumServiceImplTest {
             assertEquals("Discovery Miles", result.getDescription());
             assertEquals("Miles", result.getType());
             assertEquals(LocalDate.now(), result.getDate());
-            serviceExchangeMediumTranslator.decreaseExchangeMediumTotal(result.getExchangeMediumID(), result.getBalance());
+            exchangeMediumService.decreaseExchangeMediumTotal(result.getExchangeMediumID(), result.getBalance());
             verify(serviceExchangeMediumTranslator, atLeastOnce()).decreaseExchangeMediumTotal(result.getExchangeMediumID(), result.getBalance());
         } catch (Exception e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while decreasing a specific exchange medium's balance."));
@@ -95,7 +102,7 @@ public class ExchangeMediumServiceImplTest {
             assertNotNull(result);
             assertEquals("Discovery Miles", result.getDescription());
             assertEquals("Miles", result.getType());
-            serviceExchangeMediumTranslator.checkTypeExists(result.getExchangeMediumID(), result.getType());
+            exchangeMediumService.checkTypeExist(result.getExchangeMediumID(), result.getType());
             verify(serviceExchangeMediumTranslator, atLeastOnce()).checkTypeExists(result.getExchangeMediumID(), result.getType());
         } catch (Exception e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while checking whether or not a specific exchange medium exists."));
@@ -106,7 +113,7 @@ public class ExchangeMediumServiceImplTest {
     public void shouldConfigureExchangeMedium() {
         try {
             assertNotNull(result);
-            serviceExchangeMediumTranslator.configureExchangeMedium(result.getType(), "Dollars", 0.14, 1, 1);
+            exchangeMediumService.configureExchangeMedium(result.getType(), "Dollars", 0.14, 1, 1);
             verify(serviceExchangeMediumTranslator, atLeastOnce()).configureExchangeMedium(result.getType(), "Dollars", 0.14, 1, 1);
         } catch (Exception e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while configuring to a specific exchange medium."));

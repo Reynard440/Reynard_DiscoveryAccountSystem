@@ -2,6 +2,7 @@ package za.ac.nwu.translator.impl;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.ComparisonFailure;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -11,6 +12,8 @@ import za.ac.nwu.domain.persistence.Exchange_Medium;
 import za.ac.nwu.domain.persistence.Member;
 import za.ac.nwu.repo.persistence.ExchangeMediumRepository;
 import za.ac.nwu.repo.persistence.MemberRepository;
+
+import java.nio.charset.CoderMalfunctionError;
 
 import static org.junit.Assert.*;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
@@ -42,7 +45,7 @@ public class MemberTranslatorImplTest {
     public void shouldGetOneMember() {
         try {
             assertNotNull(result);
-            memberRepository.getById(result.getId());
+            memberTranslator.getOneMember(result.getId());
             verify(memberRepository, atLeastOnce()).getById(result.getId());
         } catch (Exception e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while retrieving a member by their id."));
@@ -53,6 +56,7 @@ public class MemberTranslatorImplTest {
     public void shouldAddNewMember() {
         try {
             assertNotNull(result);
+            memberTranslator.newMember(result);
             verify(memberRepository, atLeastOnce()).save(any(Member.class));
         } catch (Exception e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while creating a member."));
@@ -63,7 +67,7 @@ public class MemberTranslatorImplTest {
     public void shouldGetMemberByEmail() {
         try {
             assertNotNull(result);
-            memberRepository.getByEmail(result.getEmail());
+            memberTranslator.getMemberByEmail(result.getEmail());
             verify(memberRepository, atLeastOnce()).getByEmail(result.getEmail());
         } catch (Exception e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while retrieving a member by their email address."));

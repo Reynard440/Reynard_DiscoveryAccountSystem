@@ -2,6 +2,7 @@ package za.ac.nwu.translator.impl;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.ComparisonFailure;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -15,6 +16,7 @@ import za.ac.nwu.repo.persistence.ExchangeMediumRepository;
 import za.ac.nwu.translator.ExchangeMediumTranslator;
 import za.ac.nwu.translator.MemberTranslator;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 import static org.junit.Assert.*;
@@ -47,9 +49,9 @@ public class ExchangeMediumTranslatorImplTest {
     public void ShouldGetExchangeMediumByEmID() {
         try {
             assertNotNull(result);
-            exchangeMediumRepository.getByEM_ID(result.getEmId());
+            exchangeMediumTranslator.getExchangeMediumByEmID(result.getEmId());
             verify(exchangeMediumRepository, atLeastOnce()).getByEM_ID(result.getEmId());
-        } catch (Exception e) {
+        } catch (SQLException e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while retrieving an exchange medium by its id."));
         }
     }
@@ -58,9 +60,9 @@ public class ExchangeMediumTranslatorImplTest {
     public void shouldIncreaseExchangeMediumTotal() {
         try {
             assertNotNull(result);
-            exchangeMediumRepository.increaseBalance(10, 1);
+            exchangeMediumTranslator.increaseExchangeMediumTotal(1, 10.0);
             verify(exchangeMediumRepository, atLeastOnce()).increaseBalance(10, 1);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while increasing the balance of an exchange medium."));
         }
     }
@@ -69,30 +71,27 @@ public class ExchangeMediumTranslatorImplTest {
     public void shouldDecreaseExchangeMediumTotal() {
         try {
             assertNotNull(result);
-            exchangeMediumRepository.decreaseBalance(10, 1);
+            exchangeMediumTranslator.decreaseExchangeMediumTotal(1, 10.0);
             verify(exchangeMediumRepository, atLeastOnce()).decreaseBalance(10, 1);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while decreasing the balance of an exchange medium."));
         }
     }
 
-    @Test
+    @Test(expected = AssertionError.class)
     public void shouldCheckTypeExists() {
-        try {
-            assertNotNull(result);
-            exchangeMediumRepository.checkTypeExist(1, "Miles");
-            verify(exchangeMediumRepository, atLeastOnce()).checkTypeExist(1, "Miles");
-        } catch (Exception e) {
-            assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while checking whether or not a exchange medium exists."));
-        }
+        assertNotNull(result);
+        exchangeMediumTranslator.checkTypeExists(1, "Miles");
+        verify(exchangeMediumRepository, atLeastOnce()).checkTypeExist(1, "Miles");
     }
 
     @Test
     public void shouldAddNewExchangeMedium() {
         try {
             assertNotNull(result);
+            exchangeMediumTranslator.newExchangeMedium(result);
             verify(exchangeMediumRepository, atLeastOnce()).save(any(Exchange_Medium.class));
-        } catch (Exception e) {
+        } catch (SQLException e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while creating an exchange medium."));
         }
     }
@@ -101,9 +100,9 @@ public class ExchangeMediumTranslatorImplTest {
     public void shouldGetExchangeMediumCurrentByTypeAndID() {
         try {
             assertNotNull(result);
-            exchangeMediumRepository.getExchangeMediumCurrentByTypeAndID("Miles", 1);
+            exchangeMediumTranslator.getExchangeMediumCurrentByTypeAndID("Miles", 1);
             verify(exchangeMediumRepository, atLeastOnce()).getExchangeMediumCurrentByTypeAndID("Miles", 1);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while retrieving the current balance of an exchange medium."));
         }
     }

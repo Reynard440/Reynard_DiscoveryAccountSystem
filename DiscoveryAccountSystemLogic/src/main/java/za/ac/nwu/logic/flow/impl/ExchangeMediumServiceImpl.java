@@ -31,25 +31,19 @@ public class ExchangeMediumServiceImpl implements ExchangeMediumService {
 
     @Override
     public void increaseExchangeMediumTotal(Integer id, double amount) throws SQLException {
-        if (LOGGER.isInfoEnabled()) {
-            LOGGER.info("The input for id is {} and the amount is {}", id, amount);
-        }
+        LOGGER.info("The input for id is {} and the amount is {}", id, amount);
         exchangeMediumTranslator.increaseExchangeMediumTotal(id, amount);
     }
 
     @Override
     public void decreaseExchangeMediumTotal(Integer id, double amount) throws SQLException {
-        if (LOGGER.isInfoEnabled()) {
-            LOGGER.info("The input for id is {} and the amount is {}", id, amount);
-        }
+        LOGGER.info("The input for id is {} and the amount is {}", id, amount);
         exchangeMediumTranslator.decreaseExchangeMediumTotal(id, amount);
     }
 
     @Override
     public ExchangeMediumDto newExchangeMedium(ExchangeMediumDto exchangeMediumDto) throws SQLException {
-        if (LOGGER.isInfoEnabled()) {
-            LOGGER.info("The input object is {}", exchangeMediumDto);
-        }
+        LOGGER.info("The input object is {}", exchangeMediumDto);
         if(null == exchangeMediumDto.getMemID()){
             exchangeMediumDto.setExchangeMediumID(1);
             exchangeMediumDto.setDate(LocalDate.now());
@@ -69,24 +63,13 @@ public class ExchangeMediumServiceImpl implements ExchangeMediumService {
 
     @Override
     public boolean checkTypeExist(Integer id, String type) {
-        if (LOGGER.isInfoEnabled()) {
-            LOGGER.info("The input for type is {} and the Exchange Medium id is {}", type, id);
-        }
-        if (null == type) {
-            type = "Miles";
-        }
+        LOGGER.info("The input for type is {} and the Exchange Medium id is {}", type, id);
         return exchangeMediumTranslator.checkTypeExists(id, type);
     }
 
     @Override
-    public void configureExchangeMedium(String type, String newType, double adjust, Integer mem, Integer id) {
-        try {
-            if (LOGGER.isInfoEnabled()) {
-                LOGGER.info("The input for type is {}, the newType is {}, the amount to be adjusted is {}, the MemberId is {}, and the Exchange Medium id is {}", type, newType, adjust, mem, id);
-            }
-            exchangeMediumTranslator.configureExchangeMedium(type, newType, adjust, mem, id);
-        } catch (Exception e) {
-            throw new RuntimeException("An error occurred while configuring to new exchange medium", e);
-        }
+    public void configureExchangeMedium(String type, String newType, double adjust, Integer mem, Integer id) throws SQLException {
+        LOGGER.info("The input for type is {}, the newType is {}, the amount to be adjusted is {}, the MemberId is {}, and the Exchange Medium id is {}", type, newType, adjust, mem, id);
+        exchangeMediumTranslator.configureExchangeMedium(type, newType, adjust, mem, id);
     }
 }

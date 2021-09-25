@@ -13,7 +13,7 @@ import javax.transaction.Transactional;
 import java.sql.SQLException;
 
 @Transactional
-@Component("ViewMemberService")
+@Component("viewMemberServiceFlow")
 public class ViewMemberServiceImpl implements ViewMemberService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ViewMemberServiceImpl.class);
     private final MemberTranslator memberTranslator;
@@ -25,9 +25,7 @@ public class ViewMemberServiceImpl implements ViewMemberService {
 
     @Override
     public MemberDto getMemberByEmail(String email) throws SQLException {
-        if (LOGGER.isInfoEnabled()) {
-            LOGGER.info("The input for Member email is {}", email);
-        }
+        LOGGER.info("The input for Member email is {}", email);
         Member member = memberTranslator.getMemberByEmail(email);
         MemberDto result = null != member ? new MemberDto(member) : null;
         LOGGER.info("The return object is {} ", result);
@@ -36,9 +34,7 @@ public class ViewMemberServiceImpl implements ViewMemberService {
 
     @Override
     public MemberDto getMemberById(Integer id) throws SQLException {
-        if (LOGGER.isInfoEnabled()) {
-            LOGGER.info("The input for Member id is {}", id);
-        }
+        LOGGER.info("The input for Member id is {}", id);
         Member member = memberTranslator.getOneMember(id);
         MemberDto result = null != member ? new MemberDto(member) : null;
         LOGGER.info("The return object is {} ", result);

@@ -28,40 +28,22 @@ public class MemberTranslatorImpl implements MemberTranslator {
 
     @Override
     public Member getOneMember(Integer id) throws SQLException {
-        try{
-            Member result = memberRepository.getById(id);
-            con.commit();
-            return result;
-        }catch(Exception e){
-            con.rollback();
-            throw new SQLException("Rollback occurred while retrieving a member: ",e);
-        }
+        Member result = memberRepository.getById(id);
+        con.commit();
+        return result;
     }
 
     @Override
     public Member newMember(Member member) throws SQLException {
-        try {
-            Member save = memberRepository.save(member);
-            con.commit();
-            return save;
-        }catch(Exception e){
-            con.rollback();
-            throw new SQLException("Rollback occurred while creating a new member: ",e);
-        }
+        Member save = memberRepository.save(member);
+        con.commit();
+        return save;
     }
 
     @Override
     public Member getMemberByEmail(String email) throws SQLException {
-        try{
-            if (null == email) {
-                email = "reynardengels@gmai.com";
-            }
-            Member result = memberRepository.getByEmail(email);
-            con.commit();
-            return result;
-        }catch(Exception e){
-            con.rollback();
-            throw new SQLException("Rollback occurred while retrieving a member: ",e);
-        }
+        Member result = memberRepository.getByEmail(email);
+        con.commit();
+        return result;
     }
 }

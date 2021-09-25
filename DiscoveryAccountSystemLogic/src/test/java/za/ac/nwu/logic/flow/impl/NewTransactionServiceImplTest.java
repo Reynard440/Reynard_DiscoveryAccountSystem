@@ -40,7 +40,13 @@ public class NewTransactionServiceImplTest {
     public void setUp() throws SQLException {
         lenient().when(exchangeMediumTranslator.newExchangeMedium(any(Exchange_Medium.class))).then(returnsFirstArg());
         lenient().when(serviceMemberTransactionTranslator.addMemberTransaction(any(Member_Transaction.class))).then(returnsFirstArg()); // if get anything of MemberTransactionDto
-        result = transactionService.addTransactionDto(new MemberTransactionDto());
+        result = transactionService.addTransactionDto(new MemberTransactionDto(
+                "Withdrawal",
+                LocalDate.now(),
+                10.0,
+                1,
+                1
+        ));
     }
 
     @After

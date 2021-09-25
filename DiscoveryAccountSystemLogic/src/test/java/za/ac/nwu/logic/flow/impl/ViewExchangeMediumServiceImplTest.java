@@ -30,6 +30,9 @@ public class ViewExchangeMediumServiceImplTest {
     @InjectMocks //translator is now mocked
     private ExchangeMediumServiceImpl exchangeMediumService;
 
+    @InjectMocks //translator is now mocked
+    private ViewExchangeMediumServiceImpl viewExchangeMediumService;
+
     ExchangeMediumDto result;
 
     @Before
@@ -49,7 +52,7 @@ public class ViewExchangeMediumServiceImplTest {
         try {
             assertNotNull(result);
             assertEquals("Miles", result.getType());
-            exchangeMediumTranslator.getExchangeMediumByEmID(result.getExchangeMediumID());
+            viewExchangeMediumService.getExchangeMediumByEmID(result.getExchangeMediumID());
             verify(exchangeMediumTranslator, atLeastOnce()).getExchangeMediumByEmID(result.getExchangeMediumID());
         } catch (Exception e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while retrieving an exchange medium by its id."));
@@ -60,7 +63,7 @@ public class ViewExchangeMediumServiceImplTest {
     public void shouldGetExchangeMediumCurrentByTypeAndID() {
         try {
             assertNotNull(result);
-            exchangeMediumTranslator.getExchangeMediumCurrentByTypeAndID(result.getType(), result.getExchangeMediumID());
+            viewExchangeMediumService.getExchangeMediumCurrentByTypeAndID(result.getType(), result.getExchangeMediumID());
             verify(exchangeMediumTranslator, atLeastOnce()).getExchangeMediumCurrentByTypeAndID(result.getType(), result.getExchangeMediumID());
         } catch (Exception e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while retrieving the balance of an exchange medium via its type and id."));

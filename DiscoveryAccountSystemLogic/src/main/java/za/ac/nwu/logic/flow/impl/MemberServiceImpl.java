@@ -13,7 +13,7 @@ import javax.transaction.Transactional;
 import java.sql.SQLException;
 
 @Transactional
-@Component("MemberServiceName")
+@Component("memberServiceNameFlow")
 public class MemberServiceImpl implements MemberService {
     private static final Logger LOGGER = LoggerFactory.getLogger(MemberServiceImpl.class);
     private final MemberTranslator memberTranslator;
@@ -25,16 +25,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public MemberDto newMember(MemberDto memberDto) throws SQLException {
-        if (LOGGER.isInfoEnabled()) {
-            LOGGER.info("The input object is {}", memberDto);
-        }
-        if(null == memberDto.getPhoneNumber()){
-            memberDto.setMemId(1);
-            memberDto.setPhoneNumber("0723949955");
-            memberDto.setFirstName("Reynard");
-            memberDto.setLastName("Engels");
-            memberDto.setEmail("reynardengels@gmail.com");
-        }
+        LOGGER.info("The input object is {}", memberDto);
         Member member = memberDto.buildMember();
         Member addedMember = memberTranslator.newMember(member);
         MemberDto result = new MemberDto(memberTranslator.newMember(addedMember));

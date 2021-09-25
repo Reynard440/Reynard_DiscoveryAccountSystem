@@ -42,6 +42,7 @@ public class MemberTransactionTranslatorImplTest {
     public void shouldAddMemberTransaction() {
         try {
             assertNotNull(result);
+            memberTransactionTranslator.addMemberTransaction(result);
             verify(memberTransactionRepository, atLeastOnce()).save(any(Member_Transaction.class));
         } catch (Exception e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while creating a member transaction."));
@@ -52,7 +53,7 @@ public class MemberTransactionTranslatorImplTest {
     public void getMemberTransactionID() {
         try {
             assertNotNull(result);
-            memberTransactionRepository.getByMtId(result.getMtId());
+            memberTransactionTranslator.getMemberTransactionID(result.getMtId());
             verify(memberTransactionRepository, atLeastOnce()).getByMtId(result.getMtId());
         } catch (Exception e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while retrieving a member transaction by id."));
@@ -63,7 +64,7 @@ public class MemberTransactionTranslatorImplTest {
     public void getTransactionByIdAndDate() {
         try {
             assertNotNull(result);
-            memberTransactionRepository.getByMtIdAndTransactionDate(result.getMtId(), result.getTransactionDate());
+            memberTransactionTranslator.getTransactionByIdAndDate(result.getMtId(), result.getTransactionDate());
             verify(memberTransactionRepository, atLeastOnce()).getByMtIdAndTransactionDate(result.getMtId(), result.getTransactionDate());
         } catch (Exception e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while retrieving a member transaction by id and date."));

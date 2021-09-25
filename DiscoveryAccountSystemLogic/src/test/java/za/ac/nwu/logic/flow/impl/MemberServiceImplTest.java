@@ -32,7 +32,13 @@ public class MemberServiceImplTest {
     @Before
     public void setUp() throws SQLException {
         when(serviceTranslator.newMember(any(Member.class))).then(returnsFirstArg()); // if get anything of MemberDto
-        result = memberService.newMember(new MemberDto());
+        result = memberService.newMember(new MemberDto(
+                1,
+                "reynardengels@gmail.com",
+                "0723949955",
+                "Reynard",
+                "Engels"
+        ));
     }
 
     @After

@@ -29,37 +29,22 @@ public class MemberTransactionTranslatorImpl implements MemberTransactionTransla
 
     @Override
     public Member_Transaction addMemberTransaction(Member_Transaction memberTransaction) throws SQLException {
-        try{
-            Member_Transaction save = memberTransactionRepository.save(memberTransaction);
-            con.commit();
-            return save;
-        }catch(Exception e){
-            con.rollback();
-            throw new SQLException("Rollback occurred while creating a new transaction: ",e);
-        }
+        Member_Transaction save = memberTransactionRepository.save(memberTransaction);
+        con.commit();
+        return save;
     }
 
     @Override
     public Member_Transaction getMemberTransactionID(Integer id) throws SQLException {
-        try{
-            Member_Transaction result = memberTransactionRepository.getByMtId(id);
-            con.commit();
-            return result;
-        }catch(Exception e){
-            con.rollback();
-            throw new SQLException("Rollback occurred while retrieving a transaction: ",e);
-        }
+        Member_Transaction result = memberTransactionRepository.getByMtId(id);
+        con.commit();
+        return result;
     }
 
     @Override
     public Member_Transaction getTransactionByIdAndDate(Integer id, LocalDate date) throws SQLException {
-        try{
-            Member_Transaction result = memberTransactionRepository.getByMtIdAndTransactionDate(id, date);
-            con.commit();
-            return result;
-        }catch(Exception e){
-            con.rollback();
-            throw new SQLException("Rollback occurred while retrieving a transaction: ",e);
-        }
+        Member_Transaction result = memberTransactionRepository.getByMtIdAndTransactionDate(id, date);
+        con.commit();
+        return result;
     }
 }
