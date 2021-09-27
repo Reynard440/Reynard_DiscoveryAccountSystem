@@ -13,6 +13,7 @@ import za.ac.nwu.domain.service.DiscoveryAccountSystemResponse;
 import za.ac.nwu.logic.flow.MemberService;
 import za.ac.nwu.logic.flow.ViewMemberService;
 
+import javax.transaction.Transactional;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class MemberController {
         this.viewMemberService = viewMemberService;
     }
 
+    @Transactional
     @PostMapping("/addMember")
     @ApiOperation(value = "Create a new Member.", notes = "Creates a new Member in the DB.")
     @ApiResponses(value = {

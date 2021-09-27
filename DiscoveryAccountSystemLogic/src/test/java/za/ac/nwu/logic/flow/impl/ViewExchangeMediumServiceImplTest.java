@@ -14,6 +14,8 @@ import za.ac.nwu.domain.persistence.Member;
 import za.ac.nwu.translator.ExchangeMediumTranslator;
 import za.ac.nwu.translator.MemberTranslator;
 
+import java.time.LocalDate;
+
 import static org.junit.Assert.*;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.any;
@@ -43,7 +45,7 @@ public class ViewExchangeMediumServiceImplTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         result = null;
     }
 

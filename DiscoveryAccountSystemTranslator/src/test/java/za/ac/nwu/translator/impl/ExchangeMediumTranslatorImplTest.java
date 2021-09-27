@@ -16,6 +16,7 @@ import za.ac.nwu.repo.persistence.ExchangeMediumRepository;
 import za.ac.nwu.translator.ExchangeMediumTranslator;
 import za.ac.nwu.translator.MemberTranslator;
 
+import javax.transaction.Transactional;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
@@ -25,6 +26,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
+@Transactional
 public class ExchangeMediumTranslatorImplTest {
     @Mock //creates a mock of ExchangeMediumRepository (not the actual ExchangeMediumRepository)
     private ExchangeMediumRepository exchangeMediumRepository;
@@ -78,8 +80,19 @@ public class ExchangeMediumTranslatorImplTest {
         }
     }
 
+    @Test
+    public void shouldConfigureExchangeMedium() {
+        try {
+            assertNotNull(result);
+            exchangeMediumTranslator.configureExchangeMedium("Miles", "Dollars", 0.14, 1, 1);
+            verify(exchangeMediumRepository, atLeastOnce()).switchExchangeMedium("Miles", "Dollars", 0.14, 1, 1);
+        } catch (SQLException e) {
+            assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while configuring the exchange medium."));
+        }
+    }
+
     @Test(expected = AssertionError.class)
-    public void shouldCheckTypeExists() throws SQLException {
+    public void shouldCheckTypeExists() {
         assertNotNull(result);
         exchangeMediumTranslator.checkTypeExists(1, "Miles");
         verify(exchangeMediumRepository, atLeastOnce()).checkTypeExist(1, "Miles");

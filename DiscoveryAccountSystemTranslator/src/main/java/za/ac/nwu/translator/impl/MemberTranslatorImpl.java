@@ -18,47 +18,24 @@ import java.util.List;
 @Component
 public class MemberTranslatorImpl implements MemberTranslator {
     private final MemberRepository memberRepository;
-    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/DiscoveryDB", "root", "King6");
 
     @Autowired
-    public MemberTranslatorImpl(MemberRepository memberRepository) throws SQLException {
+    public MemberTranslatorImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
-        con.setAutoCommit(false);
     }
 
     @Override
-    public Member getOneMember(Integer id) throws SQLException {
-        try {
-            Member result = memberRepository.getById(id);
-            con.commit();
-            return result;
-        } catch (SQLException e) {
-            con.rollback();
-            throw new SQLException("Rollback occurred while retrieving by ID: ", e);
-        }
+    public Member getOneMember(Integer id) throws RuntimeException {
+        return memberRepository.getById(id);
     }
 
     @Override
     public Member newMember(Member member) throws SQLException {
-        try {
-            Member save = memberRepository.save(member);
-            con.commit();
-            return save;
-        } catch (SQLException e) {
-            con.rollback();
-            throw new SQLException("Rollback occurred while creating a new member: ", e);
-        }
+        return memberRepository.save(member);
     }
 
     @Override
-    public Member getMemberByEmail(String email) throws SQLException {
-        try {
-            Member result = memberRepository.getByEmail(email);
-            con.commit();
-            return result;
-        } catch (SQLException e) {
-            con.rollback();
-            throw new SQLException("Rollback occurred while retrieving by email: ", e);
-        }
+    public Member getMemberByEmail(String email) throws RuntimeException {
+        return memberRepository.getByEmail(email);
     }
 }

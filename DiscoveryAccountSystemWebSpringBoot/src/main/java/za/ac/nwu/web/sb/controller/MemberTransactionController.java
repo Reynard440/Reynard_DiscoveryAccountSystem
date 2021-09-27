@@ -15,6 +15,7 @@ import za.ac.nwu.logic.flow.ExchangeMediumService;
 import za.ac.nwu.logic.flow.NewTransactionService;
 import za.ac.nwu.logic.flow.ViewMemberTransactionService;
 
+import javax.transaction.Transactional;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
@@ -31,6 +32,7 @@ public class MemberTransactionController {
         this.newTransactionService = newTransactionService;
     }
 
+    @Transactional
     @PostMapping("/newTransaction")
     @ApiOperation(value = "Create a new transaction for a specific member.", notes = "Creates a new transaction for a member in the DB.")
     @ApiResponses(value = {

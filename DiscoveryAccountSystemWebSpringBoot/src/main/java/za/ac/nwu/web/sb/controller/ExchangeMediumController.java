@@ -15,6 +15,7 @@ import za.ac.nwu.logic.flow.ExchangeMediumService;
 import za.ac.nwu.logic.flow.NewTransactionService;
 import za.ac.nwu.logic.flow.ViewExchangeMediumService;
 
+import javax.transaction.Transactional;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class ExchangeMediumController {
         this.exchangeMediumService = exchangeMediumService;
     }
 
+    @Transactional
     @PostMapping("/new")
     @ApiOperation(value = "Create a new exchange medium.", notes = "Creates a new Exchange Medium in the DB.")
     @ApiResponses(value = {
@@ -68,6 +70,7 @@ public class ExchangeMediumController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @Transactional
     @PutMapping(path = "/switchToExchangeMedium/{name}/{newType}/{adjust}/{member}/{id}")
     @ApiOperation(value = "Configures one Exchange Medium to another.", notes = "Configures to another exchange medium.")
     @ApiResponses(value = {
