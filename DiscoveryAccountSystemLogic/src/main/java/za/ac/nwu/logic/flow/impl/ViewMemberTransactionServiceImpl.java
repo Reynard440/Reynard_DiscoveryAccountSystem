@@ -12,6 +12,7 @@ import za.ac.nwu.translator.MemberTransactionTranslator;
 import javax.transaction.Transactional;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 
 @Transactional
 @Component("viewMemberTransactionServiceFlow")

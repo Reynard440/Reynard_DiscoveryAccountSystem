@@ -62,7 +62,7 @@ public class ExchangeMediumServiceImpl implements ExchangeMediumService {
     }
 
     @Override
-    public boolean checkTypeExist(Integer id, String type) {
+    public boolean checkTypeExist(Integer id, String type) throws SQLException {
         LOGGER.info("The input for type is {} and the Exchange Medium id is {}", type, id);
         return exchangeMediumTranslator.checkTypeExists(id, type);
     }

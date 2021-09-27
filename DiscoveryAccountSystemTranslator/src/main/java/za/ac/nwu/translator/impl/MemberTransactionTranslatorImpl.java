@@ -2,7 +2,7 @@ package za.ac.nwu.translator.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import za.ac.nwu.domain.dto.MemberTransactionDto;
+import za.ac.nwu.domain.persistence.Member;
 import za.ac.nwu.domain.persistence.Member_Transaction;
 import za.ac.nwu.repo.persistence.MemberTransactionRepository;
 import za.ac.nwu.translator.MemberTransactionTranslator;
@@ -29,22 +29,37 @@ public class MemberTransactionTranslatorImpl implements MemberTransactionTransla
 
     @Override
     public Member_Transaction addMemberTransaction(Member_Transaction memberTransaction) throws SQLException {
-        Member_Transaction save = memberTransactionRepository.save(memberTransaction);
-        con.commit();
-        return save;
+        try {
+            Member_Transaction save = memberTransactionRepository.save(memberTransaction);
+            con.commit();
+            return save;
+        } catch (SQLException e) {
+            con.rollback();
+            throw new SQLException("Rollback occurred while creating a new transaction: ", e);
+        }
     }
 
     @Override
     public Member_Transaction getMemberTransactionID(Integer id) throws SQLException {
-        Member_Transaction result = memberTransactionRepository.getByMtId(id);
-        con.commit();
-        return result;
+        try {
+            Member_Transaction result = memberTransactionRepository.getByMtId(id);
+            con.commit();
+            return result;
+        } catch (SQLException e) {
+            con.rollback();
+            throw new SQLException("Rollback occurred while retrieving a transaction by id: ", e);
+        }
     }
 
     @Override
     public Member_Transaction getTransactionByIdAndDate(Integer id, LocalDate date) throws SQLException {
-        Member_Transaction result = memberTransactionRepository.getByMtIdAndTransactionDate(id, date);
-        con.commit();
-        return result;
+        try {
+            Member_Transaction result = memberTransactionRepository.getByMtIdAndTransactionDate(id, date);
+            con.commit();
+            return result;
+        } catch (Exception e) {
+            con.rollback();
+            throw new SQLException("Rollback occurred while retrieving a transaction by id and date:", e);
+        }
     }
 }

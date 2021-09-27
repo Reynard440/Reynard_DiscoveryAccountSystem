@@ -1,7 +1,6 @@
 package za.ac.nwu.translator;
 
 import org.springframework.stereotype.Component;
-import za.ac.nwu.domain.dto.MemberTransactionDto;
 import za.ac.nwu.domain.persistence.Member_Transaction;
 
 import java.sql.SQLException;

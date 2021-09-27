@@ -11,7 +11,7 @@ public interface ExchangeMediumService {
 
     ExchangeMediumDto newExchangeMedium(ExchangeMediumDto exchangeMediumDto) throws SQLException;
 
-    boolean checkTypeExist(Integer id, String type);
+    boolean checkTypeExist(Integer id, String type) throws SQLException;
 
     void configureExchangeMedium(String type, String newType, double adjust, Integer mem, Integer id) throws SQLException;
 }

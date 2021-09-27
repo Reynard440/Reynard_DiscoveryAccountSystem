@@ -8,6 +8,7 @@ import za.ac.nwu.domain.persistence.Member_Transaction;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.List;
 
 @Repository
 public interface MemberTransactionRepository extends JpaRepository<Member_Transaction, Integer>{

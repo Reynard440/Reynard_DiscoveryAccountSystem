@@ -4,6 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ContextConfiguration;
@@ -13,8 +14,7 @@ import za.ac.nwu.repo.config.RepositoryTestConfig;
 
 import java.time.LocalDate;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -32,14 +32,14 @@ public class MemberTransactionRepositoryTest {
     }
 
     @Test
-    public void shouldGetByMtId() throws  Exception {
+    public void shouldGetByMtId() {
         Member_Transaction memberTransaction = memberTransactionRepository.getByMtId(1);
         assertNotNull(memberTransaction);
         assertEquals(LocalDate.parse("2021-08-31"), memberTransaction.getTransactionDate());
     }
 
     @Test
-    public void shouldGetByMtIdAndTransactionDate() throws  Exception {
+    public void shouldGetByMtIdAndTransactionDate() {
         Member_Transaction memberTransaction = memberTransactionRepository.getByMtIdAndTransactionDate(1, LocalDate.parse("2021-08-31"));
         assertNotNull(memberTransaction);
         assertEquals("Deposit", memberTransaction.getDescription());

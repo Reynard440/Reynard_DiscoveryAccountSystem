@@ -79,7 +79,7 @@ public class ExchangeMediumTranslatorImplTest {
     }
 
     @Test(expected = AssertionError.class)
-    public void shouldCheckTypeExists() {
+    public void shouldCheckTypeExists() throws SQLException {
         assertNotNull(result);
         exchangeMediumTranslator.checkTypeExists(1, "Miles");
         verify(exchangeMediumRepository, atLeastOnce()).checkTypeExist(1, "Miles");

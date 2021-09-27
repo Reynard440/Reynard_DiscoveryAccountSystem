@@ -23,6 +23,7 @@ public class ExchangeMediumRepositoryTest {
 
     @Autowired
     ExchangeMediumRepository exchangeMediumRepository;
+
     @Before
     public void setUp() throws Exception {
     }
@@ -32,21 +33,21 @@ public class ExchangeMediumRepositoryTest {
     }
 
     @Test
-    public void shouldGetByTypeAndEmId() throws  Exception {
+    public void shouldGetByTypeAndEmId() {
         Exchange_Medium exchange_medium = exchangeMediumRepository.getByTypeAndEmId("Miles", 1);
         assertNotNull(exchange_medium);
         assertEquals("Miles", exchange_medium.getType());
     }
 
     @Test
-    public void shouldGetExchangeMediumCurrentByTypeAndID() throws  Exception {
+    public void shouldGetExchangeMediumCurrentByTypeAndID() {
         Exchange_Medium exchange_medium = exchangeMediumRepository.getExchangeMediumCurrentByTypeAndID("Miles", 1);
         assertNotNull(exchange_medium);
         assertEquals(LocalDate.parse("2021-08-31"), exchange_medium.getDate());
     }
 
     @Test
-    public void shouldIncreaseBalance() throws  Exception {
+    public void shouldIncreaseBalance() {
         Exchange_Medium exchange_medium = exchangeMediumRepository.getByTypeAndEmId("Miles", 1);
         assertNotNull(exchange_medium);
         double value = exchange_medium.getBalance();
@@ -60,7 +61,7 @@ public class ExchangeMediumRepositoryTest {
     }
 
     @Test
-    public void shouldDecreaseBalance() throws  Exception {
+    public void shouldDecreaseBalance() {
         Exchange_Medium exchange_medium = exchangeMediumRepository.getByTypeAndEmId("Miles", 1);
         assertNotNull(exchange_medium);
         double value = exchange_medium.getBalance();

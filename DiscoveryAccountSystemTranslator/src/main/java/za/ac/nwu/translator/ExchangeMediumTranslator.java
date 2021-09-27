@@ -13,7 +13,7 @@ public interface ExchangeMediumTranslator {
 
     void decreaseExchangeMediumTotal(Integer id, double amount) throws SQLException;
 
-    boolean checkTypeExists(Integer id, String type);
+    boolean checkTypeExists(Integer id, String type) throws SQLException;
 
     Exchange_Medium newExchangeMedium(Exchange_Medium exchange_medium) throws SQLException;
 
