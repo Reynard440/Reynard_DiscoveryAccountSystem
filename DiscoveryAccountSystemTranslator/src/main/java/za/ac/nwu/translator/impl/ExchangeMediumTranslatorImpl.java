@@ -2,7 +2,9 @@ package za.ac.nwu.translator.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import za.ac.nwu.domain.dto.ExchangeMediumDto;
 import za.ac.nwu.domain.persistence.Exchange_Medium;
+import za.ac.nwu.domain.persistence.Member_Transaction;
 import za.ac.nwu.repo.persistence.ExchangeMediumRepository;
 import za.ac.nwu.translator.ExchangeMediumTranslator;
 
@@ -10,6 +12,8 @@ import javax.transaction.Transactional;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Transactional
 @Component
@@ -22,8 +26,11 @@ public class ExchangeMediumTranslatorImpl implements ExchangeMediumTranslator {
     }
 
     @Override
-    public Exchange_Medium getExchangeMediumByEmID(Integer EmId) throws SQLException {
-        return exchangeMediumRepository.getByEM_ID(EmId);
+    public List<Exchange_Medium> getExchangeMediumByEmID(Integer EmId) throws SQLException {
+        List<Exchange_Medium> exchangeMediumList = new ArrayList<>();
+        exchangeMediumList.addAll(exchangeMediumRepository.getByEM_ID(EmId));
+        //memberTransactions.addAll(exchangeMediumRepository.getByEM_ID(EmId));
+        return exchangeMediumList;
     }
 
     @Override

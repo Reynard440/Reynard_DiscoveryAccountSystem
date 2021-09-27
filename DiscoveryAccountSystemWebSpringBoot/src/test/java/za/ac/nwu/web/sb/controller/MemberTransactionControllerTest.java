@@ -21,6 +21,8 @@ import za.ac.nwu.logic.flow.NewTransactionService;
 import za.ac.nwu.logic.flow.ViewMemberTransactionService;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
@@ -87,10 +89,10 @@ public class MemberTransactionControllerTest {
     public void shouldGetMemberTransactionByID() {
         try {
             String expectedResponse = "{\"confirmation\":true,\"cargo\":{\"description\":\"Deposit\",\"transactionDate\":\"2021-08-31\",\"amount\":2000,\"emId\":1,\"mtId\":1}}";
-
+            List<MemberTransactionDto> memberTransactionDtoList = new ArrayList<>();
             MemberTransactionDto memberTransactionDto = new MemberTransactionDto("Deposit",LocalDate.parse("2021-08-31"),2000, 1, 1);
-
-            when(memberTransactionService.getMemberTransactionID(1)).thenReturn(memberTransactionDto);
+            memberTransactionDtoList.add(memberTransactionDto);
+            when(memberTransactionService.getMemberTransactionID(1)).thenReturn(memberTransactionDtoList);
 
             MvcResult mvcResult = mockMvc.perform(get((String.format("%s/%s", MEMBER_TRANSACTION_CONTROLLER_URL, "getMemberTransactionByID/1")))
                             .servletPath(URL)
@@ -109,10 +111,10 @@ public class MemberTransactionControllerTest {
     public void shouldGetTransactionByIDAndDate() {
         try {
             String expectedResponse = "{\"confirmation\":true,\"cargo\":{\"description\":\"Deposit\",\"transactionDate\":\"2021-08-31\",\"amount\":2000,\"emId\":1,\"mtId\":1}}";
-
+            List<MemberTransactionDto> memberTransactionDtos = new ArrayList<>();
             MemberTransactionDto memberTransactionDto = new MemberTransactionDto("Deposit",LocalDate.parse("2021-08-31"),2000, 1, 1);
-
-            when(memberTransactionService.getTransactionByIdAndDate(1, LocalDate.parse("2021-08-31"))).thenReturn(memberTransactionDto);
+            memberTransactionDtos.add(memberTransactionDto);
+            when(memberTransactionService.getTransactionByIdAndDate(1, LocalDate.parse("2021-08-31"))).thenReturn(memberTransactionDtos);
 
             MvcResult mvcResult = mockMvc.perform(get((String.format("%s/%s", MEMBER_TRANSACTION_CONTROLLER_URL, "getTransactionByIdAndDate/1/2021-08-31")))
                             .servletPath(URL)

@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface ViewMemberTransactionService {
-    MemberTransactionDto getMemberTransactionID(Integer id) throws SQLException;
+    List<MemberTransactionDto> getMemberTransactionID(Integer id) throws SQLException;
 
-    MemberTransactionDto getTransactionByIdAndDate(Integer id, LocalDate date) throws SQLException;
+    List<MemberTransactionDto> getTransactionByIdAndDate(Integer id, LocalDate date) throws SQLException;
 }

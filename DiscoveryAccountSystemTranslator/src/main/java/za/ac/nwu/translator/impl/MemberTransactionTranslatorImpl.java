@@ -2,6 +2,7 @@ package za.ac.nwu.translator.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import za.ac.nwu.domain.persistence.Exchange_Medium;
 import za.ac.nwu.domain.persistence.Member;
 import za.ac.nwu.domain.persistence.Member_Transaction;
 import za.ac.nwu.repo.persistence.MemberTransactionRepository;
@@ -31,12 +32,12 @@ public class MemberTransactionTranslatorImpl implements MemberTransactionTransla
     }
 
     @Override
-    public Member_Transaction getMemberTransactionID(Integer id) throws RuntimeException  {
-        return memberTransactionRepository.getByMtId(id);
+    public List<Member_Transaction> getMemberTransactionID(Integer id) throws RuntimeException  {
+        return new ArrayList<>(memberTransactionRepository.getByMtId(id));
     }
 
     @Override
-    public Member_Transaction getTransactionByIdAndDate(Integer id, LocalDate date) throws RuntimeException {
-        return memberTransactionRepository.getByMtIdAndTransactionDate(id, date);
+    public List<Member_Transaction> getTransactionByIdAndDate(Integer id, LocalDate date) throws RuntimeException {
+        return new ArrayList<>(memberTransactionRepository.getByMtId(id));
     }
 }

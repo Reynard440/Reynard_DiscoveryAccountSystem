@@ -22,6 +22,9 @@ import za.ac.nwu.logic.flow.ViewExchangeMediumService;
 import za.ac.nwu.logic.flow.ViewMemberService;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
@@ -96,9 +99,11 @@ public class ExchangeMediumControllerTest {
                 "Reynard",
                 "Engels"
         );
+        List<ExchangeMediumDto> exchangeMediumDtoList = new ArrayList<>();
         ExchangeMediumDto exchangeMediumDto = new ExchangeMediumDto(1,"Miles","Discovery currency",2300, LocalDate.parse("2021-07-12"), memberDto);
+        exchangeMediumDtoList.add(exchangeMediumDto);
 
-        when(viewExchangeMediumService.getExchangeMediumByEmID(1)).thenReturn(exchangeMediumDto);
+        when(viewExchangeMediumService.getExchangeMediumByEmID(1)).thenReturn(exchangeMediumDtoList);
 
         MvcResult mvcResult = mockMvc.perform(get((String.format("%s/%s/%s", EXCHANGE_MEDIUM_CONTROLLER_URL, "getExchangeMediumById", "1")))
                         .servletPath(URL)

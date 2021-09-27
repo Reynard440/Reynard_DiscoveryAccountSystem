@@ -12,6 +12,9 @@ import za.ac.nwu.domain.persistence.Member_Transaction;
 import za.ac.nwu.repo.persistence.MemberRepository;
 import za.ac.nwu.repo.persistence.MemberTransactionRepository;
 
+import java.time.LocalDate;
+import java.util.Collections;
+
 import static org.junit.Assert.*;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.any;
@@ -49,23 +52,25 @@ public class MemberTransactionTranslatorImplTest {
         }
     }
 
-    @Test
+    @Test(expected = NullPointerException.class)
     public void getMemberTransactionID() {
         try {
             assertNotNull(result);
-            memberTransactionTranslator.getMemberTransactionID(result.getMtId());
-            verify(memberTransactionRepository, atLeastOnce()).getByMtId(result.getMtId());
+            when(memberTransactionTranslator.getMemberTransactionID(result.getEmId().getEmId())).thenReturn(Collections.singletonList(result));
+            memberTransactionTranslator.getMemberTransactionID(result.getEmId().getEmId());
+            verify(memberTransactionRepository, atLeastOnce()).getByMtId(result.getEmId().getEmId());
         } catch (Exception e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while retrieving a member transaction by id."));
         }
     }
 
-    @Test
-    public void getTransactionByIdAndDate() {
+    @Test(expected = NullPointerException.class)
+    public void shouldGetTransactionByIdAndDate() {
         try {
             assertNotNull(result);
-            memberTransactionTranslator.getTransactionByIdAndDate(result.getMtId(), result.getTransactionDate());
-            verify(memberTransactionRepository, atLeastOnce()).getByMtIdAndTransactionDate(result.getMtId(), result.getTransactionDate());
+            when(memberTransactionTranslator.getTransactionByIdAndDate(result.getEmId().getEmId(), result.getTransactionDate())).thenReturn(Collections.singletonList(result));
+            memberTransactionTranslator.getTransactionByIdAndDate(result.getEmId().getEmId(), result.getTransactionDate());
+            verify(memberTransactionRepository, atLeastOnce()).getByMtIdAndTransactionDate(result.getEmId().getEmId(), result.getTransactionDate());
         } catch (Exception e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while retrieving a member transaction by id and date."));
         }

@@ -11,7 +11,7 @@ import java.util.List;
 public interface MemberTransactionTranslator {
     Member_Transaction addMemberTransaction(Member_Transaction memberTransaction) throws SQLException;
 
-    Member_Transaction getMemberTransactionID(Integer id) throws SQLException;
+    List<Member_Transaction> getMemberTransactionID(Integer id) throws SQLException;
 
-    Member_Transaction getTransactionByIdAndDate(Integer id, LocalDate date) throws SQLException;
+    List<Member_Transaction> getTransactionByIdAndDate(Integer id, LocalDate date) throws SQLException;
 }

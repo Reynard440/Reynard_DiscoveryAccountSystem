@@ -4,10 +4,11 @@ import org.springframework.stereotype.Component;
 import za.ac.nwu.domain.persistence.Exchange_Medium;
 
 import java.sql.SQLException;
+import java.util.List;
 
 @Component
 public interface ExchangeMediumTranslator {
-    Exchange_Medium getExchangeMediumByEmID(Integer emid) throws SQLException;
+    List<Exchange_Medium> getExchangeMediumByEmID(Integer emid) throws SQLException;
 
     void increaseExchangeMediumTotal(Integer id, double amount) throws SQLException;
 
