@@ -71,6 +71,14 @@ public class Member_Transaction implements Serializable {
         this.Amount = amount;
     }
 
+    public Member_Transaction(Integer mtId, LocalDate date, String description, double amount, Integer emId) {
+        this.MtId = mtId;
+        this.TransactionDate = date;
+        this.Description = description;
+        this.Amount = amount;
+        this.EmId = new Exchange_Medium(emId);
+    }
+
     public Integer getMtId() {
         return MtId;
     }

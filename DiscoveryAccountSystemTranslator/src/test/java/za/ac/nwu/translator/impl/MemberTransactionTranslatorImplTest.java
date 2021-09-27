@@ -7,8 +7,10 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import za.ac.nwu.domain.persistence.Exchange_Medium;
 import za.ac.nwu.domain.persistence.Member;
 import za.ac.nwu.domain.persistence.Member_Transaction;
+import za.ac.nwu.repo.persistence.ExchangeMediumRepository;
 import za.ac.nwu.repo.persistence.MemberRepository;
 import za.ac.nwu.repo.persistence.MemberTransactionRepository;
 
@@ -25,6 +27,9 @@ public class MemberTransactionTranslatorImplTest {
     @Mock //creates a mock of MemberTransactionRepository (not the actual MemberTransactionRepository)
     private MemberTransactionRepository memberTransactionRepository;
 
+    @Mock
+    private ExchangeMediumRepository exchangeMediumRepository;
+
     @InjectMocks //repository is now mocked
     private MemberTransactionTranslatorImpl memberTransactionTranslator;
 
@@ -32,8 +37,15 @@ public class MemberTransactionTranslatorImplTest {
 
     @Before
     public void setUp() throws Exception {
-        when(memberTransactionRepository.save(any(Member_Transaction.class))).then(returnsFirstArg());
-        result = memberTransactionRepository.save(new Member_Transaction());
+        lenient().when(memberTransactionRepository.save(any(Member_Transaction.class))).then(returnsFirstArg());
+        lenient().when(exchangeMediumRepository.save(any(Exchange_Medium.class))).then(returnsFirstArg());
+        result = memberTransactionRepository.save(new Member_Transaction(
+                1,
+                LocalDate.now(),
+                "Withdrawal",
+                100.0,
+                1
+        ));
     }
 
     @After
@@ -52,8 +64,8 @@ public class MemberTransactionTranslatorImplTest {
         }
     }
 
-    @Test(expected = NullPointerException.class)
-    public void getMemberTransactionID() {
+    @Test
+    public void shouldGetMemberTransactionID() {
         try {
             assertNotNull(result);
             when(memberTransactionTranslator.getMemberTransactionID(result.getEmId().getEmId())).thenReturn(Collections.singletonList(result));
@@ -64,13 +76,13 @@ public class MemberTransactionTranslatorImplTest {
         }
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = AssertionError.class)
     public void shouldGetTransactionByIdAndDate() {
         try {
             assertNotNull(result);
-            when(memberTransactionTranslator.getTransactionByIdAndDate(result.getEmId().getEmId(), result.getTransactionDate())).thenReturn(Collections.singletonList(result));
-            memberTransactionTranslator.getTransactionByIdAndDate(result.getEmId().getEmId(), result.getTransactionDate());
-            verify(memberTransactionRepository, atLeastOnce()).getByMtIdAndTransactionDate(result.getEmId().getEmId(), result.getTransactionDate());
+            when(memberTransactionRepository.getByMtIdAndTransactionDate(result.getEmId().getEmId(), result.getTransactionDate())).thenReturn(Collections.singletonList(result));
+            memberTransactionRepository.getByMtIdAndTransactionDate(result.getEmId().getEmId(), result.getTransactionDate());
+            verify(memberTransactionTranslator, atLeastOnce()).getTransactionByIdAndDate(result.getEmId().getEmId(), result.getTransactionDate());
         } catch (Exception e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while retrieving a member transaction by id and date."));
         }

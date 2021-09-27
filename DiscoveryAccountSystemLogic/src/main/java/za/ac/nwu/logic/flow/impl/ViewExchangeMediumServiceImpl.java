@@ -36,13 +36,6 @@ public class ViewExchangeMediumServiceImpl implements ViewExchangeMediumService 
         }
         LOGGER.info("The return object is {} ", exchangeMediumDtos);
         return exchangeMediumDtos;
-//        //Exchange_Medium exchange_medium = null;
-////        Exchange_Medium exchangeMedium = exchangeMediumTranslator.getExchangeMediumByEmID(id);
-//        ExchangeMediumDto result;
-//        if (null != exchangeMediumDtos) {
-//            result = new ExchangeMediumDto(exchange_medium);
-//        }
-//        else result = null;
     }
 
     @Override

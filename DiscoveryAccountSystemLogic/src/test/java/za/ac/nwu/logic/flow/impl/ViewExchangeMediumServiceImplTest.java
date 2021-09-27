@@ -41,7 +41,14 @@ public class ViewExchangeMediumServiceImplTest {
     public void setUp() throws Exception {
         lenient().when(exchangeMediumTranslator.newExchangeMedium(any(Exchange_Medium.class))).then(returnsFirstArg()); // if get anything of MemberDto
         lenient().when(memberTranslator.newMember(any(Member.class))).then(returnsFirstArg());
-        result = exchangeMediumService.newExchangeMedium(new ExchangeMediumDto());
+        result = exchangeMediumService.newExchangeMedium(new ExchangeMediumDto(
+                1,
+                "Miles",
+                "Discovery Miles",
+                100.0,
+                LocalDate.now(),
+                1
+        ));
     }
 
     @After
