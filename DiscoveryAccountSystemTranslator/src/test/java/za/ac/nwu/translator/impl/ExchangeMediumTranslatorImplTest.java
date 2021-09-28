@@ -48,11 +48,11 @@ public class ExchangeMediumTranslatorImplTest {
     }
 
     @Test
-    public void ShouldGetExchangeMediumByEmID() {
+    public void ShouldGetExchangeMediumByMemID() {
         try {
             assertNotNull(result);
-            exchangeMediumTranslator.getExchangeMediumByEmID(result.getEmId());
-            verify(exchangeMediumRepository, atLeastOnce()).getByEM_ID(result.getEmId());
+            exchangeMediumTranslator.getExchangeMediumByMemID(1);
+            verify(exchangeMediumRepository, atLeastOnce()).getByMemID(1);
         } catch (SQLException e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while retrieving an exchange medium by its id."));
         }
@@ -91,11 +91,11 @@ public class ExchangeMediumTranslatorImplTest {
         }
     }
 
-    @Test(expected = AssertionError.class)
+    @Test
     public void shouldCheckTypeExists() {
         assertNotNull(result);
         exchangeMediumTranslator.checkTypeExists(1, "Miles");
-        verify(exchangeMediumRepository, atLeastOnce()).checkTypeExist(1, "Miles");
+        verify(exchangeMediumRepository, atLeastOnce()).existsByTypeAndMemID_Id("Miles", 1);
     }
 
     @Test

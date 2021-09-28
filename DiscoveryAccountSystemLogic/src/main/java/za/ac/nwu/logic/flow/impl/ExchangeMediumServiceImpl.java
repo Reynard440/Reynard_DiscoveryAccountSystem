@@ -44,8 +44,7 @@ public class ExchangeMediumServiceImpl implements ExchangeMediumService {
     @Override
     public ExchangeMediumDto newExchangeMedium(ExchangeMediumDto exchangeMediumDto) throws SQLException {
         LOGGER.info("The input object is {}", exchangeMediumDto);
-        if(null == exchangeMediumDto.getMemID()){
-            exchangeMediumDto.setExchangeMediumID(1);
+        if(null == exchangeMediumDto){
             exchangeMediumDto.setDate(LocalDate.now());
             exchangeMediumDto.setType("Miles");
             exchangeMediumDto.setBalance(40);

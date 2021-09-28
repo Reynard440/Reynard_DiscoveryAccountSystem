@@ -47,7 +47,11 @@ public class ViewExchangeMediumServiceImplTest {
                 "Discovery Miles",
                 100.0,
                 LocalDate.now(),
-                1
+                new MemberDto(1,
+                        "reynardengels@gmail.com",
+                        "0723949955",
+                        "Reynard",
+                        "Engels")
         ));
     }
 
@@ -57,12 +61,12 @@ public class ViewExchangeMediumServiceImplTest {
     }
 
     @Test
-    public void shouldGetExchangeMediumByEmID() {
+    public void shouldGetExchangeMediumByMemID() {
         try {
             assertNotNull(result);
             assertEquals("Miles", result.getType());
-            viewExchangeMediumService.getExchangeMediumByEmID(result.getExchangeMediumID());
-            verify(exchangeMediumTranslator, atLeastOnce()).getExchangeMediumByEmID(result.getExchangeMediumID());
+            viewExchangeMediumService.getExchangeMediumByMemID(1);
+            verify(exchangeMediumTranslator, atLeastOnce()).getExchangeMediumByMemID(1);
         } catch (Exception e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while retrieving an exchange medium by its id."));
         }
@@ -76,6 +80,17 @@ public class ViewExchangeMediumServiceImplTest {
             verify(exchangeMediumTranslator, atLeastOnce()).getExchangeMediumCurrentByTypeAndID(result.getType(), result.getExchangeMediumID());
         } catch (Exception e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while retrieving the balance of an exchange medium via its type and id."));
+        }
+    }
+
+    @Test
+    public void shouldGetExchangeMediumByEmID() {
+        try {
+            assertNotNull(result);
+            viewExchangeMediumService.getExchangeMediumByEmID(1);
+            verify(exchangeMediumTranslator, atLeastOnce()).getExchangeMediumByEmID(1);
+        } catch (Exception e) {
+            assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while retrieving the exchange medium via its id."));
         }
     }
 }

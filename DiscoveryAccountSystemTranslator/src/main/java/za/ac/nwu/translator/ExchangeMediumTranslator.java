@@ -8,7 +8,9 @@ import java.util.List;
 
 @Component
 public interface ExchangeMediumTranslator {
-    List<Exchange_Medium> getExchangeMediumByEmID(Integer emid) throws SQLException;
+    List<Exchange_Medium> getExchangeMediumByMemID(Integer id) throws SQLException;
+
+    Exchange_Medium getExchangeMediumByEmID(Integer id) throws SQLException;
 
     void increaseExchangeMediumTotal(Integer id, double amount) throws SQLException;
 

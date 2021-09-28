@@ -28,14 +28,23 @@ public class ViewExchangeMediumServiceImpl implements ViewExchangeMediumService 
     }
 
     @Override
-    public List<ExchangeMediumDto> getExchangeMediumByEmID(Integer id) throws SQLException {
+    public List<ExchangeMediumDto> getExchangeMediumByMemID(Integer id) throws SQLException {
         LOGGER.info("The input for id was {}", id);
         List<ExchangeMediumDto> exchangeMediumDtos = new ArrayList<>();
-        for (Exchange_Medium exchange_medium : exchangeMediumTranslator.getExchangeMediumByEmID(id)) {
+        for (Exchange_Medium exchange_medium : exchangeMediumTranslator.getExchangeMediumByMemID(id)) {
             exchangeMediumDtos.add(new ExchangeMediumDto(exchange_medium));
         }
         LOGGER.info("The return object is {} ", exchangeMediumDtos);
         return exchangeMediumDtos;
+    }
+
+    @Override
+    public ExchangeMediumDto getExchangeMediumByEmID(Integer id) throws SQLException {
+        LOGGER.info("The input for id is {}", id);
+        Exchange_Medium exchange_medium = exchangeMediumTranslator.getExchangeMediumByEmID(id);
+        ExchangeMediumDto result = null != exchange_medium ? new ExchangeMediumDto(exchange_medium) : null;
+        LOGGER.info("The return object is {} ", result);
+        return result;
     }
 
     @Override

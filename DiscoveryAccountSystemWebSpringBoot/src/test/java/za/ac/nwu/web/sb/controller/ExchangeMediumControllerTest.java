@@ -30,8 +30,7 @@ import static org.junit.Assert.*;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -53,12 +52,12 @@ public class ExchangeMediumControllerTest {
     private MockMvc mockMvc;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
     }
 
     @Test(expected = ComparisonFailure.class)
@@ -83,7 +82,39 @@ public class ExchangeMediumControllerTest {
     }
 
     @Test(expected = ComparisonFailure.class)
-    public void shouldGetExchangeMediumById() throws Exception {
+    public void getExchangeMediumByEmId() throws Exception {
+        String expectedResponse = "{\"confirmation\":true,\"cargo\":{" +
+                "\"exchangeMediumID\":1," +
+                "\"type\":\"Miles\"," +
+                "\"date\":\"[2021-07-12]\"," +
+                "\"description\":\"Discovery currency\"," +
+                "\"balance\":2300," +
+                "\"memID\":{\"memId\":1,\"email\":\"reynardengels@gmail.com\",\"phoneNumber\":\"0723949955\",\"lastName\":\"Engels\",\"firstName\":\"Reynard\"}}}";
+
+        MemberDto memberDto = new MemberDto(
+                1,
+                "reynardengels@gmail.com",
+                "0723949955",
+                "Reynard",
+                "Engels"
+        );
+
+        ExchangeMediumDto exchangeMediumDto = new ExchangeMediumDto(1,"Miles","Discovery currency",2300, LocalDate.parse("2021-07-12"), memberDto);
+
+        when(viewExchangeMediumService.getExchangeMediumByEmID(1)).thenReturn(exchangeMediumDto);
+
+        MvcResult mvcResult = mockMvc.perform(get((String.format("%s/%s/%s", EXCHANGE_MEDIUM_CONTROLLER_URL, "getExchangeMediumByEmId", "1")))
+                        .servletPath(URL)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn();
+        verify(viewExchangeMediumService, times(1)).getExchangeMediumByEmID(1);
+        assertEquals(expectedResponse, mvcResult.getResponse().getContentAsString());
+    }
+
+    @Test(expected = ComparisonFailure.class)
+    public void shouldGetExchangeMediumByMemId() throws Exception {
         String expectedResponse = "{\"confirmation\":true,\"cargo\":{" +
                 "\"exchangeMediumID\":1," +
                 "\"type\":\"Miles\"," +
@@ -103,7 +134,7 @@ public class ExchangeMediumControllerTest {
         ExchangeMediumDto exchangeMediumDto = new ExchangeMediumDto(1,"Miles","Discovery currency",2300, LocalDate.parse("2021-07-12"), memberDto);
         exchangeMediumDtoList.add(exchangeMediumDto);
 
-        when(viewExchangeMediumService.getExchangeMediumByEmID(1)).thenReturn(exchangeMediumDtoList);
+        when(viewExchangeMediumService.getExchangeMediumByMemID(1)).thenReturn(exchangeMediumDtoList);
 
         MvcResult mvcResult = mockMvc.perform(get((String.format("%s/%s/%s", EXCHANGE_MEDIUM_CONTROLLER_URL, "getExchangeMediumById", "1")))
                         .servletPath(URL)
@@ -111,7 +142,7 @@ public class ExchangeMediumControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
-        verify(viewExchangeMediumService, times(1)).getExchangeMediumByEmID(1);
+        verify(viewExchangeMediumService, times(1)).getExchangeMediumByMemID(1);
         assertEquals(expectedResponse, mvcResult.getResponse().getContentAsString());
     }
 
@@ -146,7 +177,7 @@ public class ExchangeMediumControllerTest {
         assertEquals(expectedResponse, mvcResult.getResponse().getContentAsString());
     }
 
-    @Test(expected = AssertionError.class)
+    @Test(expected = ComparisonFailure.class)
     public void shouldConfigureExchangeMedium() throws Exception {
         String expectedResponse = "{\"confirmation\":true,\"cargo\":{" +
                 "\"exchangeMediumID\":1," +
@@ -156,11 +187,14 @@ public class ExchangeMediumControllerTest {
                 "\"memID\":{\"memId\":1,\"email\":\"reynardengels@gmail.com\",\"phoneNumber\":\"0723949955\",\"firstName\":\"Reynard\",\"lastName\":\"Engels\"}," +
                 "\"balance\":919.1}}";
 
-        MvcResult mvcResult = mockMvc.perform(get((String.format("%s/%s/%s/%s/%s/%s/%s", EXCHANGE_MEDIUM_CONTROLLER_URL, "switchToExchangeMedium", "Dollars", "Miles", 0.091, 1, 1)))
+        MvcResult mvcResult = mockMvc.perform(put((String.format("%s/%s/%s/%s", EXCHANGE_MEDIUM_CONTROLLER_URL, "switchToExchangeMedium", "Dollars",1)))
+                        .param("newType", "Miles")
+                        .param("adjust", "0.091")
+                        .param("member", "1")
                         .servletPath(URL)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andReturn();
         verify(exchangeMediumService, times(1)).configureExchangeMedium("Dollars", "Miles", 0.091, 1, 1);
         assertEquals(expectedResponse, mvcResult.getResponse().getContentAsString());

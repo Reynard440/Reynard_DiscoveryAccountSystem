@@ -145,7 +145,6 @@
                                     <exclude>za.ac.nwu.translator.config.TranslatorConfig</exclude>
                                     <exclude>za.ac.nwu.web.sb.config.SwaggerConfiguration</exclude>
                                     <exclude>za.ac.nwu.web.sb.config.WebConfig</exclude>
-                                    <exclude>za.ac.nwu.web.sb.controller.ExchangeMediumController.configureExchangeMedium</exclude>
                                     <exclude>za.ac.nwu.web.sb.RestServiceApplication</exclude>
                                 </excludes>
                                 <limits>

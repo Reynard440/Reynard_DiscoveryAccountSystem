@@ -10,13 +10,6 @@ import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Set;
 
-/*@Getter
-@Setter
-@EqualsAndHashCode
-@ToString
-@AllArgsConstructor
-@NoArgsConstructor
-@NonNull*/
 @Entity
 @Table(name = "Exchange_Medium", schema = "discoveryDB")
 public class Exchange_Medium implements Serializable {

@@ -37,10 +37,11 @@ public class MemberTransactionController {
     @ApiOperation(value = "Create a new transaction for a specific member.", notes = "Creates a new transaction for a member in the DB.")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Transaction successfully create", response = DiscoveryAccountSystemResponse.class),
-            @ApiResponse(code = 400, message = "Bad Request", response = DiscoveryAccountSystemResponse.class),
-            @ApiResponse(code = 404, message = "Not Find", response = DiscoveryAccountSystemResponse.class),
+            @ApiResponse(code = 400, message = "Bad Request: could not resolve the creation of the transaction", response = DiscoveryAccountSystemResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = DiscoveryAccountSystemResponse.class)})
-    public ResponseEntity<DiscoveryAccountSystemResponse<MemberTransactionDto>> newTransaction(@ApiParam(value = "Request body to create a new Transaction", required = true) @RequestBody MemberTransactionDto memberTransactionDto) throws SQLException {
+    public ResponseEntity<DiscoveryAccountSystemResponse<MemberTransactionDto>> newTransaction(
+            @ApiParam(value = "Request body to create a new Transaction", required = true)
+            @RequestBody MemberTransactionDto memberTransactionDto) throws SQLException {
         MemberTransactionDto memberTransactionResponse = newTransactionService.addTransactionDto(memberTransactionDto);
         DiscoveryAccountSystemResponse<MemberTransactionDto> response = new DiscoveryAccountSystemResponse<>(true, memberTransactionResponse);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
@@ -49,11 +50,13 @@ public class MemberTransactionController {
     @GetMapping(path = "/getMemberTransactionByID/{id}")
     @ApiOperation(value = "Fetches a Member's Transaction by its id.", notes = "Fetches Member's Transaction by id from DB.")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Goal Found", response = DiscoveryAccountSystemResponse.class),
-            @ApiResponse(code = 400, message = "Bad Request", response = DiscoveryAccountSystemResponse.class),
-            @ApiResponse(code = 404, message = "Not found", response = DiscoveryAccountSystemResponse.class),
+            @ApiResponse(code = 200, message = "Found the transaction by id", response = DiscoveryAccountSystemResponse.class),
+            @ApiResponse(code = 400, message = "Bad Request: could not resolve the search by id", response = DiscoveryAccountSystemResponse.class),
+            @ApiResponse(code = 404, message = "Could not found a transaction by this id", response = DiscoveryAccountSystemResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = DiscoveryAccountSystemResponse.class)})
-    public ResponseEntity<DiscoveryAccountSystemResponse<List<MemberTransactionDto>>> getMemberTransactionByID(@ApiParam(value = "The id that is unique to each transaction.", example = "1", name = "id", required = true) @PathVariable("id") Integer id) throws SQLException {
+    public ResponseEntity<DiscoveryAccountSystemResponse<List<MemberTransactionDto>>> getMemberTransactionByID(
+            @ApiParam(value = "The id that is unique to each transaction.", example = "1", name = "id", required = true)
+            @PathVariable("id") Integer id) throws SQLException {
         List<MemberTransactionDto> memberTransactionResponse = memberTransactionService.getMemberTransactionID(id);
         DiscoveryAccountSystemResponse<List<MemberTransactionDto>> response = new DiscoveryAccountSystemResponse<>(true, memberTransactionResponse);
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -62,11 +65,15 @@ public class MemberTransactionController {
     @GetMapping(path = "/getTransactionByIdAndDate/{id}/{date}")
     @ApiOperation(value = "Fetches a Member's Transaction by its id and date specified.", notes = "Fetches Member's Transaction by id and date from DB.")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Goal Found", response = DiscoveryAccountSystemResponse.class),
-            @ApiResponse(code = 400, message = "Bad Request", response = DiscoveryAccountSystemResponse.class),
-            @ApiResponse(code = 404, message = "Not found", response = DiscoveryAccountSystemResponse.class),
+            @ApiResponse(code = 200, message = "Found the transaction by date and id", response = DiscoveryAccountSystemResponse.class),
+            @ApiResponse(code = 400, message = "Bad Request: could not resolve the search by id and date", response = DiscoveryAccountSystemResponse.class),
+            @ApiResponse(code = 404, message = "Could not found a transaction by this date or id", response = DiscoveryAccountSystemResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = DiscoveryAccountSystemResponse.class)})
-    public ResponseEntity<DiscoveryAccountSystemResponse<List<MemberTransactionDto>>> getTransactionByIDAndDate(@ApiParam(value = "The id that is unique to each transaction.", example = "1", name = "id", required = true) @PathVariable("id") Integer id, @ApiParam(value = "The date of the transaction.", example = "2021-08-31", name = "date", required = true) @PathVariable("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) throws SQLException {
+    public ResponseEntity<DiscoveryAccountSystemResponse<List<MemberTransactionDto>>> getTransactionByIDAndDate(
+            @ApiParam(value = "The id that is unique to each transaction.", example = "1", name = "id", required = true)
+            @PathVariable("id") Integer id,
+            @ApiParam(value = "The date of the transaction.", example = "2021-08-31", name = "date", required = true)
+            @PathVariable("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) throws SQLException {
         List<MemberTransactionDto> memberTransactionResponse = memberTransactionService.getTransactionByIdAndDate(id, date);
         DiscoveryAccountSystemResponse<List<MemberTransactionDto>> response = new DiscoveryAccountSystemResponse<>(true, memberTransactionResponse);
         return new ResponseEntity<>(response, HttpStatus.OK);

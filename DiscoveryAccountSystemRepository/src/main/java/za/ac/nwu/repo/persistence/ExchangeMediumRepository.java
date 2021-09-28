@@ -13,6 +13,9 @@ import java.util.Optional;
 
 @Repository
 public interface ExchangeMediumRepository extends JpaRepository<Exchange_Medium, Integer> {
+    @Query("select e from Exchange_Medium e where e.EmId = ?1")
+    Exchange_Medium getByEmId(Integer EmId);
+
     @Query("select (count(e) > 0) from Exchange_Medium e where e.Type = ?1 and e.MemID.Id = ?2")
     boolean existsByTypeAndMemID_Id(String Type, Integer Id);
 
@@ -20,7 +23,7 @@ public interface ExchangeMediumRepository extends JpaRepository<Exchange_Medium,
     Exchange_Medium getByTypeAndEmId(String Type, Integer EmId);
 
     @Query("select e from Exchange_Medium e where e.MemID.Id = ?1")
-    List<Exchange_Medium> getByEM_ID(Integer EM_ID);
+    List<Exchange_Medium> getByMemID(Integer memId);
 
     @Query(value = "SELECT em FROM Exchange_Medium em WHERE em.Type = :type and em.EmId = :em_id")
     Exchange_Medium getExchangeMediumCurrentByTypeAndID(String type, Integer em_id);
@@ -34,9 +37,6 @@ public interface ExchangeMediumRepository extends JpaRepository<Exchange_Medium,
     @Modifying
     @Query(value = "UPDATE Exchange_Medium SET Balance=Balance - :decrease WHERE EmId = :id ")
     void decreaseBalance(double decrease, Integer id);
-
-    @Query(value = "SELECT COUNT(EmId) FROM Exchange_Medium WHERE MemID=:id and Type=:type")
-    Integer checkTypeExist(Integer id, String type);
 
     @Transactional
     @Modifying

@@ -26,11 +26,13 @@ public class ExchangeMediumTranslatorImpl implements ExchangeMediumTranslator {
     }
 
     @Override
-    public List<Exchange_Medium> getExchangeMediumByEmID(Integer EmId) throws SQLException {
-        List<Exchange_Medium> exchangeMediumList = new ArrayList<>();
-        exchangeMediumList.addAll(exchangeMediumRepository.getByEM_ID(EmId));
-        //memberTransactions.addAll(exchangeMediumRepository.getByEM_ID(EmId));
-        return exchangeMediumList;
+    public List<Exchange_Medium> getExchangeMediumByMemID(Integer id) throws SQLException {
+        return new ArrayList<>(exchangeMediumRepository.getByMemID(id));
+    }
+
+    @Override
+    public Exchange_Medium getExchangeMediumByEmID(Integer id) {
+        return exchangeMediumRepository.getByEmId(id);
     }
 
     @Override
