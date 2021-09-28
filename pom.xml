@@ -142,7 +142,7 @@
                                     <exclude>za.ac.nwu.domain.*</exclude>
                                     <exclude>za.ac.nwu.logic.config.LogicConfig</exclude>
                                     <exclude>za.ac.nwu.repo.config.RepositoryConfig</exclude>
-                                    <exclude>za.ac.nwu.translator.*</exclude>
+                                    <exclude>za.ac.nwu.translator.config.TranslatorConfig</exclude>
                                     <exclude>za.ac.nwu.web.sb.config.SwaggerConfiguration</exclude>
                                     <exclude>za.ac.nwu.web.sb.config.WebConfig</exclude>
                                     <exclude>za.ac.nwu.web.sb.controller.ExchangeMediumController.configureExchangeMedium</exclude>

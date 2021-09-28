@@ -35,7 +35,7 @@ public class NewTransactionServiceImpl implements NewTransactionService {
         Member_Transaction memberTransaction = memberTransactionDto.buildMemberTransaction();
         Member_Transaction addedMemberTransaction = memberTransactionTranslator.addMemberTransaction(memberTransaction);
 
-        if (memberTransaction.getDescription().equals("Withdrawal") && memberTransaction.getEmId().getBalance() > 0) {
+        if (memberTransaction.getDescription().contains("Withdrawal") && memberTransaction.getEmId().getBalance() > addedMemberTransaction.getAmount()) {
             exchangeMediumTranslator.decreaseExchangeMediumTotal(memberTransaction.getEmId().getEmId(), memberTransaction.getAmount());
         } else {
             exchangeMediumTranslator.increaseExchangeMediumTotal(memberTransaction.getEmId().getEmId(), memberTransaction.getAmount());
