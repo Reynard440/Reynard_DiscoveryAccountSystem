@@ -76,13 +76,13 @@ public class MemberTransactionTranslatorImplTest {
         }
     }
 
-    @Test(expected = AssertionError.class)
+    @Test
     public void shouldGetTransactionByIdAndDate() {
         try {
             assertNotNull(result);
-            when(memberTransactionRepository.getByMtIdAndTransactionDate(result.getEmId().getEmId(), result.getTransactionDate())).thenReturn(Collections.singletonList(result));
-            memberTransactionRepository.getByMtIdAndTransactionDate(result.getEmId().getEmId(), result.getTransactionDate());
-            verify(memberTransactionTranslator, atLeastOnce()).getTransactionByIdAndDate(result.getEmId().getEmId(), result.getTransactionDate());
+            when(memberTransactionTranslator.getTransactionByIdAndDate(result.getEmId().getEmId(), result.getTransactionDate())).thenReturn(Collections.singletonList(result));
+            memberTransactionTranslator.getTransactionByIdAndDate(result.getEmId().getEmId(), result.getTransactionDate());
+            verify(memberTransactionRepository, atLeastOnce()).getByMtIdAndTransactionDate(result.getEmId().getEmId(), result.getTransactionDate());
         } catch (Exception e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while retrieving a member transaction by id and date."));
         }

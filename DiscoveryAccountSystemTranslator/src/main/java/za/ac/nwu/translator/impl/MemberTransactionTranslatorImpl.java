@@ -38,6 +38,6 @@ public class MemberTransactionTranslatorImpl implements MemberTransactionTransla
 
     @Override
     public List<Member_Transaction> getTransactionByIdAndDate(Integer id, LocalDate date) throws RuntimeException {
-        return new ArrayList<>(memberTransactionRepository.getByMtId(id));
+        return new ArrayList<>(memberTransactionRepository.getByMtIdAndTransactionDate(id, date));
     }
 }
