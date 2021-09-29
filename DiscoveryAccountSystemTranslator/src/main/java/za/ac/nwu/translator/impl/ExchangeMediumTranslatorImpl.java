@@ -31,7 +31,7 @@ public class ExchangeMediumTranslatorImpl implements ExchangeMediumTranslator {
     }
 
     @Override
-    public Exchange_Medium getExchangeMediumByEmID(Integer id) {
+    public Exchange_Medium getExchangeMediumByEmID(Integer id) throws SQLException {
         return exchangeMediumRepository.getByEmId(id);
     }
 

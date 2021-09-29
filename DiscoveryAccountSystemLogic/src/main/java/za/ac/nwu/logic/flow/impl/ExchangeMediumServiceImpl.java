@@ -44,13 +44,6 @@ public class ExchangeMediumServiceImpl implements ExchangeMediumService {
     @Override
     public ExchangeMediumDto newExchangeMedium(ExchangeMediumDto exchangeMediumDto) throws SQLException {
         LOGGER.info("The input object is {}", exchangeMediumDto);
-        if(null == exchangeMediumDto){
-            exchangeMediumDto.setDate(LocalDate.now());
-            exchangeMediumDto.setType("Miles");
-            exchangeMediumDto.setBalance(40);
-            exchangeMediumDto.setDescription("Discovery Miles");
-            exchangeMediumDto.setMemID(new MemberDto(1));
-        }
         Member member = memberTranslator.getOneMember(exchangeMediumDto.getMemID().getMemId());
         Exchange_Medium exchangeMedium = exchangeMediumDto.buildExchangeMedium(member);
 

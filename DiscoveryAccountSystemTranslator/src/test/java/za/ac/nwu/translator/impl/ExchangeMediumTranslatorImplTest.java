@@ -119,4 +119,15 @@ public class ExchangeMediumTranslatorImplTest {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while retrieving the current balance of an exchange medium."));
         }
     }
+
+    @Test
+    public void shouldGetExchangeMediumByEmID() {
+        try {
+            assertNotNull(result);
+            exchangeMediumTranslator.getExchangeMediumByEmID(1);
+            verify(exchangeMediumRepository, atLeastOnce()).getByEmId(1);
+        } catch (SQLException e) {
+            assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while retrieving the current balance of an exchange medium."));
+        }
+    }
 }
