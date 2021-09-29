@@ -47,7 +47,7 @@ public class ExchangeMediumController {
     }
 
     @GetMapping(path = "/getExchangeMediumById/{id}")
-    @ApiOperation(value = "Fetches a Exchange Medium by its id.", notes = "Fetches exchange medium by id from DB.")
+    @ApiOperation(value = "Fetches a list of Exchange Mediums via a member's id.", notes = "Fetches exchange medium by a member's id from DB.")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Found exchange medium(s) by the member's id", response = DiscoveryAccountSystemResponse.class),
             @ApiResponse(code = 400, message = "Bad Request", response = DiscoveryAccountSystemResponse.class),

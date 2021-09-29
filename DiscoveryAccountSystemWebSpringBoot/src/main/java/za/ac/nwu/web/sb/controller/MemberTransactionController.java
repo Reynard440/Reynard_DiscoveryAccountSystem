@@ -48,7 +48,7 @@ public class MemberTransactionController {
     }
 
     @GetMapping(path = "/getMemberTransactionByID/{id}")
-    @ApiOperation(value = "Fetches a Member's Transaction by its id.", notes = "Fetches Member's Transaction by id from DB.")
+    @ApiOperation(value = "Fetches a list of a Member's Transaction by its id.", notes = "Fetches a list of Member's Transaction by id from DB.")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Found the transaction by id", response = DiscoveryAccountSystemResponse.class),
             @ApiResponse(code = 400, message = "Bad Request: could not resolve the search by id", response = DiscoveryAccountSystemResponse.class),

@@ -15,6 +15,8 @@ import za.ac.nwu.translator.ExchangeMediumTranslator;
 import za.ac.nwu.translator.MemberTransactionTranslator;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
@@ -37,6 +39,8 @@ public class ViewMemberTransactionServiceImplTest {
 
     MemberTransactionDto result;
 
+    List<MemberTransactionDto> memberTransactionDtoList = new ArrayList<>();
+
     @Before
     public void setUp() throws Exception {
         lenient().when(memberTransactionTranslator.addMemberTransaction(any(Member_Transaction.class))).then(returnsFirstArg()); // if get anything of MemberTransactionDto
@@ -47,19 +51,21 @@ public class ViewMemberTransactionServiceImplTest {
                 1,
                 1
         ));
+        memberTransactionDtoList.add(result);
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         result = null;
     }
 
     @Test
     public void shouldGetMemberTransactionID() {
         try {
-            assertNotNull(result);
+            assertNotNull(memberTransactionDtoList);
             assertEquals(LocalDate.now(), result.getTransactionDate());
-            viewMemberTransactionService.getMemberTransactionID(1);
+            when(viewMemberTransactionService.getMemberTransactionID(1)).thenReturn(memberTransactionDtoList);
+            memberTransactionTranslator.getMemberTransactionID(1);
             verify(memberTransactionTranslator, atLeastOnce()).getMemberTransactionID(1);
         } catch (Exception e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while retrieving a member's transaction by id."));

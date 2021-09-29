@@ -52,7 +52,6 @@ public class ViewMemberServiceImplTest {
     public void shouldGetMemberByEmail() {
         try {
             assertNotNull(result);
-            System.out.println(result.getFirstName());
             assertEquals("reynardengels@gmail.com", result.getEmail());
             viewMemberService.getMemberByEmail(result.getEmail());
             verify(serviceTranslator, atLeastOnce()).getMemberByEmail(result.getEmail());

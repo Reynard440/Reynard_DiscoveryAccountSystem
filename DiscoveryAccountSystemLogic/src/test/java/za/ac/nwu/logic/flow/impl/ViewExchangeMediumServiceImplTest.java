@@ -15,6 +15,9 @@ import za.ac.nwu.translator.ExchangeMediumTranslator;
 import za.ac.nwu.translator.MemberTranslator;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
@@ -37,6 +40,8 @@ public class ViewExchangeMediumServiceImplTest {
 
     ExchangeMediumDto result;
 
+    List<ExchangeMediumDto> exchangeMediumDtoList = new ArrayList<>();
+
     @Before
     public void setUp() throws Exception {
         lenient().when(exchangeMediumTranslator.newExchangeMedium(any(Exchange_Medium.class))).then(returnsFirstArg()); // if get anything of MemberDto
@@ -53,6 +58,7 @@ public class ViewExchangeMediumServiceImplTest {
                         "Reynard",
                         "Engels")
         ));
+        exchangeMediumDtoList.add(result);
     }
 
     @After
@@ -63,9 +69,9 @@ public class ViewExchangeMediumServiceImplTest {
     @Test
     public void shouldGetExchangeMediumByMemID() {
         try {
-            assertNotNull(result);
-            assertEquals("Miles", result.getType());
-            viewExchangeMediumService.getExchangeMediumByMemID(1);
+            assertNotNull(exchangeMediumDtoList);
+            when(viewExchangeMediumService.getExchangeMediumByMemID(1)).thenReturn(exchangeMediumDtoList);
+            exchangeMediumTranslator.getExchangeMediumByMemID(1);
             verify(exchangeMediumTranslator, atLeastOnce()).getExchangeMediumByMemID(1);
         } catch (Exception e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while retrieving an exchange medium by its id."));
@@ -76,8 +82,8 @@ public class ViewExchangeMediumServiceImplTest {
     public void shouldGetExchangeMediumCurrentByTypeAndID() {
         try {
             assertNotNull(result);
-            viewExchangeMediumService.getExchangeMediumCurrentByTypeAndID(result.getType(), result.getExchangeMediumID());
-            verify(exchangeMediumTranslator, atLeastOnce()).getExchangeMediumCurrentByTypeAndID(result.getType(), result.getExchangeMediumID());
+            viewExchangeMediumService.getExchangeMediumCurrentByTypeAndID("Miles", 1);
+            verify(exchangeMediumTranslator, atLeastOnce()).getExchangeMediumCurrentByTypeAndID("Miles", 1);
         } catch (Exception e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while retrieving the balance of an exchange medium via its type and id."));
         }
