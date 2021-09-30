@@ -16,7 +16,6 @@ import javax.transaction.Transactional;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-@Transactional
 @Component("exchangeMediumViewFlow")
 public class ExchangeMediumServiceImpl implements ExchangeMediumService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ExchangeMediumServiceImpl.class);
@@ -29,18 +28,21 @@ public class ExchangeMediumServiceImpl implements ExchangeMediumService {
         this.memberTranslator = memberTranslator;
     }
 
+    @Transactional
     @Override
     public void increaseExchangeMediumTotal(Integer id, double amount) throws SQLException {
         LOGGER.info("The input for id is {} and the amount is {}", id, amount);
         exchangeMediumTranslator.increaseExchangeMediumTotal(id, amount);
     }
 
+    @Transactional
     @Override
     public void decreaseExchangeMediumTotal(Integer id, double amount) throws SQLException {
         LOGGER.info("The input for id is {} and the amount is {}", id, amount);
         exchangeMediumTranslator.decreaseExchangeMediumTotal(id, amount);
     }
 
+    @Transactional
     @Override
     public ExchangeMediumDto newExchangeMedium(ExchangeMediumDto exchangeMediumDto) throws SQLException {
         LOGGER.info("The input object is {}", exchangeMediumDto);
@@ -59,6 +61,7 @@ public class ExchangeMediumServiceImpl implements ExchangeMediumService {
         return exchangeMediumTranslator.checkTypeExists(id, type);
     }
 
+    @Transactional
     @Override
     public void configureExchangeMedium(String type, String newType, double adjust, Integer mem, Integer id) throws SQLException {
         LOGGER.info("The input for type is {}, the newType is {}, the amount to be adjusted is {}, the MemberId is {}, and the Exchange Medium id is {}", type, newType, adjust, mem, id);

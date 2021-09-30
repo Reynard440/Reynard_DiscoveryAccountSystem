@@ -15,7 +15,6 @@ import javax.transaction.Transactional;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-@Transactional
 @Component("newMemberTransactionFlow")
 public class NewTransactionServiceImpl implements NewTransactionService {
     private static final Logger LOGGER = LoggerFactory.getLogger(NewTransactionServiceImpl.class);
@@ -28,6 +27,7 @@ public class NewTransactionServiceImpl implements NewTransactionService {
         this.exchangeMediumTranslator = exchangeMediumTranslator;
     }
 
+    @Transactional
     @Override
     public MemberTransactionDto addTransactionDto(MemberTransactionDto memberTransactionDto) throws SQLException {
         LOGGER.info("The input object is {}", memberTransactionDto);

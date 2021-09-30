@@ -12,7 +12,6 @@ import za.ac.nwu.translator.MemberTranslator;
 import javax.transaction.Transactional;
 import java.sql.SQLException;
 
-@Transactional
 @Component("memberServiceNameFlow")
 public class MemberServiceImpl implements MemberService {
     private static final Logger LOGGER = LoggerFactory.getLogger(MemberServiceImpl.class);
@@ -23,6 +22,7 @@ public class MemberServiceImpl implements MemberService {
         this.memberTranslator = memberTranslator;
     }
 
+    @Transactional
     @Override
     public MemberDto newMember(MemberDto memberDto) throws SQLException {
         LOGGER.info("The input object is {}", memberDto);

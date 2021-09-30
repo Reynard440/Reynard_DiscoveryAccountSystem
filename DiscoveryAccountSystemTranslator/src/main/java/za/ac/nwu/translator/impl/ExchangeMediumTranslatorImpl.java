@@ -15,7 +15,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Transactional
 @Component
 public class ExchangeMediumTranslatorImpl implements ExchangeMediumTranslator {
     private final ExchangeMediumRepository exchangeMediumRepository;
@@ -35,11 +34,13 @@ public class ExchangeMediumTranslatorImpl implements ExchangeMediumTranslator {
         return exchangeMediumRepository.getByEmId(id);
     }
 
+    @Transactional
     @Override
     public void increaseExchangeMediumTotal(Integer id, double amount) throws SQLException {
         exchangeMediumRepository.increaseBalance(amount, id);
     }
 
+    @Transactional
     @Override
     public void decreaseExchangeMediumTotal(Integer id, double amount) throws SQLException {
         exchangeMediumRepository.decreaseBalance(amount, id);
@@ -50,6 +51,7 @@ public class ExchangeMediumTranslatorImpl implements ExchangeMediumTranslator {
         return exchangeMediumRepository.existsByTypeAndMemID_Id(type, id);
     }
 
+    @Transactional
     @Override
     public Exchange_Medium newExchangeMedium(Exchange_Medium exchange_medium) throws SQLException {
         return exchangeMediumRepository.save(exchange_medium);
@@ -60,6 +62,7 @@ public class ExchangeMediumTranslatorImpl implements ExchangeMediumTranslator {
         return exchangeMediumRepository.getExchangeMediumCurrentByTypeAndID(type, id);
     }
 
+    @Transactional
     @Override
     public void configureExchangeMedium(String type, String newType, double adjust, Integer mem, Integer id) throws SQLException {
         exchangeMediumRepository.switchExchangeMedium(type, newType, adjust, mem, id);

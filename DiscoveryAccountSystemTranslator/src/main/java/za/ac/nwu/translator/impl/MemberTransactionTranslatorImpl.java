@@ -16,7 +16,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Transactional
 @Component
 public class MemberTransactionTranslatorImpl implements MemberTransactionTranslator {
     private final MemberTransactionRepository memberTransactionRepository;
@@ -26,6 +25,7 @@ public class MemberTransactionTranslatorImpl implements MemberTransactionTransla
         this.memberTransactionRepository = memberTransactionRepository;
     }
 
+    @Transactional
     @Override
     public Member_Transaction addMemberTransaction(Member_Transaction memberTransaction) throws RuntimeException  {
         return memberTransactionRepository.save(memberTransaction);

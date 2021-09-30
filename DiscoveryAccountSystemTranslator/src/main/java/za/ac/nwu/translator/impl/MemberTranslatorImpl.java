@@ -14,7 +14,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Transactional
 @Component
 public class MemberTranslatorImpl implements MemberTranslator {
     private final MemberRepository memberRepository;
@@ -29,6 +28,7 @@ public class MemberTranslatorImpl implements MemberTranslator {
         return memberRepository.getById(id);
     }
 
+    @Transactional
     @Override
     public Member newMember(Member member) throws SQLException {
         return memberRepository.save(member);
