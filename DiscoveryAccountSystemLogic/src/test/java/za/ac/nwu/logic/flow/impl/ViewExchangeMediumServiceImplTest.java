@@ -3,6 +3,7 @@ package za.ac.nwu.logic.flow.impl;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -67,6 +68,7 @@ public class ViewExchangeMediumServiceImplTest {
     }
 
     @Test
+    @DisplayName("Should get the exchange medium(s) by a member's id.")
     public void shouldGetExchangeMediumByMemID() {
         try {
             assertNotNull(exchangeMediumDtoList);
@@ -79,6 +81,7 @@ public class ViewExchangeMediumServiceImplTest {
     }
 
     @Test
+    @DisplayName("Should get the balance of an exchange medium by id and type.")
     public void shouldGetExchangeMediumCurrentByTypeAndID() {
         try {
             assertNotNull(result);
@@ -90,6 +93,7 @@ public class ViewExchangeMediumServiceImplTest {
     }
 
     @Test
+    @DisplayName("Should get the exchange medium by id.")
     public void shouldGetExchangeMediumByEmID() {
         try {
             assertNotNull(result);

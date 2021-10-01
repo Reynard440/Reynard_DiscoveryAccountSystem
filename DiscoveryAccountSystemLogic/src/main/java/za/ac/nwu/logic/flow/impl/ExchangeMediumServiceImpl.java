@@ -45,14 +45,18 @@ public class ExchangeMediumServiceImpl implements ExchangeMediumService {
     @Transactional
     @Override
     public ExchangeMediumDto newExchangeMedium(ExchangeMediumDto exchangeMediumDto) throws SQLException {
-        LOGGER.info("The input object is {}", exchangeMediumDto);
-        Member member = memberTranslator.getOneMember(exchangeMediumDto.getMemID().getMemId());
-        Exchange_Medium exchangeMedium = exchangeMediumDto.buildExchangeMedium(member);
+        if (null != exchangeMediumDto.getDate() && null != exchangeMediumDto.getDescription() && null != exchangeMediumDto.getType()) {
+            LOGGER.info("The input object is {}", exchangeMediumDto);
+            Member member = memberTranslator.getOneMember(exchangeMediumDto.getMemID().getMemId());
+            Exchange_Medium exchangeMedium = exchangeMediumDto.buildExchangeMedium(member);
 
-        Exchange_Medium addedExchangeMedium = exchangeMediumTranslator.newExchangeMedium(exchangeMedium);
-        ExchangeMediumDto result = new ExchangeMediumDto(addedExchangeMedium);
-        LOGGER.info("The return object is {}", result);
-        return result;
+            Exchange_Medium addedExchangeMedium = exchangeMediumTranslator.newExchangeMedium(exchangeMedium);
+            ExchangeMediumDto result = new ExchangeMediumDto(addedExchangeMedium);
+            LOGGER.info("The return object is {}", result);
+            return result;
+        } else {
+            throw new SQLException("Exchange Medium is null, rolling back the transaction.");
+        }
     }
 
     @Override

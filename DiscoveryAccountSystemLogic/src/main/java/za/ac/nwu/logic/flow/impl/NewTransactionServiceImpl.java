@@ -13,6 +13,7 @@ import za.ac.nwu.translator.MemberTransactionTranslator;
 
 import javax.transaction.Transactional;
 import java.sql.SQLException;
+import java.sql.SQLTransactionRollbackException;
 import java.time.LocalDate;
 
 @Component("newMemberTransactionFlow")
@@ -30,18 +31,22 @@ public class NewTransactionServiceImpl implements NewTransactionService {
     @Transactional
     @Override
     public MemberTransactionDto addTransactionDto(MemberTransactionDto memberTransactionDto) throws SQLException {
-        LOGGER.info("The input object is {}", memberTransactionDto);
+        if (null != memberTransactionDto.getTransactionDate() && null != memberTransactionDto.getDescription() && null != memberTransactionDto.getEmId()) {
+            LOGGER.info("The input object is {}", memberTransactionDto);
 
-        Member_Transaction memberTransaction = memberTransactionDto.buildMemberTransaction();
-        Member_Transaction addedMemberTransaction = memberTransactionTranslator.addMemberTransaction(memberTransaction);
+            Member_Transaction memberTransaction = memberTransactionDto.buildMemberTransaction();
+            Member_Transaction addedMemberTransaction = memberTransactionTranslator.addMemberTransaction(memberTransaction);
 
-        if (memberTransaction.getDescription().contains("Withdrawal") && memberTransaction.getEmId().getBalance() > addedMemberTransaction.getAmount()) {
-            exchangeMediumTranslator.decreaseExchangeMediumTotal(memberTransaction.getEmId().getEmId(), memberTransaction.getAmount());
+            if (memberTransaction.getDescription().contains("Withdrawal") && memberTransaction.getEmId().getBalance() > addedMemberTransaction.getAmount()) {
+                exchangeMediumTranslator.decreaseExchangeMediumTotal(memberTransaction.getEmId().getEmId(), memberTransaction.getAmount());
+            } else {
+                exchangeMediumTranslator.increaseExchangeMediumTotal(memberTransaction.getEmId().getEmId(), memberTransaction.getAmount());
+            }
+            MemberTransactionDto result = new MemberTransactionDto(addedMemberTransaction);
+            LOGGER.info("The return object is {}", result);
+            return result;
         } else {
-            exchangeMediumTranslator.increaseExchangeMediumTotal(memberTransaction.getEmId().getEmId(), memberTransaction.getAmount());
+            throw new SQLException("Transaction is null, rolling back the transaction.");
         }
-        MemberTransactionDto result = new MemberTransactionDto(addedMemberTransaction);
-        LOGGER.info("The return object is {}", result);
-        return result;
     }
 }

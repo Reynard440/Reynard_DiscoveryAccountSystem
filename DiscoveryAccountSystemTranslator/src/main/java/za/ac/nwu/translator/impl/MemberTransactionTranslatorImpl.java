@@ -2,6 +2,7 @@ package za.ac.nwu.translator.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.event.TransactionalEventListener;
 import za.ac.nwu.domain.persistence.Exchange_Medium;
 import za.ac.nwu.domain.persistence.Member;
 import za.ac.nwu.domain.persistence.Member_Transaction;
@@ -27,7 +28,7 @@ public class MemberTransactionTranslatorImpl implements MemberTransactionTransla
 
     @Transactional
     @Override
-    public Member_Transaction addMemberTransaction(Member_Transaction memberTransaction) throws RuntimeException  {
+    public Member_Transaction addMemberTransaction(Member_Transaction memberTransaction) throws RuntimeException {
         return memberTransactionRepository.save(memberTransaction);
     }
 

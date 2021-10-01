@@ -3,6 +3,7 @@ package za.ac.nwu.logic.flow.impl;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -47,6 +48,7 @@ public class MemberServiceImplTest {
     }
 
     @Test
+    @DisplayName("Should add a member.")
     public void shouldAddNewMember() {
         try {
             assertNotNull(result);

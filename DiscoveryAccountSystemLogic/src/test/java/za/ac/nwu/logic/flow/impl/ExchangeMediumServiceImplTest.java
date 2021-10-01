@@ -3,6 +3,7 @@ package za.ac.nwu.logic.flow.impl;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -57,6 +58,7 @@ public class ExchangeMediumServiceImplTest {
     }
 
     @Test
+    @DisplayName("Should add a exchange medium.")
     public void shouldAddNewExchangeMedium() {
         try {
             assertNotNull(result);
@@ -69,6 +71,7 @@ public class ExchangeMediumServiceImplTest {
     }
 
     @Test
+    @DisplayName("Should increase balance of exchange medium.")
     public void shouldIncreaseExchangeMediumTotal() {
         try {
             assertNotNull(result);
@@ -83,6 +86,7 @@ public class ExchangeMediumServiceImplTest {
     }
 
     @Test
+    @DisplayName("Should decrease balance of exchange medium.")
     public void shouldDecreaseExchangeMediumTotal() {
         try {
             assertNotNull(result);
@@ -97,6 +101,7 @@ public class ExchangeMediumServiceImplTest {
     }
 
     @Test
+    @DisplayName("Should check if the type exist")
     public void shouldCheckTypeExist() {
         try {
             assertNotNull(result);
@@ -110,6 +115,7 @@ public class ExchangeMediumServiceImplTest {
     }
 
     @Test
+    @DisplayName("Should configure to new exchange medium.")
     public void shouldConfigureExchangeMedium() {
         try {
             assertNotNull(result);

@@ -3,6 +3,7 @@ package za.ac.nwu.logic.flow.impl;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -60,6 +61,7 @@ public class ViewMemberTransactionServiceImplTest {
     }
 
     @Test
+    @DisplayName("Should get the transaction by an exchange medium's id.")
     public void shouldGetMemberTransactionID() {
         try {
             assertNotNull(memberTransactionDtoList);
@@ -73,6 +75,7 @@ public class ViewMemberTransactionServiceImplTest {
     }
 
     @Test
+    @DisplayName("Should get the transaction by id and date.")
     public void shouldGetTransactionByIdAndDate() {
         try {
             assertNotNull(result);

@@ -4,6 +4,7 @@ import net.bytebuddy.asm.Advice;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -51,8 +52,6 @@ public class NewTransactionServiceImplTest {
 
     ExchangeMediumDto exchangeMediumDto;
 
-    MemberDto memberDto;
-
     @Before
     public void setUp() throws SQLException {
         lenient().when(memberTranslator.newMember(any(Member.class))).then(returnsFirstArg());
@@ -87,13 +86,15 @@ public class NewTransactionServiceImplTest {
     }
 
     @Test
+    @DisplayName("Should add a transaction.")
     public void shouldAddTransactionDto() {
         try {
             assertNotNull(result);
             assertEquals(LocalDate.now(), result.getTransactionDate());
             assertFalse(result.getDescription().isEmpty());
             assertEquals("Withdrawal", result.getDescription());
-            if (result.getDescription().contains("Withdrawal") && (exchangeMediumDto.getBalance() + result.getAmount() > 0)) {
+            assertNotNull(result.getEmId());
+            if (result.getDescription().equals("Withdrawal") && (exchangeMediumDto.getBalance() + result.getAmount() > 0)) {
                 exchangeMediumTranslator.decreaseExchangeMediumTotal(result.getEmId(), result.getAmount());
             } else {
                 exchangeMediumTranslator.increaseExchangeMediumTotal(result.getEmId(), result.getAmount());

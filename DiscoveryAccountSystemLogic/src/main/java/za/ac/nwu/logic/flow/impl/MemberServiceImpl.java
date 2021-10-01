@@ -25,11 +25,15 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     @Override
     public MemberDto newMember(MemberDto memberDto) throws SQLException {
-        LOGGER.info("The input object is {}", memberDto);
-        Member member = memberDto.buildMember();
-        Member addedMember = memberTranslator.newMember(member);
-        MemberDto result = new MemberDto(memberTranslator.newMember(addedMember));
-        LOGGER.info("The return object is {}", result);
-        return result;
+        if (null != memberDto.getFirstName() && null != memberDto.getLastName() && null != memberDto.getEmail()) {
+            LOGGER.info("The input object is {}", memberDto);
+            Member member = memberDto.buildMember();
+            Member addedMember = memberTranslator.newMember(member);
+            MemberDto result = new MemberDto(memberTranslator.newMember(addedMember));
+            LOGGER.info("The return object is {}", result);
+            return result;
+        } else {
+            throw new SQLException("Member is null, rolling back the transaction.");
+        }
     }
 }

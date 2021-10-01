@@ -3,6 +3,7 @@ package za.ac.nwu.logic.flow.impl;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -49,6 +50,7 @@ public class ViewMemberServiceImplTest {
     }
 
     @Test
+    @DisplayName("Should get the member by email.")
     public void shouldGetMemberByEmail() {
         try {
             assertNotNull(result);
@@ -61,6 +63,7 @@ public class ViewMemberServiceImplTest {
     }
 
     @Test
+    @DisplayName("Should get the member by id.")
     public void shouldGetMemberById() {
         try {
             assertNotNull(result);
