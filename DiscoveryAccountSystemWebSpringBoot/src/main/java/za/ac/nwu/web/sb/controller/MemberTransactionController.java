@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import za.ac.nwu.domain.dto.MemberTransactionDto;
 import za.ac.nwu.domain.service.DiscoveryAccountSystemResponse;
-import za.ac.nwu.logic.flow.ExchangeMediumService;
 import za.ac.nwu.logic.flow.NewTransactionService;
 import za.ac.nwu.logic.flow.ViewMemberTransactionService;
 

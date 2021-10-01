@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import za.ac.nwu.domain.dto.MemberTransactionDto;
-import za.ac.nwu.domain.persistence.Exchange_Medium;
 import za.ac.nwu.domain.persistence.Member_Transaction;
 import za.ac.nwu.logic.flow.NewTransactionService;
 import za.ac.nwu.translator.ExchangeMediumTranslator;
@@ -13,8 +12,6 @@ import za.ac.nwu.translator.MemberTransactionTranslator;
 
 import javax.transaction.Transactional;
 import java.sql.SQLException;
-import java.sql.SQLTransactionRollbackException;
-import java.time.LocalDate;
 
 @Component("newMemberTransactionFlow")
 public class NewTransactionServiceImpl implements NewTransactionService {

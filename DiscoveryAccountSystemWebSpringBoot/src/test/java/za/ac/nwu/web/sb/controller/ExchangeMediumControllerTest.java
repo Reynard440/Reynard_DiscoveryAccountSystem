@@ -4,6 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.ComparisonFailure;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -17,16 +18,13 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import za.ac.nwu.domain.dto.ExchangeMediumDto;
 import za.ac.nwu.domain.dto.MemberDto;
 import za.ac.nwu.logic.flow.ExchangeMediumService;
-import za.ac.nwu.logic.flow.MemberService;
 import za.ac.nwu.logic.flow.ViewExchangeMediumService;
-import za.ac.nwu.logic.flow.ViewMemberService;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
@@ -61,6 +59,7 @@ public class ExchangeMediumControllerTest {
     }
 
     @Test(expected = ComparisonFailure.class)
+    @DisplayName("Should add a new exchange medium.")
     public void shouldAddNewExchangeMedium() throws Exception {
         String exExpected = "{\"exchangeMediumID\":1,\"type\":\"Miles\",\"description\":\"This is a new Discovery currency type that keeps track of all your MILES\",\"balance\":40,\"date\":\"2021-08-05\",\"memID\":1}";
         String exActual = "{\"confirmation\":true,\"cargo\":[" +
@@ -82,6 +81,7 @@ public class ExchangeMediumControllerTest {
     }
 
     @Test(expected = ComparisonFailure.class)
+    @DisplayName("Should get an exchange medium by EmId.")
     public void getExchangeMediumByEmId() throws Exception {
         String expectedResponse = "{\"confirmation\":true,\"cargo\":{" +
                 "\"exchangeMediumID\":1," +
@@ -114,6 +114,7 @@ public class ExchangeMediumControllerTest {
     }
 
     @Test(expected = ComparisonFailure.class)
+    @DisplayName("Should get an exchange medium by mem id.")
     public void shouldGetExchangeMediumByMemId() throws Exception {
         String expectedResponse = "{\"confirmation\":true,\"cargo\":{" +
                 "\"exchangeMediumID\":1," +
@@ -147,6 +148,7 @@ public class ExchangeMediumControllerTest {
     }
 
     @Test(expected = ComparisonFailure.class)
+    @DisplayName("Should get the balance of an exchange medium.")
     public void shouldGetExchangeMediumCurrentByTypeAndID() throws Exception {
         String expectedResponse = "{\"confirmation\":true,\"cargo\":{" +
                 "\"exchangeMediumID\":1," +
@@ -178,6 +180,7 @@ public class ExchangeMediumControllerTest {
     }
 
     @Test(expected = ComparisonFailure.class)
+    @DisplayName("Should configure from one exchange medium to a new one.")
     public void shouldConfigureExchangeMedium() throws Exception {
         String expectedResponse = "{\"confirmation\":true,\"cargo\":{" +
                 "\"exchangeMediumID\":1," +
@@ -191,12 +194,13 @@ public class ExchangeMediumControllerTest {
                         .param("newType", "Miles")
                         .param("adjust", "0.091")
                         .param("member", "1")
+                        .param("description", "Discovery Miles")
                         .servletPath(URL)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
-        verify(exchangeMediumService, times(1)).configureExchangeMedium("Dollars", "Miles", 0.091, 1, 1);
+        verify(exchangeMediumService, times(1)).configureExchangeMedium("Dollars", "Miles", 0.091, 1, 1, "Discovery Miles");
         assertEquals(expectedResponse, mvcResult.getResponse().getContentAsString());
     }
 }

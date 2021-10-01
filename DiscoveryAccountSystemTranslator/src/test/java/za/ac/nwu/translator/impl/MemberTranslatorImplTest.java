@@ -2,20 +2,19 @@ package za.ac.nwu.translator.impl;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.ComparisonFailure;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import za.ac.nwu.domain.persistence.Exchange_Medium;
 import za.ac.nwu.domain.persistence.Member;
-import za.ac.nwu.repo.persistence.ExchangeMediumRepository;
 import za.ac.nwu.repo.persistence.MemberRepository;
 
-import java.nio.charset.CoderMalfunctionError;
+import javax.transaction.Transactional;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -42,6 +41,7 @@ public class MemberTranslatorImplTest {
     }
 
     @Test
+    @DisplayName("Should get a member by id.")
     public void shouldGetOneMember() {
         try {
             assertNotNull(result);
@@ -52,7 +52,9 @@ public class MemberTranslatorImplTest {
         }
     }
 
+    @Transactional
     @Test
+    @DisplayName("Should add a new member.")
     public void shouldAddNewMember() {
         try {
             assertNotNull(result);
@@ -64,6 +66,7 @@ public class MemberTranslatorImplTest {
     }
 
     @Test
+    @DisplayName("Should get a member by email.")
     public void shouldGetMemberByEmail() {
         try {
             assertNotNull(result);

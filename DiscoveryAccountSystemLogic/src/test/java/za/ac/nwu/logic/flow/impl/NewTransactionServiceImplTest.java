@@ -1,6 +1,5 @@
 package za.ac.nwu.logic.flow.impl;
 
-import net.bytebuddy.asm.Advice;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +14,6 @@ import za.ac.nwu.domain.dto.MemberTransactionDto;
 import za.ac.nwu.domain.persistence.Exchange_Medium;
 import za.ac.nwu.domain.persistence.Member;
 import za.ac.nwu.domain.persistence.Member_Transaction;
-import za.ac.nwu.logic.flow.ExchangeMediumService;
 import za.ac.nwu.translator.ExchangeMediumTranslator;
 import za.ac.nwu.translator.MemberTransactionTranslator;
 import za.ac.nwu.translator.MemberTranslator;

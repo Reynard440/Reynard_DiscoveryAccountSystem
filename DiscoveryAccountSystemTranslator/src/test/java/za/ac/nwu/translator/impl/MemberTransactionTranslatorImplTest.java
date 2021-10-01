@@ -3,21 +3,22 @@ package za.ac.nwu.translator.impl;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import za.ac.nwu.domain.persistence.Exchange_Medium;
-import za.ac.nwu.domain.persistence.Member;
 import za.ac.nwu.domain.persistence.Member_Transaction;
 import za.ac.nwu.repo.persistence.ExchangeMediumRepository;
-import za.ac.nwu.repo.persistence.MemberRepository;
 import za.ac.nwu.repo.persistence.MemberTransactionRepository;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.Collections;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -53,7 +54,9 @@ public class MemberTransactionTranslatorImplTest {
         result = null;
     }
 
+    @Transactional
     @Test
+    @DisplayName("Should add a new transaction.")
     public void shouldAddMemberTransaction() {
         try {
             assertNotNull(result);
@@ -65,6 +68,7 @@ public class MemberTransactionTranslatorImplTest {
     }
 
     @Test
+    @DisplayName("Should get a transaction by EmId.")
     public void shouldGetMemberTransactionID() {
         try {
             assertNotNull(result);
@@ -77,6 +81,7 @@ public class MemberTransactionTranslatorImplTest {
     }
 
     @Test
+    @DisplayName("Should get a transaction by EmId and date.")
     public void shouldGetTransactionByIdAndDate() {
         try {
             assertNotNull(result);

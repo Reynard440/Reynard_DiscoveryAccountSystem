@@ -22,5 +22,5 @@ public interface ExchangeMediumTranslator {
 
     Exchange_Medium getExchangeMediumCurrentByTypeAndID(String type, Integer id) throws SQLException;
 
-    void configureExchangeMedium(String type, String newType, double adjust, Integer mem, Integer id) throws SQLException;
+    void configureExchangeMedium(String type, String newType, double adjust, Integer mem, Integer id, String description) throws SQLException;
 }

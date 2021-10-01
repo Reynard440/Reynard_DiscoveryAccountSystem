@@ -9,10 +9,8 @@ import za.ac.nwu.domain.persistence.Member;
 import za.ac.nwu.logic.flow.ViewMemberService;
 import za.ac.nwu.translator.MemberTranslator;
 
-import javax.transaction.Transactional;
 import java.sql.SQLException;
 
-@Transactional
 @Component("viewMemberServiceFlow")
 public class ViewMemberServiceImpl implements ViewMemberService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ViewMemberServiceImpl.class);

@@ -9,10 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import za.ac.nwu.domain.dto.ExchangeMediumDto;
-import za.ac.nwu.domain.dto.MemberDto;
 import za.ac.nwu.domain.service.DiscoveryAccountSystemResponse;
 import za.ac.nwu.logic.flow.ExchangeMediumService;
-import za.ac.nwu.logic.flow.NewTransactionService;
 import za.ac.nwu.logic.flow.ViewExchangeMediumService;
 
 import javax.transaction.Transactional;
@@ -110,8 +108,10 @@ public class ExchangeMediumController {
             @ApiParam(value = "The amount the old exchange medium should be adjusted with.", example = "0.5", name = "adjust", required = true)
             @RequestParam("adjust") double adjust,
             @ApiParam(value = "The id of the member for the specified exchange medium.", example = "1", name = "member", required = true)
-            @RequestParam("member") Integer member) throws SQLException {
-        exchangeMediumService.configureExchangeMedium(name, newType, adjust, member, id);
+            @RequestParam("member") Integer member,
+            @ApiParam(value = "The description of the exchange medium.", example = "Discovery Miles", name = "description", required = true)
+            @RequestParam("description") String description) throws SQLException {
+        exchangeMediumService.configureExchangeMedium(name, newType, adjust, member, id, description);
         ExchangeMediumDto exchangeMediumResponse = viewExchangeMediumService.getExchangeMediumByEmID(id);
         DiscoveryAccountSystemResponse<ExchangeMediumDto> response = new DiscoveryAccountSystemResponse<>(true, exchangeMediumResponse);
         return new ResponseEntity<>(response, HttpStatus.OK);

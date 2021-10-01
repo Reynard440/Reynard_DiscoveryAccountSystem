@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import za.ac.nwu.domain.dto.ExchangeMediumDto;
-import za.ac.nwu.domain.dto.MemberDto;
 import za.ac.nwu.domain.persistence.Exchange_Medium;
 import za.ac.nwu.domain.persistence.Member;
 import za.ac.nwu.logic.flow.ExchangeMediumService;
@@ -14,7 +13,6 @@ import za.ac.nwu.translator.MemberTranslator;
 
 import javax.transaction.Transactional;
 import java.sql.SQLException;
-import java.time.LocalDate;
 
 @Component("exchangeMediumViewFlow")
 public class ExchangeMediumServiceImpl implements ExchangeMediumService {
@@ -67,8 +65,8 @@ public class ExchangeMediumServiceImpl implements ExchangeMediumService {
 
     @Transactional
     @Override
-    public void configureExchangeMedium(String type, String newType, double adjust, Integer mem, Integer id) throws SQLException {
+    public void configureExchangeMedium(String type, String newType, double adjust, Integer mem, Integer id, String description) throws SQLException {
         LOGGER.info("The input for type is {}, the newType is {}, the amount to be adjusted is {}, the MemberId is {}, and the Exchange Medium id is {}", type, newType, adjust, mem, id);
-        exchangeMediumTranslator.configureExchangeMedium(type, newType, adjust, mem, id);
+        exchangeMediumTranslator.configureExchangeMedium(type, newType, adjust, mem, id, description);
     }
 }

@@ -3,6 +3,7 @@ package za.ac.nwu.repo.persistence;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -30,7 +31,8 @@ public class MemberRepositoryTest {
     }
 
     @Test
-    public void shouldGetById() throws  Exception {
+    @DisplayName("Should get a member by id.")
+    public void shouldGetById() {
         Member member = memberRepository.getById(1);
         assertNotNull(member);
         assertEquals("Reynard", member.getFirstName());
@@ -38,7 +40,8 @@ public class MemberRepositoryTest {
     }
 
     @Test
-    public void shouldGetByEmail() throws  Exception {
+    @DisplayName("Should get a member by email.")
+    public void shouldGetByEmail() {
         Member member = memberRepository.getByEmail("reynardengels@gmail.com");
         assertNotNull(member);
         assertEquals("Reynard", member.getFirstName());

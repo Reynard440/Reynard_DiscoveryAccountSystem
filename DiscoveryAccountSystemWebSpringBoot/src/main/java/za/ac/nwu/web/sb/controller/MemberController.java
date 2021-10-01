@@ -15,7 +15,6 @@ import za.ac.nwu.logic.flow.ViewMemberService;
 
 import javax.transaction.Transactional;
 import java.sql.SQLException;
-import java.util.List;
 
 @RestController
 @RequestMapping(path="/v1/c1")

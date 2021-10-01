@@ -1,15 +1,9 @@
 package za.ac.nwu.repo.persistence;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import za.ac.nwu.domain.persistence.Exchange_Medium;
 import za.ac.nwu.domain.persistence.Member;
-
-import javax.transaction.Transactional;
-import java.util.Optional;
-import java.util.Set;
 
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Integer> {

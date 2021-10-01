@@ -2,15 +2,11 @@ package za.ac.nwu.translator.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import za.ac.nwu.domain.dto.ExchangeMediumDto;
 import za.ac.nwu.domain.persistence.Exchange_Medium;
-import za.ac.nwu.domain.persistence.Member_Transaction;
 import za.ac.nwu.repo.persistence.ExchangeMediumRepository;
 import za.ac.nwu.translator.ExchangeMediumTranslator;
 
 import javax.transaction.Transactional;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +60,7 @@ public class ExchangeMediumTranslatorImpl implements ExchangeMediumTranslator {
 
     @Transactional
     @Override
-    public void configureExchangeMedium(String type, String newType, double adjust, Integer mem, Integer id) throws SQLException {
-        exchangeMediumRepository.switchExchangeMedium(type, newType, adjust, mem, id);
+    public void configureExchangeMedium(String type, String newType, double adjust, Integer mem, Integer id, String description) throws SQLException {
+        exchangeMediumRepository.switchExchangeMedium(type, newType, adjust, mem, id, description);
     }
 }

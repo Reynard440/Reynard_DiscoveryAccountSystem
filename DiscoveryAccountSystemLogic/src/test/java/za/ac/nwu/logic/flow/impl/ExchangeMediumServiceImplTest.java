@@ -17,8 +17,6 @@ import za.ac.nwu.translator.MemberTranslator;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 import static org.junit.Assert.*;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
@@ -119,8 +117,8 @@ public class ExchangeMediumServiceImplTest {
     public void shouldConfigureExchangeMedium() {
         try {
             assertNotNull(result);
-            exchangeMediumService.configureExchangeMedium(result.getType(), "Dollars", 0.14, 1, 1);
-            verify(serviceExchangeMediumTranslator, atLeastOnce()).configureExchangeMedium(result.getType(), "Dollars", 0.14, 1, 1);
+            exchangeMediumService.configureExchangeMedium(result.getType(), "Dollars", 0.14, 1, 1, "US Currency");
+            verify(serviceExchangeMediumTranslator, atLeastOnce()).configureExchangeMedium(result.getType(), "Dollars", 0.14, 1, 1, "US Currency");
         } catch (Exception e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while configuring to a specific exchange medium."));
         }

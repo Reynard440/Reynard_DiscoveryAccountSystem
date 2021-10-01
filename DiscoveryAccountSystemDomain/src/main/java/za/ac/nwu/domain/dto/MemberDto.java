@@ -8,7 +8,6 @@ import za.ac.nwu.domain.persistence.Member;
 
 import java.io.Serializable;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 
 @ApiModel(value = "MemberDto", description = "A DTO that represents the Member")

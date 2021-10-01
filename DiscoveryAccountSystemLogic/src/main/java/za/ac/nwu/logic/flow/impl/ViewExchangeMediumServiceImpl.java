@@ -5,18 +5,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import za.ac.nwu.domain.dto.ExchangeMediumDto;
-import za.ac.nwu.domain.dto.MemberTransactionDto;
 import za.ac.nwu.domain.persistence.Exchange_Medium;
-import za.ac.nwu.domain.persistence.Member_Transaction;
 import za.ac.nwu.logic.flow.ViewExchangeMediumService;
 import za.ac.nwu.translator.ExchangeMediumTranslator;
 
-import javax.transaction.Transactional;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Transactional
 @Component("viewExchangeMediumsFlow")
 public class ViewExchangeMediumServiceImpl implements ViewExchangeMediumService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ViewExchangeMediumServiceImpl.class);

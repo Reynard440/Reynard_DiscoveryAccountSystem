@@ -4,20 +4,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import za.ac.nwu.domain.dto.ExchangeMediumDto;
 import za.ac.nwu.domain.dto.MemberTransactionDto;
-import za.ac.nwu.domain.persistence.Exchange_Medium;
 import za.ac.nwu.domain.persistence.Member_Transaction;
 import za.ac.nwu.logic.flow.ViewMemberTransactionService;
 import za.ac.nwu.translator.MemberTransactionTranslator;
 
-import javax.transaction.Transactional;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Transactional
 @Component("viewMemberTransactionServiceFlow")
 public class ViewMemberTransactionServiceImpl implements ViewMemberTransactionService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ViewMemberTransactionServiceImpl.class);

@@ -1,22 +1,12 @@
 package za.ac.nwu.domain.persistence;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
-import java.util.Set;
 
-/*@Getter
-@Setter
-@EqualsAndHashCode
-@ToString
-@AllArgsConstructor
-@NoArgsConstructor
-@NonNull*/
 @Entity
 @Table(name = "Member_Transaction", schema = "discoveryDB")
 public class Member_Transaction implements Serializable {

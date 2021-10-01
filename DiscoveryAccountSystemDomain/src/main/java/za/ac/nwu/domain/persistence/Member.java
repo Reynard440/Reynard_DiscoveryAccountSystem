@@ -1,25 +1,12 @@
 package za.ac.nwu.domain.persistence;
 
-//import lombok.*;
-
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import za.ac.nwu.domain.dto.ExchangeMediumDto;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 
-/*@Getter
-@Setter
-@EqualsAndHashCode
-@ToString
-@AllArgsConstructor
-@NoArgsConstructor
-@NonNull*/
 @Entity
 @Table(name = "Member", schema = "discoveryDB")
 public class Member implements Serializable {

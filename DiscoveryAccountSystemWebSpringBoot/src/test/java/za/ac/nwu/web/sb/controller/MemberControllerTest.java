@@ -1,11 +1,10 @@
 package za.ac.nwu.web.sb.controller;
 
-import lombok.SneakyThrows;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.ComparisonFailure;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -20,14 +19,12 @@ import za.ac.nwu.domain.dto.MemberDto;
 import za.ac.nwu.logic.flow.MemberService;
 import za.ac.nwu.logic.flow.ViewMemberService;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import static org.junit.Assert.assertEquals;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
@@ -48,16 +45,16 @@ public class MemberControllerTest {
     private MockMvc mockMvc;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
     }
 
-    @SneakyThrows
     @Test(expected = ComparisonFailure.class)
+    @DisplayName("Should add a new member.")
     public void shouldAddNewMember() throws Exception {
         String memberExpected = "{\"memId\":12,\"email\":\"reynardengels@gmail.com\",\"phoneNumber\":\"0723949955\",\"firstName\":\"Reynard\",\"lastName\":\"Engels\" }";
         String memberActual = "{\"confirmation\":true,\"cargo\":[" +
@@ -78,8 +75,8 @@ public class MemberControllerTest {
         assertEquals(memberActual, mvcResult.getResponse().getContentAsString());
     }
 
-    @SneakyThrows
     @Test(expected = AssertionError.class)
+    @DisplayName("Should get a member by email.")
     public void shouldGetMemberByEmail() throws Exception {
         String expectedConfirmation = "{\"confirmation\":true,\"cargo\":{" +
                 "\"memId\":1,\"email\":\"reynardengels@gmail.com\",\"phoneNumber\":\"0723949955\",\"firstName\":\"Reynard\",\"lastName\":\"Engels\"}}";
@@ -102,8 +99,8 @@ public class MemberControllerTest {
         assertEquals(expectedConfirmation, mvcResult.getResponse().getContentAsString());
     }
 
-    @SneakyThrows
     @Test(expected = ComparisonFailure.class)
+    @DisplayName("Should get a member by id.")
     public void shouldGetMemberById() throws Exception {
         String expectedConfirmation = "{\"confirmation\":true,\"cargo\":{\"memId\":1,\"email\":\"reynardengels@gmail.com\",\"phoneNumber\":\"0723949955\",\"firstName\":\"Reynard\",\"lastName\":\"Engels\"}}";
         MemberDto memberDto = new MemberDto(

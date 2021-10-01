@@ -2,31 +2,25 @@ package za.ac.nwu.translator.impl;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.ComparisonFailure;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import za.ac.nwu.domain.dto.ExchangeMediumDto;
-import za.ac.nwu.domain.dto.MemberDto;
 import za.ac.nwu.domain.persistence.Exchange_Medium;
-import za.ac.nwu.domain.persistence.Member;
 import za.ac.nwu.repo.persistence.ExchangeMediumRepository;
-import za.ac.nwu.translator.ExchangeMediumTranslator;
-import za.ac.nwu.translator.MemberTranslator;
 
 import javax.transaction.Transactional;
 import java.sql.SQLException;
-import java.time.LocalDate;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-@Transactional
 public class ExchangeMediumTranslatorImplTest {
     @Mock //creates a mock of ExchangeMediumRepository (not the actual ExchangeMediumRepository)
     private ExchangeMediumRepository exchangeMediumRepository;
@@ -48,6 +42,7 @@ public class ExchangeMediumTranslatorImplTest {
     }
 
     @Test
+    @DisplayName("Should get the exchange medium by mem id.")
     public void ShouldGetExchangeMediumByMemID() {
         try {
             assertNotNull(result);
@@ -58,7 +53,9 @@ public class ExchangeMediumTranslatorImplTest {
         }
     }
 
+    @Transactional
     @Test
+    @DisplayName("Should increase the balance of a exchange medium.")
     public void shouldIncreaseExchangeMediumTotal() {
         try {
             assertNotNull(result);
@@ -69,7 +66,9 @@ public class ExchangeMediumTranslatorImplTest {
         }
     }
 
+    @Transactional
     @Test
+    @DisplayName("Should decrease the balance of a exchange medium.")
     public void shouldDecreaseExchangeMediumTotal() {
         try {
             assertNotNull(result);
@@ -80,25 +79,30 @@ public class ExchangeMediumTranslatorImplTest {
         }
     }
 
+    @Transactional
     @Test
+    @DisplayName("Should configure from one exchange medium to another.")
     public void shouldConfigureExchangeMedium() {
         try {
             assertNotNull(result);
-            exchangeMediumTranslator.configureExchangeMedium("Miles", "Dollars", 0.14, 1, 1);
-            verify(exchangeMediumRepository, atLeastOnce()).switchExchangeMedium("Miles", "Dollars", 0.14, 1, 1);
+            exchangeMediumTranslator.configureExchangeMedium("Miles", "Dollars", 0.14, 1, 1, "US Currency");
+            verify(exchangeMediumRepository, atLeastOnce()).switchExchangeMedium("Miles", "Dollars", 0.14, 1, 1, "US Currency");
         } catch (SQLException e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while configuring the exchange medium."));
         }
     }
 
     @Test
+    @DisplayName("Should check if a exchange medium exists.")
     public void shouldCheckTypeExists() {
         assertNotNull(result);
         exchangeMediumTranslator.checkTypeExists(1, "Miles");
         verify(exchangeMediumRepository, atLeastOnce()).existsByTypeAndMemID_Id("Miles", 1);
     }
 
+    @Transactional
     @Test
+    @DisplayName("Should add a new exchange medium.")
     public void shouldAddNewExchangeMedium() {
         try {
             assertNotNull(result);
@@ -110,6 +114,7 @@ public class ExchangeMediumTranslatorImplTest {
     }
 
     @Test
+    @DisplayName("Should get the balance of a exchange medium by mem id and date.")
     public void shouldGetExchangeMediumCurrentByTypeAndID() {
         try {
             assertNotNull(result);
@@ -121,6 +126,7 @@ public class ExchangeMediumTranslatorImplTest {
     }
 
     @Test
+    @DisplayName("Should get the exchange medium by EmId.")
     public void shouldGetExchangeMediumByEmID() {
         try {
             assertNotNull(result);

@@ -5,14 +5,10 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import za.ac.nwu.domain.persistence.Exchange_Medium;
 import za.ac.nwu.domain.persistence.Member;
-import za.ac.nwu.domain.persistence.Member_Transaction;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Collections;
-import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @ApiModel(value = "ExchangeMediumDto", description = "A DTO that represents the types of accounts")
 public class ExchangeMediumDto implements Serializable {
