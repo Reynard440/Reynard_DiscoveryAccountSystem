@@ -34,7 +34,7 @@ public class MemberTransactionTranslatorImpl implements MemberTransactionTransla
 
     @Override
     public List<Member_Transaction> getMemberTransactionID(Integer id) throws RuntimeException  {
-        return new ArrayList<>(memberTransactionRepository.getByMtId(id));
+        return new ArrayList<>(memberTransactionRepository.getByEmId(id));
     }
 
     @Override

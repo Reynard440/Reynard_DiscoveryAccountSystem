@@ -34,17 +34,14 @@ public class MemberTransactionRepositoryTest {
     }
 
     @Test
-    public void shouldGetByMtId() {
-        List<Member_Transaction> memberTransactionList = new ArrayList<>();
-        memberTransactionList = memberTransactionRepository.getByMtId(1);
+    public void shouldGetEmId() {
+        List<Member_Transaction> memberTransactionList = new ArrayList<>(memberTransactionRepository.getByEmId(1));
         assertNotNull(memberTransactionList);
-        //assertEquals(LocalDate.parse("2021-08-31"), memberTransactionList(0).memberTransaction.getTransactionDate());
     }
 
     @Test
     public void shouldGetByMtIdAndTransactionDate() {
-        List<Member_Transaction> memberTransactionList = new ArrayList<>();
-        memberTransactionList = memberTransactionRepository.getByMtIdAndTransactionDate(1, LocalDate.parse("2021-08-31"));
+        List<Member_Transaction> memberTransactionList = new ArrayList<>(memberTransactionRepository.getByMtIdAndTransactionDate(1, LocalDate.parse("2021-08-31")));
         assertNotNull(memberTransactionList);
     }
 }

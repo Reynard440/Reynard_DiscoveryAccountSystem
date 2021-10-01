@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface MemberTransactionRepository extends JpaRepository<Member_Transaction, Integer>{
     @Query("select m from Member_Transaction m where m.EmId.EmId = ?1")
-    List<Member_Transaction> getByMtId(Integer id);
+    List<Member_Transaction> getByEmId(Integer id);
 
     @Query("select m from Member_Transaction m where m.EmId.EmId = ?1 and m.TransactionDate = ?2")
     List<Member_Transaction> getByMtIdAndTransactionDate(Integer id, LocalDate TransactionDate);

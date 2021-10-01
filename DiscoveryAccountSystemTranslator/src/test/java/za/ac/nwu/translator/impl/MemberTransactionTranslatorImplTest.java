@@ -70,7 +70,7 @@ public class MemberTransactionTranslatorImplTest {
             assertNotNull(result);
             when(memberTransactionTranslator.getMemberTransactionID(result.getEmId().getEmId())).thenReturn(Collections.singletonList(result));
             memberTransactionTranslator.getMemberTransactionID(result.getEmId().getEmId());
-            verify(memberTransactionRepository, atLeastOnce()).getByMtId(result.getEmId().getEmId());
+            verify(memberTransactionRepository, atLeastOnce()).getByEmId(result.getEmId().getEmId());
         } catch (Exception e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while retrieving a member transaction by id."));
         }
