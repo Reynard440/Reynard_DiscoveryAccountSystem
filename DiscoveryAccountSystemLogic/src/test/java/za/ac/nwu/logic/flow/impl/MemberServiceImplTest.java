@@ -59,4 +59,16 @@ public class MemberServiceImplTest {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred during the creation of a member."));
         }
     }
+
+    @Test
+    @DisplayName("Should not add a member.")
+    public void shouldNotAddNewMemberIfNull() {
+        try {
+            result = null;
+            assertNull(result);
+            verify(serviceTranslator, atLeastOnce()).newMember(any(Member.class));
+        } catch(Exception e) {
+            assertTrue(e.getMessage().equalsIgnoreCase("An error occurred during the creation of a member, it was not null."));
+        }
+    }
 }

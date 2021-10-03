@@ -46,7 +46,7 @@ public class NewTransactionServiceImplTest {
     @InjectMocks //translator is now mocked
     private MemberServiceImpl memberService;
 
-    MemberTransactionDto result;
+    MemberTransactionDto result, depoResult;
 
     ExchangeMediumDto exchangeMediumDto;
 
@@ -57,6 +57,13 @@ public class NewTransactionServiceImplTest {
         lenient().when(serviceMemberTransactionTranslator.addMemberTransaction(any(Member_Transaction.class))).then(returnsFirstArg()); // if get anything of MemberTransactionDto
         result = transactionService.addTransactionDto(new MemberTransactionDto(
                 "Withdrawal",
+                LocalDate.now(),
+                10.0,
+                1,
+                1
+        ));
+        depoResult = transactionService.addTransactionDto(new MemberTransactionDto(
+                "Deposit",
                 LocalDate.now(),
                 10.0,
                 1,
@@ -84,22 +91,50 @@ public class NewTransactionServiceImplTest {
     }
 
     @Test
-    @DisplayName("Should add a transaction.")
-    public void shouldAddTransactionDto() {
+    @DisplayName("Should add a withdrawal transaction.")
+    public void shouldAddWithdrawalTransactionDto() throws SQLException {
         try {
             assertNotNull(result);
             assertEquals(LocalDate.now(), result.getTransactionDate());
             assertFalse(result.getDescription().isEmpty());
             assertEquals("Withdrawal", result.getDescription());
             assertNotNull(result.getEmId());
-            if (result.getDescription().equals("Withdrawal") && (exchangeMediumDto.getBalance() + result.getAmount() > 0)) {
+            if (result.getDescription().equals("Withdrawal") || (exchangeMediumDto.getBalance()- result.getAmount() > result.getAmount())) {
                 exchangeMediumTranslator.decreaseExchangeMediumTotal(result.getEmId(), result.getAmount());
-            } else {
-                exchangeMediumTranslator.increaseExchangeMediumTotal(result.getEmId(), result.getAmount());
             }
             verify(serviceMemberTransactionTranslator, atLeastOnce()).addMemberTransaction(any(Member_Transaction.class));
-        } catch(Exception e) {
-            assertTrue(e.getMessage().equalsIgnoreCase("An error occurred during the creation of a new transaction."));
+        } catch (SQLException e) {
+            throw new SQLException("Transaction is null, rolling back the transaction.", e);
+        }
+    }
+
+    @Test
+    @DisplayName("Should add a deposit transaction.")
+    public void shouldAddDepositTransactionDto() throws SQLException {
+        try {
+            assertNotNull(depoResult);
+            assertEquals(LocalDate.now(), depoResult.getTransactionDate());
+            assertFalse(depoResult.getDescription().isEmpty());
+            assertEquals("Deposit", depoResult.getDescription());
+            assertNotNull(depoResult.getEmId());
+            if (depoResult.getDescription().equals("Deposit")) {
+                exchangeMediumTranslator.increaseExchangeMediumTotal(depoResult.getEmId(), depoResult.getAmount());
+            }
+            verify(serviceMemberTransactionTranslator, atLeastOnce()).addMemberTransaction(any(Member_Transaction.class));
+        } catch (SQLException e) {
+            throw new SQLException("Transaction is null, rolling back the transaction.", e);
+        }
+    }
+
+    @Test
+    @DisplayName("Should not add a transaction, should throw SQLException of null transaction.")
+    public void shouldNotAddTransactionDtoIfNull() throws SQLException {
+        try {
+            result = null;
+            assertNull(null);
+            verify(serviceMemberTransactionTranslator, atLeastOnce()).addMemberTransaction(any(Member_Transaction.class));
+        } catch (SQLException e) {
+            throw new SQLException("Transaction is null, rolling back the transaction.", e);
         }
     }
 }

@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import za.ac.nwu.domain.dto.MemberTransactionDto;
+import za.ac.nwu.domain.persistence.Exchange_Medium;
 import za.ac.nwu.domain.persistence.Member_Transaction;
 import za.ac.nwu.logic.flow.NewTransactionService;
 import za.ac.nwu.translator.ExchangeMediumTranslator;
@@ -28,13 +29,13 @@ public class NewTransactionServiceImpl implements NewTransactionService {
     @Transactional
     @Override
     public MemberTransactionDto addTransactionDto(MemberTransactionDto memberTransactionDto) throws SQLException {
-        if (null != memberTransactionDto.getTransactionDate() && null != memberTransactionDto.getDescription() && null != memberTransactionDto.getEmId()) {
+        try {
             LOGGER.info("The input object is {}", memberTransactionDto);
 
             Member_Transaction memberTransaction = memberTransactionDto.buildMemberTransaction();
             Member_Transaction addedMemberTransaction = memberTransactionTranslator.addMemberTransaction(memberTransaction);
 
-            if (memberTransaction.getDescription().contains("Withdrawal") && memberTransaction.getEmId().getBalance() > addedMemberTransaction.getAmount()) {
+            if (memberTransaction.getDescription().equals("Withdrawal") || memberTransaction.getEmId().getBalance() - memberTransaction.getAmount() > memberTransaction.getAmount()) {
                 exchangeMediumTranslator.decreaseExchangeMediumTotal(memberTransaction.getEmId().getEmId(), memberTransaction.getAmount());
             } else {
                 exchangeMediumTranslator.increaseExchangeMediumTotal(memberTransaction.getEmId().getEmId(), memberTransaction.getAmount());
@@ -42,8 +43,8 @@ public class NewTransactionServiceImpl implements NewTransactionService {
             MemberTransactionDto result = new MemberTransactionDto(addedMemberTransaction);
             LOGGER.info("The return object is {}", result);
             return result;
-        } else {
-            throw new SQLException("Transaction is null, rolling back the transaction.");
+        } catch (SQLException e) {
+            throw new SQLException("Transaction is null, rolling back the transaction.", e);
         }
     }
 }

@@ -10,7 +10,9 @@ import za.ac.nwu.logic.flow.MemberService;
 import za.ac.nwu.translator.MemberTranslator;
 
 import javax.transaction.Transactional;
+import java.sql.SQLDataException;
 import java.sql.SQLException;
+import java.sql.SQLTransactionRollbackException;
 
 @Component("memberServiceNameFlow")
 public class MemberServiceImpl implements MemberService {

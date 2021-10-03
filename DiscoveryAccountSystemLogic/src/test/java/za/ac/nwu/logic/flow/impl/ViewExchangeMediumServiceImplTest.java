@@ -19,8 +19,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -72,6 +71,7 @@ public class ViewExchangeMediumServiceImplTest {
     public void shouldGetExchangeMediumByMemID() {
         try {
             assertNotNull(exchangeMediumDtoList);
+            assertNotNull(result);
             when(viewExchangeMediumService.getExchangeMediumByMemID(1)).thenReturn(exchangeMediumDtoList);
             exchangeMediumTranslator.getExchangeMediumByMemID(1);
             verify(exchangeMediumTranslator, atLeastOnce()).getExchangeMediumByMemID(1);
@@ -91,6 +91,7 @@ public class ViewExchangeMediumServiceImplTest {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while retrieving the balance of an exchange medium via its type and id."));
         }
     }
+
 
     @Test
     @DisplayName("Should get the exchange medium by id.")

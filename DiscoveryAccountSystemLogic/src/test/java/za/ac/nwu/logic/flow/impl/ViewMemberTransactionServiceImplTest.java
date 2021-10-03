@@ -51,6 +51,13 @@ public class ViewMemberTransactionServiceImplTest {
                 1
         ));
         memberTransactionDtoList.add(result);
+        memberTransactionDtoList.add(new MemberTransactionDto(
+                "Deposit",
+                LocalDate.now(),
+                20.0,
+                1,
+                2
+        ));
     }
 
     @After
@@ -64,9 +71,9 @@ public class ViewMemberTransactionServiceImplTest {
         try {
             assertNotNull(memberTransactionDtoList);
             assertEquals(LocalDate.now(), result.getTransactionDate());
-            when(viewMemberTransactionService.getMemberTransactionID(1)).thenReturn(memberTransactionDtoList);
-            memberTransactionTranslator.getMemberTransactionID(1);
-            verify(memberTransactionTranslator, atLeastOnce()).getMemberTransactionID(1);
+            when(viewMemberTransactionService.getMemberTransactionID(result.getEmId())).thenReturn(memberTransactionDtoList);
+            memberTransactionTranslator.getMemberTransactionID(result.getEmId());
+            verify(memberTransactionTranslator, atLeastOnce()).getMemberTransactionID(result.getEmId());
         } catch (Exception e) {
             assertTrue(e.getMessage().equalsIgnoreCase("An error occurred while retrieving a member's transaction by id."));
         }
