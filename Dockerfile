@@ -1,7 +1,7 @@
-FROM openjdk:8-jdk-alpine
-VOLUME /tmp
-ADD DiscoveryAccountSystemWebSpringBoot/target/DiscoveryAccountSystemWebSpringBoot-1.0-SNAPSHOT.war app.jar
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+FROM openjdk:8
+ADD DiscoveryAccountSystemWebSpringBoot/target/DiscoveryAccountSystemWebSpringBoot-1.0-SNAPSHOT.war discoveryaccountsystem.jar
+EXPOSE 8090
+ENTRYPOINT ["java", "-jar", "discoveryaccountsystem.jar"]
 
 #FROM openjdk:8
 #COPY DiscoveryAccountSystemRepository/target/DiscoveryAccountSystemRepository-1.0-SNAPSHOT.jar app2.jar
