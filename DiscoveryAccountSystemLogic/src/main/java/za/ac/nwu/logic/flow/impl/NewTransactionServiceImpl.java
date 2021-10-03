@@ -44,7 +44,7 @@ public class NewTransactionServiceImpl implements NewTransactionService {
             LOGGER.info("The return object is {}", result);
             return result;
         } catch (SQLException e) {
-            throw new SQLException("Transaction is null, rolling back the transaction.", e);
+            throw new SQLException("Transaction is null, rolling back the transaction.", e.getMessage());
         }
     }
 }

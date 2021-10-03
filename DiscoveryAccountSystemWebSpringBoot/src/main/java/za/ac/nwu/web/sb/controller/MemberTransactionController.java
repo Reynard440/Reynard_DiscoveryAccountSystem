@@ -69,7 +69,7 @@ public class MemberTransactionController {
             @ApiResponse(code = 404, message = "Could not found a transaction by this date or id", response = DiscoveryAccountSystemResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = DiscoveryAccountSystemResponse.class)})
     public ResponseEntity<DiscoveryAccountSystemResponse<List<MemberTransactionDto>>> getTransactionByIDAndDate(
-            @ApiParam(value = "The id that is unique to each transaction.", example = "1", name = "id", required = true)
+            @ApiParam(value = "The id of the exchange medium.", example = "1", name = "id", required = true)
             @PathVariable("id") Integer id,
             @ApiParam(value = "The date of the transaction.", example = "2021-08-31", name = "date", required = true)
             @PathVariable("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) throws SQLException {

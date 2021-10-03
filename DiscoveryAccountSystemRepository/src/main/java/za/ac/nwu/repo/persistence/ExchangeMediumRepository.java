@@ -25,7 +25,7 @@ public interface ExchangeMediumRepository extends JpaRepository<Exchange_Medium,
     @Query("select e from Exchange_Medium e where e.MemID.Id = ?1")
     List<Exchange_Medium> getByMemID(Integer memId);
 
-    @Query(value = "SELECT em FROM Exchange_Medium em WHERE em.Type = :type and em.EmId = :em_id")
+    @Query(value = "SELECT em FROM Exchange_Medium em WHERE em.Type = :type and em.MemID.Id = :em_id")
     Exchange_Medium getExchangeMediumCurrentByTypeAndID(String type, Integer em_id);
 
     @Transactional

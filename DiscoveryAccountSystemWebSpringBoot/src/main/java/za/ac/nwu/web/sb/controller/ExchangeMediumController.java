@@ -82,8 +82,9 @@ public class ExchangeMediumController {
             @ApiResponse(code = 404, message = "Not found", response = DiscoveryAccountSystemResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = DiscoveryAccountSystemResponse.class)})
     public ResponseEntity<DiscoveryAccountSystemResponse<ExchangeMediumDto>> getExchangeMediumCurrentByTypeAndID(
-            @ApiParam(value = "The type of the Exchange Medium.", example = "Dollars", name = "type", required = true)
-            @PathVariable("type") String type, @ApiParam(value = "The id of the exchange medium.", example = "1", name = "id", required = true)
+            @ApiParam(value = "The type of the Exchange Medium.", example = "Miles", name = "type", required = true)
+            @PathVariable("type") String type,
+            @ApiParam(value = "The id of the member.", example = "1", name = "id", required = true)
             @PathVariable("id") Integer id) throws SQLException {
         ExchangeMediumDto exchangeMediumResponse = viewExchangeMediumService.getExchangeMediumCurrentByTypeAndID(type, id);
         DiscoveryAccountSystemResponse<ExchangeMediumDto> response = new DiscoveryAccountSystemResponse<>(true, exchangeMediumResponse);

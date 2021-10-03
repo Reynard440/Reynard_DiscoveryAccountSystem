@@ -31,7 +31,7 @@ public class ExchangeMediumDto implements Serializable {
             name = "Type",
             notes = "This field stores the name of the exchanges medium.",
             dataType = "java.lang.String",
-            example = "MILES")
+            example = "Miles")
     public String getType() {
         return Type;
     }
