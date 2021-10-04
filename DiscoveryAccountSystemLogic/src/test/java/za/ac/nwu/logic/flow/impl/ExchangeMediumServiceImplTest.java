@@ -55,6 +55,12 @@ public class ExchangeMediumServiceImplTest {
         result = null;
     }
 
+    @Test(expected = AssertionError.class)
+    public void shouldCatchException() throws SQLException {
+        serviceExchangeMediumTranslator.newExchangeMedium(any(Exchange_Medium.class));
+        fail("Exchange Medium is null, rolling back the transaction.");
+    }
+
     @Test
     @DisplayName("Should add a exchange medium.")
     public void shouldAddNewExchangeMedium() {

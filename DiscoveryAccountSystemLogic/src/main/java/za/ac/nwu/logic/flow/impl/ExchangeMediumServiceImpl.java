@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import za.ac.nwu.domain.dto.ExchangeMediumDto;
 import za.ac.nwu.domain.persistence.Exchange_Medium;
 import za.ac.nwu.domain.persistence.Member;
@@ -11,8 +12,8 @@ import za.ac.nwu.logic.flow.ExchangeMediumService;
 import za.ac.nwu.translator.ExchangeMediumTranslator;
 import za.ac.nwu.translator.MemberTranslator;
 
-import javax.transaction.Transactional;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 @Component("exchangeMediumViewFlow")
 public class ExchangeMediumServiceImpl implements ExchangeMediumService {
@@ -26,24 +27,24 @@ public class ExchangeMediumServiceImpl implements ExchangeMediumService {
         this.memberTranslator = memberTranslator;
     }
 
-    @Transactional
+    @Transactional(rollbackFor = { SQLException.class } )
     @Override
     public void increaseExchangeMediumTotal(Integer id, double amount) throws SQLException {
         LOGGER.info("The input for id is {} and the amount is {}", id, amount);
         exchangeMediumTranslator.increaseExchangeMediumTotal(id, amount);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = { SQLException.class } )
     @Override
     public void decreaseExchangeMediumTotal(Integer id, double amount) throws SQLException {
         LOGGER.info("The input for id is {} and the amount is {}", id, amount);
         exchangeMediumTranslator.decreaseExchangeMediumTotal(id, amount);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = { SQLException.class, SQLIntegrityConstraintViolationException.class} )
     @Override
     public ExchangeMediumDto newExchangeMedium(ExchangeMediumDto exchangeMediumDto) throws SQLException {
-        if (null != exchangeMediumDto.getDate() && null != exchangeMediumDto.getDescription() && null != exchangeMediumDto.getType()) {
+        try {
             LOGGER.info("The input object is {}", exchangeMediumDto);
             Member member = memberTranslator.getOneMember(exchangeMediumDto.getMemID().getMemId());
             Exchange_Medium exchangeMedium = exchangeMediumDto.buildExchangeMedium(member);
@@ -52,8 +53,8 @@ public class ExchangeMediumServiceImpl implements ExchangeMediumService {
             ExchangeMediumDto result = new ExchangeMediumDto(addedExchangeMedium);
             LOGGER.info("The return object is {}", result);
             return result;
-        } else {
-            throw new SQLException("Exchange Medium is null, rolling back the transaction.");
+        } catch (SQLException e){
+            throw new SQLException("Exchange Medium is null, rolling back the transaction.", e.getCause());
         }
     }
 
@@ -63,7 +64,7 @@ public class ExchangeMediumServiceImpl implements ExchangeMediumService {
         return exchangeMediumTranslator.checkTypeExists(id, type);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = { SQLException.class, SQLIntegrityConstraintViolationException.class } )
     @Override
     public void configureExchangeMedium(String type, String newType, double adjust, Integer mem, Integer id, String description) throws SQLException {
         LOGGER.info("The input for type is {}, the newType is {}, the amount to be adjusted is {}, the MemberId is {}, and the Exchange Medium id is {}", type, newType, adjust, mem, id);
