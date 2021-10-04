@@ -8,13 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import za.ac.nwu.domain.dto.MemberTransactionDto;
 import za.ac.nwu.domain.service.DiscoveryAccountSystemResponse;
 import za.ac.nwu.logic.flow.NewTransactionService;
 import za.ac.nwu.logic.flow.ViewMemberTransactionService;
 
-import javax.transaction.Transactional;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
@@ -31,7 +31,7 @@ public class MemberTransactionController {
         this.newTransactionService = newTransactionService;
     }
 
-    @Transactional
+    @Transactional(rollbackFor = { SQLException.class })
     @PostMapping("/newTransaction")
     @ApiOperation(value = "Create a new transaction for a specific member.", notes = "Creates a new transaction for a member in the DB.")
     @ApiResponses(value = {

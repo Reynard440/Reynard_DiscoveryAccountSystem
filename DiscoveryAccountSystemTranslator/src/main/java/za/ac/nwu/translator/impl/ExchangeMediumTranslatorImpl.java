@@ -2,11 +2,11 @@ package za.ac.nwu.translator.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import za.ac.nwu.domain.persistence.Exchange_Medium;
 import za.ac.nwu.repo.persistence.ExchangeMediumRepository;
 import za.ac.nwu.translator.ExchangeMediumTranslator;
 
-import javax.transaction.Transactional;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,13 +30,13 @@ public class ExchangeMediumTranslatorImpl implements ExchangeMediumTranslator {
         return exchangeMediumRepository.getByEmId(id);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = { SQLException.class })
     @Override
     public void increaseExchangeMediumTotal(Integer id, double amount) throws SQLException {
         exchangeMediumRepository.increaseBalance(amount, id);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = { SQLException.class })
     @Override
     public void decreaseExchangeMediumTotal(Integer id, double amount) throws SQLException {
         exchangeMediumRepository.decreaseBalance(amount, id);
@@ -47,7 +47,7 @@ public class ExchangeMediumTranslatorImpl implements ExchangeMediumTranslator {
         return exchangeMediumRepository.existsByTypeAndMemID_Id(type, id);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = { SQLException.class })
     @Override
     public Exchange_Medium newExchangeMedium(Exchange_Medium exchange_medium) throws SQLException {
         return exchangeMediumRepository.save(exchange_medium);
@@ -58,7 +58,7 @@ public class ExchangeMediumTranslatorImpl implements ExchangeMediumTranslator {
         return exchangeMediumRepository.getExchangeMediumCurrentByTypeAndID(type, id);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = { SQLException.class })
     @Override
     public void configureExchangeMedium(String type, String newType, double adjust, Integer mem, Integer id, String description) throws SQLException {
         exchangeMediumRepository.switchExchangeMedium(type, newType, adjust, mem, id, description);

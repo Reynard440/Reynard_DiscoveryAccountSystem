@@ -2,11 +2,11 @@ package za.ac.nwu.translator.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import za.ac.nwu.domain.persistence.Member;
 import za.ac.nwu.repo.persistence.MemberRepository;
 import za.ac.nwu.translator.MemberTranslator;
 
-import javax.transaction.Transactional;
 import java.sql.SQLException;
 
 @Component
@@ -23,7 +23,7 @@ public class MemberTranslatorImpl implements MemberTranslator {
         return memberRepository.getById(id);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = { SQLException.class })
     @Override
     public Member newMember(Member member) throws SQLException {
         return memberRepository.save(member);

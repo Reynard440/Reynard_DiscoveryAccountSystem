@@ -7,13 +7,13 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import za.ac.nwu.domain.dto.MemberDto;
 import za.ac.nwu.domain.service.DiscoveryAccountSystemResponse;
 import za.ac.nwu.logic.flow.MemberService;
 import za.ac.nwu.logic.flow.ViewMemberService;
 
-import javax.transaction.Transactional;
 import java.sql.SQLException;
 
 @RestController
@@ -28,7 +28,7 @@ public class MemberController {
         this.viewMemberService = viewMemberService;
     }
 
-    @Transactional
+    @Transactional(rollbackFor = { SQLException.class })
     @PostMapping("/addMember")
     @ApiOperation(value = "Create a new Member.", notes = "Creates a new Member in the DB.")
     @ApiResponses(value = {

@@ -7,13 +7,13 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import za.ac.nwu.domain.dto.ExchangeMediumDto;
 import za.ac.nwu.domain.service.DiscoveryAccountSystemResponse;
 import za.ac.nwu.logic.flow.ExchangeMediumService;
 import za.ac.nwu.logic.flow.ViewExchangeMediumService;
 
-import javax.transaction.Transactional;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -29,7 +29,7 @@ public class ExchangeMediumController {
         this.exchangeMediumService = exchangeMediumService;
     }
 
-    @Transactional
+    @Transactional(rollbackFor = { SQLException.class })
     @PostMapping("/new")
     @ApiOperation(value = "Create a new exchange medium.", notes = "Creates a new Exchange Medium in the DB.")
     @ApiResponses(value = {
@@ -91,7 +91,7 @@ public class ExchangeMediumController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = { SQLException.class })
     @PutMapping(path = "/switchToExchangeMedium/{name}/{id}")
     @ApiOperation(value = "Configures one Exchange Medium to another.", notes = "Configures to another exchange medium.")
     @ApiResponses(value = {
