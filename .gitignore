@@ -2,5 +2,6 @@
 /DiscoveryAccountSystemDomain/target/
 /DiscoveryAccountSystemLogic/target/
 /DiscoveryAccountSystemRepository/target/
+/DiscoveryAccountSystemRepository/src/main/resources/application-db.properties
 /DiscoveryAccountSystemTranslator/target/
 /DiscoveryAccountSystemWebSpringBoot/target/
